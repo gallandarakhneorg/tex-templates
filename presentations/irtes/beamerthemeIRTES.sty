@@ -1,0 +1,87 @@
+% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM, IRTES and SET logos and names are registered and owned by the
+% "Universite de Technology of Belfort-Montbeliard".
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+\ProvidesPackage{beamerthemeIRTES}
+   [2013/07/13 v4.0 Beamer 'IRTES' Theme]
+
+\RequirePackage{ifthen}
+
+\newboolean{beamer@theme@irtes@hascovers}
+\setboolean{beamer@theme@irtes@hascovers}{true}
+
+\gdef\beamer@theme@irtes@lang{Java}
+
+\DeclareOptionBeamer{language}{\gdef\beamer@theme@irtes@lang{#1}}
+\DeclareOptionBeamer{nocover}{\setboolean{beamer@theme@irtes@hascovers}{false}}
+%\ExecuteOptionsBeamer{left}
+\ProcessOptionsBeamer
+
+\RequirePackage{beamerbasethemeIRTES}
+
+\mode<presentation>
+
+\usefonttheme{IRTES}
+\usecolortheme{IRTES}
+\useinnertheme[language=\beamer@theme@irtes@lang]{IRTES}
+\useoutertheme{IRTES}
+
+\setbeamercovered{dynamic}
+
+\gdef\beamer@theme@irtes@outer@parttitle{\relax}
+\let\beamer@theme@irtes@outer@oldpart\part
+\newcommand{\beamer@theme@irtes@outer@part}[2][]{%
+	\gdef\beamer@theme@irtes@outer@parttitle{#2}%
+	\global\beamer@theme@irtes@outer@showparttrue%
+	\beamer@theme@irtes@outer@oldpart[#1]{#2}%
+	\setbeamertemplate{footline}{}%
+	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
+	\frame{\partpage}%
+	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
+	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
+}
+\newcommand{\beamer@theme@irtes@outer@partstar}[2][]{%
+	\gdef\beamer@theme@irtes@outer@parttitle{#2}%
+	\global\beamer@theme@irtes@outer@showpartfalse%
+	\setbeamertemplate{footline}{}%
+	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
+	\frame{\partpage}%
+	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
+	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
+}
+\gdef\part{\@ifstar\beamer@theme@irtes@outer@partstar\beamer@theme@irtes@outer@part}
+
+\AtBeginDocument{
+	\ifthenelse{\boolean{beamer@theme@irtes@hascovers}}{%
+		\usebackgroundtemplate{} % do not put a background here because of a rendering bug of beamer. See "title page" template insteed.
+		\frame{\maketitle}
+	}{}
+	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
+	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
+}
+
+\AtEndDocument{%
+	\ifthenelse{\boolean{beamer@theme@irtes@hascovers}}{%
+		\beamer@theme@irtes@thanksslide%
+	}{}
+}
+
+
+\mode
+<all>

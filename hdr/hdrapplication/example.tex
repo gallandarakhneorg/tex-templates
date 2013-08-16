@@ -1,0 +1,220 @@
+\documentclass[french]{hdrapplication}
+
+\usepackage[utf8]{inputenc}
+
+% CITATIONS
+% The second parameter is the label of the citation type.
+% If empty, use the macro \hdrapplication@cite@label@#2, where #2
+% is the key of the citation type
+\declarebibliopre{ICB}{}{bibfile}% International Conferences with Reading Committee BEFORE PhD thesis
+\declarebibliopre{NCB}{}{bibfile}% National Conferences with Reading Committee BEFORE PhD thesis
+\declarebibliopost{JA}{}{bibfile}% International Journals with Reading Committee AFTER PhD thesis
+\declarebibliopost{CA}{}{bibfile}% Chapters of book AFTER PhD thesis
+\declarebibliopost{ICALN}{}{bibfile}% International Journals with Reading Committee and in Lecture Notes AFTER PhD thesis
+\declarebibliopost{ICA}{}{bibfile}% International Conferences with Reading Committee AFTER PhD thesis
+\declarebibliopost{NCA}{}{bibfile}% National Conferences with Reading Committee AFTER PhD thesis
+\declarebibliopost{NCAW}{}{bibfile}% National Conferences without Reading Committee AFTER PhD thesis
+\declarebibliopost{OA}{}{bibfile}% Other publications AFTER PhD thesis
+
+% Name of the author of the HDR application
+\Set{authorname}{Bruce Waynes}
+% Email of the author of the HDR application
+\Set{authoremail}{bruce.waynes@acme.org}
+% University (with contact info) where the HDR applicant is located.
+\SetHomeUniversity{Université of Gotham}{
+	Address \\
+	Phone.~: XXX XXX XXX \\
+	Email~: \Get{authoremail}}
+% Laboratory (with contact info) where the HDR applicant is located.
+\SetHomeLaboratory{Laboratory X}{
+	Address \\
+	Phone.~: XXX XXX XXX \\
+	Email~: \Get{authoremail}}
+ 
+\begin{document}
+ 
+\Section{Lettre au Président de l'\Get{universityname}}
+
+Je soussigné, \Get{authorname}, \Get{authorposition} à l'\Get{homeuniversity}, né le XX XXX XXXX, sollicite une inscription pour l'habilitation à diriger des recherches auprès de l'\Get{universityname} pour l'année universitaire XXXX/XXXX.
+
+
+Je déclare sur l'honneur n'avoir sollicité aucune inscription à ce diplôme auprès d'une autre université au titre de la présente année ou au titre des années précédentes.
+
+
+Je vous pris d'agréer, Monsieur le Président, l'expression de mes sentiments distingués.
+
+\vspace{1cm}
+Fait à XXXX. \\
+Le XX XXX XXXX.
+
+
+\vspace{1cm}
+\noindent Signature: \\
+\vspace{.25cm}
+\textbf{\large\Get{authorname}} \\[.5cm]
+%\includegraphics[width=5cm]{imgs/mark}
+\newpage
+
+\Section{Photocopies des diplômes} 
+
+\includescanneddocument{diplomes/doctorat}
+
+\Section{Curriculum Vit\ae} 
+
+\subsection{\'Etat civil}
+
+38 ans, nationalité française.
+
+\subsection{Parcours académique}
+
+\begin{itemize}
+\item \textbf{Baccalauréat} série S, Lycée XXX, Paris, 1993, avec la mention "Très Bien".
+\item ...
+\end{itemize}
+
+\subsection{Parcours professionnel}
+
+\begin{itemize}
+\item \textbf{Enseignant vacataire}, Université de XXXX, Paris, 1997: enseignement de matières de la 27\eme section.
+\item ...
+\end{itemize}
+
+\subsection{\'Eléments remarquables}
+
+\begin{itemize}
+\item \textbf{Thèses soutenues~:} Incroyable Hulk en 2007, Super Man en 2012.
+\item \textbf{Production depuis recrutement~:} 128 revues, 200 chapitres de livres, 400 conférences internationales.
+\item \textbf{Projets de recherche~:} 1 projet européen, 1 projets ANR, 1 projets FUI, 1 projets locaux ou industriels.
+\item \textbf{Brevets et transfert de technologie~:} 1 dépôts logiciels, 1 contrat de tranfert.
+\end{itemize}
+
+\Section{Avis}
+
+Cette section contient les lettres de recommandation de :
+
+
+\begin{itemize}
+\item \textbf{XXX XXX}, Professeur à l'XXXX, Directeur de Recherche de \Get{authorname}.\parbreak
+\item \textbf{Philippe Lutz}, Professeur à l'Université de Franche-Comté, directeur de l'école doctorale SPIM.
+\end{itemize}
+
+\pagebreak
+
+\subsection{Avis d'XXX XXXX, professeur à l'XXX, Directeur de Recherche de \Get{authorname}}
+
+\includescannedletter{lettres_recommandation/letter1}
+
+\subsection{Avis de Philippe Lutz, professeur à l'université de franche-comté, directeur de l'école doctorale SPIM}
+
+\Section{Travaux de thèse}
+
+1 page.
+
+
+
+Ces recherches ont fait l'objet des publications suivantes :
+\begin{itemize}
+\item revue : \citeJB{XXX};
+\item chapitre de livre : \citeCB{XXX};
+\item conférences internationales : \citeICB{XXX};
+\item conférences nationales : \citeNCB{XXX}.
+\end{itemize}
+
+
+\Section{Travaux post thèse}
+
+\subsection{Introduction}
+
+5 pages.
+
+Les travaux de cet axe ont fait l'objet de la thèse de XXX XXX, de la collaboration avec le laboratoire XXXX de XXX (USA). Ils ont donné lieu aux publications suivantes :
+\begin{itemize}
+\item revue : \citeJA{XXX};
+\item chapitre de livre : \citeCA{XXX};
+\item conférences internationales : \citeICA{XXX};
+\item conférences nationales : \citeNCA{XXX}.
+\end{itemize}
+
+\section{Perspectives}
+
+2 pages.
+
+\section{Insertion dans l'équipe de recherche}
+
+\subsection{Animation de la recherche}
+
+\subsection{Coopération}
+
+\subsection{Contrats de recherche}
+
+\subsubsection{Au niveau local}
+
+\subsubsection{Au niveau national}
+
+\subsubsection{Au niveau international}
+
+\subsection{Brevets, dépôts logiciels et transferts de technologie}
+
+\subsubsection{Dépôts logiciels auprès de Institut Nationale de la Propriété Industrielle (INPI)}
+
+\subsubsection{Dépôts logiciels auprès de l'Agence pour la Protection des Programmes (APP)}
+
+\subsubsection{Contrat de transfert, session de droits patrimoniaux}
+
+\subsection{Organisation de manifestations}
+
+\subsection{Insertion dans des réseaux}
+
+\subsection{Expertises, Invitations}
+
+\subsubsection{Invitations}
+
+\subsubsection{Expertises dans des programmes nationaux}
+
+\subsubsection{Comités de sélection}
+
+\section{Encadrement}
+
+Au total, j'ai participé à l'encadrement de~:
+\begin{itemize}
+\item thèses soutenues~: XXX;
+\item thèses en-cours : XXX;
+\item stages et projets de niveau master~: XXX.
+\end{itemize}
+
+\subsection{Thèses soutenues}
+
+\subsection{Thèses en-cours}
+
+\subsection{Stages de recherche}
+
+Ils ont été encadrés à 100\%:
+\begin{itemize}
+\item XXX étudiants en DEA/Master et Projets de fin d'étude d'ingénieur.
+\item XXX ingénieur CNAM.
+\item XXX étudiants en DUT.
+\end{itemize}
+
+\section{Autres activités}
+
+\subsection{Activités d'intérêt collectif}
+
+\subsection{Activités d'enseignement}
+
+\subsubsection{Enseignement avant recrutement}
+
+\subsubsection{Enseignement après recrutement}
+
+\paragraph{Au niveau international}
+
+\paragraph{Au niveau national}
+
+\subsubsection{Responsabilités pédagogiques}
+
+%-----------------------------------------
+% Put a \nociteXXX macro for each of your publications to be sure they will be included in the bibliography
+\nociteICB{XXX}
+
+\hdrpublicationlist
+
+\end{document}

@@ -1,0 +1,34 @@
+h1. Presentation
+
+@tex-utbm@ is a collection of (La)TeX styles dedicated to the following universities:
+- Université de Technologie de Belfort-Montbéliard
+- Université de Franche-Comté
+- Université de Bourgogne
+
+The provides styles are for:
+- PhD thesis (based on the tex-upmethodology class)
+- Master thesis (based on the tex-upmethodology class)
+- Reports (based on the tex-upmethodology class)
+- HDR thesis (based on the tex-upmethodology class)
+- Presentation styles (for Beamer)
+
+An example of PhD thesis styles may be found at: http://www.multiagent.fr/ThesisStyle
+
+h2. Installation
+
+# Copy the content of the directory inside one of your @texmf@ directory, usually @/usr/share/texmf/tex/latex/upmethodology@ or @$HOME/.texmf@ on Unix operating systems.
+# Update the LaTeX databases from the command line:
+
+ $> mktexlsr
+ $> update-updmap --quiet
+
+h2. Author
+
+"Stéphane GALLAND":http://www.arakhne.org/homes/galland.html <galland@arakhne.org>
+
+h2. License
+
+GNU LESSER GENERAL PUBLIC LICENSE for the source code.
+The logos are owned by the corresponding institutions.
+
+

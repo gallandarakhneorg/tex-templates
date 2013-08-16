@@ -1,0 +1,110 @@
+%% Use the standard UP-methodology class
+%% with French language.
+%%
+%% You may specify the option 'twoside' or 'oneside' for
+%% the document.
+%%
+%% See the documentation tex-upmethodology on
+%% http://www.arakhne.org/tex-upmethodology/
+%% for details about the macros that are provided by the class and
+%% to obtain the list of the packages that are already included. 
+ 
+ 
+\documentclass[french]{spimufchdr}
+ 
+% The TeX code is entering with UTF8
+% character encoding (Linux and MacOS standards)
+\usepackage[utf8]{inputenc}
+ 
+%%--------------------
+%% Set the title, subtitle, defense date of the HDR.
+%% The optional parameter is the subtitle of the HDR.
+%% The first mandatory parameter is the title of the HDR.
+%% The second mandatory parameter is the date of the HDR.
+\declarehdr[Sous-titre]{Titre}{17 septembre 2012}
+ 
+%%--------------------
+%% Set the author of the HDR
+\addauthor[email]{Prénom}{Nom}
+ 
+%%--------------------
+%% Add a member of the jury
+%% \addjury{Firstname}{Lastname}{Role in the jury}{Position}
+\addjury{Incroyable}{Hulk}{Rapporteur}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+\addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
+\addjury{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
+ 
+%%--------------------
+%% Set the University where HDR was made
+%\hdrpreparedin{Laboratoire Waynes Industry}
+ 
+%%--------------------
+%% Set the English abstract
+\hdrabstract[english]{This is the abstract in English}
+ 
+%%--------------------
+%% Set the English keywords. They only appear if
+%% there is an English abstract
+\hdrkeywords[english]{Keyword 1, Keyword 2}
+ 
+%%--------------------
+%% Set the French abstract
+\hdrabstract[french]{Ceci est le résumé en français}
+ 
+%%--------------------
+%% Set the French keywords. They only appear if
+%% there is an French abstract
+\hdrkeywords[french]{Mot-cl\'e 1, Mot-cl\'e 2}
+ 
+%%--------------------
+%% Change the speciality of the HDR
+%\Set{speciality}{Informatique}
+ 
+%%--------------------
+%% Change the institution
+%\Set{universityname}{Universit\'e de Technologie de Belfort-Montb\'eliard}
+ 
+%%--------------------
+%% Change the header and the foot of the pages
+%% Left header
+%\lhead{}
+%% Center header
+%\chead{}
+%% Right header
+%\rhead{}
+%% Left footer
+%\lfoot{}
+%% Center footer
+%\cfoot{}
+%% Right footer
+%\rfoot{}
+ 
+\begin{document}
+ 
+\tableofcontents
+ 
+%--------------------
+% The content of the HDR
+ 
+\chapter{Introduction}
+ 
+\section{Section 1}
+ 
+blablabla
+ 
+\chapter{Conclusion}
+ 
+blablabla
+ 
+ 
+%--------------------
+% Bibliography, indexes...
+ 
+% Uncomment to add a bibliography
+%\bibliography{biblio.bib}
+\listoffigures
+\listoftables
+ 
+\appendix
+ 
+\end{document}

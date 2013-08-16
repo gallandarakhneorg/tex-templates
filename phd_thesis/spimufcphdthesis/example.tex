@@ -1,0 +1,218 @@
+%% Use the standard UP-methodology class
+%% with French language.
+%%
+%% You may specify the option 'twoside' or 'oneside' for
+%% the document.
+%%
+%% See the documentation tex-upmethodology on
+%% http://www.arakhne.org/tex-upmethodology/
+%% for details about the macros that are provided by the class and
+%% to obtain the list of the packages that are already included. 
+ 
+ 
+%% Uncomment only for SPIM-UFC, change the language
+%% according to the main language of your document:
+%% french or english.
+\documentclass[french]{spimufcphdthesis}
+ 
+%% The TeX code is entering with UTF8
+%% character encoding (Linux and MacOS standards)
+\usepackage[utf8]{inputenc}
+ 
+%% Include the 'multibib' package to enable to
+%% have different types of bibliographies in the
+%% document (see at the end of this template for
+%% an example with a personnal bibliography and
+%% a general bibliography)
+%\usepackage{multibib}
+ 
+%% Add here any other packages that are needed for your document.
+%\usepackage{eurosim}
+%\usepackage{amsmath}
+ 
+%%--------------------
+%% Set the title, subtitle, defense date, and
+%% the registration number of the PhD thesis.
+%% The optional parameter is the subtitle of the PhD thesis.
+%% The first mandatory parameter is the title of the PhD thesis.
+%% The second mandatory parameter is the date of the PhD defense.
+%% The third mandatory parameter is the reference number given by
+%% the University Library after the PhD defense.
+\declarethesis[Sous-titre]{Titre}{17 septembre 2012}{XXX}
+ 
+%%--------------------
+%% Set the author of the PhD thesis
+\addauthor[email]{Prénom}{Nom}
+ 
+%%--------------------
+%% Add a member of the jury
+%% \addjury{Firstname}{Lastname}{Role in the jury}{Position}
+\addjury{Incroyable}{Hulk}{Rapporteur}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+\addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
+\addjury{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
+ 
+%%--------------------
+%% Set the laboratory where the thesis was made
+%\addlaboratory{Laboratoire Waynes Industry}
+ 
+%%--------------------
+%% Set the English abstract
+\thesisabstract[english]{This is the abstract in English}
+ 
+%%--------------------
+%% Set the English keywords. They only appear if
+%% there is an English abstract
+\thesiskeywords[english]{Keyword 1, Keyword 2}
+ 
+%%--------------------
+%% Set the French abstract
+\thesisabstract[french]{Ceci est le résumé en français}
+ 
+%%--------------------
+%% Set the French keywords. They only appear if
+%% there is an French abstract
+\thesiskeywords[french]{Mot-cl\'e 1, Mot-cl\'e 2}
+ 
+%%--------------------
+%% Change the layout and the style of the text of the "primary" abstract.
+%% If your document is written in French, the primary abstract is in French,
+%% otherwise it is in English.
+%\Set{primaryabstractstyle}{\tiny}
+ 
+%%--------------------
+%% Change the layout and the style of the text of the "secondary" abstract.
+%% If your document is written in French, the secondary abstract is in English,
+%% otherwise it is in French.
+%\Set{secondaryabstractstyle}{\tiny}
+ 
+%%--------------------
+%% Change the layout and the style of the text of the "primary" keywords.
+%% If your document is written in French, the primary keywords are in French,
+%% otherwise they are in English.
+%\Set{primarykeywordstyle}{\tiny}
+ 
+%%--------------------
+%% Change the layout and the style of the text of the "secondary" keywords.
+%% If your document is written in French, the secondary keywords are in English,
+%% otherwise they are in French.
+%\Set{secondarykeywordstyle}{\tiny}
+ 
+%%--------------------
+%% Change the speciality of the PhD thesis
+%\Set{speciality}{Informatique}
+ 
+%%--------------------
+%% Change the institution
+%\Set{universityname}{Universit\'e de Technologie de Belfort-Montb\'eliard}
+ 
+%%--------------------
+%% Change the header and the foot of the pages
+%% Left header
+%\lhead{}
+%% Center header
+%\chead{}
+%% Right header
+%\rhead{}
+%% Left footer
+%\lfoot{}
+%% Center footer
+%\cfoot{}
+%% Right footer
+%\rfoot{}
+ 
+\begin{document}
+ 
+%%--------------------
+%% The following line permits to add a chapter for "acknowledgements"
+%% at the beginning of the document. This chapter has not a chapter
+%% number (using the "star-ed" version of \chapter) to prevent it to
+%% be in the table of contents
+\chapter*{Remerciements}
+ 
+%%--------------------
+%% Include a general table of contents
+\tableofcontents
+ 
+%%--------------------
+%% The content of the PhD thesis
+ 
+\chapter{Introduction}
+ 
+\section{Section 1}
+ 
+blablabla
+ 
+\chapter{Conclusion}
+ 
+blablabla
+ 
+ 
+%%--------------------
+%% Bibliography
+ 
+%% PERSONAL BIBLIOGRAPHY
+ 
+%% Include a chapter with the publications of the author only.
+%% CAUTION:
+%% There is no standard way to do include this type of
+%% personnal bibliography.
+%% You could use 'multibib' package to help you, for example.
+ 
+%% Define a "type" of bibliography, here the PERSONAL.
+%\newcites{PERSO}{Liste des mes publications}
+ 
+%% To cite one of your PERSONAL papers with the style
+%% of the PERSONAL bibliography: \citePERSO{key}
+ 
+%% To force to show one of your PERSONAL papers into
+%% the PERSONAL bibliography, even if not cited in the
+%% text: \nocitePERSO{key}
+ 
+%% Change the style of the PERSONAL bibliography
+%\bibliographystylePERSO{plain}
+ 
+%% Link the PERSONAL bibliogaphy to a BibTeX file
+%% (may be the same as the general bibliography one).
+%\bibliographyPERSO{biblio.bib}
+ 
+%% Below, include a chapter for the GENERAL bibliography.
+%% It is assumed that the standard BibTeX tool/approach
+%% is used.
+ 
+%% GENERAL BIBLIOGRAPHY
+ 
+%% To cite one of your PERSONAL papers with the style
+%% of the PERSONAL bibliography: \cite{key}
+ 
+%% To force to show one of your PERSONAL papers into
+%% the PERSONAL bibliography, even if not cited in the
+%% text: \nocite{key}
+ 
+%% Uncomment the following line to change the style of
+%% the GENERAL bibliogaphy.
+%\bibliographystyle{plain}
+ 
+%% Link the GENERAL bibliogaphy to a BibTeX file.
+\bibliography{biblio.bib}
+ 
+%%--------------------
+%% List of figures and tables
+ 
+%% Include a chapter with a list of all the figures.
+%% In French typograhic standard, this list must be at
+%% the end of the document.
+\listoffigures
+ 
+%% Include a chapter with a list of all the tables.
+%% In French typograhic standard, this list must be at
+%% the end of the document.
+\listoftables
+ 
+%%--------------------
+%% Appendixes
+\appendix
+ 
+\chapter{Premier chapitre de mes annexes}
+ 
+ 
+\end{document}
