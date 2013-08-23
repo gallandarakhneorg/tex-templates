@@ -9,23 +9,57 @@
 %% for details about the macros that are provided by the class and
 %% to obtain the list of the packages that are already included. 
  
- 
-%% Uncomment only for SPIM-UB, change the language
-%% according to the main language of your document:
-%% french or english.
 \documentclass[french]{spimubphdthesis}
  
+%%--------------------
 %% The TeX code is entering with UTF8
 %% character encoding (Linux and MacOS standards)
 \usepackage[utf8]{inputenc}
  
+%%-------------------
+%% You want to use the NatBib extension
+%\usepackage[authoryear]{natbib}
+ 
+%%--------------------
 %% Include the 'multibib' package to enable to
 %% have different types of bibliographies in the
 %% document (see at the end of this template for
 %% an example with a personnal bibliography and
 %% a general bibliography)
+%%
+%% Each bibliography defined with 'multibib'
+%% adds a chapter with the corresponding
+%% publications (in addition to the chapter for
+%% the standard/general bibliography).
+%% CAUTION:
+%% There is no standard way to do include this type of
+%% personnal bibliography.
+%% We propose to use 'multibib' package to help you,
+%% for example.
 %\usepackage{multibib}
  
+%% Define a "type" of bibliography, here the PERSONAL one,
+%% that is supported by 'multibib'.
+%\newcites{PERSO}{Liste de mes publications}
+ 
+%% To cite one of your PERSONAL papers with the style
+%% of the PERSONAL bibliography: \citePERSO{key}
+%% To force to show one of your PERSONAL papers into
+%% the PERSONAL bibliography, even if not cited in the
+%% text: \nocitePERSO{key}
+ 
+%% REMARK: When you are using 'multibib', you
+%% must compile the PERSONAL bibliography by hand.
+%% For example, the sequence of commands to run
+%% when you had defined the bibliography PERSO is:
+%%   $ pdflatex my_document.tex
+%%   $ bibtex my_document.aux
+%%   $ bibtex PERSO.aux
+%%   $ pdflatex my_document.tex
+%%   $ pdflatex my_document.tex
+%%   $ pdflatex my_document.tex
+ 
+%%--------------------
 %% Add here any other packages that are needed for your document.
 %\usepackage{eurosim}
 %\usepackage{amsmath}
@@ -142,6 +176,12 @@
  
 blablabla
  
+%% Citation from the general bibliography
+%\cite{key}
+ 
+%% Citation from the PERSO bibliography
+%\citePERSO{key}
+ 
 \chapter{Conclusion}
  
 blablabla
@@ -150,29 +190,14 @@ blablabla
 %%--------------------
 %% Bibliography
  
-%% PERSONAL BIBLIOGRAPHY
- 
-%% Include a chapter with the publications of the author only.
-%% CAUTION:
-%% There is no standard way to do include this type of
-%% personnal bibliography.
-%% You could use 'multibib' package to help you, for example.
- 
-%% Define a "type" of bibliography, here the PERSONAL.
-%\newcites{PERSO}{Liste des mes publications}
- 
-%% To cite one of your PERSONAL papers with the style
-%% of the PERSONAL bibliography: \citePERSO{key}
- 
-%% To force to show one of your PERSONAL papers into
-%% the PERSONAL bibliography, even if not cited in the
-%% text: \nocitePERSO{key}
+%% PERSONAL BIBLIOGRAPHY (use 'multibib')
  
 %% Change the style of the PERSONAL bibliography
 %\bibliographystylePERSO{plain}
  
-%% Link the PERSONAL bibliogaphy to a BibTeX file
-%% (may be the same as the general bibliography one).
+%% Add the chapter with the PERSONAL bibliogaphy.
+%% The name of the BibTeX file may be the same as
+%% the one for the general bibliography.
 %\bibliographyPERSO{biblio.bib}
  
 %% Below, include a chapter for the GENERAL bibliography.
