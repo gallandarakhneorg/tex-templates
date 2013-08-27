@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2013/07/04]
+\ProvidesClass{spimufchdr}[2013/08/27]
 
 %%--------------------
 %% Class options
@@ -40,7 +40,7 @@
 \ProcessOptions*\relax
 
 %%--------------------
-%% Load the document style
+%% Load the document style and packages
 \expandafter\LoadClass[\edspimhdrclasslanguage,\edspim@hdr@class@options]{upmethodology-document}
 \RequirePackage{multibib}
 \RequirePackage{eurosym}
@@ -150,7 +150,18 @@
 }
 
 %%--------------------
+%% Default toc depth is 2
+\setcounter{tocdepth}{2}
+
+%%--------------------
 %% Use the style dedicated to PhD thesis from SPIM-UTBM
 \UseExtension{spimufchdr}
+
+%%--------------------
+%% Style for boxed definitions
+\colorlet{definitionbackground}{backtableheader!60}
+\colorlet{definitionheaderforeground}{fronttableheader}
+\colorlet{definitionborder}{gray!60}
+\colorlet{definitiontextforeground}{black}
 
 \endinput

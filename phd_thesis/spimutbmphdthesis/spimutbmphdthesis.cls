@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimutbmphdthesis}[2012/12/06]
+\ProvidesClass{spimutbmphdthesis}[2013/08/27]
 
 %%--------------------
 %% Class options
@@ -63,12 +63,20 @@
 \UseExtension{spimutbmphdthesis}
 
 %%--------------------
-%% Force the name of the bibliographie for French
+%% Force the name of the bibliography and other sections for French
 \AtBeginDocument{
 	\ifthenelse{\equal{\edspimphdthesisclasslanguage}{french}}{%
 		\renewcommand{\refname}{Bibliographie}%
 		\renewcommand{\listtablename}{Liste des tables}%
 	}{}
 }
+
+%%--------------------
+%% Style for boxed definitions
+\colorlet{definitionbackground}{backtableheader!60}
+\colorlet{definitionheaderforeground}{fronttableheader}
+\colorlet{definitionborder}{gray!60}
+\colorlet{definitiontextforeground}{black}
+
 
 \endinput
