@@ -150,7 +150,7 @@
 }
 
 %%--------------------
-%% Default toc depth is 2
+%% Default toc depth is: chapters, sections and subsections
 \setcounter{tocdepth}{2}
 
 %%--------------------
