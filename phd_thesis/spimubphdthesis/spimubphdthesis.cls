@@ -20,12 +20,18 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimubphdthesis}[2013/08/27]
+\ProvidesClass{spimubphdthesis}[2013/09/29]
+
+%%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2013/09/28}{}{
+	\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}
+}
 
 %%--------------------
 %% Class options
 \gdef\edspimphdthesisclasslanguage{french}
-\gdef\edspim@phdthesis@class@options{book,nopubpage,nodocumentinfo}
+\gdef\edspim@phdthesis@class@options{book,nopubpage,nodocumentinfo,frontmatter}
 
 \DeclareOption{english}{%
 	\gdef\edspimphdthesisclasslanguage{english}%
@@ -42,6 +48,10 @@
 %%--------------------
 %% Load the document style
 \expandafter\LoadClass[\edspimphdthesisclasslanguage,\edspim@phdthesis@class@options]{upmethodology-document}
+
+%%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
 
 %%--------------------
 %% Utility functions

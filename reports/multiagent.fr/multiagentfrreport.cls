@@ -44,6 +44,10 @@
 \expandafter\LoadClass[\multiagentfrreportclasslanguage\multiagentfr@report@class@options]{upmethodology-document}
 
 %%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
+
+%%--------------------
 %% Use the style dedicated to the report of the multiagent group
 \UseExtension{multiagent.fr}
 

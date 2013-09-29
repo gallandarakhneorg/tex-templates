@@ -20,12 +20,12 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2013/08/27]
+\ProvidesClass{spimufchdr}[2013/09/29]
 
 %%--------------------
 %% Class options
 \gdef\edspimhdrclasslanguage{french}
-\gdef\edspim@hdr@class@options{book,nopubpage,nodocumentinfo}
+\gdef\edspim@hdr@class@options{book,nopubpage,nodocumentinfo,frontmatter}
 
 \DeclareOption{english}{%
 	\gdef\edspimhdrclasslanguage{english}%
@@ -44,6 +44,10 @@
 \expandafter\LoadClass[\edspimhdrclasslanguage,\edspim@hdr@class@options]{upmethodology-document}
 \RequirePackage{multibib}
 \RequirePackage{eurosym}
+
+%%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
 
 %%--------------------
 %% Utility functions
