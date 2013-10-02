@@ -1,11 +1,11 @@
 h1. Presentation
 
-@tex-utbm@ is a collection of (La)TeX styles dedicated to the following universities:
-- Université de Technologie de Belfort-Montbéliard
-- Université de Franche-Comté
-- Université de Bourgogne
+@tex-templates@ is a collection of (La)TeX styles for the following universities:
+- "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
+- "Université de Franche-Comté":http://www.univ-fcomte.fr
+- "Université de Bourgogne":http://www.u-bourgogne.fr
 
-The provides styles are for:
+The provided styles are for:
 - PhD thesis (based on the tex-upmethodology class)
 - Master thesis (based on the tex-upmethodology class)
 - Reports (based on the tex-upmethodology class)
@@ -24,7 +24,10 @@ h2. Installation
 
 h2. Author
 
-"Stéphane GALLAND":http://www.arakhne.org/homes/galland.html <galland@arakhne.org>
+Dr. Stéphane GALLAND
+
+http://www.arakhne.org/homes/galland.html
+http://www.multiagent.fr/People:Galland_stephane
 
 h2. License
 
