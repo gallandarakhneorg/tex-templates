@@ -20,13 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimubphdthesis}[2013/09/29]
-
-%%--------------------
-%% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2013/09/28}{}{
-	\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}
-}
+\ProvidesClass{spimubphdthesis}[2013/10/07]
 
 %%--------------------
 %% Class options
@@ -48,6 +42,10 @@
 %%--------------------
 %% Load the document style
 \expandafter\LoadClass[\edspimphdthesisclasslanguage,\edspim@phdthesis@class@options]{upmethodology-document}
+
+%%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
