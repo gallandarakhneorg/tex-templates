@@ -263,7 +263,6 @@
 \newif\ifbeamer@theme@irtes@part@addintoc
 
 \gdef\beamer@part[#1]#2{%
-	\gdef\beamer@theme@irtes@part@title{#2}%
 	\beamer@theme@irtes@part@oldbeamerpart[#1]{#2}%
 	\ifbeamer@inlecture\else%
 		\beamer@atbeginpart%
@@ -273,6 +272,9 @@
 	\frame{\partpage}%
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
+	\ifbeamer@theme@irtes@part@addintoc%
+		\addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partname}{\the\c@page}}%
+	\fi%
 }
 
 
@@ -318,6 +320,30 @@
 }
 
 \gdef\part{\@ifstar\beamer@theme@irtes@part@partstar\beamer@theme@irtes@part@part}
+
+% Parts in the TOC
+\define@key{beamertoc}{onlyparts}[]{%
+	\beamer@toc@sectionstyle{hide}%
+	\beamer@toc@subsectionstyle{hide}%
+	\c@tocdepth=-1%
+}
+
+\newcommand{\beamer@partintoc}[3]{%
+	\ifnum\c@tocdepth=-1%
+		\def\inserttocpart{\hyperlink{Navigation#3}{#2}}%
+		\ifx\beamer@toc@ooss\beamer@hidetext%
+			\vskip1.5em%
+		\else%
+			\vfill%
+		\fi%
+		{%
+			\hbox{\vbox{%
+				\leavevmode\normalsize\usebeamerfont*{section number projected}\usebeamercolor[fg]{part in toc}\inserttocpart\par%
+			}}%
+			\par%
+		}%
+	\fi%
+}
 
 %-----------------------------------------
 % Sections
@@ -476,9 +502,12 @@
 % Appendix
 \global\let\beamer@theme@irtes@oldappendix\appendix
 \renewcommand{\appendix}{%
+	\let\beamer@theme@irtes@oldpart\part%
+	\def\part{\beamer@theme@irtes@oldpart*}%
 	\beamer@theme@irtes@thanksslide%
 	\beamer@theme@irtes@oldappendix%
 	\global\let\beamer@theme@irtes@oldappendix\relax%
+	\let\part\beamer@theme@irtes@oldpart%
 }
 
 %-----------------------------------------
