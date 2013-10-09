@@ -19,14 +19,11 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2013/07/13 v9.0 Beamer Outer 'IRTES' Theme]
+   [2013/10/10 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
 \useoutertheme{default}
-
-\newif\ifbeamer@theme@irtes@outer@showpart
-\beamer@theme@irtes@outer@showparttrue
 
 \newlength\beamer@theme@irtes@outer@linewidth
 \setlength\beamer@theme@irtes@outer@linewidth{\paperwidth}
@@ -70,14 +67,14 @@
 \setbeamertemplate{part page}{%
 		\begin{picture}(0,0)(0,0)%
 		\put(-20,-39){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
-			\nohyphens{\begin{flushleft}\LARGE\textbf{\beamer@theme@irtes@outer@parttitle}%
+			\nohyphens{\begin{flushleft}\LARGE\textbf{\beamer@theme@irtes@part@title}%
 		\end{flushleft}}}}%
 		\put(257,-163.25){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
-%		\ifbeamer@irtes@outer@showpart%
-%		\put(-20,-13){\usebeamercolor[fg]{frametitle}\footnotesize\bf\partname~\thepart}%
-%		\else%
-%		\put(-20,-13.5){\usebeamercolor[fg]{frametitle}\footnotesize\bf\insertshortauthor~--~\insertshortinstitute}%
-%		\fi%
+		\ifbeamer@theme@irtes@part@hasauthor%
+		\put(-20,-95){\parbox[c]{\beamer@theme@irtes@outer@linewidth}{\begin{center}
+			{\usebeamercolor[fg]{author}\large\bf\beamer@theme@irtes@part@theauthor}
+			\end{center}}}%
+		\fi%
 		\end{picture}%
 }
 

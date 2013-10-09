@@ -142,6 +142,21 @@
 
 \section{Document Structure}
 
+\subsection{Part Sectioning}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES theme provides a specific implementation of the \texttt{{\textbackslash}part} macro: \\
+		\texttt{{\textbackslash}part[options]{title}} \\
+		\texttt{{\textbackslash}part*[options]{title}} \\
+	\item Options may be: \begin{itemize}
+		\item a string value that is the ``short'' title of the part that is appearing in the table of contents.
+		\item the pair \texttt{title=text} to define the ``short'' title.
+		\item the pair \texttt{author=text} to define the author of the part.
+		\end{itemize}
+	\item The stared version of \texttt{{\textbackslash}part} does not add the part in the table of contents.
+	\end{itemize}
+\end{frame}
+
 \subsection{Table of Contents}
 \begin{frame}{\subsecname}
 	\begin{itemize}
@@ -201,8 +216,8 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Bibliography}
-\begin{frame}{\subsecname}
+\subsection{Bibliography and Library}
+\begin{frame}{Bibliography}
 	\begin{itemize}
 	\item You are able to include a bibliography in your slides with the two standard {\LaTeX} macros: \\
 		\texttt{{\textbackslash}bibliographystyle\{style\}} \\
@@ -211,6 +226,15 @@
 	\item When the macro \texttt{{\textbackslash}bibliography} is used, the appendix section is started if it was not already done.
 	\item The bibliography slides are \alert{always} at the end of the document. Even if you put slides after the {\textbackslash}bibliography macro.
 	\item \emph{The first slide of the bibliography has the label \texttt{bibliographyslide} for \texttt{{\textbackslash}hyperlink}.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Library}
+	\begin{itemize}
+	\item You are able to include a list of books in your presentation with the macro: \\
+		\texttt{{\textbackslash}libraryslide[subtitle or comment]\{picture\}} \\
+		\texttt{\{title\}\{authors\}\{How published\}\{ISBN\}}
+	\item The macro create a slide for a book.
 	\end{itemize}
 \end{frame}
 
@@ -251,7 +275,7 @@
 \end{frame}
 \makeatother
 
-\subsection{Symbols}
+\subsection{Additional Symbols}
 \begin{frame}{\subsecname}
 	\begin{itemize}
 	\item The IRTES theme (re)defines the macros for several symbols
@@ -357,7 +381,12 @@
 		\item Display the content of the box. When clicked, display the box content after fitting it to the entire screen. When clicked again, the original slide is restore.
 		\item \texttt{options} are:
 			\begin{enumerate}
-			\item \texttt{border=XXpt}: specify the size of the border around the box.
+			\item \texttt{border=XXpt}: specify the size of the border lines around the box.
+			\item \texttt{left=XXpt}: specify the size of the left margin.
+			\item \texttt{right=XXpt}: specify the size of the right margin.
+			\item \texttt{top=XXpt}: specify the size of the top margin.
+			\item \texttt{bottom=XXpt}: specify the size of the bottom margin.
+			\item \texttt{margin=XXpt}: specify the size of all of the margins.
 			\end{enumerate}
 		\end{itemize}
 	\item \alert{The macro \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)}
@@ -365,6 +394,22 @@
 	\begin{center}
 		\zoombox{ZOOMING EXAMPLE}
 	\end{center}
+\end{frame}
+
+\subsection{Adjusting a Box}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES style provides the macro \texttt{{\textbackslash}adjustbox} to add margins to a box.
+	\item \texttt{{\textbackslash}adjustbox[options]\{box content\}}
+	\item The options are:
+		\begin{itemize}
+		\item \textttt{left=XXpt} is the size of the left margin.
+		\item \textttt{right=XXpt} is the size of the right margin.
+		\item \textttt{top=XXpt} is the size of the top margin.
+		\item \textttt{bottom=XXpt} is the size of the bottom margin.
+		\item \textttt{size=XXpt} is the size of all of the margins.
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \end{document}

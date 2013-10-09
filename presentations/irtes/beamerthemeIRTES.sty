@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerthemeIRTES}
-   [2013/07/13 v4.0 Beamer 'IRTES' Theme]
+   [2013/10/10 Beamer 'IRTES' Theme]
 
 \RequirePackage{ifthen}
 
@@ -43,29 +43,6 @@
 \useoutertheme{IRTES}
 
 \setbeamercovered{dynamic}
-
-\gdef\beamer@theme@irtes@outer@parttitle{\relax}
-\let\beamer@theme@irtes@outer@oldpart\part
-\newcommand{\beamer@theme@irtes@outer@part}[2][]{%
-	\gdef\beamer@theme@irtes@outer@parttitle{#2}%
-	\global\beamer@theme@irtes@outer@showparttrue%
-	\beamer@theme@irtes@outer@oldpart[#1]{#2}%
-	\setbeamertemplate{footline}{}%
-	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
-	\frame{\partpage}%
-	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
-	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
-}
-\newcommand{\beamer@theme@irtes@outer@partstar}[2][]{%
-	\gdef\beamer@theme@irtes@outer@parttitle{#2}%
-	\global\beamer@theme@irtes@outer@showpartfalse%
-	\setbeamertemplate{footline}{}%
-	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
-	\frame{\partpage}%
-	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
-	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
-}
-\gdef\part{\@ifstar\beamer@theme@irtes@outer@partstar\beamer@theme@irtes@outer@part}
 
 \AtBeginDocument{
 	\ifthenelse{\boolean{beamer@theme@irtes@hascovers}}{%

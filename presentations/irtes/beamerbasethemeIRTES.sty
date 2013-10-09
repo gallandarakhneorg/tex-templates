@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/07/13 v8.0 Beamer Base Defs 'IRTES' Theme]
+   [2013/10/10 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -161,6 +161,20 @@
 }
 
 %-----------------------------------------
+% Option parameters
+\newif\ifbeamer@theme@irtes@optlist@needdefault
+\gdef\beamer@theme@irtes@optlist@parseparams#1=#2\@nil{%
+	\ifthenelse{\equal{#2}{===}}{%
+		\global\beamer@theme@irtes@optlist@needdefaulttrue%
+	}{%
+		\global\beamer@theme@irtes@optlist@needdefaultfalse%
+	}%
+}
+\DeclareRobustCommand{\beamer@theme@irtes@optlist}[1]{%
+	{\beamer@theme@irtes@optlist@parseparams #1====\@nil}%
+}
+
+%-----------------------------------------
 % Slide numbering
 \newcounter{beamer@theme@irtes@nav@previoussection}
 \setcounter{beamer@theme@irtes@nav@previoussection}{0}
@@ -228,16 +242,7 @@
 		\string\headcommand{\string\beamer@theme@irtes@definesectionframenumber{\thepart}{\thesection}{%
 		\thebeamer@theme@irtes@nav@tmp}}}}%
 }
-\let\beamer@theme@irtes@nav@oldpart\part
-\gdef\part{%
-	\beamer@theme@irtes@nav@advancesection%
-	\beamer@theme@irtes@nav@oldpart%
-}
-\let\beamer@theme@irtes@nav@oldsection\section
-\gdef\section{%
-	\beamer@theme@irtes@nav@advancesection%
-	\beamer@theme@irtes@nav@oldsection%
-}
+
 % Write data in the aux file
 \AtEndDocument{%
 	\beamer@theme@irtes@nav@advancesection%
@@ -245,6 +250,82 @@
 	\immediate\write\@auxout{\string\@writefile{nav}%
         {\noexpand\headcommand{\noexpand\def\noexpand\inserttotalcoreframenumber
 		{\beamer@theme@irtes@totalcoreframenumber}}}}
+}
+
+%-----------------------------------------
+% Parts
+
+\let\beamer@theme@irtes@part@oldpart\part
+\let\beamer@theme@irtes@part@oldbeamerpart\beamer@part
+
+\newif\ifbeamer@theme@irtes@part@hasoptionparam
+\newif\ifbeamer@theme@irtes@part@hasauthor
+\newif\ifbeamer@theme@irtes@part@addintoc
+
+\gdef\beamer@part[#1]#2{%
+	\gdef\beamer@theme@irtes@part@title{#2}%
+	\beamer@theme@irtes@part@oldbeamerpart[#1]{#2}%
+	\ifbeamer@inlecture\else%
+		\beamer@atbeginpart%
+	\fi%
+	\setbeamertemplate{footline}{}%
+	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
+	\frame{\partpage}%
+	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
+	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
+}
+
+
+\define@key{beamerthemeirtespart}{author}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@irtes@part@hasauthortrue%
+		\gdef\beamer@theme@irtes@part@theauthor{#1}%
+	}
+}
+\define@key{beamerthemeirtespart}{title}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@irtes@part@hasoptionparamtrue%
+		\gdef\beamer@theme@irtes@part@shorttitle{#1}%
+	}%
+}
+
+\newcommand{\beamer@theme@irtes@part@partmacro}[1][]{%
+	\beamer@theme@irtes@optlist{#1}%
+	\global\beamer@theme@irtes@part@hasoptionparamfalse%
+	\global\beamer@theme@irtes@part@hasauthorfalse%
+	\ifbeamer@theme@irtes@optlist@needdefault%
+		\setkeys{beamerthemeirtespart}{title=#1}%
+	\else%
+		\setkeys{beamerthemeirtespart}{#1}%
+	\fi%
+	\beamer@theme@irtes@nav@advancesection%
+	\ifbeamer@theme@irtes@part@hasoptionparam%
+		\def\@tmp{\beamer@theme@irtes@part@oldpart[\beamer@theme@irtes@part@shorttitle]}%
+	\else%
+		\let\@tmp\beamer@theme@irtes@part@oldpart%
+	\fi%
+	\@tmp%
+}
+
+\def\beamer@theme@irtes@part@part{%
+	\beamer@theme@irtes@part@addintoctrue%
+	\beamer@theme@irtes@part@partmacro%
+}
+
+\def\beamer@theme@irtes@part@partstar{%
+	\beamer@theme@irtes@part@addintocfalse%
+	\beamer@theme@irtes@part@partmacro%
+}
+
+\gdef\part{\@ifstar\beamer@theme@irtes@part@partstar\beamer@theme@irtes@part@part}
+
+%-----------------------------------------
+% Sections
+
+\let\beamer@theme@irtes@nav@oldsection\section
+\gdef\section{%
+	\beamer@theme@irtes@nav@advancesection%
+	\beamer@theme@irtes@nav@oldsection%
 }
 
 %-----------------------------------------
@@ -524,12 +605,12 @@
 	\setlength{\beamer@theme@irtes@adjustbox@right}{1em}%
 	\setlength{\beamer@theme@irtes@adjustbox@top}{1em}%
 	\setlength{\beamer@theme@irtes@adjustbox@bottom}{1em}%
-	%\setkeys{beamerthemeirtesadjustbox}{#1}%
+	\setkeys{beamerthemeirtesadjustbox}{#1}%
 	\sbox{\beamer@theme@irtes@adjustbox@content}{#2}%
-	\setlength{\beamer@theme@irtes@adjustbox@width}{\the\wd\beamer@theme@irtes@zoombox@content}%
+	\setlength{\beamer@theme@irtes@adjustbox@width}{\the\wd\beamer@theme@irtes@adjustbox@content}%
 	\addtolength{\beamer@theme@irtes@adjustbox@width}{\beamer@theme@irtes@adjustbox@left}%
 	\addtolength{\beamer@theme@irtes@adjustbox@width}{\beamer@theme@irtes@adjustbox@right}%
-	\setlength{\beamer@theme@irtes@adjustbox@height}{\the\ht\beamer@theme@irtes@zoombox@content}%
+	\setlength{\beamer@theme@irtes@adjustbox@height}{\the\ht\beamer@theme@irtes@adjustbox@content}%
 	\addtolength{\beamer@theme@irtes@adjustbox@height}{\beamer@theme@irtes@adjustbox@top}%
 	\addtolength{\beamer@theme@irtes@adjustbox@height}{\beamer@theme@irtes@adjustbox@bottom}%
 	\vbox to \beamer@theme@irtes@adjustbox@height {%
@@ -704,5 +785,27 @@
 	\renewcommand{\beamer@theme@irtes@authors@shortprefix}[1]{##1}
 	\beamer@theme@irtes@buildauthorlist}
 \newcommand{\addauthor}{\@ifstar\beamer@theme@irtes@addauthorstar\beamer@theme@irtes@addauthor}
+
+%---------------------------------------------
+% LIBRARY
+
+% \libraryslide[subtitle or comment]{picture}{title}{authors}{How published}{ISBN}
+\newcommand{\libraryslide}[6][]{%
+	\begin{frame}[c]{\subsecname}%
+		\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
+		\begin{minipage}[t]{.65\linewidth}
+		\begin{raggedright}
+		\mbox{}\\%
+		\nohyphens{\textbf{#3}}%
+		\ifthenelse{\equal{a#1}{a}}{}{%
+			\\ \nohyphens{\small #1}%
+		} \\[.5cm]%
+		\nohyphens{#4} \\[.5cm]%
+		\nohyphens{#5} \\[.25cm]%
+		\nohyphens{ISBN #6}%
+		\end{raggedright}
+		\end{minipage}%
+	\end{frame}%
+}
 
 \endinput
