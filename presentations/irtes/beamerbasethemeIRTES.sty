@@ -333,9 +333,10 @@
 
 \newcommand{\beamer@partintoc}[3]{%
 	\ifnum\c@tocdepth=-1%
+		\beamer@tempcount=#1%
+		\edef\inserttocpartnumber{\expandafter\@Alph\beamer@tempcount}%
 		\beamer@tempcount=#3%
 		\advance\beamer@tempcount by\beamer@partadjust%
-		\edef\inserttocpartnumber{#1}%
 		\protected@edef\inserttocpart{\protect\hyperlink{Navigation\the\beamer@tempcount}{#2}}%
 		\ifx\beamer@toc@ooss\beamer@hidetext%
 			\vskip1.5em%
@@ -344,7 +345,12 @@
 		\fi%
 		{%
 			\hbox{\vbox{%
-				\leavevmode\normalsize\usebeamerfont*{section number projected}\usebeamercolor[fg]{part in toc}\inserttocpart\par%
+				\leavevmode\normalsize\usebeamerfont*{section number projected}\usebeamercolor[bg]{section number projected}%
+				\vrule width2.25ex height1.85ex depth.4ex%
+				\hskip-2.25ex%
+				\hbox to2.25ex{\hfil\color{fg}\inserttocpartnumber\hfil}%
+				\kern1.25ex%
+				\inserttocpart\par%
 			}}%
 			\par%
 		}%
