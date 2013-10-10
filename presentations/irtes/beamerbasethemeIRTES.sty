@@ -306,6 +306,10 @@
 	\else%
 		\let\@tmp\beamer@theme@irtes@part@oldpart%
 	\fi%
+	% Reset sections's numbers when a part is started
+	\c@section=0% From TeX background
+	\beamer@tocsectionnumber=0% From Beamer background
+	% Run the TeX \part macro
 	\@tmp%
 }
 
