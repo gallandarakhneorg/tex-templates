@@ -30,7 +30,8 @@
 \gdef\beamer@theme@irtes@label@finalslidelabel{}
 
 \newcounter{@beamer@theme@irtes@visualframenumber}
-\setcounter{@beamer@theme@irtes@visualframenumber}{0} %0: circle, 1: text, 2:section-circle
+\setcounter{@beamer@theme@irtes@visualframenumber}{0} % 0: circle, 1: text, 2:section-circle,
+                                                      % 3:part-circle, 4: section-part-circle
 
 \newlength\beamer@theme@irtes@contentheight
 \setlength{\beamer@theme@irtes@contentheight}{6cm}
@@ -65,6 +66,12 @@
 }
 \DeclareOptionBeamer{sectioncirclenumberstyle}{%
 	\global\setcounter{@beamer@theme@irtes@visualframenumber}{2}%
+}
+\DeclareOptionBeamer{partcirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@irtes@visualframenumber}{3}%
+}
+\DeclareOptionBeamer{partsectioncirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@irtes@visualframenumber}{4}%
 }
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
@@ -178,11 +185,14 @@
 % Slide numbering
 \newcounter{beamer@theme@irtes@nav@previoussection}
 \setcounter{beamer@theme@irtes@nav@previoussection}{0}
+\newcounter{beamer@theme@irtes@nav@previouspart}
+\setcounter{beamer@theme@irtes@nav@previouspart}{0}
 \newcounter{beamer@theme@irtes@nav@tmp}
 \newcounter{beamer@theme@irtes@appendixframenumber}
 %
 \newcommand{\beamer@theme@irtes@totalcoreframenumber}{\the\c@framenumber}
 \newcommand{\inserttotalcoreframenumber}{1}
+%
 \newcommand{\beamer@theme@irtes@definesectionframenumber}[3]{\@namedef{beamer@theme@irtes@nav@sectionsize@#1@#2}{#3}}
 \newcommand{\beamer@theme@irtes@sectionframenumber}[2]{%
 	\expandafter\ifx\csname beamer@theme@irtes@nav@sectionsize@#1@#2\endcsname\relax%
@@ -192,8 +202,19 @@
 	\fi%
 }
 %
+\newcommand{\beamer@theme@irtes@definepartframenumber}[2]{\@namedef{beamer@theme@irtes@nav@partsize@#1}{#2}}
+\newcommand{\beamer@theme@irtes@partframenumber}[1]{%
+	\expandafter\ifx\csname beamer@theme@irtes@nav@partsize@#1\endcsname\relax%
+		1%
+	\else%
+		\csname beamer@theme@irtes@nav@partsize@#1\endcsname%
+	\fi%
+}
+%
 \newcommand{\insertframenumbering}[1][\value{@beamer@theme@irtes@visualframenumber}]{%
+	\edef\beamer@theme@irtes@nav@tmpmode{#1}%
 	\ifnum\the\c@framenumber>\beamer@theme@irtes@totalcoreframenumber%
+		% The current frame is in the appendix
 		\expandafter\setcounter{beamer@theme@irtes@appendixframenumber}{\inserttotalframenumber}%
 		\expandafter\addtocounter{beamer@theme@irtes@appendixframenumber}{-\beamer@theme@irtes@totalcoreframenumber}%
 		\addtocounter{beamer@theme@irtes@appendixframenumber}{-2}%
@@ -206,31 +227,65 @@
 		\xdef\beamer@theme@irtes@pi@shortlabel{\roman{beamer@theme@irtes@appendixframenumber}}%
 		\global\let\beamer@theme@irtes@pi@longlabel\beamer@theme@irtes@pi@shortlabel%
 		\xdef\beamer@theme@irtes@pi@currentpage{\value{beamer@theme@irtes@appendixframenumber}}%
+		%
+		\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+		\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previoussection}%
+		\xdef\beamer@theme@irtes@pi@seccurrentpage{\thebeamer@theme@irtes@nav@tmp}%
+		\xdef\beamer@theme@irtes@pi@secnumberpages{\beamer@theme@irtes@sectionframenumber{\thepart}{\thesection}}%
 	\else%
-		\xdef\beamer@theme@irtes@pi@shortlabel{\insertframenumber}%
-		\xdef\beamer@theme@irtes@pi@longlabel{{\insertframenumber}/{\inserttotalcoreframenumber}}%
-		\xdef\beamer@theme@irtes@pi@currentpage{\insertframenumber}%
-		\xdef\beamer@theme@irtes@pi@numberpages{\inserttotalcoreframenumber}%
+		% The current frame is in the core part of the document
+		\ifnum\beamer@theme@irtes@nav@tmpmode=3%
+			\def\beamer@theme@irtes@nav@tmpmode{0}% Force circles
+			\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previouspart}%
+			\xdef\beamer@theme@irtes@pi@shortlabel{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@longlabel{{\thebeamer@theme@irtes@nav@tmp}/{\beamer@theme@irtes@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@irtes@pi@currentpage{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@numberpages{\beamer@theme@irtes@partframenumber{\thepart}}%
+			%
+		\else\ifnum\beamer@theme@irtes@nav@tmpmode=4%
+			\def\beamer@theme@irtes@nav@tmpmode{2}% Force circles with sections
+			\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previouspart}%
+			\xdef\beamer@theme@irtes@pi@shortlabel{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@longlabel{{\thebeamer@theme@irtes@nav@tmp}/{\beamer@theme@irtes@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@irtes@pi@currentpage{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@numberpages{\beamer@theme@irtes@partframenumber{\thepart}}%
+			%
+			\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previoussection}%
+			\xdef\beamer@theme@irtes@pi@seccurrentpage{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@secnumberpages{\beamer@theme@irtes@sectionframenumber{\thepart}{\thesection}}%
+		\else%
+			\xdef\beamer@theme@irtes@pi@shortlabel{\insertframenumber}%
+			\xdef\beamer@theme@irtes@pi@longlabel{{\insertframenumber}/{\inserttotalcoreframenumber}}%
+			\xdef\beamer@theme@irtes@pi@currentpage{\insertframenumber}%
+			\xdef\beamer@theme@irtes@pi@numberpages{\inserttotalcoreframenumber}%
+			%
+			\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previoussection}%
+			\xdef\beamer@theme@irtes@pi@seccurrentpage{\thebeamer@theme@irtes@nav@tmp}%
+			\xdef\beamer@theme@irtes@pi@secnumberpages{\beamer@theme@irtes@sectionframenumber{\thepart}{\thesection}}%
+		\fi\fi%
 	\fi%
 	%
-	\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
-	\addtocounter{beamer@theme@irtes@nav@tmp}{-\thebeamer@theme@irtes@nav@previoussection}%
-	\xdef\beamer@theme@irtes@pi@seccurrentpage{\thebeamer@theme@irtes@nav@tmp}%
-	\xdef\beamer@theme@irtes@pi@secnumberpages{\beamer@theme@irtes@sectionframenumber{\thepart}{\thesection}}%
-	%
-	\ifcase#1%
+	\expandafter\ifcase\beamer@theme@irtes@nav@tmpmode%
+		% Circle for the entire document
 		\beamer@theme@irtes@pi@circle{\beamer@theme@irtes@pi@shortlabel}{\beamer@theme@irtes@pi@currentpage}{\beamer@theme@irtes@pi@numberpages}%
-	\or%
-		{\normalfont\usebeamercolor[fg]{circle progress bar}\beamer@theme@irtes@pi@longlabel}%
 	\or
+		% Text
+		{\normalfont\usebeamercolor[fg]{circle progress bar}\beamer@theme@irtes@pi@longlabel}%
+	\or%
+		% Circle for the current section and for the entire document
 		\ifnum\thesection<1% display a simple circle when no section started
 			\beamer@theme@irtes@pi@circle{\beamer@theme@irtes@pi@shortlabel}{\beamer@theme@irtes@pi@currentpage}{\beamer@theme@irtes@pi@numberpages}%
 		\else%
 			\beamer@theme@irtes@pi@seccircle{\beamer@theme@irtes@pi@shortlabel}{\beamer@theme@irtes@pi@currentpage}{\beamer@theme@irtes@pi@numberpages}{\beamer@theme@irtes@pi@seccurrentpage}{\beamer@theme@irtes@pi@secnumberpages}%
 		\fi%
-	\else
+	\else%
+		% Circle for the entire document
 		\beamer@theme@irtes@pi@circle{\beamer@theme@irtes@pi@shortlabel}{\beamer@theme@irtes@pi@currentpage}{\beamer@theme@irtes@pi@numberpages}%
-	\fi
+	\fi%
 }
 %
 \def\beamer@theme@irtes@nav@advancesection{%
@@ -240,6 +295,16 @@
 	%
 	\immediate\write\@auxout{\string\@writefile{nav}{%
 		\string\headcommand{\string\beamer@theme@irtes@definesectionframenumber{\thepart}{\thesection}{%
+		\thebeamer@theme@irtes@nav@tmp}}}}%
+}
+%
+\def\beamer@theme@irtes@nav@advancepart{%
+	\setcounter{beamer@theme@irtes@nav@tmp}{\c@framenumber}%
+	\addtocounter{beamer@theme@irtes@nav@tmp}{-\c@beamer@theme@irtes@nav@previouspart}%
+	\setcounter{beamer@theme@irtes@nav@previouspart}{\c@framenumber}%
+	%
+	\immediate\write\@auxout{\string\@writefile{nav}{%
+		\string\headcommand{\string\beamer@theme@irtes@definepartframenumber{\thepart}{%
 		\thebeamer@theme@irtes@nav@tmp}}}}%
 }
 
@@ -300,6 +365,7 @@
 	\else%
 		\setkeys{beamerthemeirtespart}{#1}%
 	\fi%
+	\beamer@theme@irtes@nav@advancepart%
 	\beamer@theme@irtes@nav@advancesection%
 	\ifbeamer@theme@irtes@part@hasoptionparam%
 		\def\@tmp{\beamer@theme@irtes@part@oldpart[\beamer@theme@irtes@part@shorttitle]}%
