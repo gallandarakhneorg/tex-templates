@@ -1,4 +1,8 @@
-\documentclass[article,english]{upmethodology-document}
+\documentclass[english]{spimufchdr}
+
+% The TeX code is entering with UTF8
+% character encoding (Linux and MacOS standards)
+\usepackage[utf8]{inputenc}
 
 \usepackage{verbatim}
 
@@ -69,8 +73,6 @@
 \let\VERcommon\upm@package@private@doctype@ver
 \makeatother
 
-\UseExtension{spimufchdr}
-
 \declarehdr[Official Documentation]{SPIM-UFC HDR Style Extension for tex-upmethodology}{17 septembre 2012}
 
 \addauthor[stephane.galland@UFC.fr]{St\'ephane}{Galland}
@@ -124,12 +126,58 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 	\item \texttt{role} is the role of the member in the jury, eg. in French ``Rapporteur'', ``Examinateur'', ``Directeur de Th\`ese''.
 	\item \texttt{position} is the position and the University of the member.
 	\end{itemize}
+\item \texttt{{\textbackslash}thejurytab} \\
+	Is expanded to the tabular that contains the jury members.
+\item \texttt{{\textbackslash}hdrpreparedin\{institution name\}} \\
+	Specify the name of the institution in which the HDR was prepared.
+\item \texttt{{\textbackslash}thehdrpreparedin} \\
+	Is expanded to the name of the institution in which the HDR in prepared.
+\item \texttt{{\textbackslash}addpartner[options]\{partner picture\}} \\
+	Add a picture for a partner on the front page. The options are passed to \texttt{{\textbackslash}includegraphics}.
+\item \texttt{{\textbackslash}thepartnerlist} \\
+	Is expanded to the pictures of the partners.
 \item \texttt{{\textbackslash}hdrabstract[lang]\{text\}} \\
-	Set the French abstract for the HDR.
+	Set the abstract of the HDR for the given language.
 	\begin{itemize}
 	\item \texttt{lang} must be the language in which the abstract is written. It must be one of ``french'' or ``english''.
 	\item \texttt{text} is the text of the abstract.
 	\end{itemize}
+\item \texttt{{\textbackslash}hdrmainabstract} \\
+	Is expanded to the text of the abstract for the primary language.
+\item \texttt{{\textbackslash}hdrminorabstract} \\
+	Is expanded to the text of the abstract for the secondary language.
+\item \texttt{{\textbackslash}hdrkeywords[lang]\{text\}} \\
+	Set the keywords of the HDR for the given language.
+	\begin{itemize}
+	\item \texttt{lang} must be the language in which the keywords is written. It must be one of ``french'' or ``english''.
+	\item \texttt{text} is the text of the keywords.
+	\end{itemize}
+\item \texttt{{\textbackslash}hdrmainkeywords} \\
+	Is expanded to the text of the keywords for the primary language.
+\item \texttt{{\textbackslash}hdrminorkeywords} \\
+	Is expanded to the text of the keywords for the secondary language.
+\item \texttt{{\textbackslash}eme} \\
+	Is expanded to ``\eme''.
+\item \texttt{{\textbackslash}parbreak} \\
+	Add a vertical space that is corresponding to a paragraph separator.
+\item \texttt{{\textbackslash}hdrunderlineauthor\{name key\}\{name\}} \\
+	Output the given name, and underline it if the given \texttt{name key} is corresponding to the name of the author of the HDR.
+\item \texttt{{\textbackslash}declarebiblio[style]\{key\}\{label\}\{bibtex file\}} \\
+	Declare a family of publications. The family is identified by the given \texttt{key}. The given \texttt{label} is used as the section's name of this family in the publication's list. The publications in this family are read from the given Bib\TeX\ file.
+\item \texttt{{\textbackslash}addbiblio\ensuremath{\theta}\{key\}} \\
+	Add a publication in a family of publications identified by $\theta$. The given \texttt{key} is the key in the Bib\TeX\ file.
+\item \texttt{{\textbackslash}numberof\ensuremath{\theta}} \\
+	Is expanded with the number of publications in the family $\theta$.
+\item \texttt{{\textbackslash}hdrpublicationlist} \\
+	Is expanded to the list of the publications of the author of this HDR (see \texttt{{\textbackslash}declarebiblio}).
+\item \texttt{{\textbackslash}bibentry\{key\}} \\
+	Is expanded with the details of the entry identified by \texttt{key} in the Bib\TeX\ file.
+\item \texttt{{\textbackslash}projectdesc\{title\}\{budget\}\{start\}\{end\}\{partners\}\{goals\}\{roles\}} \\
+	Declare a project with the given \texttt{title} and \texttt{budget}. The project starts and ends at the given dates. The partners and the goals of the project are specified. The roles of the authors are given by \texttt{roles}.
+\item \texttt{{\textbackslash}projectdescstar\{title\}\{budget\}\{start\}\{end\}\{partners\}\{goals\}\{roles\}} \\
+	Declare a project with the given \texttt{title} and \texttt{budget}. The project starts and ends at the given dates. The partners and the goals of the project are specified. The single role of the authors is given by \texttt{role}.
+\item \texttt{{\textbackslash}projectdescnat\{title\}\{start\}\{end\}\{funder\}\{partners\}\{goals\}\{roles\}} \\
+	Declare a project funded by the \texttt{funder} with the given \texttt{title}. The project starts and ends at the given dates. The partners and the goals of the project are specified. The single role of the authors is given by \texttt{role}.
 \end{itemize}
 
 \section{Provided Colors}
@@ -149,7 +197,7 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 \begin{mtabular}{3}{XcX}
 \tabulartitle{Provided Values}
 \tabularheader{Name}{Language}{Content}
-%\upmextensiondocvaluelist
+\upmextensiondocvaluelist
 \end{mtabular}
 
 \section{Copyright of the Extension's Source Code}

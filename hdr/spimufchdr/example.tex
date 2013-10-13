@@ -8,119 +8,133 @@
 %% http://www.arakhne.org/tex-upmethodology/
 %% for details about the macros that are provided by the class and
 %% to obtain the list of the packages that are already included. 
- 
- 
+
 \documentclass[french]{spimufchdr}
  
 % The TeX code is entering with UTF8
 % character encoding (Linux and MacOS standards)
 \usepackage[utf8]{inputenc}
- 
+
 %%--------------------
-%% Set the title, subtitle, defense date of the HDR.
-%% The optional parameter is the subtitle of the HDR.
-%% The first mandatory parameter is the title of the HDR.
-%% The second mandatory parameter is the date of the HDR.
-\declarehdr[Sous-titre]{Titre}{17 septembre 2012}
+%% Search path for pictures
+%\graphicspath{{path1/},{path2/}}
+
+%%--------------------
+%% Definition of the bibliography entries
+\declarebiblio{J}{Journaux internationaux avec comités de lecture}{mabiblio}
+
+%%--------------------
+%% Title of the document
+\declarehdr{Title}{XX Mois XXXX}
  
 %%--------------------
 %% Set the author of the HDR
-\addauthor[email]{Prénom}{Nom}
+\addauthor[first.name@utbm.fr]{First}{Name}
  
 %%--------------------
 %% Add a member of the jury
 %% \addjury{Firstname}{Lastname}{Role in the jury}{Position}
-\addjury{Incroyable}{Hulk}{Rapporteur}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
-\addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
-\addjury{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
+\addjury{First}{Name}{Rapporteur}{Professeur à l'Université de XXX}
+\addjury{First}{Name}{Examinateur}{Professeur à l'Université de XXX}
  
 %%--------------------
 %% Set the University where HDR was made
-%\hdrpreparedin{Laboratoire Waynes Industry}
+\hdrpreparedin{Université de Technologie de Belfort-Montbéliard}
  
 %%--------------------
 %% Set the English abstract
-\hdrabstract[english]{This is the abstract in English}
+%\hdrabstract[english]{This is the abstract in English}
  
 %%--------------------
 %% Set the English keywords. They only appear if
 %% there is an English abstract
-\hdrkeywords[english]{Keyword 1, Keyword 2}
+%\hdrkeywords[english]{Keyword 1, Keyword 2}
  
 %%--------------------
 %% Set the French abstract
-\hdrabstract[french]{Ceci est le résumé en français}
+\hdrabstract[french]{Blabla blabla.}
  
 %%--------------------
 %% Set the French keywords. They only appear if
 %% there is an French abstract
-\hdrkeywords[french]{Mot-cl\'e 1, Mot-cl\'e 2}
- 
+%\hdrkeywords[french]{Mot-cl\'e 1, Mot-cl\'e 2}
+
 %%--------------------
-%% Change the speciality of the HDR
+%% Change the layout and the style of the text of the "primary" abstract.
+%% If your document is written in French, the primary abstract is in French,
+%% otherwise it is in English.
+\Set{primaryabstractstyle}{\small}
+
+%%--------------------
+%% Change the layout and the style of the text of the "secondary" abstract.
+%% If your document is written in French, the secondary abstract is in English,
+%% otherwise it is in French.
+%\Set{secondaryabstractstyle}{\tiny}
+
+%%--------------------
+%% Change the layout and the style of the text of the "primary" keywords.
+%% If your document is written in French, the primary keywords are in French,
+%% otherwise they are in English.
+%\Set{primarykeywordstyle}{\tiny}
+
+%%--------------------
+%% Change the layout and the style of the text of the "secondary" keywords.
+%% If your document is written in French, the secondary keywords are in English,
+%% otherwise they are in French.
+%\Set{secondarykeywordstyle}{\tiny}
+
+%%--------------------
+%% Change the speciality of the PhD thesis
 %\Set{speciality}{Informatique}
  
 %%--------------------
 %% Change the institution
 %\Set{universityname}{Universit\'e de Technologie de Belfort-Montb\'eliard}
- 
+
 %%--------------------
-%% Change the header and the foot of the pages
-%% Left header
-%\lhead{}
-%% Center header
-%\chead{}
-%% Right header
-%\rhead{}
-%% Left footer
-%\lfoot{}
-%% Center footer
-%\cfoot{}
-%% Right footer
-%\rfoot{}
+%% Add the logo of a partner or a sponsor
+%\addpartner{partner_logo}
  
 \begin{document}
- 
-%%--------------------
-%% The following line does nothing until
-%% the class option 'nofrontmatter' is given.
-%\frontmatter
 
-%%--------------------
-%% The following line permits to add a chapter for "acknowledgements"
-%% at the beginning of the document. This chapter has not a chapter
-%% number (using the "star-ed" version of \chapter) to prevent it to
-%% be in the table of contents
 \chapter*{Remerciements}
 
+Blabla blabla.
+
 \tableofcontents
- 
-%--------------------
-% Start the content of the HDR
+
 \mainmatter
 
+\part{Introduction}
+
 \chapter{Introduction}
+
+Blabla blabla.
+
+\part{Première partie}
+
+\chapter{Premier chapitre}
+
+Blabla blabla.
  
-\section{Section 1}
- 
-blablabla
- 
+\part{Seconde partie}
+
+\chapter{Second chapitre}
+
+Blabla blabla.
+
+\part{Conclusion et Perspectives}
+
 \chapter{Conclusion}
- 
-blablabla
- 
-%%--------------------
-%% Start the end of the thesis
+
+Blabla blabla.
+
 \backmatter
 
-%--------------------
-% Bibliography, indexes...
- 
-% Uncomment to add a bibliography
-%\bibliography{biblio.bib}
+\bibliographystyle{apalike}
+\bibliography{generalbiblio}
 \listoffigures
 \listoftables
- 
-%\appendix
+\listofdefinitions
  
 \end{document}
