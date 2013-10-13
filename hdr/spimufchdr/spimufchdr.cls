@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2013/09/29]
+\ProvidesClass{spimufchdr}[2013/10/13]
 
 %%--------------------
 %% Class options
@@ -48,6 +48,139 @@
 %%--------------------
 %% Check for the correct version of tex-upmethodology
 \@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
+
+%\declarehdr[subtitle]{title}{defense date}
+\newcommand{\declarehdr}[3][] {
+	\declaredocument{#2}{#1}{HDR-XXXX}%
+	\Set{defensedate}{#3}%
+	\initialversion{\makedate{11}{04}{2006}}{HDR}{\upmpublic}%
+}
+
+%\addjury[email]{firstname}{lastname}{type}{position}
+\makeatletter
+\newcommand{\edspim@hdr@protectnl}[1]{%
+	\begingroup%
+		\let\\\newline%
+		\nohyphens{#1}%
+	\endgroup%
+}
+\gdef\edspim@hdr@jurylist{}
+\global\let\thejurytab\relax
+\newcommand{\addjury}[5][]{%
+	\global\protected@edef\edspim@hdr@jurylist{\edspim@hdr@jurylist\protect\protect\upmmakename{#2}{#3}{~} & \protect\edspim@hdr@protectnl{#4} & \protect\edspim@hdr@protectnl{#5} \protect\\}%
+	\global\protected@edef\thejurytab{\protect\noindent\protect\begin{tabularx}{\Get{jurytabwidth}}{@{}llX@{}}\edspim@hdr@jurylist\protect\end{tabularx}}%
+}
+
+%\hdrpreparedin{university name}
+\newif\ifhdrhaspreparedin
+\hdrhaspreparedinfalse
+\newif\ifhdrhaspreparedinmulti
+\hdrhaspreparedinmultifalse
+\gdef\thehdrpreparedin{}
+\newcommand{\hdrpreparedin}[1]{%
+	\ifhdrhaspreparedin%
+		\global\hdrhaspreparedinmultitrue%
+		\global\protected@edef\thehdrpreparedin{\thehdrpreparedin,\protect\\\protect{#1}}%
+	\else%
+		\global\hdrhaspreparedintrue%
+		\global\protected@edef\thehdrpreparedin{\thehdrpreparedin\protect{#1}}%
+	\fi%
+}
+
+%\addpartner[picture_options]{logo_picture}
+\newif\ifpartnerlist
+\partnerlistfalse
+\gdef\thepartnerlist{}
+\newcommand{\addpartner}[2][height=1cm]{%
+	\ifpartnerlist%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\hfill\protect\includegraphics[#1]{#2}}%
+	\else%
+		\global\partnerlisttrue%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[height=1cm]{#2}}%
+	\fi%
+}
+
+% Change the French labels
+\let\edspim@hdr@tableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+	\ifthenelse{\equal{french}{\upmcurrentlang}}{\renewcommand{\contentsname}{Sommaire}}{}%
+	\edspim@hdr@tableofcontents%
+}
+
+% Defense message
+\Set{defensemessage}{Soutenue publiquement le \Get{defensedate} devant le Jury compos\'e de~:}
+
+% Change the color of the TOC
+\let\edspim@hdr@l@contentsline\contentsline
+\renewcommand{\contentsline}[4]{%
+	%{subsection}{\numberline {1.1.2}Extension de la plateforme \textsc {JaSIM}\xspace et Application}{18}{subsection.1.1.2}
+	\ifthenelse
+		{\equal{#1}{part}}
+		{\edspim@hdr@l@contentsline{#1}{\textcolor{parttitlecolor}{#2}}{\textcolor{parttitlecolor}{#3}}{#4}}%
+		{\ifthenelse
+			{\equal{#1}{chapter}}
+			{\edspim@hdr@l@contentsline{#1}{\textcolor{chaptertitlecolor}{#2}}{\textcolor{chaptertitlecolor}{#3}}{#4}}%
+			{\edspim@hdr@l@contentsline{#1}{#2}{#3}{#4}}}%
+}
+
+% \hdrabstract [lang]{text}
+\newif\ifhdrmainabstract
+\hdrmainabstractfalse
+\newif\ifhdrminorabstract
+\hdrminorabstractfalse
+\gdef\hdrmainabstract{}
+\gdef\hdrminorabstract{}
+\gdef\hdrmainabstracttitle{R\'esum\'e~:}
+\gdef\hdrminorabstracttitle{Abstract:}
+\newcommand{\hdrabstract}[2][\upmcurrentlang]{%
+	\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+		\global\hdrmainabstracttrue%
+		\gdef\hdrmainabstract{#2}%
+		\setdocabstract{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\hdrmainabstracttitle{Abstract:}
+		}{%
+			\gdef\hdrmainabstracttitle{R\'esum\'e~:}
+		}%
+	}{%
+		\global\hdrminorabstracttrue%
+		\gdef\hdrminorabstract{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\hdrminorabstracttitle{Abstract:}
+		}{%
+			\gdef\hdrminorabstracttitle{R\'esum\'e~:}
+		}%
+	}%
+}
+
+% \hdrkeywords [lang]{keywords}
+\newif\ifhdrmainkeywords
+\hdrmainkeywordsfalse
+\newif\ifhdrminorkeywords
+\hdrminorkeywordsfalse
+\gdef\hdrmainkeywords{}
+\gdef\hdrminorkeywords{}
+\gdef\hdrmainkeywordstitle{}
+\gdef\hdrminorkeywordstitle{}
+\newcommand{\hdrkeywords}[2][\upmcurrentlang]{%
+	\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+		\global\hdrmainkeywordstrue%
+		\gdef\hdrmainkeywords{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\hdrmainkeywordstitle{Keywords:}
+		}{%
+			\gdef\hdrmainkeywordstitle{Mots-cl\'es~:}
+		}%
+	}{%
+		\global\hdrminorkeywordstrue%
+		\gdef\hdrminorkeywords{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\hdrminorkeywordstitle{Keywords:}
+		}{%
+			\gdef\hdrminorkeywordstitle{Mots-cl\'es~:}
+		}%
+	}%
+}
 
 %%--------------------
 %% Utility functions
@@ -115,6 +248,40 @@
 		\@latex@warning@no@line{There were undefined references}%
 	\fi%
 }
+
+%%--------------------
+%% BibEntry
+\newif\ifhdr@hasmissedbibentry
+\hdr@hasmissedbibentryfalse
+\newcommand*{\hdr@bibitem@c}[2]{{%
+	\let\protect\@unexpandable@protect%
+	\expandafter\gdef\csname @hdr@bibentry@#1\endcsname{#2\relax\relax}%
+	\@bsphack%
+	\immediate\write\@auxout{\string\newbibentry{#1}{\unexpanded{#2}}}%
+	\@esphack%
+}}
+\newcommand*{\hdr@bibitem@b}[2]{%
+	\bibitem{#1}{#2}\hdr@bibitem@c{#1}{#2}%
+}
+\newcommand*{\hdr@bibitem@a}[3][]{%
+	\bibitem[#1]{#2}{#3}\hdr@bibitem@c{#2}{#3}%
+}
+\def\hdrbibitem{\@ifnextchar[\hdr@bibitem@a\hdr@bibitem@b}
+\newcommand{\newbibentry}[2]{%
+	\global\@namedef{@hdr@bibentry@#1}{#2}%
+}
+\newcommand{\bibentry}[1]{%
+	\@ifundefined{@hdr@bibentry@#1}{\{\string?\}%
+		\@latex@warning{Undefined bibliography entry '#1'.}%
+		\global\hdr@hasmissedbibentrytrue%
+	}{\@nameuse{@hdr@bibentry@#1}}%
+}
+\AtEndDocument{%
+	\ifhdr@hasmissedbibentry%
+		\@latex@warning@no@line{There were undefined references}%
+	\fi%
+}
+
 
 %%--------------------
 %% Output a project description.

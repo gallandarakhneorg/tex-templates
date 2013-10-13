@@ -88,9 +88,9 @@ FUNCTION {output.check}
 
 FUNCTION {output.bibitem}
 { newline$
-  "\bibitem{" write$
+  "\hdrbibitem{" write$
   cite$ write$
-  "}" write$
+  "}{" write$
   newline$
   ""
   before.all 'output.state :=
@@ -98,6 +98,7 @@ FUNCTION {output.bibitem}
 
 FUNCTION {fin.entry}
 { add.period$
+  "}" *
   write$
   newline$
 }
@@ -171,7 +172,7 @@ FUNCTION {emphasize}
 FUNCTION {emphasizeic}
 { duplicate$ empty$
     { pop$ "" }
-    { "{\em " swap$ * "\/}" * }
+    { "{\em " swap$ * "}" * }
   if$
 }
 
@@ -546,7 +547,7 @@ FUNCTION {format.article.crossref}
 	  warning$
 	  ""
 	}
-	{ "In {\em " journal * "\/}" * }
+	{ "In {\em " journal * "}" * }
       if$
     }
     { "In " key * }
@@ -589,7 +590,7 @@ FUNCTION {format.book.crossref}
 	      crossref * warning$
 	      "" *
 	    }
-	    { "{\em " * series * "\/}" * }
+	    { "{\em " * series * "}" * }
 	  if$
 	}
 	{ key * }
@@ -610,7 +611,7 @@ FUNCTION {format.incoll.inproc.crossref}
 	      crossref * warning$
 	      ""
 	    }
-	    { "In {\em " booktitle * "\/}" * }
+	    { "In {\em " booktitle * "}" * }
 	  if$
 	}
 	{ "In " key * }
