@@ -86,7 +86,9 @@
 
 \begin{document}
 
-\section{Introduction}
+\mainmatter
+
+\chapter{Introduction}
 
 This document describes the style extension for \texttt{tex-upmethodology} which is providing the standard document layout and colors of the HDR from the Universit\'e de Franche-Comt\'e, France.
 
@@ -106,7 +108,7 @@ This document contains only the values and the macros provided by the extensions
 
 Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and all related pictures in your system-wide or local user \texttt{texmf}.
 
-\section{Provided Macros}
+\chapter{Provided Macros}
 
 \texttt{tex-upmethdology-spimufchdr} providesthe following macros:
 \begin{itemize}
@@ -162,8 +164,12 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 	Add a vertical space that is corresponding to a paragraph separator.
 \item \texttt{{\textbackslash}hdrunderlineauthor\{name key\}\{name\}} \\
 	Output the given name, and underline it if the given \texttt{name key} is corresponding to the name of the author of the HDR.
-\item \texttt{{\textbackslash}declarebiblio[style]\{key\}\{label\}\{bibtex file\}} \\
-	Declare a family of publications. The family is identified by the given \texttt{key}. The given \texttt{label} is used as the section's name of this family in the publication's list. The publications in this family are read from the given Bib\TeX\ file.
+\item \texttt{{\textbackslash}declarebiblio[options]\{key\}\{label\}\{bibtex file\}} \\
+	Declare a family of publications. The family is identified by the given \texttt{key}. The given \texttt{label} is used as the section's name of this family in the publication's list. The publications in this family are read from the given Bib\TeX\ file. The options are: 
+	\begin{itemize}
+	\item \texttt{style=bst style} specifies the name of the BST style to use for the family (default: \texttt{hdr}).
+	\item \texttt{header=text} is the text to put in the header of the pages for the family.
+	\end{itemize}
 \item \texttt{{\textbackslash}addbiblio\ensuremath{\theta}\{key\}} \\
 	Add a publication in a family of publications identified by $\theta$. The given \texttt{key} is the key in the Bib\TeX\ file.
 \item \texttt{{\textbackslash}numberof\ensuremath{\theta}} \\
@@ -180,7 +186,7 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 	Declare a project funded by the \texttt{funder} with the given \texttt{title}. The project starts and ends at the given dates. The partners and the goals of the project are specified. The single role of the authors is given by \texttt{role}.
 \end{itemize}
 
-\section{Provided Colors}
+\chapter{Provided Colors}
 
 \texttt{tex-upmethdology-spimufchdr} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
 
@@ -190,7 +196,7 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 \upmextensiondoccolorlist
 \end{mtabular}
 
-\section{Provided Values}
+\chapter{Provided Values}
 
 \texttt{tex-upmethdology-spimufchdr} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
 
@@ -199,6 +205,8 @@ Copy \texttt{tex-upmethdology-spimufchdr} configuration file (\texttt{.cfg}) and
 \tabularheader{Name}{Language}{Content}
 \upmextensiondocvaluelist
 \end{mtabular}
+
+\chapter{Legal}
 
 \section{Copyright of the Extension's Source Code}
 
@@ -216,11 +224,11 @@ All UFC logos are the property of the Universit\'e de Franche-Comt\'e, France.
 
 You are not granted to use, modify or distribute this package without the explicit authorization of the Universit\'e de Franche-Comt\'e.
 
-\section{Template of a HDR}
+\chapter{Template of a HDR}
 
 \verbatiminput{example}
 
-\section{Generator}
+\chapter{Generator}
 
 This document was generated with the following versions of the UP-methodology packages:
 \begin{itemize}

@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2013/10/13]
+\ProvidesClass{spimufchdr}[2013/10/14]
 
 %%--------------------
 %% Class options
@@ -188,14 +188,14 @@
 \newcommand{\parbreak}{\par\vspace{\parsep}\mbox{}}
 
 %%--------------------
-%% Force the name of the bibliographie for French
+%% Force the name of the bibliography for French
 \AtBeginDocument{
 	\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{%
 		\renewcommand{\refname}{Bibliographie}%
 		\renewcommand{\listtablename}{Liste des tables}%
-		\newcommand{\publicationlistname}{Liste des publications}%
+		\newcommand{\publicationlistname}{Liste des publications de l'auteur}%
 	}{%
-		\newcommand{\publicationlistname}{List of publications}%
+		\newcommand{\publicationlistname}{List of the publications of the author}%
 	}
 }
 
@@ -208,25 +208,53 @@
 %%--------------------
 %% Multibib
 \gdef\hdr@publicationlist{}
-\newcommand{\hdrpublicationlist}{%
-	\chapter{\publicationlistname}\label{chap:hdrpublicationlist}%
+\newcommand{\hdr@declarebiblio@header@filter}[1]{#1}
+\newcommand{\hdrpublicationlist}[1][\publicationlistname]{%
+	\chapter[#1]{\publicationlistname}\label{chap:hdrpublicationlist}%
 	\global\let\oldthebibliography\thebibliography%
 	\renewcommand{\thebibliography}[2][]{%
 		\global\let\oldchapter\chapter%
-		\renewcommand{\chapter}[3][]{\section{####3}}%
+		\global\let\oldmkboth\@mkboth%
+		\global\renewcommand{\chapter}[2]{%
+			\sectionfull{####2}{\expandafter\csname @refname@header@label@\hdr@declarebiblio@current\endcsname}%
+			\global\renewcommand{\@mkboth}[2]{}%
+		}%
 		\oldthebibliography{##1}%
+		\global\let\@mkboth\oldmkboth%
 		\global\let\chapter\oldchapter%
 	}%
 	\hdr@publicationlist%
 	\global\let\thebibliography\oldthebibliography%
 }
+\newcommand{\hdr@declarebiblio@setcurrent}[1]{%
+	\gdef\hdr@declarebiblio@current{#1}%
+}
 \newif\ifhdr@hasmissednumberof
 \hdr@hasmissednumberoffalse
-\newcommand{\declarebiblio}[4][hdr]{%
+\define@key{upmhdrdeclarebiblio}{style}{%
+	\gdef\hdr@declarebiblio@style{#1}%
+}
+\define@key{upmhdrdeclarebiblio}{header}{%
+	\gdef\hdr@declarebiblio@header{#1}%
+}
+\newcommand{\declarebiblio}[4][style=hdr]{%
+	% Default option values
+	\gdef\hdr@declarebiblio@style{hdr}%
+	\global\let\hdr@declarebiblio@header\relax%
+	% Parse options
+	\upm@setkeys{upmhdrdeclarebiblio}{style}{#1}%
+	% Declare cites
 	\expandafter\newcites{#2}{#3}%
-	\csname bibliographystyle#2\endcsname{#1}%
+	\ifx\hdr@declarebiblio@header\relax
+		\expandafter\gdef\csname @refname@header@label@#2\endcsname{\csname refname#2\endcsname}%
+	\else%
+		\expandafter\protected@xdef\csname @refname@header@label@#2\endcsname{\hdr@declarebiblio@header}%
+	\fi%
+	\expandafter\csname bibliographystyle#2\endcsname{\hdr@declarebiblio@style}%
+	\expandafter\xdef\csname upm@declarebiblio@headertitle@#2\endcsname{\hdr@declarebiblio@header}%
 	\protected@xdef\hdr@publicationlist{%
 		\hdr@publicationlist%
+		\protect\hdr@declarebiblio@setcurrent{#2}%
 		\protect\csname bibliography#2\endcsname{#4}%
 	}%
 	\expandafter\newcounter{hdr@bibliotype@numberof@#2}%
