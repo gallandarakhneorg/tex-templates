@@ -61,13 +61,13 @@
 \newcommand{\edspim@hdr@protectnl}[1]{%
 	\begingroup%
 		\let\\\newline%
-		\nohyphens{#1}%
+		\nohyphens{\Get{jurystyle}#1}%
 	\endgroup%
 }
 \gdef\edspim@hdr@jurylist{}
 \global\let\thejurytab\relax
 \newcommand{\addjury}[5][]{%
-	\global\protected@edef\edspim@hdr@jurylist{\edspim@hdr@jurylist\protect\protect\upmmakename{#2}{#3}{~} & \protect\edspim@hdr@protectnl{#4} & \protect\edspim@hdr@protectnl{#5} \protect\\}%
+	\global\protected@edef\edspim@hdr@jurylist{\edspim@hdr@jurylist\protect\protect\Get{jurystyle}\protect\protect\upmmakename{#2}{#3}{~} & \protect\edspim@hdr@protectnl{#4} & \protect\edspim@hdr@protectnl{#5} \protect\\}%
 	\global\protected@edef\thejurytab{\protect\noindent\protect\begin{tabularx}{\Get{jurytabwidth}}{@{}llX@{}}\edspim@hdr@jurylist\protect\end{tabularx}}%
 }
 
