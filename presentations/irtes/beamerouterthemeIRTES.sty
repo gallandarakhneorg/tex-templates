@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2013/10/10 Beamer Outer 'IRTES' Theme]
+   [2013/11/26 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
@@ -45,17 +45,32 @@
 		\put(-28.5,-153){\pgfuseimage{IRTEStitle}}%
 		\put(-20,-25){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
 			\nohyphens{\begin{flushleft}\LARGE\textbf{\inserttitle}%
-			\ifthenelse{\equal{a\insertsubtitle}{a}}{%
-				\ifthenelse{\equal{a\inserteventname}{a}}{%
+			\ifthenelse{\boolean{beamer@theme@irtes@eventintitlebar}}{%
+				\ifthenelse{\equal{a\insertsubtitle}{a}}{%
+					\ifthenelse{\equal{a\inserteventname}{a}}{%
+					}{%
+						\\\footnotesize\inserteventname%
+					}%
 				}{%
-					\\\footnotesize\inserteventname%
+					\\\footnotesize\insertsubtitle%
 				}%
 			}{%
-				\\\footnotesize\insertsubtitle}\end{flushleft}}}}%
+				\ifthenelse{\equal{a\insertsubtitle}{a}}{}{%
+					\\\footnotesize\insertsubtitle%
+				}
+			}%
+			\end{flushleft}}}}%
 		\put(-20,-95){\parbox[c]{\beamer@theme@irtes@outer@linewidth}{\begin{center}
 			{\usebeamercolor[fg]{author}\large\bf\insertauthor}
-			\ifthenelse{\equal{a\insertsubtitle}{a}}{}{%
-				\ifthenelse{\equal{a\inserteventname}{a}}{{}}{\\[.1cm]\usebeamercolor[fg]{author}\footnotesize\inserteventname}}
+			\ifthenelse{\boolean{beamer@theme@irtes@eventintitlebar}}{%
+				\ifthenelse{\equal{a\insertsubtitle}{a}}{}{%
+					\ifthenelse{\equal{a\inserteventname}{a}}{{}}{\\[.1cm]\usebeamercolor[fg]{author}\footnotesize\inserteventname}%
+				}%
+			}{%
+				\ifthenelse{\equal{a\inserteventname}{a}}{}{%
+					\\\usebeamercolor[fg]{author}\footnotesize\inserteventname%
+				}%
+			}%
 			\end{center}}}%
 		\put(60,-141){\tiny\parbox[c]{\beamer@theme@irtes@outer@linewidth}{\begin{flushleft}%
 			{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}\end{flushleft}}}%

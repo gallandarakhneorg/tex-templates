@@ -36,6 +36,9 @@
 \newlength\beamer@theme@irtes@contentheight
 \setlength{\beamer@theme@irtes@contentheight}{6cm}
 
+\newboolean{beamer@theme@irtes@eventintitlebar}
+\setboolean{beamer@theme@irtes@eventintitlebar}{true}
+
 %%%%%%%--------------------------------------
 %%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
 %%%%%%%--------------------------------------
@@ -72,6 +75,12 @@
 }
 \DeclareOptionBeamer{partsectioncirclenumberstyle}{%
 	\global\setcounter{@beamer@theme@irtes@visualframenumber}{4}%
+}
+\DeclareOptionBeamer{eventintitlebar}{%
+	\setboolean{beamer@theme@irtes@eventintitlebar}{true}%
+}
+\DeclareOptionBeamer{eventbelowauthors}{%
+	\setboolean{beamer@theme@irtes@eventintitlebar}{false}%
 }
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
@@ -441,6 +450,9 @@
 \gdef\beamer@theme@irtes@instituteurl{http://irtes.utbm.fr}
 \newcommand{\instituteurl}[1]{%
 	\gdef\beamer@theme@irtes@instituteurl{#1}
+}
+\newcommand{\insertinstituteurl}{%
+	\expandafter\url{\beamer@theme@irtes@instituteurl}%
 }
 \institute[IRTES]{
 	\textbf{Universit\'e de Technologie de Belfort-Montb\'eliard}, \\[0cm]
