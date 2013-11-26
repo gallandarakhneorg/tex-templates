@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/10/10 Beamer Base Defs 'IRTES' Theme]
+   [2013/11/26 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -463,23 +463,23 @@
                 }%
         }%
 }
-\newcommand{\partnerlogo}[1]{%
+\newcommand{\partnerlogo}[2][width=2cm]{%
 	\begingroup%
         %
         \global\let\beamer@theme@irtes@partnerlogo@tmp\relax%
-        \filename@parse{#1}%
+        \filename@parse{#2}%
         \ifx\filename@ext\relax%
                 \@for\beamer@theme@irtes@partnerlogo@exttmp:=\Gin@extensions\do{%
-                        \beamer@theme@irtes@partnerlogo@search{#1\beamer@theme@irtes@partnerlogo@exttmp}%
+                        \beamer@theme@irtes@partnerlogo@search{#2\beamer@theme@irtes@partnerlogo@exttmp}%
                 }%
         \else%
-                \beamer@theme@irtes@partnerlogo@search{#1}%
+                \beamer@theme@irtes@partnerlogo@search{#2}%
         \fi%
         %
         \ifx\@autolatex@wtfig@tmp\relax%
-                \errmessage{Package Beamer/IRTES: File not found '#1', needed for Partner Logo.}%
+                \errmessage{Package Beamer/IRTES: File not found '#2', needed for Partner Logo.}%
         \else%
-		\expandafter\pgfdeclareimage[width=2cm]{IRTESpartnerlogo}{\beamer@theme@irtes@partnerlogo@tmp}%
+		\expandafter\pgfdeclareimage[#1]{IRTESpartnerlogo}{\beamer@theme@irtes@partnerlogo@tmp}%
 		\gdef\beamer@theme@irtes@partnerlogo{\pgfuseimage{IRTESpartnerlogo}}%
         \fi%
 	%

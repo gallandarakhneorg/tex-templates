@@ -142,8 +142,11 @@
 \begin{frame}{\subsecname}
 	\begin{itemize}
 	\item You could add on all slides the logo of your partner: \\
-		\texttt{{\textbackslash}partnerlogo\{filename\}}
+		\texttt{{\textbackslash}partnerlogo[options]\{filename\}}
 	\item The IRTES theme has enough space for only one logo with a width of 2cm.
+	\item The \texttt{filename} is the name of the picture.
+	\item This figure is declared with \texttt{{\textbackslash}pgfdeclareimage} with the key ``IRTESpartnerlogo''.
+	\item The \texttt{options} are passed to \texttt{{\textbackslash}pgfdeclareimage}. The default option is \texttt{width=2cm}.
 	\end{itemize}
 \end{frame}
 
