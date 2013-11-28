@@ -1,0 +1,30 @@
+%Filename: t1fz4.fd
+%Created by: tex fz4l8a-drv
+%Created using fontinst v1.933
+
+%THIS FILE SHOULD BE PUT IN A TEX INPUTS DIRECTORY
+
+\ProvidesFile{t1fz4.fd}
+   [2012/11/08 Fontinst v1.933 font definitions for T1/fz4.]
+
+\DeclareFontFamily{T1}{fz4}{}
+
+\DeclareFontShape{T1}{fz4}{l}{n}{
+   <-> fz4l8t
+}{}
+
+\DeclareFontShape{T1}{fz4}{l}{sc}{
+   <-> fz4lc8t
+}{}
+
+\DeclareFontShape{T1}{fz4}{l}{sl}{
+   <-> fz4lo8t
+}{}
+
+\DeclareFontShape{T1}{fz4}{m}{n}{<->ssub * fz4/l/n}{}
+\DeclareFontShape{T1}{fz4}{m}{sc}{<->ssub * fz4/l/sc}{}
+\DeclareFontShape{T1}{fz4}{m}{sl}{<->ssub * fz4/l/sl}{}
+\DeclareFontShape{T1}{fz4}{l}{it}{<->ssub * fz4/l/sl}{}
+\DeclareFontShape{T1}{fz4}{m}{it}{<->ssub * fz4/l/it}{}
+
+\endinput

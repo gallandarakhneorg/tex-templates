@@ -164,6 +164,11 @@
 \renewcommand{\underline}[1]{\beamer@theme@irtes@oldunderline{\smash{#1}}}
 
 %-----------------------------------------
+% Emphasing
+\let\beamer@theme@irtes@oldemph\emph
+\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
+
+%-----------------------------------------
 % EVENT
 \gdef\inserteventname{}
 \gdef\insertshorteventname{}

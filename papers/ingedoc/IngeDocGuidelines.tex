@@ -1,0 +1,314 @@
+\documentclass{ingedoc}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+\newcommand{\ingedocs}{IngéDoc-2012\xspace}
+
+\title{Author Guidelines for \ingedocs}
+
+\author{Gillian Basso\inst{1}\email{gillian.basso@utbm.fr} \and Stéphane Galland\inst{1}}
+
+\affiliation{
+IRTES-SET \\
+Université de Technologie de Belfort-Montbéliard
+}
+
+% The abstract must be defined in the PREAMBLE
+\begin{abstract}
+This document describes the guidelines for the \ingedocs Conference. This document provides also a simple example of how a paper may be written.
+\end{abstract}
+
+% The keywords must be defined in the PREAMBLE
+\keywords{IngéDoc, Author Guidelines}
+
+\thanks{Thanks to UTBM.}
+
+\begin{document}
+
+This document describes the \LaTeX\ style for the \ingedocs Conference.
+The installation of the style is explained. The configuration of the style is briefly explained according to the step in the submission process.
+
+\section{Style Package Preparation}
+
+\textcolor{red}{This section is for the Conference Chairs, not for the Authors. It is assumed that the conference chairs are running the Linux operating system.}
+
+This section is dedicated to the members of the Organization Board. A complete \LaTeX\ distribution must be already installed on your system.
+
+The packaging of the \ingedocs \LaTeX\ style from a Linux operating system is:
+\begin{enumerate}
+\item Download \texttt{ingedoc-src-2012.tar.gz}
+\item Unpack \texttt{ingedoc-src-2012.tar.gz}
+\item Open an interactive shell
+\item \texttt{cd path/to/ingedocs-2012}
+\item \texttt{cd adobe-fonts}
+\item Run: \texttt{./generatefonts.sh}
+\item \texttt{cd ..}
+\item \texttt{rm -rf adobe-fonts}
+\item \texttt{cd ..}
+\item \texttt{tar cvfz ingedocs-for-authors-2012.tar.gz path/to/ingedocs-2012}
+\item Provide the file \texttt{ingedocs-for-authors-2012.tar.gz} to the authors.
+\end{enumerate}
+
+\section{Installation for Authors on Linux}
+
+This section is dedicated to the installation of the \LaTeX\ style of \ingedocs for the authors on the Linux operating system.
+
+\begin{enumerate}
+\item Download \texttt{ingedoc-for-authors-2012.tar.gz}
+\item Unpack \texttt{ingedoc-for-authors-2012.tar.gz}
+\item Open an interactive shell
+\item \texttt{cd path/to/ingedocs-2012}
+\item Run: \texttt{./installfonts.sh}
+\end{enumerate}
+
+\section{Installation for Authors on Windows}
+
+This section is dedicated to the installation of the \LaTeX\ style of \ingedocs for the authors on the Windows operating system.
+
+\begin{enumerate}
+\item Download \texttt{ingedoc-for-authors-2012.tar.gz}
+\item Unpack \texttt{ingedoc-for-authors-2012.tar.gz}
+\item Go to the folder \texttt{path{\textbackslash}to{\textbackslash}ingedocs-2012}
+\item Run \texttt{installfonts.bat} by double-clicking on it.
+\end{enumerate}
+
+\section{Uninstallation for Authors on Linux}
+
+This section is dedicated to the uninstallation of the \LaTeX\ style of \ingedocs for the authors on the Linux operating system.
+
+\begin{enumerate}
+\item Open an interactive shell
+\item \texttt{cd path/to/ingedocs-2012}
+\item Run: \texttt{./uninstallfonts.sh}
+\end{enumerate}
+
+\section{Uninstallation for Authors on Windows}
+
+This section is dedicated to the uninstallation of the \LaTeX\ style of \ingedocs for the authors on the Windows operating system.
+
+\begin{enumerate}
+\item Go to the folder \texttt{path{\textbackslash}to{\textbackslash}ingedocs-2012}
+\item Run \texttt{uninstallfonts.bat} by double-clicking on it.
+\end{enumerate}
+
+\section{Configuration of the \LaTeX\ Class}
+
+Now, you are able to write your paper for \ingedocs.
+The \ingedocs guuidelines for the authors are all coded in the \LaTeX\ class \texttt{ingedoc}.
+For writing your paper for \ingedocs, you must use this document class, as illustrated by the following skeleton:
+\begin{verbatim}
+\documentclass[options]{ingedoc}
+% The preamble of your document
+\begin{document}
+% The text of your paper
+\end{document}
+\end{verbatim}
+
+The \texttt{options} of the \texttt{ingedoc} class are described in the following subsections.
+
+The preamble of the \LaTeX\ document must contains the following elements:  title, authors, affiliation, abstract, keywords, and acknowledgements. See the following sections for details.
+
+\subsection{Class Options}
+
+\subsubsection{Language Definition}
+	\begin{itemize}
+	\item \texttt{english}: the paper is written in English. Default option.
+	\item \texttt{french}: the paper is written in French.
+	\end{itemize}
+\subsubsection{Submission Stage}
+	\begin{itemize}
+	\item \texttt{draft}: the paper is a draft: the names of the authors are not blinded, only the figures' bounds are output, and ``The Sans'' font is not used (note that the used fonts are close to ``The Sans'').
+	\item \texttt{submit}: the paper is written in a submittable version: the names of the authors are not blinded, the figures are output, and ``The Sans'' font is not used (note that the used fonts are close to ``The Sans''). Default option.
+	\item \texttt{blind}: the paper is written in a version for the reviewers: the names of the authors are blinded, the figures are output, and ``The Sans'' font is not used (note that the used fonts are close to ``The Sans'').
+	\item \texttt{final}: the paper is ready to be printed in the proceedings: the names of the authors are not blinded, the figures are output, and the ``The Sans'' font is used.
+	\end{itemize}
+\subsubsection{Lettrine}
+	\begin{itemize}
+	\item \texttt{lettrine}: the paper starts with a lettrine. Default option.
+	\item \texttt{nolettrine}: the paper does not start with a lettrine.
+	\end{itemize}
+\subsubsection{Non-Free Font}
+	\begin{itemize}
+	\item \texttt{thesansfont}: the proprietary/non-free font \texttt{TheSans} must be used.
+	\item \texttt{nothesansfont}: the proprietary/non-free font \texttt{TheSans} must not used.
+	\end{itemize}
+
+\subsection{Title of the Paper}
+
+The title of the paper must be defined in the preamble of the \LaTeX\ document with the \texttt{{\textbackslash}title} macro.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}title\{the title of the paper\}}
+
+\textthesansbold{Example:} \texttt{{\textbackslash}title\{Author Guidelines for \ingedocs\}}
+
+\subsection{Authors of the Paper}
+
+The authors of the paper must be defined in the preamble of the \LaTeX\ document with the \texttt{{\textbackslash}author} macro.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}author\{the authors\}}
+
+The names of the authors must be separated by the \texttt{{\textbackslash}and} macro.
+
+Each name could be following by one of the following macros:
+\begin{itemize}
+\item \texttt{{\textbackslash}email\{adr@domain.com\}}: permits to specify the contact email of the author.
+\item \texttt{{\textbackslash}inst\{number\}}: permits to specify the institution of the author. The institution is specified in the affiliation macro (see Section~\ref{sec:affiliation}). The number is associated to each institution by the affiliation macro.
+\end{itemize}
+
+\textthesansbold{Example:} \texttt{{\textbackslash}author\{Gillian Basso{\textbackslash}inst\{1\} {\textbackslash}email\{gillian.basso@utbm.fr\} {\textbackslash}and Stéphane Galland{\textbackslash}inst\{12\}\}}
+
+\subsection{Affiliation of the Authors}\label{sec:affiliation}
+
+The affiliation of the authors must be defined in the preamble of the \LaTeX\ document with the \texttt{{\textbackslash}affiliation} macro.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}affiliation\{institutions\}}
+
+
+The institutions are separated by the macro \texttt{{\textbackslash}and}.
+
+\textthesansbold{Example:} \texttt{{\textbackslash}affiliation\{
+IRTES-SET {\textbackslash}{\textbackslash}
+Université de Technologie de Belfort-Montbéliard
+{\textbackslash}and
+CITAT {\textbackslash}{\textbackslash}
+Universidad de Technologia de Tucum{\textbackslash}`an
+\}}
+
+\subsection{Abstract of the Paper}
+
+The abstract of the paper must be defined in the preamble of the \LaTeX\ document inside the environment \texttt{abstract}.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}begin\{abstract\} text of the abstract {\textbackslash}end\{abstract\}}
+
+\textthesansbold{Example:} \texttt{{\textbackslash}begin\{abstract\} This document describes the guidelines for the \ingedocs Conference. This document provides also a simple example of how a paper may be written. {\textbackslash}end\{abstract\}}
+
+\subsection{Keywords of the Paper}
+
+The keywords of the paper must be defined in the preamble of the \LaTeX\ document with the \texttt{{\textbackslash}keywords} macro.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}keywords\{ the keywords \}}
+
+\textthesansbold{Example:} \texttt{{\textbackslash}keywords\{ IngéDoc, Author Guidelines \}}
+
+\subsection{Bibliography}
+
+To include a bibliography, you should write a Bib\TeX\ file, and include it with the \texttt{{\textbackslash}bibliography} macro.
+
+\textthesansbold{Example:} \texttt{{\textbackslash}bibliography\{biblio\}}
+
+\subsection{Acknowledgement}
+
+You are able to put acknowledgements in your paper with the \texttt{{\textbackslash}thanks} macro.
+
+\textthesansbold{Syntax:} \texttt{{\textbackslash}thanks\{ text \}}
+
+\textthesansbold{Example:} \texttt{{\textbackslash}thanks\{ Thanks to UTBM. \}}
+
+\section{Additional Guidelines}
+
+This section details the author guidelines that are not directly supported by the \LaTeX\ style.
+
+\subsection{Figures}
+
+Each figure must have a caption, as illustrated by Figure~\ref{fig:thefigure}.
+
+\begin{verbatim}
+\begin{figure}
+	\includegraphics{utbm.pdf}
+	\caption{Example of a Figure}
+	\label{fig:thefigure}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}
+	\includegraphics{utbm.pdf}
+	\caption{Example of a Figure}
+	\label{fig:thefigure}
+\end{figure}
+
+
+The preferred formats for the images are (in the preference order):
+\begin{itemize}
+\item \texttt{.pdf} with embedded vectorial picture.
+\item \texttt{.png}
+\item \texttt{.jpeg}
+\end{itemize}
+
+\subsection{Tables}
+
+All the tables and arrays must be put inside a \texttt{table} float.
+Each table must have a caption, as illustrated by Table~\ref{tab:thetable}.
+If you table has columns with titles, each title must be formatted with the \texttt{{\textbackslash}tabletitle} macro.
+
+\begin{verbatim}
+\begin{table}
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\tabletitle{H 1} & \tabletitle{H 2} &
+	\tabletitle{H 3} \\
+	\hline
+	Cell 1 & Cell 2 & Cell 2 \\
+	\hline
+	\end{tabular}
+	\caption{Example of a Figure}
+	\label{tab:thetable}
+\end{table}
+\end{verbatim}
+
+\begin{table}
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\tabletitle{H 1} & \tabletitle{H 2} & \tabletitle{H 3} \\
+	\hline
+	Cell 1 & Cell 2 & Cell 2 \\
+	\hline
+	\end{tabular}
+	\caption{Example of a Figure}
+	\label{tab:thetable}
+\end{table}
+
+\subsection{Style of the Text}
+
+The \ingedocs class redefines the standard \LaTeX\ macros related to the text style:
+\begin{itemize}
+\item \texttt{{\textbackslash}emph\{text\}} is emphazing the given text; example: \emph{Emphazed Text}.
+\item \texttt{{\textbackslash}textbf\{text\}} is output the given text with a bold face; example: \textbf{Bold Text}. The macro \texttt{{\textbackslash}emph} should be preferred to the macro \texttt{{\textbackslash}textbf}.
+\item \texttt{{\textbackslash}textit\{text\}} is output the given text with an italic face; example: \textit{Italic Text}. The macro \texttt{{\textbackslash}emph} should be preferred to the macro \texttt{{\textbackslash}textit}.
+\item \texttt{{\textbackslash}textmd\{text\}} is output the given text with a semi-bold face; example: \textmd{Semi-Bold Text}.
+\item \texttt{{\textbackslash}texttt\{text\}} is output the given text with a typewriter font; example: \texttt{Typewriter Text}.
+\item \texttt{{\textbackslash}textsc\{text\}} is output the given text with a small-cap font; example: \textsc{Small-Cap Text}.
+\item \texttt{{\textbackslash}textup\{text\}} is output the given text with the standard face; example: \textup{Standard Text}.
+\end{itemize}
+
+
+\textbf{Caution:} the \TeX\ macros (\texttt{{\textbackslash}bfseries}, \texttt{{\textbackslash}scshape}...) are not redefined by the \ingedocs style. They are still using the standard \TeX\ fonts and not ``The Sans'' font.
+
+\subsection{Bibliography}
+
+The bibliography style must be \texttt{plain}.
+
+\nocite*
+\bibliography{biblio}
+
+\section{Loaded \LaTeX\ Packages}
+
+The \ingedocs class is loaded the following \LaTeX\ packages, so that you could use them in your paper:
+\begin{itemize}
+\item \texttt{ifthen}
+\item \texttt{mathpazo}
+\item \texttt{fontenc}
+\item \texttt{lettrine}
+\item \texttt{vmargin}
+\item \texttt{color}
+\item \texttt{xstring}
+\item \texttt{enumitem}
+\item \texttt{eso-pic}
+\item \texttt{picture}
+\item \texttt{xcolor}
+\item \texttt{geometry}
+\item \texttt{xspace}
+\end{itemize}
+
+\end{document}
