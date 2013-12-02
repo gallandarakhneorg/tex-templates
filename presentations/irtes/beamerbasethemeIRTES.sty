@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/11/26 Beamer Base Defs 'IRTES' Theme]
+   [2013/11/29 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -58,6 +58,7 @@
 \RequirePackage{pifont}
 \RequirePackage{tikz}
 \RequirePackage{environ}% for advanced environment declaration
+\RequirePackage{textcomp}
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{1}}
@@ -88,6 +89,21 @@
 %%%%%%%--------------------------------------
 %%%%%%% PROTECTED API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Fixing a strange bug: the default color of the
+% text is not the "normal text" color.
+% Also reset the font in case of a bug! ;-)
+\let\beamer@theme@irtes@old@frame\frame
+\gdef\frame{\normalcolor\normalfont\beamer@theme@irtes@old@frame}
+
+%-----------------------------------------
+% Wrap the text formatting functions (for inside the titles)
+\long\gdef\@beamer@theme@irtes@wraptextformats#1{%
+	\let\@beamer@theme@irtes@oldtextsc\textsc%
+	\def\textsc##1{\smaller\MakeUppercase{##1}\larger}#1%
+	\let\textsc\@beamer@theme@irtes@oldtextsc%
+}
 
 %-----------------------------------------
 % Put the first parameter at the end of the second
@@ -159,6 +175,15 @@
 %%%%%%%--------------------------------------
 
 %-----------------------------------------
+% Localized quotes
+\def\selectguillemotfont{\fontencoding{T1}\fontfamily{cmr}\selectfont}
+\def\guillemotleft{{\selectguillemotfont\symbol{19}}\,}
+\def\guillemotright{\,{\selectguillemotfont\symbol{20}}}
+\newcommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
+\newcommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
+\newcommand{\latquote}[1]{\textit{#1}\xspace}
+
+%-----------------------------------------
 % Underline
 \let\beamer@theme@irtes@oldunderline\underline
 \renewcommand{\underline}[1]{\beamer@theme@irtes@oldunderline{\smash{#1}}}
@@ -167,6 +192,27 @@
 % Emphasing
 \let\beamer@theme@irtes@oldemph\emph
 \renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
+
+%-----------------------------------------
+% Footnote
+\let\beamer@theme@irtes@oldfootnote\footnote
+\gdef\beamer@theme@irtes@footnote#1{%
+	\global\let\oldthefootnote\thefootnote%
+	\global\let\thefootnote\relax%
+	\footnotetext{#1}%
+	\global\let\thefootnote\oldthefootnote}
+\gdef\footnote{\@ifstar\beamer@theme@irtes@footnote\beamer@theme@irtes@oldfootnote}
+
+%-----------------------------------------
+% Citation in footnote
+\newcommand{\footcite}[1]{\footnote*{\cite{#1}}}
+
+%-----------------------------------------
+% Side note
+\let\beamer@theme@irtes@sidenote\relax
+\newcommand{\sidenote}[1]{%
+	\gdef\beamer@theme@irtes@sidenote{#1}%
+}
 
 %-----------------------------------------
 % EVENT
@@ -506,18 +552,16 @@
 %-----------------------------------------
 % Table of content
 \newcommand{\tableofcontentslide}[1][hideallsubsections]{%
-	\begin{frame}[c]%
-	\frametitle{\translate{Outline}}%
+	\begin{frame}[c]{\translate{Outline}}%
 	\small\tableofcontents[#1]%
 	\end{frame}%
 }
 
 %-----------------------------------------
 % Slide Environment
-\newenvironment{slide}[2][]{%
+\newenvironment{slide}[2][t]{%
 	\PackageWarning{IRTES Beamer Style}{Environment 'slide' is deprecated}%
-	\begin{frame}[#1]\frametitle{#2}%
-	\usebeamercolor[fg]{normal text}%
+	\begin{frame}[#1]{#2}%
 }{%
 	\end{frame}%
 }
@@ -542,7 +586,7 @@
 	\global\beamer@theme@irtes@figureslide@dynamic@heighttrue%
 	\setkeys{beamerthemeirtesfigureslide}{#1}%
 	\savebox{\beamer@theme@irtes@figureslide@box}{\includegraphics{#3}}%
-	\begin{frame}[c]\frametitle{#2}%
+	\begin{frame}[c]{#2}%
 		\begin{center}%
 			\ifbeamer@theme@irtes@figureslide@dynamic@width%
 				\ifbeamer@theme@irtes@figureslide@dynamic@height%
@@ -569,6 +613,7 @@
 		\end{center}%
 	\end{frame}%
 }
+
 
 %-----------------------------------------
 % Bibliography
@@ -597,6 +642,9 @@
 	\end{frame}%
 }
 
+% Remove icons from the bibliography
+\setbeamertemplate{bibliography item}{}
+
 %-----------------------------------------
 % Appendix
 \global\let\beamer@theme@irtes@oldappendix\appendix
@@ -621,22 +669,33 @@
 
 %-----------------------------------------
 % Alert box
-\newcommand{\beamer@theme@irtes@alertbox@one}[1]{%
-	\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{block body alerted}%
+\def\beamer@theme@irtes@alertbox@noframed#1{%
+	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{\beamer@theme@irtes@alertbox@style}%
 		\centering\nohyphens{#1}%
 	\end{beamercolorbox}%
 }
-\newcommand{\beamer@theme@irtes@alertbox@two}[1]{%
-	\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{block body remark}%
-		\centering\nohyphens{#1}%
-	\end{beamercolorbox}%
+\def\beamer@theme@irtes@alertbox@framed<#1>#2{%
+	\only<#1>{%
+		\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{block body alerted}%
+			\centering\nohyphens{#2}%
+		\end{beamercolorbox}%
+	}%
 }
-\def\alertbox{\@ifstar\beamer@theme@irtes@alertbox@two\beamer@theme@irtes@alertbox@one}
+\def\beamer@theme@irtes@alertbox@nostar{%
+	\gdef\beamer@theme@irtes@alertbox@style{block body alerted}%
+	\@ifnextchar<\beamer@theme@irtes@alertbox@framed\beamer@theme@irtes@alertbox@noframed%
+}
+\def\beamer@theme@irtes@alertbox@star{%
+	\gdef\beamer@theme@irtes@alertbox@style{block body remark}%
+	\@ifnextchar<\beamer@theme@irtes@alertbox@framed\beamer@theme@irtes@alertbox@noframed%
+}
+\def\alertbox{\@ifstar\beamer@theme@irtes@alertbox@star\beamer@theme@irtes@alertbox@nostar}
 
 %-----------------------------------------
 % Description environment with bullets
 \let\beamer@theme@irtes@description@olditem\item
-\newcommand{\beamer@theme@irtes@itemc}[1][]{\ifthenelse{\equal{a#1}{a}}{}{\alert{#1}\xspace}}%
+\def\beamer@theme@irtes@description@afterseparator{}
+\newcommand{\beamer@theme@irtes@itemc}[1][]{\ifthenelse{\equal{a#1}{a}}{}{\alert{#1\beamer@theme@irtes@description@afterseparator}\xspace}}%
 \long\def\beamer@theme@irtes@itema<#1>{%
 	\beamer@theme@irtes@description@olditem<#1>\relax\beamer@theme@irtes@itemc%
 }

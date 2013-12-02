@@ -270,11 +270,12 @@
 \begin{frame}{\subsecname}
 	The IRTES theme defines the a box for alerts: \\
 	\begin{itemize}
-	\item \texttt{{\textbackslash}alertbox\{this is an alert text\}} \\[.5cm]
+	\item \texttt{{\textbackslash}alertbox\ensuremath{<}frame\_spec\ensuremath{>}\{this is an alert text\}} \\[.5cm]
 		\alertbox{this is an alert text}
 		\vspace{1cm}
-	\item \texttt{{\textbackslash}alertbox*\{this is an alert text\}} \\[.5cm]
+	\item \texttt{{\textbackslash}alertbox*\ensuremath{<}frame\_spec\ensuremath{>}\{this is an alert text\}} \\[.5cm]
 		\alertbox*{this is an alert text}
+	\item Note that \texttt{\ensuremath{<}frame\_spec\ensuremath{>}} is optional. It permits to specify the Beamer frame in which the box is displayed.
 	\end{itemize}
 \end{frame}
 
@@ -325,6 +326,53 @@
 	\texttt{{\textbackslash}textdown} & ABC\textdown{ABC}D & - & - \\
 	\hline
 	\end{tabularx}
+\end{frame}
+
+\subsection{Footnotes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES theme provides two versions of the footnote macro:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}footnote\{text\}} shows a footnote with a number, and
+		\item \texttt{{\textbackslash}footnote*\{text\}} shows a footnote without a number.
+		\end{itemize}
+	\item Additionnally, a footnote with bibliography citation may be added:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}footcite\{keys\}} shows the given citations in a footnote.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Side Notes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES theme provides a macro to put a text on the side of the frame \\
+		\texttt{{\textbackslash}sidenode\{text\}}
+	\item Example: \texttt{{\textbackslash}sidenote\{text on the side\}}
+		\sidenote{text on the side}
+	\end{itemize}
+\end{frame}
+
+\subsection{Localized Quotes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES theme provides macros to output localized quotes:
+		\begin{description}
+		\item[English] \texttt{{\textbackslash}ukquote{text}} \\
+			Example: \ukquote{text}
+		\item[French] \texttt{{\textbackslash}frquote{text}} \\
+			Example: \frquote{text}
+		\item[Latin] \texttt{{\textbackslash}latquote{text}} \\
+			Example: \latquote{text}
+		\end{description}
+	\item The following macros are used by the quote macros:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}textgravedbl} : \textgravedbl
+		\item \texttt{{\textbackslash}textacutedbl} : \textacutedbl
+		\item \texttt{{\textbackslash}guillemotleft} : \guillemotleft
+		\item \texttt{{\textbackslash}guillemotright} : \guillemotright
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \subsection{Frame Number}
