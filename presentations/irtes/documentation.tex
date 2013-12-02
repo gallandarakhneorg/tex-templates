@@ -10,10 +10,6 @@
 
 \author[S.~Galland]{St\'ephane~Galland}
 
-\AtBeginSection[]{
-  	\tableofcontentslide[currentsection,hideothersubsections]
-}
-
 \finalslidetext{End of the Documentation}
 
 \begin{document}
@@ -279,6 +275,63 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Enhanced Description}
+\begin{frame}{\subsecname}
+	The IRTES theme provides an enhanced definition of the \texttt{description} environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{description\}} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item[Item Name] text2} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$[Item Name] text2} \\
+	\texttt{{\textbackslash}end\{description\}}} \\[.5cm]
+	\begin{description}
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{description}
+\end{frame}
+
+\subsection{Enhanced Enumeration}
+\begin{frame}{\subsecname (1/2)}
+	The IRTES theme provides an enhanced definition of the \texttt{enumerate} environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{enumerate\}[counter format]} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item[Item Name] text2} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$[Item Name] text2} \\
+	\texttt{{\textbackslash}end\{enumerate\}}} \\[.5cm]
+	\begin{enumerate}
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{\subsecname (2/2)}
+	Below, the optional parameter \texttt{counter format} is set to \texttt{"a)"}: \\[.5cm]
+	\begin{enumerate}[a)]
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{enumerate}
+\end{frame}
+
+\subsection{Text Size}
+
+\begin{frame}{\subsecname}
+	In addition to the standard Beamer macros for selected the text side (\texttt{{\textbackslash}TINY}, \texttt{{\textbackslash}Tiny}, \texttt{{\textbackslash}tiny}, \texttt{{\textbackslash}footnotesize}, \texttt{{\textbackslash}scriptisize}, \texttt{{\textbackslash}small}, \texttt{{\textbackslash}normalsize}, \texttt{{\textbackslash}large}, \texttt{{\textbackslash}Large}, \texttt{{\textbackslash}huge}, \texttt{{\textbackslash}Huge}), the IRTEs theme enables the following macros:
+	\begin{itemize}
+	\item \texttt{{\textbackslash}smaller} : to decrease the size of the text, and
+	\item \texttt{{\textbackslash}larger} : to increase the size of the text.
+	\end{itemize}
+\end{frame}
+\makeatother
+
 \subsection{Underlining}
 
 \makeatletter
@@ -435,7 +488,7 @@
 \end{frame}
 
 \subsection{Zooming on a \TeX\ Box}
-\begin{frame}{\subsecname}
+\begin{frame}{\subsecname\ (1/2)}
 	\begin{itemize}
 	\item Beamer provides the macro \texttt{{\textbackslash}framezoom} to zoom on a part of a frame. \emph{But, it create a new slide and it is difficult to return to the original slide with a single click}.	
 	\item The IRTES theme provides a new macro for zooming on click.
@@ -452,8 +505,14 @@
 			\item \texttt{margin=XXpt}: specify the size of all of the margins.
 			\end{enumerate}
 		\end{itemize}
-	\item \alert{The macro \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{\subsecname\ (2/2)}
+	\begin{alertblock}{Caution}
+	The macro \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)
+	\end{alertblock}
+	\vfill
 	\begin{center}
 		\zoombox{ZOOMING EXAMPLE}
 	\end{center}
