@@ -33,10 +33,11 @@
 \setlength\beamer@theme@irtes@outer@titlewidth{\paperwidth}
 \addtolength{\beamer@theme@irtes@outer@titlewidth}{-9em}
 
+\newlength\beamer@theme@irtes@outer@sideboxwidth
+\setlength\beamer@theme@irtes@outer@sideboxwidth{6.8cm}
+
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{IRTESbackground}{IRTESbackground}
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{IRTEStitle}{IRTEStitle}
-
-\setlength\beamer@theme@irtes@outer@titlewidth{\paperwidth}
 
 \setbeamertemplate{navigation symbols}{}
 
@@ -44,7 +45,7 @@
 		\begin{picture}(0,0)(0,0)%
 		\put(-28.5,-153){\pgfuseimage{IRTEStitle}}%
 		\put(-20,-25){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
-			\nohyphens{\begin{flushleft}\LARGE\textbf{\inserttitle}%
+			\nohyphens{\begin{flushleft}\LARGE\textbf{\@beamer@theme@irtes@wraptextformats{\inserttitle}}%
 			\ifthenelse{\boolean{beamer@theme@irtes@eventintitlebar}}{%
 				\ifthenelse{\equal{a\insertsubtitle}{a}}{%
 					\ifthenelse{\equal{a\inserteventname}{a}}{%
@@ -82,7 +83,7 @@
 \setbeamertemplate{part page}{%
 		\begin{picture}(0,0)(0,0)%
 		\put(-20,-39){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
-			\nohyphens{\begin{flushleft}\LARGE\textbf{\beamer@partname}%
+			\nohyphens{\begin{flushleft}\LARGE\textbf{\@beamer@theme@irtes@wraptextformats{\beamer@partname}}%
 		\end{flushleft}}}}%
 		\put(257,-163.25){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
 		\ifbeamer@theme@irtes@part@hasauthor%
@@ -95,16 +96,26 @@
 
 \setbeamertemplate{frametitle}{%
 		\begin{picture}(0,40)(0,0)%
-		\put(60,9){\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
-			\nohyphens{\begin{flushleft}%
-			{\usebeamercolor[fg]{frametitle}\large\bf\insertframetitle}%
+		\put(60,9){\usebeamercolor[fg]{frametitle}%
+			\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
+			\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@irtes@wraptextformats{\insertframetitle}%
 			\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
-				\usebeamercolor[fg]{framesubtitle}\small\bf~--~\insertframesubtitle}%
+				\usebeamercolor[fg]{framesubtitle}\small\bf~--~\@beamer@theme@irtes@wraptextformats{\insertframesubtitle}}%
 			\end{flushleft}}%
 		}}%
+		% Side note
+		\ifx\beamer@theme@irtes@sidenote\relax\else%
+			\put(328,-210){\rotatebox{90}{\parbox[c]{\beamer@theme@irtes@outer@sideboxwidth}{%
+					\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}%
+					\beamer@theme@irtes@sidenote%
+			}}}%
+			\global\let\beamer@theme@irtes@sidenote\relax%
+		\fi%
+		% Frame number
 		\put(290,31){\parbox[c]{3em}{%
 			{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
 		}}%
+		% Partner logo
 		\put(257,-228){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
 		\end{picture}%
 }
@@ -117,22 +128,6 @@
 			\@beamer@theme@irtes@postfix{~--~}{\insertshorteventname}%
 			\insertshortinstitute}}%
 	\end{picture}%
-}
-
-\setbeamertemplate{frametitle}{%
-		\begin{picture}(0,40)(0,0)%
-		\put(60,9){\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
-			\nohyphens{\begin{flushleft}%
-			{\usebeamercolor[fg]{frametitle}\large\bf\insertframetitle}%
-			\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
-				\usebeamercolor[fg]{framesubtitle}\small\bf~--~\insertframesubtitle}%
-			\end{flushleft}}%
-		}}%
-		\put(290,31){\parbox[c]{3em}{%
-			{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
-		}}%
-		\put(257,-228){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
-		\end{picture}%
 }
 
 \newcommand{\beamer@theme@irtes@outer@thanksslide}{%
