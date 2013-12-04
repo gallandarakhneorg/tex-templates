@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/12/04 Beamer Base Defs 'IRTES' Theme]
+   [2013/12/05 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -176,6 +176,23 @@
 %%%%%%%--------------------------------------
 %%%%%%% PUBLIC API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Put something at an absolute position
+\newcounter{beamer@theme@irtes@absolutepositionelements@cnt}
+\setcounter{beamer@theme@irtes@absolutepositionelements@cnt}{0}
+
+\long\def\putat(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@irtes@absolutepositionelements@cnt}{1}%
+	\expandafter\gdef\csname @tmp@\arabic{beamer@theme@irtes@absolutepositionelements@cnt}\endcsname{\put(#1,#2){#3}}%
+}
+\newcommand{\beamer@theme@irtes@insertabsolutepositionelements}{%
+	\whiledo{\arabic{beamer@theme@irtes@absolutepositionelements@cnt}>0}{%
+		\csname @tmp@\arabic{beamer@theme@irtes@absolutepositionelements@cnt}\endcsname%
+		\global\addtocounter{beamer@theme@irtes@absolutepositionelements@cnt}{-1}%
+	}%
+	\global\setcounter{beamer@theme@irtes@absolutepositionelements@cnt}{0}%
+}
 
 %-----------------------------------------
 % Localized quotes

@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2013/11/26 Beamer Outer 'IRTES' Theme]
+   [2013/12/05 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
@@ -111,6 +111,8 @@
 			}}}%
 			\global\let\beamer@theme@irtes@sidenote\relax%
 		\fi%
+		% Absolute elements
+		\beamer@theme@irtes@insertabsolutepositionelements%
 		% Frame number
 		\put(290,31){\parbox[c]{3em}{%
 			{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
