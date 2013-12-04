@@ -115,15 +115,12 @@
 \deftranslation[to=English]{ColumnChar}{:}
 \deftranslation[to=English]{Thanks}{Thank you for your attention\dots}
 \deftranslation[to=English]{Questions}{Questions\dots}
-\deftranslation[to=English]{Bibliography}{Bibliography}
 \deftranslation[to=French]{ColumnChar}{\,:}
 \deftranslation[to=French]{Thanks}{Merci de votre attention\dots}
 \deftranslation[to=French]{Questions}{Questions\dots}
-\deftranslation[to=French]{Bibliography}{Bibliographie}
 \deftranslation[to=German]{ColumnChar}{ :}
 \deftranslation[to=German]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
 \deftranslation[to=German]{Questions}{Fragen\dots}
-\deftranslation[to=German]{Bibliography}{Bibliografie}
 
 %-----------------------------------------
 % Thank slide
@@ -638,8 +635,9 @@
 	}%
 }
 \newcommand{\beamer@theme@irtes@bibliographyslide}[1]{%
+	\section{\bibname}%
 	\begin{frame}[t,allowframebreaks]%
-	\frametitle{\translate{Bibliography}}%
+	\frametitle{\bibname}%
 	\tiny%
 	\ifbeamer@theme@irtes@bibliographystyle\else%
 		\beamer@theme@irtes@oldbibliographystyle{apalike}%
