@@ -19,13 +19,13 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/12/05 Beamer Base Defs 'IRTES' Theme]
+   [2013/12/07 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
 %%%%%%%--------------------------------------
 \newcounter{@beamer@theme@irtes@finalslidelabel}
-\setcounter{@beamer@theme@irtes@finalslidelabel}{0} %0: Thanks, 1: Questions, 2: user
+\setcounter{@beamer@theme@irtes@finalslidelabel}{0} %0: Thanks, 1: Questions, 2: user, 3: title
 
 \gdef\beamer@theme@irtes@label@finalslidelabel{}
 
@@ -62,6 +62,7 @@
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{1}}
+\DeclareOptionBeamer{repeattitleslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{3}}
 \DeclareOptionBeamer{textnumberstyle}{%
 	\global\setcounter{@beamer@theme@irtes@visualframenumber}{1}%
 }

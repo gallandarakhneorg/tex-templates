@@ -19,11 +19,13 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2013/12/05 Beamer Outer 'IRTES' Theme]
+   [2013/12/07 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
 \useoutertheme{default}
+
+\gdef\beamer@theme@irtes@outer@offsety{0}
 
 \newlength\beamer@theme@irtes@outer@linewidth
 \setlength\beamer@theme@irtes@outer@linewidth{\paperwidth}
@@ -42,7 +44,7 @@
 \setbeamertemplate{navigation symbols}{}
 
 \setbeamertemplate{title page}{%
-		\begin{picture}(0,0)(0,0)%
+		\expandafter\begin{picture}(0,0)(0,\beamer@theme@irtes@outer@offsety)%
 		\put(-28.5,-153){\pgfuseimage{IRTEStitle}}%
 		\put(-20,-25){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
 			\nohyphens{\begin{flushleft}\LARGE\textbf{\@beamer@theme@irtes@wraptextformats{\inserttitle}}%
@@ -137,8 +139,13 @@
 	\xdef\beamer@theme@irtes@totalcoreframenumber{\the\c@framenumber}
 	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
 	\setbeamertemplate{footline}{}
-	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}
+	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
 	\frame{
+		\ifthenelse{\value{@beamer@theme@irtes@finalslidelabel}=3}{%
+			\gdef\beamer@theme@irtes@outer@offsety{10}%
+			\usebeamertemplate{title page}%
+			\gdef\beamer@theme@irtes@outer@offsety{0}%
+		}{%
 		\begin{picture}(0,10)(0,0)%
 		\put(-20,-38.5){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
 			\nohyphens{\begin{flushleft}\LARGE\textbf{%
@@ -156,6 +163,7 @@
 			{\usebeamercolor[fg]{institute}\insertinstitute}}}%
 		\put(257,-163.25){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
 		\end{picture}%
+		}%
 	}
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
