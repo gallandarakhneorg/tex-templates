@@ -38,7 +38,7 @@
 	\end{itemize}
 \end{frame}
 
-\section{Document Attributes}
+\section{Additional Macros}
 
 \subsection{Class Options}
 \begin{frame}{\subsecname~(1/2)}\smaller
@@ -151,8 +151,6 @@
 	\end{itemize}
 \end{frame}
 
-\section{Document Structure}
-
 \subsection{Part Sectioning}
 \begin{frame}{\subsecname}
 	\begin{itemize}
@@ -182,7 +180,7 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Picture Slide}
+\subsection{Figure Slide}
 \begin{frame}{\subsecname}
 	The IRTES theme provides a macr othat permits to display a picture on the entire slide:
 	\begin{itemize}
@@ -250,7 +248,21 @@
 	\end{itemize}
 \end{frame}
 
-\section{Slide Content}
+\subsection{Headline}
+\begin{frame}{\subsecname}
+	\begin{footnotesize}
+	\begin{itemize}
+	\item Beamer provides an headline in which the progress of the presentation my be shown.
+	In the IRTES theme, this headline is located in place of the IRTES logo, at the top left of the slides.
+	\item You could change this headline with: \begin{itemize}\footnotesize
+		\item \texttt{{\textbackslash}useheaderempty}: the headline is empty.
+		\item \texttt{{\textbackslash}useheaderdefault}: the headline is filled with the default value (may be changed with one of the following macros).
+		\item \texttt{{\textbackslash}useheaderlinewithirteslogo}: the default headline contains the IRTES logo.
+		\item \texttt{{\textbackslash}useheaderlinewithsections}: the default headline contains the sections of the presentation.
+		\end{itemize}
+	\end{itemize}
+	\end{footnotesize}
+\end{frame}
 
 \subsection{Colors}
 \begin{frame}{\subsecname}

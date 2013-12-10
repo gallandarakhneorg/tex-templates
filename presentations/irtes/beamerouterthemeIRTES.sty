@@ -41,7 +41,11 @@
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{IRTESbackground}{IRTESbackground}
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{IRTEStitle}{IRTEStitle}
 
+% No navigation symbols
 \setbeamertemplate{navigation symbols}{}
+
+% Use the IRTES logo in the title
+\useheaderlinewithirteslogo%
 
 \setbeamertemplate{title page}{%
 		\expandafter\begin{picture}(0,0)(0,\beamer@theme@irtes@outer@offsety)%

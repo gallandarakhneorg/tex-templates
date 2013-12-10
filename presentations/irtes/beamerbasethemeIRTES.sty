@@ -174,9 +174,51 @@
 	\end{tikzpicture}%
 }
 
+
 %%%%%%%--------------------------------------
 %%%%%%% PUBLIC API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Headlines
+\global\let\beamer@theme@irtes@headline@default\relax
+\global\gdef\beamer@theme@irtes@headline@current{\beamer@theme@irtes@headline@default}
+\setbeamertemplate{headline}{\beamer@theme@irtes@headline@current}%
+\newcommand{\useheaderempty}{%
+	\gdef\beamer@theme@irtes@headline@current{}%
+}
+\newcommand{\useheaderdefault}{%
+	\gdef\beamer@theme@irtes@headline@current{\beamer@theme@irtes@headline@default}%
+}
+
+\newcommand{\insertheaderlinewithsections}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(-4,11){\parbox[t]{2.65cm}{%
+			\begin{flushleft}%
+				\insertsectionnavigation{\linewidth}%
+			\end{flushleft}%
+			}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithsections}{%
+	\gdef\beamer@theme@irtes@headline@default{\insertheaderlinewithsections}%
+}
+
+\pgfdeclareimage[width=2.3cm]{IRTESlogointitle}{irtes_logo_in_title}
+\newcommand{\insertheaderlinewithirteslogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(8,-40){%
+			\pgfuseimage{IRTESlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithirteslogo}{%
+	\gdef\beamer@theme@irtes@headline@default{\insertheaderlinewithirteslogo}%
+}
+
+\useheaderlinewithirteslogo
+\useheaderdefault
 
 %-----------------------------------------
 % Put something at an absolute position
@@ -414,6 +456,7 @@
 		\beamer@atbeginpart%
 	\fi%
 	\setbeamertemplate{footline}{}%
+	\useheaderempty%
 	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
 	\frame{\partpage}%
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
@@ -421,6 +464,7 @@
 	\ifbeamer@theme@irtes@part@addintoc%
 		\addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partname}{\the\c@page}}%
 	\fi%
+	\useheaderdefault%
 }
 
 
