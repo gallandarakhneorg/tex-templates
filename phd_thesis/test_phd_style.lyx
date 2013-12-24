@@ -351,6 +351,51 @@ Test d'une table
 \end_layout
 
 \begin_layout Section
+Définition
+\end_layout
+
+\begin_layout Standard
+Il est possible d'ajouter des définitions à votre document en utilisant
+ le style de paragraphe 
+\begin_inset Quotes eld
+\end_inset
+
+Definition
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{definition}[The definition]
+\end_layout
+
+\begin_layout Plain Layout
+
+	Ceci est le texte de la definition
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{definition}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Liste à puces
 \end_layout
 
@@ -466,6 +511,16 @@ Environnement
 
 definition
 \begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "test_phd_style_included.lyx"
+
 \end_inset
 
 

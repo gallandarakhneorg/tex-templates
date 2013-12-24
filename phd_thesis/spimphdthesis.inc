@@ -20,42 +20,65 @@
 Input stdclass.inc
 Input numreport.inc
 Input stdfloats.inc
+Input stdcounters.inc
 
 
 OutputType latex
 
-Provides a4wide 1
-Provides amsmath 1
-Provides amsthm 1
-Provides babel 1
-Provides colortbl 1
-Provides graphicx 1
-Provides hyperref 1
-Provides hyphenat 1
-Provides ifthen 1
-Provides mathbb 1
-Provides multicol 1
-Provides picinpar 1
-Provides pifont 1
-Provides setspace 1
-Provides subfigure 1
-Provides tabularx 1
-Provides thmtools 1
-Provides txfonts 1
-Provides url 1
-Provides vmargin 1
-Provides xkeyval 1
-Provides xspace 1
-Provides xcolor 1
+Provides a4wide			1
+Provides amsmath		1
+Provides amsthm			1
+Provides babel			1
+Provides colortbl		1
+Provides graphicx		1
+Provides hyperref		1
+Provides hyphenat		1
+Provides ifthen			1
+Provides mathbb			1
+Provides multicol		1
+Provides picinpar		1
+Provides pifont			1
+Provides setspace		1
+Provides subfigure		1
+Provides tabularx		1
+Provides thmtools		1
+Provides txfonts		1
+Provides url			1
+Provides vmargin		1
+Provides xkeyval		1
+Provides xspace			1
+Provides xcolor			1
 
-Provides description 1
+Provides definition		1
+Provides description		1
+
+Counter DefinitionCounter
+	PrettyFormat		"##"
+End
+
+InsetLayout Flex:Definition
+	LyxType			custom
+	ContentAsLabel		false
+	CopyStyle		Float
+	Decoration		classic
+	Display			true
+	Font
+		Size		Small
+	EndFont
+	InToc			false
+	LabelString		Definition
+	LatexName		definition
+	LatexType		Environment
+	MultiPar		true
+	RefPrefix		"def:"
+End
 
 TitleLatexType			CommandAfter
 TitleLatexName			relax
 
 Style Title
-	InPreamble		1
-	InTitle			0
+	InPreamble		true
+	InTitle			false
 	LatexType		Command
 	LatexName		gdef\edspim@phdthesis@class@title
 End
@@ -64,8 +87,8 @@ Style Subtitle
 	Margin			Static
 	LatexType		Command
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexName		gdef\edspim@phdthesis@class@subtitle
 	ParSkip			0.4
 	ItemSep			0
@@ -85,8 +108,8 @@ Style Author
 	Margin			Static
 	LatexType		Command
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexName		gdef\edspim@phdthesis@class@author
 	LabelSep		xxx
 	ParSkip			0.4
@@ -105,8 +128,8 @@ Style Date
 	Margin			Static
 	LatexType		Command
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexName		gdef\edspim@phdthesis@class@defensedate
 	LabelSep		x
 	ParSkip			0.4
@@ -125,8 +148,8 @@ Style Laboratory
 	Margin			Static
 	LatexType		Command
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexName		addlaboratory
 	LabelSep		x
 	ParSkip			0.4
@@ -148,8 +171,8 @@ Nostyle Right_Address
 Style FrenchAbstract
 	CopyStyle		Abstract
 	LabelString		"Résumé"
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	Category		FrontMatter
 	LatexType		Command
 	LatexName		thesisabstract[french]
@@ -157,8 +180,8 @@ End
 
 Style EnglishAbstract
 	CopyStyle		Abstract
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	Category		FrontMatter
 	LatexType		Command
 	LatexName		thesisabstract[english]
@@ -167,8 +190,8 @@ End
 Style FrenchKeywords
 	CopyStyle		Abstract
 	LabelString		"Mots-clé"
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	Category		FrontMatter
 	LatexType		Command
 	LatexName		thesiskeywords[french]
@@ -177,8 +200,8 @@ End
 Style EnglishKeywords
 	CopyStyle		Abstract
 	LabelString		"Key-Words"
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	Category		FrontMatter
 	LatexType		Command
 	LatexName		thesiskeywords[english]
@@ -189,8 +212,8 @@ Nostyle Abstract
 Style PhDDirector
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		edspim@phdthesis@class@addjury{Directeur}
 	Align			Right
@@ -204,8 +227,8 @@ End
 Style PhDCoDirector
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		edspim@phdthesis@class@addjury{Co-directeur}
 	Align			Right
@@ -219,8 +242,8 @@ End
 Style PhDReviewer
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		edspim@phdthesis@class@addjury{Rapporteur}
 	Align			Right
@@ -234,8 +257,8 @@ End
 Style PhDJuryMember
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		edspim@phdthesis@class@addjury{Examinateur}
 	Align			Right
@@ -249,8 +272,8 @@ End
 Style PhDJuryPresident
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		edspim@phdthesis@class@addjury{Pr\'esident}
 	Align			Right
@@ -264,8 +287,8 @@ End
 Style LibraryNumber
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		gdef\edspim@phdthesis@class@librarynumber
 	Align			Right
@@ -279,8 +302,8 @@ End
 Style Speciality
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		Set{speciality}
 	Align			Right
@@ -294,8 +317,8 @@ End
 Style University
 	Margin			Static
 	Category		FrontMatter
-	InTitle			0
-	InPreamble		1
+	InTitle			false
+	InPreamble		true
 	LatexType		Command
 	LatexName		Set{universityname}
 	Align			Right
