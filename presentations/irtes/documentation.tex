@@ -448,6 +448,24 @@
 	\end{tabularx}
 \end{frame}
 
+\subsection{Example Sections}
+\begin{frame}{\subsecname}
+	\begin{small}
+	The IRTES theme defines the the following macros to put examples in the text (not in a block, as predefined in Beamer):
+	\begin{itemize}
+	\item \texttt{{\textbackslash}insertexamplelabel} insert the text ``example''.
+	\item \texttt{{\textbackslash}insertexampleslabel} insert the text ``examples''.
+	\item \texttt{{\textbackslash}inlineexample\{text\}} insert a example in the text. \\
+		Example: \texttt{This is a text followed by an inline example. {\textbackslash}inlineexample\{some text.\}} \\
+		This is a text followed by an inline example. \inlineexample{some text.}
+	\item \texttt{{\textbackslash}inlineexamples\{text\}} insert examples in the text. \\
+		Example: \texttt{This is a text followed by inline examples. {\textbackslash}inlineexamples\{some text.\}} \\
+		This is a text followed by inline examples. \inlineexamples{some text.}
+	\end{itemize}
+	\end{small}
+\end{frame}
+
+
 \subsection{Footnotes}
 \begin{frame}{\subsecname}
 	\begin{itemize}

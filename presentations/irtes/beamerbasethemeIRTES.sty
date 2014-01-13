@@ -281,6 +281,21 @@
 }
 
 %-----------------------------------------
+% Inline examples
+\newcommand{\inlineexample}[1]{%
+	\insertexamplelabel\ #1\xspace%
+}
+\newcommand{\inlineexamples}[1]{%
+	\insertexampleslabel\ #1\xspace%
+}
+\newcommand{\insertexamplelabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Example}\translate{ColumnChar}}%
+}
+\newcommand{\insertexampleslabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Examples}\translate{ColumnChar}}%
+}
+
+%-----------------------------------------
 % EVENT
 \gdef\inserteventname{}
 \gdef\insertshorteventname{}
