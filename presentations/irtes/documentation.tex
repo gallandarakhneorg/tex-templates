@@ -166,6 +166,21 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Changing the prefix in the part's slides}
+	\begin{itemize}
+	\item By default, each part is starting with a slide with only the part's title on, without a prefix such as ``Chapter X''.
+	\item The IRTES theme provides the following macros to chang ethe part's prefix:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}insertpartprefix} insert the current part prefix.
+		\item \texttt{{\textbackslash}partprefix[counter text]\{text\}} changes the prefix to ``text'' followed by ``counter text''.
+		\item \texttt{{\textbackslash}resetpartprefix} resets the prefix to the empty text.
+		\end{itemize}
+	\end{itemize}
+	\begin{example}
+		\texttt{{\textbackslash}partprefix[{\textbackslash}arabic\{part\}]\{Chapter\}} produces ``Chapter 1'', ``Chapter 2'', \dots
+	\end{example}
+\end{frame}
+
 \subsection{Table of Contents}
 \begin{frame}{\subsecname}
 	\begin{itemize}

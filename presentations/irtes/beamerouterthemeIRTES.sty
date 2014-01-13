@@ -1,4 +1,4 @@
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM, IRTES  and SET logos and names are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2013/12/07 Beamer Outer 'IRTES' Theme]
+   [2014/01/13 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
@@ -89,7 +89,7 @@
 \setbeamertemplate{part page}{%
 		\begin{picture}(0,0)(0,0)%
 		\put(-20,-39){\usebeamercolor[fg]{frametitle}\parbox[c]{\beamer@theme@irtes@outer@linewidth}{%
-			\nohyphens{\begin{flushleft}\LARGE\textbf{\@beamer@theme@irtes@wraptextformats{\beamer@partname}}%
+			\nohyphens{\begin{flushleft}\LARGE\textbf{\@beamer@theme@irtes@wraptextformats{{\insertpartprefix}\beamer@partname}}%
 		\end{flushleft}}}}%
 		\put(257,-163.25){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
 		\ifbeamer@theme@irtes@part@hasauthor%
@@ -171,6 +171,10 @@
 	}
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
+}
+
+\setbeamertemplate{frametitle continuation}{%
+	{\smaller(\#\insertcontinuationcount)}%
 }
 
 \mode

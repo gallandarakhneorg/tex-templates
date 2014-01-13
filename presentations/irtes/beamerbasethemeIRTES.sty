@@ -534,6 +534,15 @@
 
 \gdef\part{\@ifstar\beamer@theme@irtes@part@partstar\beamer@theme@irtes@part@part}
 
+% Part prefix in the slide
+\let\insertpartprefix\relax
+\newcommand{\partprefix}[2][\protect\Alph{part}]{%
+	\gdef\insertpartprefix{#2~#1\protect\\}%
+}
+\newcommand{\resetpartprefix}{%
+	\global\let\insertpartprefix\relax%
+}
+
 % Parts in the TOC
 \define@key{beamertoc}{onlyparts}[]{%
 	\beamer@toc@sectionstyle{hide}%
@@ -733,6 +742,7 @@
 % Appendix
 \global\let\beamer@theme@irtes@oldappendix\appendix
 \renewcommand{\appendix}{%
+	\resetpartprefix%
 	\let\beamer@theme@irtes@oldpart\part%
 	\def\part{\beamer@theme@irtes@oldpart*}%
 	\beamer@theme@irtes@thanksslide%
