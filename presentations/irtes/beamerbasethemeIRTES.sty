@@ -1122,16 +1122,30 @@
 %---------------------------------------------
 % LIBRARY
 
-% \libraryslide[subtitle or comment]{picture}{title}{authors}{How published}{ISBN}
+\define@key{beamerthemeirteslibraryslide}{frametitle}{%
+	\gdef\beamer@theme@irtes@libraryslide@frametitle{#1}%
+}
+\define@key{beamerthemeirteslibraryslide}{subtitle}{%
+	\gdef\beamer@theme@irtes@libraryslide@subtitle{#1}%
+}
+% \libraryslide[frametitle=text,subtitle=text]{picture}{title}{authors}{How published}{ISBN}
 \newcommand{\libraryslide}[6][]{%
-	\begin{frame}[c]{\subsecname}%
+	\beamer@theme@irtes@optlist{#1}%
+	\gdef\beamer@theme@irtes@libraryslide@frametitle{\subsecname}%
+	\gdef\beamer@theme@irtes@libraryslide@subtitle{}%
+	\ifbeamer@theme@irtes@optlist@needdefault%
+		\setkeys{beamerthemeirteslibraryslide}{subtitle=#1}%
+	\else%
+		\setkeys{beamerthemeirteslibraryslide}{#1}%
+	\fi%
+	\begin{frame}[c]{\beamer@theme@irtes@libraryslide@frametitle}%
 		\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
 		\begin{minipage}[t]{.65\linewidth}
 		\begin{raggedright}
 		\mbox{}\\%
-		\nohyphens{\textbf{#3}}%
-		\ifthenelse{\equal{a#1}{a}}{}{%
-			\\ \nohyphens{\small #1}%
+		\nohyphens{\textbf{#3}}
+		\ifthenelse{\equal{a\beamer@theme@irtes@libraryslide@subtitle}{a}}{}{%
+			\\ \nohyphens{\small\beamer@theme@irtes@libraryslide@subtitle}%
 		} \\[.5cm]%
 		\nohyphens{#4} \\[.5cm]%
 		\nohyphens{#5} \\[.25cm]%

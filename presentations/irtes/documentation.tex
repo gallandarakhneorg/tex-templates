@@ -257,9 +257,14 @@
 \begin{frame}{Library}
 	\begin{itemize}
 	\item You are able to include a list of books in your presentation with the macro: \\
-		\texttt{{\textbackslash}libraryslide[subtitle or comment]\{picture\}} \\
+		\texttt{{\textbackslash}libraryslide[options]\{picture\}} \\
 		\texttt{\{title\}\{authors\}\{How published\}\{ISBN\}}
 	\item The macro create a slide for a book.
+	\item The \texttt{options} may be a text that is the subtitle of the book (see parameter \texttt{subtitle} below), or a list of parameters in:
+		\begin{itemize}
+		\item \texttt{frametitle=text}: specifies the title of the frame.
+		\item \texttt{subtitle=text}: specifies the subtitle of the book.
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
