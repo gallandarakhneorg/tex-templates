@@ -1,4 +1,4 @@
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM, IRTES  and SET logos and names are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2013/12/07 Beamer Base Defs 'IRTES' Theme]
+   [2014/01/13 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -59,6 +59,7 @@
 \RequirePackage{tikz}
 \RequirePackage{environ}% for advanced environment declaration
 \RequirePackage{textcomp}
+\RequirePackage{colortbl}
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{1}}
@@ -1108,5 +1109,10 @@
 		\end{minipage}%
 	\end{frame}%
 }
+
+%---------------------------------------------
+% Colorized tabulars
+
+\arrayrulecolor{IRTESblue}
 
 \endinput
