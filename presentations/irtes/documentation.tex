@@ -284,6 +284,40 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Colorized Tables}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The IRTES theme put colorized borders around tables.
+	\item In addition, you could create a table heading with specific colors:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}tabularheading} to use the heading background.
+		\item \texttt{{\textbackslash}chead\{text\}} to define the text of a column heading.
+		\end{itemize}
+	\end{itemize}
+	\begin{example}
+		\begin{columns}
+			\begin{column}{.6\linewidth}
+				\footnotesize
+				\texttt{{\textbackslash}begin\{tabular\}\{{\textbar}l{\textbar}l{\textbar}\}{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}tabularheading{\textbackslash}chead\{A\}\&{\textbackslash}chead\{B\}{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}C\&D{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}end\{tabular\}}
+			\end{column}
+			\begin{column}{.3\linewidth}
+				\begin{tabular}{|l|l|}
+					\hline
+					\tabularheading\chead{A}&\chead{B} \\
+					\hline
+					C & D \\
+					\hline
+				\end{tabular}	
+			\end{column}
+		\end{columns}
+	\end{example}
+\end{frame}
+
 \subsection{Alert Boxes}
 \begin{frame}{\subsecname}
 	The IRTES theme defines the a box for alerts: \\
@@ -346,7 +380,7 @@
 \subsection{Text Size}
 
 \begin{frame}{\subsecname}
-	In addition to the standard Beamer macros for selected the text side (\texttt{{\textbackslash}TINY}, \texttt{{\textbackslash}Tiny}, \texttt{{\textbackslash}tiny}, \texttt{{\textbackslash}footnotesize}, \texttt{{\textbackslash}scriptisize}, \texttt{{\textbackslash}small}, \texttt{{\textbackslash}normalsize}, \texttt{{\textbackslash}large}, \texttt{{\textbackslash}Large}, \texttt{{\textbackslash}huge}, \texttt{{\textbackslash}Huge}), the IRTEs theme enables the following macros:
+	In addition to the standard Beamer macros for selected the text side (\texttt{{\textbackslash}TINY}, \texttt{{\textbackslash}Tiny}, \texttt{{\textbackslash}tiny}, \texttt{{\textbackslash}footnotesize}, \texttt{{\textbackslash}scriptisize}, \texttt{{\textbackslash}small}, \texttt{{\textbackslash}normalsize}, \texttt{{\textbackslash}large}, \texttt{{\textbackslash}Large}, \texttt{{\textbackslash}huge}, \texttt{{\textbackslash}Huge}), the IRTES theme enables the following macros:
 	\begin{itemize}
 	\item \texttt{{\textbackslash}smaller} : to decrease the size of the text, and
 	\item \texttt{{\textbackslash}larger} : to increase the size of the text.
