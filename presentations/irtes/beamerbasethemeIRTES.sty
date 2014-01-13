@@ -511,7 +511,7 @@
 	\beamer@theme@irtes@nav@advancepart%
 	\beamer@theme@irtes@nav@advancesection%
 	\ifbeamer@theme@irtes@part@hasoptionparam%
-		\def\@tmp{\beamer@theme@irtes@part@oldpart[\beamer@theme@irtes@part@shorttitle]}%
+		\def\@tmp{\expandafter\beamer@theme@irtes@part@oldpart[\beamer@theme@irtes@part@shorttitle]}%
 	\else%
 		\let\@tmp\beamer@theme@irtes@part@oldpart%
 	\fi%
@@ -673,9 +673,13 @@
 	\gdef\beamer@theme@irtes@figureslide@heightt{#1}%
 	\global\beamer@theme@irtes@figureslide@dynamic@heightfalse%
 }
+\define@key{beamerthemeirtesfigureslide}{scale}{%
+	\gdef\beamer@theme@irtes@figureslide@scale{#1}%
+}
 \newcommand{\figureslide}[3][]{%
 	\global\beamer@theme@irtes@figureslide@dynamic@widthtrue%
 	\global\beamer@theme@irtes@figureslide@dynamic@heighttrue%
+	\gdef\beamer@theme@irtes@figureslide@scale{1}%
 	\setkeys{beamerthemeirtesfigureslide}{#1}%
 	\savebox{\beamer@theme@irtes@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}%
 	\begin{frame}[c]{#2}%
@@ -688,18 +692,18 @@
 					\pgfmathsetmacro{\beamer@theme@irtes@figureslide@ratioh}{\strip@pt\beamer@theme@irtes@figureslide@height / \strip@pt\beamer@theme@irtes@contentheight}%
 					\pgfmathtruncatemacro{\beamer@theme@irtes@figureslide@ratio}{\beamer@theme@irtes@figureslide@ratiow / \beamer@theme@irtes@figureslide@ratioh}%
 					\ifthenelse{\beamer@theme@irtes@figureslide@ratio=0}{%
-						\resizebox{!}{\beamer@theme@irtes@contentheight}{\usebox{\beamer@theme@irtes@figureslide@box}}
+						\resizebox{!}{\beamer@theme@irtes@figureslide@scale\beamer@theme@irtes@contentheight}{\usebox{\beamer@theme@irtes@figureslide@box}}
 					}{%
-						\resizebox{\linewidth}{!}{\usebox{\beamer@theme@irtes@figureslide@box}}
+						\resizebox{\beamer@theme@irtes@figureslide@scale\linewidth}{!}{\usebox{\beamer@theme@irtes@figureslide@box}}
 					}%
 				\else%
-					\resizebox{!}{\beamer@theme@irtes@figureslide@heightt}{\usebox{\beamer@theme@irtes@figureslide@box}}
+					\resizebox{!}{\beamer@theme@irtes@figureslide@scale\beamer@theme@irtes@figureslide@heightt}{\usebox{\beamer@theme@irtes@figureslide@box}}
 				\fi%
 			\else%
 				\ifbeamer@theme@irtes@figureslide@dynamic@height%
-					\resizebox{\beamer@theme@irtes@figureslide@widtht}{!}{\usebox{\beamer@theme@irtes@figureslide@box}}
+					\resizebox{\beamer@theme@irtes@figureslide@scale\beamer@theme@irtes@figureslide@widtht}{!}{\beamer@theme@irtes@figureslide@scale\usebox{\beamer@theme@irtes@figureslide@box}}
 				\else%
-					\resizebox{\beamer@theme@irtes@figureslide@widtht}{\beamer@theme@irtes@figureslide@heightt}{\usebox{\beamer@theme@irtes@figureslide@box}}
+					\resizebox{\beamer@theme@irtes@figureslide@scale\beamer@theme@irtes@figureslide@widtht}{\beamer@theme@irtes@figureslide@scale\beamer@theme@irtes@figureslide@heightt}{\usebox{\beamer@theme@irtes@figureslide@box}}
 				\fi%
 			\fi%
 		\end{center}%
