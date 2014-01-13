@@ -1164,5 +1164,12 @@
 \def\chead#1{\textcolor{white}{#1}}%
 \def\tabularheading{\rowcolor{IRTESlightblue}}%
 
+%---------------------------------------------
+% Continuation
+
+\newcommand{\insertcontinuationwith}[1]{%
+	\global\beamer@autobreakcount=#1%
+	\usebeamertemplate****{}%
+}
 
 \endinput

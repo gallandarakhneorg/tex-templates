@@ -477,6 +477,21 @@
 	\end{tabularx}
 \end{frame}
 
+\subsection{Continuation Text}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item When continuing a frame, Beamer insert the ``continuation text'' after the title.
+	\item To insert the continuation text manually, you should use:
+		\texttt{{\textbackslash}insertcontinuationwith\{integer\}}
+	\item The parameter is the value of the continuation counter to display.
+	\item Example: in the following frame, the macro is used in the title \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example of continuation\insertcontinuationwith{34}}
+	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
+\end{frame}
+
 \subsection{Example Sections}
 \begin{frame}{\subsecname}
 	\begin{small}
