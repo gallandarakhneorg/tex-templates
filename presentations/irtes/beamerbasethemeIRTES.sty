@@ -185,6 +185,7 @@
 \global\let\beamer@theme@irtes@headline@default\relax
 \global\gdef\beamer@theme@irtes@headline@current{\beamer@theme@irtes@headline@default}
 \setbeamertemplate{headline}{\beamer@theme@irtes@headline@current}%
+\setbeamertemplate{headline text style}{}%
 \newcommand{\useheaderempty}{%
 	\gdef\beamer@theme@irtes@headline@current{}%
 }
@@ -196,13 +197,14 @@
 	\begin{picture}(0,0)(0,0)%
 		\put(-4,11){\parbox[t]{2.65cm}{%
 			\begin{flushleft}%
+				\usebeamertemplate{headline text style}%
 				\insertsectionnavigation{\linewidth}%
 			\end{flushleft}%
 			}%
 		}%
 	\end{picture}%
 }
-\newcommand{\useheaderlinewithsections}{%
+\newcommand{\useheaderlinewithsections}[1][]{%
 	\gdef\beamer@theme@irtes@headline@default{\insertheaderlinewithsections}%
 }
 
@@ -214,7 +216,7 @@
 		}%
 	\end{picture}%
 }
-\newcommand{\useheaderlinewithirteslogo}{%
+\newcommand{\useheaderlinewithirteslogo}[1][]{%
 	\gdef\beamer@theme@irtes@headline@default{\insertheaderlinewithirteslogo}%
 }
 
