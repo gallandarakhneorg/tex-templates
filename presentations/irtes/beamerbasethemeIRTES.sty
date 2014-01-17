@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2014/01/13 Beamer Base Defs 'IRTES' Theme]
+   [2014/01/17 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -485,6 +485,7 @@
 		\addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partname}{\the\c@page}}%
 	\fi%
 	\useheaderdefault%
+	\protected@xdef\@currentlabel{\the\c@part}% Issue #19
 }
 
 
@@ -501,7 +502,7 @@
 	}%
 }
 
-\newcommand{\beamer@theme@irtes@part@partmacro}[1][]{%
+\newcommand{\beamer@theme@irtes@part@partmacro}[2][]{%
 	\beamer@theme@irtes@optlist{#1}%
 	\global\beamer@theme@irtes@part@hasoptionparamfalse%
 	\global\beamer@theme@irtes@part@hasauthorfalse%
@@ -521,7 +522,7 @@
 	\c@section=0% From TeX background
 	\beamer@tocsectionnumber=0% From Beamer background
 	% Run the TeX \part macro
-	\@tmp%
+	\@tmp{#2}%
 }
 
 \def\beamer@theme@irtes@part@part{%
