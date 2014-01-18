@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2014/01/17 Beamer Base Defs 'IRTES' Theme]
+   [2014/01/18 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -478,7 +478,14 @@
 	\setbeamertemplate{footline}{}%
 	\useheaderempty%
 	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
-	\frame{\partpage}%
+	\frame{%
+		\ifthenelse{\equal{a\beamer@theme@irtes@part@partlabel}{a}}{}{% Issue #19
+			\protected@xdef\@currentlabel{\the\c@part}%
+			\expandafter\label{\beamer@theme@irtes@part@partlabel}%
+			\gdef\beamer@theme@irtes@part@partlabel{}%
+		}%
+		\partpage%
+	}%
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}%
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}%
 	\ifbeamer@theme@irtes@part@addintoc%
@@ -501,11 +508,15 @@
 		\gdef\beamer@theme@irtes@part@shorttitle{#1}%
 	}%
 }
+\define@key{beamerthemeirtespart}{label}{%
+	\gdef\beamer@theme@irtes@part@partlabel{#1}%
+}
 
 \newcommand{\beamer@theme@irtes@part@partmacro}[2][]{%
 	\beamer@theme@irtes@optlist{#1}%
 	\global\beamer@theme@irtes@part@hasoptionparamfalse%
 	\global\beamer@theme@irtes@part@hasauthorfalse%
+	\gdef\beamer@theme@irtes@part@partlabel{}%
 	\ifbeamer@theme@irtes@optlist@needdefault%
 		\setkeys{beamerthemeirtespart}{title=#1}%
 	\else%
