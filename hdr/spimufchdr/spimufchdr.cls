@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2013/10/14]
+\ProvidesClass{spimufchdr}[2014/01/24]
 
 %%--------------------
 %% Class options
@@ -317,9 +317,9 @@
 \newcommand{\projectdesc}[7]{
 	\textbf{#1}, #2\euro\ (#3--#4)
 	\begin{itemize}
-	\item\textit{Partenaires:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Rôle dans le projet:} #7.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Partenaires :}{Partners:}} #5.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Objectifs :}{Goals:}} #6.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{R\^ole dans le projet :}{Role in the project:}} #7.
 	\end{itemize}
 }
 
@@ -329,9 +329,9 @@
 \newcommand{\projectdescstar}[7]{
 	\textbf{#1}, #2\euro\ (#3--#4)
 	\begin{itemize}
-	\item\textit{Partenaire:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Mon rôle dans le projet:} #7.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Partenaire :}{Partner:}} #5.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Objectifs :}{Goals:}} #6.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Mon r\^ole dans le projet :}{My role in the project:}} #7.
 	\end{itemize}
 }
 
@@ -341,10 +341,10 @@
 \newcommand{\projectdescnat}[7]{
 	\textbf{#1}, (#2--#3)
 	\begin{itemize}
-	\item\textit{Financement:} #4.
-	\item\textit{Partenaires:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Mon rôle dans le projet:} #7.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Financement :}{Funding:}} #4.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Partenaires :}{Partners:}} #5.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Objectifs :}{Goals:}} #6.
+	\item\textit{\ifthenelse{\equal{\edspimhdrclasslanguage}{french}}{Mon r\^ole dans le projet :}{My role in the project:}} #7.
 	\end{itemize}
 }
 
