@@ -3,18 +3,19 @@
 \usepackage[utf8]{inputenc}
 
 % CITATIONS
+% The first parameter is the identifier of the category of publications.
 % The second parameter is the label of the citation type.
-% If empty, use the macro \hdrapplication@cite@label@#2, where #2
-% is the key of the citation type
-\declarebibliopre{ICB}{}{bibfile}% International Conferences with Reading Committee BEFORE PhD thesis
-\declarebibliopre{NCB}{}{bibfile}% National Conferences with Reading Committee BEFORE PhD thesis
-\declarebibliopost{JA}{}{bibfile}% International Journals with Reading Committee AFTER PhD thesis
-\declarebibliopost{CA}{}{bibfile}% Chapters of book AFTER PhD thesis
-\declarebibliopost{ICALN}{}{bibfile}% International Journals with Reading Committee and in Lecture Notes AFTER PhD thesis
-\declarebibliopost{ICA}{}{bibfile}% International Conferences with Reading Committee AFTER PhD thesis
-\declarebibliopost{NCA}{}{bibfile}% National Conferences with Reading Committee AFTER PhD thesis
-\declarebibliopost{NCAW}{}{bibfile}% National Conferences without Reading Committee AFTER PhD thesis
-\declarebibliopost{OA}{}{bibfile}% Other publications AFTER PhD thesis
+% If empty, the default label is used.
+% The third parameter is the BibTeX file in which the publication details may be found.
+\declarebibliopre{ICB}{}{bibexample}% International Conferences with Reading Committee BEFORE PhD thesis
+\declarebibliopre{NCB}{}{bibexample}% National Conferences with Reading Committee BEFORE PhD thesis
+\declarebibliopost{JA}{}{bibexample}% International Journals with Reading Committee AFTER PhD thesis
+\declarebibliopost{CA}{}{bibexample}% Chapters of book AFTER PhD thesis
+\declarebibliopost{ICALN}{}{bibexample}% International Journals with Reading Committee and in Lecture Notes AFTER PhD thesis
+\declarebibliopost{ICA}{}{bibexample}% International Conferences with Reading Committee AFTER PhD thesis
+\declarebibliopost{NCA}{}{bibexample}% National Conferences with Reading Committee AFTER PhD thesis
+\declarebibliopost{NCAW}{}{bibexample}% National Conferences without Reading Committee AFTER PhD thesis
+\declarebibliopost{OA}{}{bibexample}% Other publications AFTER PhD thesis
 
 % Name of the author of the HDR application
 \Set{authorname}{Bruce Waynes}
@@ -213,7 +214,10 @@ Ils ont été encadrés à 100\%:
 
 %-----------------------------------------
 % Put a \nociteXXX macro for each of your publications to be sure they will be included in the bibliography
-\nociteICB{XXX}
+\nociteJA{CossentinoGaudHilaireGallandKoukam2010_1} % Paper in international journal
+\nociteJA{GaudGallandGechterHilaireKoukam2008_2} % Paper in international journal
+\nociteJA{GaudGallandGechterHilaireKoukam2008_2} % Paper in international journal
+\nociteICA{GallandGaudKoukam2008_3} % Paper in international conference.
 
 \hdrpublicationlist
 
