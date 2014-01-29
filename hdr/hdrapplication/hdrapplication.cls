@@ -1,5 +1,5 @@
 %
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -19,7 +19,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hdrapplication}[2013/07/04]
+\ProvidesClass{hdrapplication}[2014/01/29]
 
 %%--------------------
 %% Class options
@@ -35,6 +35,7 @@
 \expandafter\LoadClass[\edspim@hdr@class@options]{upmethodology-document}
 \RequirePackage{multibib}
 \RequirePackage{eurosym}
+\RequirePackage{fancyhdr}
 
 %%--------------------
 %% Force the names for French
