@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2014/01/18 Beamer Base Defs 'IRTES' Theme]
+   [2014/02/04 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -60,6 +60,7 @@
 \RequirePackage{environ}% for advanced environment declaration
 \RequirePackage{textcomp}
 \RequirePackage{colortbl}
+\RequirePackage{translator} % Should be provided by Beamer, be sometime missed
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@irtes@finalslidelabel}{1}}
