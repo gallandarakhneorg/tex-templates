@@ -1,6 +1,6 @@
 % Document class for the HDR of the SPIM doctoral school (UFC variante)
 %
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2014/01/24]
+\ProvidesClass{spimufchdr}[2014/03/03]
 
 %%--------------------
 %% Class options
@@ -47,7 +47,7 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
+\@ifclasslater{UPMVERSION}{2014/03/02}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140303}\@eha}
 
 %\declarehdr[subtitle]{title}{defense date}
 \newcommand{\declarehdr}[3][] {
@@ -109,19 +109,6 @@
 
 % Defense message
 \Set{defensemessage}{Soutenue publiquement le \Get{defensedate} devant le Jury compos\'e de~:}
-
-% Change the color of the TOC
-\let\edspim@hdr@l@contentsline\contentsline
-\renewcommand{\contentsline}[4]{%
-	%{subsection}{\numberline {1.1.2}Extension de la plateforme \textsc {JaSIM}\xspace et Application}{18}{subsection.1.1.2}
-	\ifthenelse
-		{\equal{#1}{part}}
-		{\edspim@hdr@l@contentsline{#1}{\textcolor{parttitlecolor}{#2}}{\textcolor{parttitlecolor}{#3}}{#4}}%
-		{\ifthenelse
-			{\equal{#1}{chapter}}
-			{\edspim@hdr@l@contentsline{#1}{\textcolor{chaptertitlecolor}{#2}}{\textcolor{chaptertitlecolor}{#3}}{#4}}%
-			{\edspim@hdr@l@contentsline{#1}{#2}{#3}{#4}}}%
-}
 
 % \hdrabstract [lang]{text}
 \newif\ifhdrmainabstract

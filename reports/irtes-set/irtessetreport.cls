@@ -1,6 +1,6 @@
 % Document class for the IRTES-SET reports
 %
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{irtessetreport}[2013/04/28]
+\ProvidesClass{irtessetreport}[2014/03/03]
 
 %%--------------------
 %% Class options
@@ -45,7 +45,7 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2013/09/29}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20130929}\@eha}
+\@ifclasslater{UPMVERSION}{2014/03/02}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140303}\@eha}
 
 %%--------------------
 %% Use the style dedicated to IRTES-SET report
