@@ -19,7 +19,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hdrapplication}[2014/01/29]
+\ProvidesClass{hdrapplication}[2014/04/04]
 
 %%--------------------
 %% Class options
@@ -50,15 +50,22 @@
 %% Section with a page break before.
 \newcommand{\Section}[1]{\pagebreak\section{#1}}
 
+
+\gdef\hdrapplication@projectdesc@label@funding{Financement\,:}
+\gdef\hdrapplication@projectdesc@label@partners{Partenaires\,:}
+\gdef\hdrapplication@projectdesc@label@partner{Partenaire\,:}
+\gdef\hdrapplication@projectdesc@label@goals{Objectifs\,:}
+\gdef\hdrapplication@projectdesc@label@myrole{Mon r\^ole dans le projet\,:}
+
 %%--------------------
 %% Output a project description.
 %% {title}{budget}{start}{end}{partners}{goals}{roles}
 \newcommand{\projectdesc}[7]{
 	\textbf{#1}, #2\euro\ (#3--#4)
 	\begin{itemize}
-	\item\textit{Partenaires:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Rôle dans le projet:} #7.
+	\item\textit{\hdrapplication@projectdesc@label@partners} #5.
+	\item\textit{\hdrapplication@projectdesc@label@goals} #6.
+	\item\textit{\hdrapplication@projectdesc@label@myrole} #7.
 	\end{itemize}
 }
 
@@ -68,9 +75,9 @@
 \newcommand{\projectdescstar}[7]{
 	\textbf{#1}, #2\euro\ (#3--#4)
 	\begin{itemize}
-	\item\textit{Partenaire:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Mon rôle dans le projet:} #7.
+	\item\textit{\hdrapplication@projectdesc@label@partner} #5.
+	\item\textit{\hdrapplication@projectdesc@label@goals} #6.
+	\item\textit{\hdrapplication@projectdesc@label@myrole} #7.
 	\end{itemize}
 }
 
@@ -80,10 +87,10 @@
 \newcommand{\projectdescnat}[7]{
 	\textbf{#1}, (#2--#3)
 	\begin{itemize}
-	\item\textit{Financement:} #4.
-	\item\textit{Partenaires:} #5.
-	\item\textit{Objectifs:} #6.
-	\item\textit{Mon rôle dans le projet:} #7.
+	\item\textit{\hdrapplication@projectdesc@label@funding} #4.
+	\item\textit{\hdrapplication@projectdesc@label@partners} #5.
+	\item\textit{\hdrapplication@projectdesc@label@goals} #6.
+	\item\textit{\hdrapplication@projectdesc@label@myrole} #7.
 	\end{itemize}
 }
 
