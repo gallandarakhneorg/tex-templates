@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2014/01/13 Beamer Outer 'IRTES' Theme]
+   [2014/04/30 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
@@ -144,6 +144,7 @@
 	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
 	\setbeamertemplate{footline}{}
 	\usebackgroundtemplate{\pgfuseimage{IRTEStitle}}%
+	\useheaderempty
 	\frame{
 		\ifthenelse{\value{@beamer@theme@irtes@finalslidelabel}=3}{%
 			\gdef\beamer@theme@irtes@outer@offsety{15}%
@@ -171,6 +172,7 @@
 	}
 	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
+	\useheaderdefault
 }
 
 \setbeamertemplate{frametitle continuation}{%
