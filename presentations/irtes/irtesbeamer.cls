@@ -21,7 +21,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{irtesbeamer}
-   [2014/01/13 v10.0 Class for IRTES slides]
+   [2014/05/03 Class for IRTES slides]
 
 \LoadClassWithOptions{beamer}
 
