@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimutbmphdthesis}[2014/03/03]
+\ProvidesClass{spimutbmphdthesis}[2014/06/20]
 
 %%--------------------
 %% Class options
@@ -45,7 +45,7 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2014/03/02}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140303}\@eha}
+\@ifclasslater{UPMVERSION}{2014/06/19}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140620}\@eha}
 
 %%--------------------
 %% Utility functions
