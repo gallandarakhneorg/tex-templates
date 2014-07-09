@@ -450,7 +450,7 @@ This is the theorem of Evereything.
 %% PERSONAL BIBLIOGRAPHY (use 'multibib')
  
 %% Change the style of the PERSONAL bibliography
-%\bibliographystylePERSO{plain}
+%\bibliographystylePERSO{phdthesisapa}
  
 %% Add the chapter with the PERSONAL bibliogaphy.
 %% The name of the BibTeX file may be the same as
@@ -470,9 +470,16 @@ This is the theorem of Evereything.
 %% the PERSONAL bibliography, even if not cited in the
 %% text: \nocite{key}
  
-%% Uncomment the following line to change the style of
+%% The following line set the style of
 %% the GENERAL bibliogaphy.
-%\bibliographystyle{plain}
+%% The "phdthesisapa" is a "apalike" style with the following
+%% differences:
+%% a) The titles are output with the color of the institution.
+%% b) The name of the PhD thesis' author is underlined.
+\bibliographystyle{phdthesisapa}
+%% The following line may be used in place of the previous
+%% line if you prefer "numeric" citations.
+%\bibliographystyle{phdthesisnum}
  
 %% Link the GENERAL bibliogaphy to a BibTeX file.
 \bibliography{biblio.bib}

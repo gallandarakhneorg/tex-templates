@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimutbmphdthesis}[2014/06/20]
+\ProvidesClass{spimutbmphdthesis}[2014/07/10]
 
 %%--------------------
 %% Class options
@@ -45,7 +45,13 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2014/06/19}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140620}\@eha}
+\@ifclasslater{UPMVERSION}{2014/07/09}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140710}\@eha}
+
+%%--------------------
+%% Underlining if the author's name (in bibliography)
+\newcommand{\underlineifauthor}[2]{%
+	\ifdocumentauthor{#1}{\underline{#2}}{#2}%
+}
 
 %%--------------------
 %% Utility functions
@@ -82,5 +88,13 @@
 \colorlet{definitionborder}{gray!60}
 \colorlet{definitiontextforeground}{black}
 
+%%--------------------
+%% Define emphazing macros
+\colorlet{emphemphtextcolor}{utbmblue}
+\renewcommand{\Emph}[1]{\textcolor{emphemphtextcolor}{#1}}
+
+\colorlet{bibemphemphtextcolor}{utbmblue}
+\newcommand{\phdthesisbibemph}[1]{\textit{#1}}
+\newcommand{\phdthesisbibEmph}[1]{\textcolor{bibemphemphtextcolor}{\textbf{#1}}}
 
 \endinput
