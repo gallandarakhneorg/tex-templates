@@ -165,6 +165,10 @@
 %% Right footer
 %\rfoot{}
  
+%%--------------------
+% Declare several theorems
+\declareupmtheorem{mytheorem}{My Theorem}{List of my Theorems}
+
 \begin{document}
  
 %%--------------------
@@ -182,16 +186,225 @@
 %%--------------------
 %% Include a general table of contents
 \tableofcontents
- 
+
 %%--------------------
 %% The content of the PhD thesis
 \mainmatter
  
+\part{Contexte et Problématiques}
+
 \chapter{Introduction}
  
-\section{Section 1}
- 
-blablabla
+\section{Contexte}
+
+Ce squelette décrit quelques éléments pouvant vous aider pour écrire votre ouvrage de thèse.
+Un plan typique d'une thèse scientifique est également proposé.
+
+\section{Objectifs de la thèse}
+
+L'objectif principal de votre thèse peut être mis en avant à l'aide de l'environnement ci-dessous:
+
+\begin{emphbox}
+	Proposer un modèle qui fait quelque chose!
+\end{emphbox}
+
+\section{Plan de la thèse}
+
+\chapter{\'Etat de l'art}
+
+\section{Introduction}
+
+Pour vous aider à écrire votre ouvrage de thèse, un certain nombre d'outils sont décrits ci-dessous.
+De nombreuses autres macros sont disponibles dans l'ensemble de paquets \LaTeX\ \texttt{tex-upmethodology}
+sur lequel est basé le style de cette thèse. Citons pour exemples les environnements permettant de créer
+automatiquement des sous-figures, les macros permettant de définir des sections non numérotées et présentes
+dans le sommaire.
+
+\section{Proposer une définition}
+
+La définition~\ref{def:unethese} illustre la proposition d'une définition.
+
+\begin{definition}[Une thèse] \label{def:unethese}
+Ouvrage présenté devant un jury universitaire pour l'obtention d'un doctorat.
+\end{definition}
+
+\section{Inclure une figure}
+
+L'inclusion d'une figure se réalise à l'aide des outils standards \LaTeX\ (environnement \texttt{figure}, \texttt{{\textbackslash}includegraphics}, etc.).
+
+Nous proposons une macro permettant de réduire l'écriture de l'inclusion d'une figure.
+
+\begin{verbatim}
+\mfigure[position]{options}{filename}{titre}{labelid}
+\end{verbatim}
+
+Ceci est équivalent à (notez l'ajout de \texttt{fig:} comme préfix du label):
+\begin{verbatim}
+\begin{figure}[position]
+	\begin{center}
+		\includegraphics[options]{filename}
+		\label{fig:labelid}
+		\caption{titre}
+	\end{center}
+\end{figure}
+\end{verbatim}
+
+Le référencement de la figure peut être réalisé à l'aide des macros:
+\begin{verbatim}
+\figref{labelid}
+\figpageref{labelid}
+\end{verbatim}
+
+\section{Inclure un tableau}
+
+L'inclusion d'un tableau se réalise à l'aide des outils standards \LaTeX\ (environnement \texttt{table}, environment \texttt{tabularx}, etc.).
+
+Nous proposons une macro permettant de réduire l'écriture de l'inclusion d'un tableau.
+
+\begin{verbatim}
+\begin{mtable}[options]{width}{nombrecolonnes}{columnspec}{title}{labelid}
+	content
+\end{mtable}
+\end{verbatim}
+
+Ceci est équivalent à (notez l'ajout de \texttt{tab:} comme préfix du label):
+\begin{verbatim}
+\begin{table}[options]
+	\begin{center}
+		\begin{tabularx}{width}{columnspec}
+			content
+		\end{tabularx}
+		\label{tab:labelid}
+		\caption{title}
+	\end{center}
+\end{table}
+\end{verbatim}
+
+Le référencement de la table peut être réalisé à l'aide des macros:
+\begin{verbatim}
+\tabref{labelid}
+\tabpageref{labelid}
+\end{verbatim}
+
+\subsection{Exemple 1}
+
+La table \tabref{exampletable1} est un exemple de table avec 4 colonnes, et dans laquelle un titre à été ajouté en sommet.
+\begin{mtable}[ht]{.9\linewidth}{4}{|l|X|l|X|}{Titre de la table}{exampletable1}
+	\tabulartitle{Un titre en sommet}
+	\tabularheader{Col1}{Col2}{Col3}{Col4}
+	a & b & c & d \\
+	\hline
+	e & f & g & h \\
+\end{mtable}
+
+\subsection{Exemple 2}
+
+La table \tabref{exampletable2} est un exemple de table avec 5 colonnes, et dans laquelle le titre de la table a été également ajouté en sommet.
+\begin{mtable}[ht]{.9\linewidth}{5}{|l|X|l|X|X|}{Titre de la table}{exampletable2}
+	\captionastitle % Affiche le titre de la figure en sommet de table
+	\tabularheader{Col1}{Col2}{Col3}{Col4}{Col5}
+	a & b & c & d & x \\
+	\hline
+	e & f & g & h & z \\
+\end{mtable}
+
+\section{\'Enumération en ligne}
+
+Vous pouvez énumérer des élements dans un paragraphe: \begin{inlineenumeration}
+\item élement 1,
+\item élement 2,
+\item élement 3;
+\end{inlineenumeration} et poursuivre votre texte.
+
+\section{Description}
+
+L'environnement \texttt{description} proposé par \LaTeX\ a été étendu:
+\begin{description}
+\item[\'Element 1] Texte 1
+\item[\'Element 2] Texte 2
+\item[\'Element 3] Texte 3
+\end{description}
+
+Omettre une entête d'item n'est pas un problème :
+\begin{description}
+\item[\'Element 1] Texte 1
+\item Texte 2
+\item[\'Element 3] Texte 3
+\end{description}
+
+\section{\'Enumération}
+
+L'environnement \texttt{enumerate} proposé par \LaTeX\ a été étendu afin de profiter des avantages des environnements \texttt{enumerate} et \texttt{description} en un seul environnement \LaTeX:
+\begin{enumerate}
+\item[\'Element 1] Texte 1
+\item[\'Element 2] Texte 2
+\item[\'Element 3] Texte 3
+\end{enumerate}
+
+Vous pouvez spécifier le type d'énumération en passant en mode numérique arabe :
+\begin{enumerate}[1]
+\item[\'Element 1] Texte 1
+\item[\'Element 2] Texte 2
+\item[\'Element 3] Texte 3
+\end{enumerate}
+
+Ou en mode numérique romain :
+\begin{enumerate}[i]
+\item[\'Element 1] Texte 1
+\item[\'Element 2] Texte 2
+\item[\'Element 3] Texte 3
+\end{enumerate}
+
+Ou en mode numérique alphabétique :
+\begin{enumerate}[a]
+\item[\'Element 1] Texte 1
+\item[\'Element 2] Texte 2
+\item[\'Element 3] Texte 3
+\end{enumerate}
+
+Omettre une entête d'item n'est pas un problème :
+\begin{enumerate}
+\item[\'Element 1] Texte 1
+\item Texte 2
+\item[\'Element 3] Texte 3
+\end{enumerate}
+
+\section{Formatter le texte}
+
+Vous pouvez placer un texte \textup{en exposant}. Vous pouvez placer un texte \textdown{en indice}.
+
+Vous pouvez mettre en avant \emph{un texte}, ou le mettre \Emph{encore plus en avant}.
+
+Vous pouvez formatter les noms de personnes de manière uniforme, comme par exemple \makename{Stéphane}{Galland} (d'autres macros sont disponibles).
+
+\section{Symboles mathématiques}
+
+\begin{itemize}
+\item \R
+\item \N
+\item \Z
+\item \Q
+\item \C
+\item $\powerset{a}$
+\item $\sgn(a)$
+\item $\min(a, b)$
+\item $\max(a, b)$
+\end{itemize}
+
+\section{Théorèmes}
+
+Vous pouvez définir votre propre environnement pour décrire un théorème, un lem, etc.
+Ce type d'environnement doit être déclaré dans le préambule de votre document avec la
+macro \texttt{{\textbackslash}declareupmtheorem} (voir l'exemple dans le préambule de
+ce squelette).
+
+\begin{mytheorem}[Theorem of Everything]
+This is the theorem of Evereything.
+\end{mytheorem}
+
+\`A la fin de votre document, vous pourrez alors ajouter un chapitre listant les théorèmes présents dans votre document: \texttt{{\textbackslash}listofmytheorems}
+
+\section{Conclusion}
  
 %% Citation from the general bibliography
 %\cite{key}
@@ -199,9 +412,33 @@ blablabla
 %% Citation from the PERSO bibliography
 %\citePERSO{key}
  
-\chapter{Conclusion}
+\part{Contribution}
+
+\chapter{Contribution}
+
+\section{Introduction}
+
+\section{Détails de la contribution}
+
+\section{Conclusion}
+
+\chapter{Réalisation}
+
+\section{Introduction}
+
+\section{Présentation de la réalisation}
+
+\section{Résultats expérimentaux}
+
+\section{Conclusion}
+
+\part{Conclusion}
+
+\chapter{Conclusion générale}
  
-blablabla
+\section{Bilan}
+
+\section{Perpectives}
  
 %%--------------------
 %% Start the end of the thesis
@@ -254,10 +491,16 @@ blablabla
 \listoftables
  
 %%--------------------
+%% Include a list of definitions
+\listofdefinitions
+
+%%--------------------
 %% Appendixes
 \appendix
+\part{Annexes}
  
-\chapter{Premier chapitre de mes annexes}
- 
+\chapter{Premier chapitre des annexes}
+
+\chapter{Second chapitre des annexes}
  
 \end{document}
