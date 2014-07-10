@@ -258,4 +258,9 @@
 	}{}
 }
 
+%%--------------------
+%% Format the keys in the bibliography section
+\global\let\upm@phdthesis@old@biblabel\@biblabel
+\gdef\@biblabel#1{\phdthesisbibkeyemph{\upm@phdthesis@old@biblabel{#1}}}
+
 \endinput
