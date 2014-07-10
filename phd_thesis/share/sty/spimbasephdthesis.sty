@@ -22,6 +22,8 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesPackage{spimbasephdthesis}[2014/07/10]
 
+\RequirePackage{lettrine}
+
 %%--------------------
 %% Check for the correct version of tex-upmethodology
 \@ifclasslater{UPMVERSION}{2014/07/09}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140710}\@eha}
@@ -262,5 +264,91 @@
 %% Format the keys in the bibliography section
 \global\let\upm@phdthesis@old@biblabel\@biblabel
 \gdef\@biblabel#1{\phdthesisbibkeyemph{\upm@phdthesis@old@biblabel{#1}}}
+
+
+%%--------------------
+% Lettrine
+
+% The following macro put its parameter into a lettrine with the
+% proper layout
+\gdef\upm@phdthesis@MakeLettrine@lettrine#1{%
+	\lettrine[findent=.5mm,nindent=0pt]{\uppercase{#1}}{}%
+}
+
+% Macro that contains the string "the letter"
+\gdef\upm@phdthesis@MakeLettrine@letterstr{\string t\string h\string e\space\string l\string e\string t\string t\string e\string r}
+
+% Macro that contains the string "the character"
+\gdef\upm@phdthesis@MakeLettrine@characterstr{\string t\string h\string e\space\string c\string h\string a\string r\string a\string c\string t\string e\string r}
+
+% Macro to search for the first letter in its second parameter
+% and put it in a lettrine.
+% First parameter: are the macros to ignore and put back before
+%                  the lettrine. The value of this parameter will
+%                  evolve during the recursive calls.
+% Second parameter: TeX give the token following the macro in
+%                   this parameter (because the macros is always
+%                   invoked with only one explicit parameter).
+\newcommand{\upm@phdthesis@MakeLettrine}[2]{%
+	% Detect the meaning of the second parameter.
+	\edef\upm@phdthesis@reserveda{\meaning#2}%
+	% Test if the meaning string contains "the letter"
+	\edef\upm@phdthesis@reservedb{\noexpand\in@{\upm@phdthesis@MakeLettrine@letterstr}{\upm@phdthesis@reserveda}}%
+	\upm@phdthesis@reservedb%
+	\ifin@%
+		% The meaning indicates that the second parameter
+		% is a letter. It may be put in the lettrine.
+		% The macro \upm@phdthesis@reserveda is defined to avoid
+		% to consume the tokens written in this recursive
+		% macro. This temp macro is invoked at the end of
+		% this recursive macro. In this way it will consume
+		% the token that are available in the document core.
+		\gdef\upm@phdthesis@reserveda{#1\upm@phdthesis@MakeLettrine@lettrine{#2}}%
+	\else%
+		% Test if the meaning string contains "the character"
+		\edef\upm@phdthesis@reservedb{\noexpand\in@{\upm@phdthesis@MakeLettrine@characterstr}{\upm@phdthesis@reserveda}}%
+		\upm@phdthesis@reservedb%
+		\ifin@%
+			% The meaning indicates that the second parameter
+			% is a character. It may be put in the lettrine.
+			% The macro \upm@phdthesis@reserveda is defined to avoid
+			% to consume the tokens written in this recursive
+			% macro. This temp macro is invoked at the end of
+			% this recursive macro. In this way it will consume
+			% the token that are available in the document core.
+			\gdef\upm@phdthesis@reserveda{#1\upm@phdthesis@MakeLettrine@lettrine{#2}}%
+		\else%
+			% The meaning indicates that the second parameter
+			% is not a letter nor a character.
+			% It may be put back before the lettrine without
+			% change.
+			% The macro \upm@phdthesis@reserveda is defined to avoid
+			% to consume the tokens written in this recursive
+			% macro. This temp macro is invoked at the end of
+			% this recursive macro. In this way it will consume
+			% the token that are available in the document core.
+			\gdef\upm@phdthesis@reserveda{\upm@phdthesis@MakeLettrine{#1#2}}%
+		\fi%
+	\fi%
+	\upm@phdthesis@reserveda%
+}
+
+%%--------------------
+%% Macro for starting a chapter with a standard format
+\global\long\def\upm@phdthesis@chapterintro@toc#1\section{%
+	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
+	\@ifundefined{minitoc}{}{%
+		\vspace{.5cm}%
+		\xdef\upm@phdthesis@reserveda{\thepage}%
+		\minitoc%
+		\xdef\upm@phdthesis@reservedb{\thepage}%
+		\ifthenelse{\equal{\upm@phdthesis@reserveda}{\upm@phdthesis@reservedb}}{\vfill\pagebreak}{}%
+	}%
+	\expandafter\section}
+\global\long\def\upm@phdthesis@chapterintro@notoc#1\section{%
+	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
+	\expandafter\section}
+\gdef\chapterintro{\@ifstar\upm@phdthesis@chapterintro@notoc\upm@phdthesis@chapterintro@toc}
+
 
 \endinput
