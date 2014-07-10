@@ -131,7 +131,7 @@ FUNCTION {output.year.check}
 FUNCTION {output.bibitem}
 { newline$
   "\bibitem[" write$
-  label write$
+  "\phdthesisbibkeyemph{" label * "}" * write$
   "]{" write$
   cite$ write$
   "}" write$

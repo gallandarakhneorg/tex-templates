@@ -1,0 +1,246 @@
+% Document class for the PhD thesis
+%
+% Copyright (c) 2012-14 Stephane GALLAND <galland@arakhne.org>
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+
+%%--------------------
+%% Declare the LaTeX class
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{spimbasephdthesis}[2014/07/10]
+
+%%--------------------
+%% Check for the correct version of tex-upmethodology
+\@ifclasslater{UPMVERSION}{2014/07/09}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140710}\@eha}
+
+%%--------------------
+%% Underlining if the author's name (in bibliography)
+\newcommand{\underlineifauthor}[2]{%
+	\ifdocumentauthor{#1}{\underline{#2}}{#2}%
+}
+
+%%--------------------
+%% Utility functions
+\gdef\edspim@phdthesis@class@firstword#1 #2\@nil{#1}
+\gdef\edspim@phdthesis@class@nextwords#1 #2\@nil{#2}
+\gdef\edspim@phdthesis@class@firstcolumn#1,#2\@nil{#1}
+\gdef\edspim@phdthesis@class@nextcolumns#1,#2\@nil{#2}
+\gdef\edspim@phdthesis@class@makejury{}
+\gdef\edspim@phdthesis@class@addjury#1#2{%
+	\addjury%
+		{\expandafter\edspim@phdthesis@class@firstword\edspim@phdthesis@class@firstcolumn#2\@nil\@nil}%
+		{\expandafter\edspim@phdthesis@class@nextwords\edspim@phdthesis@class@firstcolumn#2\@nil\@nil}%
+		{#1}%
+		{\edspim@phdthesis@class@nextcolumns#2\@nil}%
+}
+
+%%--------------------
+% Define the PhD thesis document
+%\declarethesis[subtitle]{title}{defense date}{ID}
+\newcommand{\declarethesis}[4][] {
+	\declaredocument{#2}{#1}{#4}%
+	\Set{defensedate}{#3}%
+	\initialversion{\makedate{11}{04}{2006}}{PhD Thesis}{\upmpublic}%
+}
+
+%%--------------------
+% Add menber of the jury
+%\addjury[email]{firstname}{lastname}{type}{position}
+\newcommand{\upm@phdthesis@protectnl}[1]{%
+	\begingroup%
+		\let\\\newline%
+		\nohyphens{\Get{jurystyle}#1}%
+	\endgroup%
+}
+\gdef\upm@phdthesis@jurylist{}
+\global\let\thejurytab\relax
+\newcommand{\addjury}[5][]{%
+	\global\protected@edef\upm@phdthesis@jurylist{\upm@phdthesis@jurylist\protect\protect\Get{jurystyle}\protect\protect\upmmakename{#2}{#3}{~} & \protect\upm@phdthesis@protectnl{#4} & \protect\upm@phdthesis@protectnl{#5} \protect\\}%
+	\global\protected@edef\thejurytab{\protect\noindent\protect\begin{tabularx}{\Get{jurytabwidth}}{@{}llX@{}}\upm@phdthesis@jurylist\protect\end{tabularx}}%
+}
+
+%%--------------------
+% Add affiliation
+%\addlaboratory{lab description}
+\newif\ifphdthesishaslaboratory
+\phdthesishaslaboratoryfalse
+\newif\ifphdthesishaslaboratorymulti
+\phdthesishaslaboratorymultifalse
+\gdef\thethesislaboratories{}
+\newcommand{\addlaboratory}[1]{%
+	\ifphdthesishaslaboratory%
+		\phdthesishaslaboratorymultitrue%
+		\global\protected@edef\thethesislaboratories{\thethesislaboratories,\protect\\\protect{#1}}%
+	\else%
+		\phdthesishaslaboratorytrue%
+		\global\protected@edef\thethesislaboratories{\thethesislaboratories\protect{#1}}%
+	\fi%
+}
+
+%%--------------------
+%% Add partner logo
+%\addpartner[picture_options]{logo_picture}
+\newif\ifpartnerlist
+\partnerlistfalse
+\gdef\thepartnerlist{}
+\newcommand{\addpartner}[2][height=1cm]{%
+	\ifpartnerlist%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\hfill\protect\includegraphics[#1]{#2}}%
+	\else%
+		\global\partnerlisttrue%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[height=1cm]{#2}}%
+	\fi%
+}
+
+%%--------------------
+% Change the color of the TOC
+\let\upm@phdthesis@l@contentsline\contentsline
+\renewcommand{\contentsline}[4]{%
+	%{subsection}{\numberline {1.1.2}Extension de la plateforme \textsc {JaSIM}\xspace et Application}{18}{subsection.1.1.2}
+	\ifthenelse
+		{\equal{#1}{part}}
+		{\upm@phdthesis@l@contentsline{#1}{\textcolor{parttitlecolor}{#2}}{\textcolor{parttitlecolor}{#3}}{#4}}%
+		{\ifthenelse
+			{\equal{#1}{chapter}}
+			{\upm@phdthesis@l@contentsline{#1}{\textcolor{chaptertitlecolor}{#2}}{\textcolor{chaptertitlecolor}{#3}}{#4}}%
+			{\upm@phdthesis@l@contentsline{#1}{#2}{#3}{#4}}}%
+}
+
+%%--------------------
+% Set the abstract of the thesis
+% \thesisabstract [lang]{text}
+\newif\ifphdthesismainabstract
+\phdthesismainabstractfalse
+\newif\ifphdthesisminorabstract
+\phdthesisminorabstractfalse
+\gdef\phdthesismainabstract{}
+\gdef\phdthesisminorabstract{}
+\gdef\phdthesismainabstracttitle{R\'esum\'e~:}
+\gdef\phdthesisminorabstracttitle{Abstract:}
+\newcommand{\thesisabstract}[2][\upmcurrentlang]{%
+	\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+		\global\phdthesismainabstracttrue%
+		\gdef\phdthesismainabstract{#2}%
+		\setdocabstract{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesismainabstracttitle{Abstract:}
+		}{%
+			\gdef\phdthesismainabstracttitle{R\'esum\'e~:}
+		}%
+	}{%
+		\global\phdthesisminorabstracttrue%
+		\gdef\phdthesisminorabstract{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesisminorabstracttitle{Abstract:}
+		}{%
+			\gdef\phdthesisminorabstracttitle{R\'esum\'e~:}
+		}%
+	}%
+}
+
+%%--------------------
+% Set the keywords of the thesis
+% \thesiskeywords [lang]{keywords}
+\newif\ifphdthesismainkeywords
+\phdthesismainkeywordsfalse
+\newif\ifphdthesisminorkeywords
+\phdthesisminorkeywordsfalse
+\gdef\phdthesismainkeywords{}
+\gdef\phdthesisminorkeywords{}
+\gdef\phdthesismainkeywordstitle{}
+\gdef\phdthesisminorkeywordstitle{}
+\newcommand{\thesiskeywords}[2][\upmcurrentlang]{%
+	\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+		\global\phdthesismainkeywordstrue%
+		\gdef\phdthesismainkeywords{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesismainkeywordstitle{Keywords:}
+		}{%
+			\gdef\phdthesismainkeywordstitle{Mots-cl\'es~:}
+		}%
+	}{%
+		\global\phdthesisminorkeywordstrue%
+		\gdef\phdthesisminorkeywords{#2}%
+		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesisminorkeywordstitle{Keywords:}
+		}{%
+			\gdef\phdthesisminorkeywordstitle{Mots-cl\'es~:}
+		}%
+	}%
+}
+
+%%--------------------
+% Utility function that is looping on the character of a text
+% \foreachchar {for first char}{for the rest of the chars}
+\gdef\@endfe{}
+\def\upm@foreachchar#1#2\@endfe{%
+	\def\thechar{#1}%
+	\upm@foreach@do%
+	\renewcommand{\onfirstchar}[1]{}%
+	\renewcommand{\onnextchar}[1]{##1}%
+	\ifthenelse{\equal{{#2}}{{\@endfe}}}{}{
+		\expandafter\upm@foreachchar#2\@endfe%
+	}%
+}
+
+\newcommand{\foreachchar}[2]{%
+	\begingroup%
+	\newcommand{\upm@foreach@do}{#2}%
+	\newcommand{\onfirstchar}[1]{##1}%
+	\newcommand{\onnextchar}[1]{}%
+	{\expandafter\upm@foreachchar#1\@endfe\@endfe}%
+	\endgroup%
+}
+
+%%--------------------
+% Build card with the PhD thesis reference ID inside.
+% This ID is given by the SPIM doctoral school.
+\newcommand{\thespimthesisdocrefcard}{%
+	\gdef\upm@spimthesis@reserveda{|}%
+	\gdef\upm@spimthesis@reservedb{}%
+	\foreachchar{\theupmdocref}{%
+		\protected@xdef\upm@spimthesis@reserveda{|c\upm@spimthesis@reserveda}%
+		\protected@xdef\upm@spimthesis@reservedb{\upm@spimthesis@reservedb \onnextchar{\protect&} \thechar}%
+	}%
+	\protected@xdef\upm@spimthesis@reserveda{%
+		\protect\tabular[c]{\upm@spimthesis@reserveda}}%
+	N\ensuremath{^{\circ}}~\upm@spimthesis@reserveda%
+	\upm@spimthesis@reservedb \\ \hline\endtabular%
+}
+
+\makeatother
+
+%%--------------------
+%% Define emphazing macros
+\renewcommand{\Emph}[1]{\textcolor{emphemphtextcolor}{#1}}
+
+%%--------------------
+%% Macros for formating the bibliography
+\newcommand{\phdthesisbibemph}[1]{\textit{#1}}
+\newcommand{\phdthesisbibEmph}[1]{\textcolor{bibemphemphtextcolor}{\textbf{#1}}}
+\newcommand{\phdthesisbibkeyemph}[1]{\textbf{#1}}
+
+%%--------------------
+%% Force the name of the bibliography and other sections for French
+\AtBeginDocument{
+	\ifthenelse{\equal{\edspimphdthesisclasslanguage}{french}}{%
+		\renewcommand{\refname}{Bibliographie}%
+		\renewcommand{\listtablename}{Liste des tables}%
+		\renewcommand{\contentsname}{Sommaire}%
+	}{}
+}
+
+\endinput

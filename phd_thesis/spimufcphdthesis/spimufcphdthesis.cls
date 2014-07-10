@@ -44,57 +44,11 @@
 \expandafter\LoadClass[\edspimphdthesisclasslanguage,\edspim@phdthesis@class@options]{upmethodology-document}
 
 %%--------------------
-%% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2014/07/09}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140710}\@eha}
+%% Load the base package
+\RequirePackage{spimbasephdthesis}
 
 %%--------------------
-%% Underlining if the author's name (in bibliography)
-\newcommand{\underlineifauthor}[2]{%
-	\ifdocumentauthor{#1}{\underline{#2}}{#2}%
-}
-
-%%--------------------
-%% Utility functions
-\gdef\edspim@phdthesis@class@firstword#1 #2\@nil{#1}
-\gdef\edspim@phdthesis@class@nextwords#1 #2\@nil{#2}
-\gdef\edspim@phdthesis@class@firstcolumn#1,#2\@nil{#1}
-\gdef\edspim@phdthesis@class@nextcolumns#1,#2\@nil{#2}
-\gdef\edspim@phdthesis@class@makejury{}
-\gdef\edspim@phdthesis@class@addjury#1#2{%
-	\addjury%
-		{\expandafter\edspim@phdthesis@class@firstword\edspim@phdthesis@class@firstcolumn#2\@nil\@nil}%
-		{\expandafter\edspim@phdthesis@class@nextwords\edspim@phdthesis@class@firstcolumn#2\@nil\@nil}%
-		{#1}%
-		{\edspim@phdthesis@class@nextcolumns#2\@nil}%
-}
-
-%%--------------------
-%% Use the style dedicated to PhD thesis from SPIM-UTBM
+%% Use the style dedicated to PhD thesis from SPIM-UFC
 \UseExtension{spimufcphdthesis}
-
-%%--------------------
-%% Force the name of the bibliography and other sections for French
-\AtBeginDocument{
-	\ifthenelse{\equal{\edspimphdthesisclasslanguage}{french}}{%
-		\renewcommand{\refname}{Bibliographie}%
-		\renewcommand{\listtablename}{Liste des tables}%
-	}{}
-}
-
-%%--------------------
-%% Style for boxed definitions
-\colorlet{definitionbackground}{backtableheader!60}
-\colorlet{definitionheaderforeground}{fronttableheader}
-\colorlet{definitionborder}{gray!60}
-\colorlet{definitiontextforeground}{black}
-
-%%--------------------
-%% Define emphazing macros
-\colorlet{emphemphtextcolor}{ufcgreen}
-\renewcommand{\Emph}[1]{\textcolor{emphemphtextcolor}{#1}}
-
-\colorlet{bibemphemphtextcolor}{ufcgreen}
-\newcommand{\phdthesisbibemph}[1]{\textit{#1}}
-\newcommand{\phdthesisbibEmph}[1]{\textcolor{bibemphemphtextcolor}{\textbf{#1}}}
 
 \endinput
