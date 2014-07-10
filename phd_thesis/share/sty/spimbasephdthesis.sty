@@ -76,9 +76,9 @@
 % Add affiliation
 %\addlaboratory{lab description}
 \newif\ifphdthesishaslaboratory
-\phdthesishaslaboratoryfalse
+\global\phdthesishaslaboratoryfalse
 \newif\ifphdthesishaslaboratorymulti
-\phdthesishaslaboratorymultifalse
+\global\phdthesishaslaboratorymultifalse
 \gdef\thethesislaboratories{}
 \newcommand{\addlaboratory}[1]{%
 	\ifphdthesishaslaboratory%
@@ -89,12 +89,20 @@
 		\global\protected@edef\thethesislaboratories{\thethesislaboratories\protect{#1}}%
 	\fi%
 }
+%%--------------------
+% Reset affiliation
+%\resetlaboratories
+\newcommand{\resetlaboratories}{%
+	\global\phdthesishaslaboratoryfalse%
+	\global\phdthesishaslaboratorymultifalse%
+	\gdef\thethesislaboratories{}%
+}
 
 %%--------------------
 %% Add partner logo
 %\addpartner[picture_options]{logo_picture}
 \newif\ifpartnerlist
-\partnerlistfalse
+\global\partnerlistfalse
 \gdef\thepartnerlist{}
 \newcommand{\addpartner}[2][height=1cm]{%
 	\ifpartnerlist%
@@ -103,6 +111,15 @@
 		\global\partnerlisttrue%
 		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[height=1cm]{#2}}%
 	\fi%
+}
+
+%%--------------------
+%% Reset the list of the partner logos
+%\resetpartners
+\newif\ifpartnerlist
+\newcommand{\resetpartners}{%
+	\global\partnerlistfalse%
+	\gdef\thepartnerlist{}%
 }
 
 %%--------------------
