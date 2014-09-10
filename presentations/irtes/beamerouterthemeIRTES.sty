@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeIRTES}
-   [2014/04/30 Beamer Outer 'IRTES' Theme]
+   [2014/09/10 Beamer Outer 'IRTES' Theme]
 
 \mode<presentation>
 
@@ -34,6 +34,9 @@
 \newlength\beamer@theme@irtes@outer@titlewidth
 \setlength\beamer@theme@irtes@outer@titlewidth{\paperwidth}
 \addtolength{\beamer@theme@irtes@outer@titlewidth}{-9em}
+
+\newlength\beamer@theme@irtes@outer@titlewidth@plain
+\setlength\beamer@theme@irtes@outer@titlewidth@plain{\textwidth}
 
 \newlength\beamer@theme@irtes@outer@sideboxwidth
 \setlength\beamer@theme@irtes@outer@sideboxwidth{6.8cm}
@@ -101,34 +104,49 @@
 }
 
 \setbeamertemplate{frametitle}{%
-		\begin{picture}(0,40)(0,0)%
-		\put(60,9){\usebeamercolor[fg]{frametitle}%
-			\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
-			\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@irtes@wraptextformats{\insertframetitle}%
-			\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
-				\usebeamercolor[fg]{framesubtitle}\small\bf~--~\@beamer@theme@irtes@wraptextformats{\insertframesubtitle}}%
-			\end{flushleft}}%
-		}}%
-		% Side note
-		\ifx\beamer@theme@irtes@sidenote\relax\else%
-			\put(328,-210){\rotatebox{90}{\parbox[c]{\beamer@theme@irtes@outer@sideboxwidth}{%
-					\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}%
-					\beamer@theme@irtes@sidenote%
-			}}}%
-			\global\let\beamer@theme@irtes@sidenote\relax%
+		\ifbeamer@plainframe%
+			\begin{picture}(0,40)(0,0)%
+			% Header
+			\put(-10,9){\usebeamercolor[fg]{plain frametitle}%
+				\parbox[c]{\beamer@theme@irtes@outer@titlewidth@plain}{%
+				\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@irtes@wraptextformats{\insertframetitle\ \insertframetitle\ \insertframetitle\ \insertframetitle\ \insertframetitle}%
+				\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
+					\usebeamercolor[fg]{plain framesubtitle}\small\bf~--~\@beamer@theme@irtes@wraptextformats{\insertframesubtitle}}%
+				\end{flushleft}}%
+			}}%
+			\end{picture}%
+		\else%
+			\begin{picture}(0,40)(0,0)%
+			% Header
+			\put(60,9){\usebeamercolor[fg]{frametitle}%
+				\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
+				\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@irtes@wraptextformats{\insertframetitle}%
+				\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
+					\usebeamercolor[fg]{framesubtitle}\small\bf~--~\@beamer@theme@irtes@wraptextformats{\insertframesubtitle}}%
+				\end{flushleft}}%
+			}}%
+			% Side note
+			\ifx\beamer@theme@irtes@sidenote\relax\else%
+				\put(328,-210){\rotatebox{90}{\parbox[c]{\beamer@theme@irtes@outer@sideboxwidth}{%
+						\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}%
+						\beamer@theme@irtes@sidenote%
+				}}}%
+				\global\let\beamer@theme@irtes@sidenote\relax%
+			\fi%
+			% Absolute elements
+			\beamer@theme@irtes@insertabsolutepositionelements%
+			% Frame number
+			\put(290,31){\parbox[c]{3em}{%
+				{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
+			}}%
+			% Partner logo
+			\put(257,-228){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
+			\end{picture}%
 		\fi%
-		% Absolute elements
-		\beamer@theme@irtes@insertabsolutepositionelements%
-		% Frame number
-		\put(290,31){\parbox[c]{3em}{%
-			{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
-		}}%
-		% Partner logo
-		\put(257,-228){\parbox[b]{2.5cm}{\mbox{}\hfill\beamer@theme@irtes@partnerlogo}}%
-		\end{picture}%
 }
 
 \gdef\beamer@theme@irtes@outer@footline{%
+	\ifbeamer@plainframe\else%
 	\begin{picture}(0,25)(0,0)%
 	\put(85,8){\parbox[c]{\beamer@theme@irtes@outer@titlewidth}{%
 			\usebeamerfont{author in head/foot}\usebeamercolor[fg]{author in head/foot}%
@@ -136,6 +154,7 @@
 			\@beamer@theme@irtes@postfix{~--~}{\insertshorteventname}%
 			\insertshortinstitute}}%
 	\end{picture}%
+	\fi%
 }
 
 \newcommand{\beamer@theme@irtes@outer@thanksslide}{%
@@ -170,7 +189,7 @@
 		\end{picture}%
 		}%
 	}
-	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\pgfuseimage{IRTESbackground}\fi}
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
 	\useheaderdefault
 }

@@ -1,4 +1,4 @@
-% Copyright (c) 2013 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2014 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM, IRTES and SET logos and names are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerthemeIRTES}
-   [2013/10/10 Beamer 'IRTES' Theme]
+   [2014/09/10 Beamer 'IRTES' Theme]
 
 \RequirePackage{ifthen}
 
@@ -49,7 +49,7 @@
 		\usebackgroundtemplate{} % do not put a background here because of a rendering bug of beamer. See "title page" template insteed.
 		\frame{\maketitle}
 	}{}
-	\usebackgroundtemplate{\pgfuseimage{IRTESbackground}}
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\pgfuseimage{IRTESbackground}\fi}
 	\setbeamertemplate{footline}{\beamer@theme@irtes@outer@footline}
 }
 
