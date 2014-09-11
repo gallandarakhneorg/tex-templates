@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2014/07/10]
+\ProvidesPackage{spimbasephdthesis}[2014/07/11]
 
 \RequirePackage{lettrine}
 
@@ -350,5 +350,20 @@
 	\expandafter\section}
 \gdef\chapterintro{\@ifstar\upm@phdthesis@chapterintro@notoc\upm@phdthesis@chapterintro@toc}
 
+%%--------------------
+%% Add a small message on the backcover.
+\Set{backcovermessage}{%
+	\begin{center}\scriptsize
+		\ifthenelse{\equal{french}{\upmcurrentlang}}{
+			Document r\'ealis\'e avec \LaTeX\ et : \\
+			le style \LaTeX\ pour Thèse de Doctorat cr\'e\'e par S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
+			la collection de paquets \texttt{tex-upmethodology} --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}{
+			Document generated with \LaTeX\ and: \\
+			the \LaTeX\ style for PhD Thesis created by S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
+			the \texttt{tex-upmethodology} package suite --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}
+	\end{center}
+}
 
 \endinput

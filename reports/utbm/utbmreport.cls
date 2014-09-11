@@ -60,4 +60,20 @@
 	}{}
 }
 
+%%--------------------
+%% Add a small message on the backcover.
+\Set{backcovermessage}{%
+	\begin{center}\scriptsize
+		\ifthenelse{\equal{french}{\upmcurrentlang}}{
+			Document r\'ealis\'e avec \LaTeX\ et : \\
+			le style \LaTeX\ cr\'e\'e par S. Galland --- \url{http://www.multiagent.fr/ReportStyle} \\
+			la collection de paquets \texttt{tex-upmethodology} --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}{
+			Document generated with \LaTeX\ and: \\
+			the \LaTeX\ style created by S. Galland --- \url{http://www.multiagent.fr/ReportStyle} \\
+			the \texttt{tex-upmethodology} package suite --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}
+	\end{center}
+}
+
 \endinput

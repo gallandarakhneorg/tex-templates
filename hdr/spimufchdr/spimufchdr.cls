@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimufchdr}[2014/03/03]
+\ProvidesClass{spimufchdr}[2014/09/11]
 
 %%--------------------
 %% Class options
@@ -349,5 +349,21 @@
 \colorlet{definitionheaderforeground}{fronttableheader}
 \colorlet{definitionborder}{gray!60}
 \colorlet{definitiontextforeground}{black}
+
+%%--------------------
+%% Add a small message on the backcover.
+\Set{backcovermessage}{%
+	\begin{center}\scriptsize
+		\ifthenelse{\equal{french}{\upmcurrentlang}}{
+			Document r\'ealis\'e avec \LaTeX\ et : \\
+			le style \LaTeX\ pour HDR cr\'e\'e par S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
+			la collection de paquets \texttt{tex-upmethodology} --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}{
+			Document generated with \LaTeX\ and: \\
+			the \LaTeX\ style for HDR created by S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
+			the \texttt{tex-upmethodology} package suite --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
+		}
+	\end{center}
+}
 
 \endinput
