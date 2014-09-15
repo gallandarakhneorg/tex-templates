@@ -24,7 +24,7 @@ h2. Installation
 
 h2. Author
 
-Dr. Stéphane GALLAND
+Dr.habil. Stéphane GALLAND
 
 http://www.arakhne.org/homes/galland.html
 http://www.multiagent.fr/People:Galland_stephane
