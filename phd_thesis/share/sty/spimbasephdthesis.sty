@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2014/10/18]
+\ProvidesPackage{spimbasephdthesis}[2014/10/19]
 
 \RequirePackage{lettrine}
 
@@ -250,6 +250,68 @@
 \newcommand{\phdthesisbibemph}[1]{\textit{#1}}
 \newcommand{\phdthesisbibEmph}[1]{\textcolor{bibemphemphtextcolor}{\textbf{#1}}}
 \newcommand{\phdthesisbibkeyemph}[1]{\textbf{#1}}
+
+\ifthenelse{\equal{french}{\upmcurrentlang}}{
+	\gdef\phdthesisbiband{et\xspace}
+	\gdef\phdthesisbibetal{et~al.}
+	\gdef\phdthesisbibeditors{\'editeurs\xspace}
+	\gdef\phdthesisbibeditor{\'editeur\xspace}
+	\gdef\phdthesisbibvolume{volume\xspace}
+	\gdef\phdthesisbibVolume{Volume\xspace}
+	\gdef\phdthesisbibof{de\xspace}
+	\gdef\phdthesisbibvolumenumber{volume et num\'ero\xspace}
+	\gdef\phdthesisbibnumber{num\'ero\xspace}
+	\gdef\phdthesisbibNumber{Num\'ero\xspace}
+	\gdef\phdthesisbibin{dans\xspace}
+	\gdef\phdthesisbibIn{Dans\xspace}
+	\gdef\phdthesisbibedition{\'edition\xspace}
+	\gdef\phdthesisbibpages{pages\xspace}
+	\gdef\phdthesisbibpage{page\xspace}
+	\gdef\phdthesisbibchapter{chapitre\xspace}
+	\gdef\phdthesisbibtechnicalreport{Rapport technique\xspace}
+	\gdef\phdthesisbibJanuary{Janvier\xspace}
+	\gdef\phdthesisbibFebruary{F\'evrier\xspace}
+	\gdef\phdthesisbibMarch{Mars\xspace}
+	\gdef\phdthesisbibApril{Avril\xspace}
+	\gdef\phdthesisbibMay{Mai\xspace}
+	\gdef\phdthesisbibJune{Juin\xspace}
+	\gdef\phdthesisbibJuly{Juillet\xspace}
+	\gdef\phdthesisbibAugust{Ao\^ut\xspace}
+	\gdef\phdthesisbibSeptember{Septembre\xspace}
+	\gdef\phdthesisbibOctober{Octobre\xspace}
+	\gdef\phdthesisbibNovember{Novembre\xspace}
+	\gdef\phdthesisbibDecember{D\'ecembre\xspace}
+}{%
+	\gdef\phdthesisbiband{et\xspace}
+	\gdef\phdthesisbibetal{et~al.}
+	\gdef\phdthesisbibeditors{editors\xspace}
+	\gdef\phdthesisbibeditor{editor\xspace}
+	\gdef\phdthesisbibvolume{volume\xspace}
+	\gdef\phdthesisbibVolume{Volume\xspace}
+	\gdef\phdthesisbibof{of\xspace}
+	\gdef\phdthesisbibvolumenumber{volume and number\xspace}
+	\gdef\phdthesisbibnumber{number\xspace}
+	\gdef\phdthesisbibNumber{Number\xspace}
+	\gdef\phdthesisbibin{in\xspace}
+	\gdef\phdthesisbibIn{In\xspace}
+	\gdef\phdthesisbibedition{edition\xspace}
+	\gdef\phdthesisbibpages{pages\xspace}
+	\gdef\phdthesisbibpage{page\xspace}
+	\gdef\phdthesisbibchapter{chapter\xspace}
+	\gdef\phdthesisbibtechnicalreport{Technical Report\xspace}
+	\gdef\phdthesisbibJanuary{January\xspace}
+	\gdef\phdthesisbibFebruary{February\xspace}
+	\gdef\phdthesisbibMarch{March\xspace}
+	\gdef\phdthesisbibApril{April\xspace}
+	\gdef\phdthesisbibMay{May\xspace}
+	\gdef\phdthesisbibJune{June\xspace}
+	\gdef\phdthesisbibJuly{July\xspace}
+	\gdef\phdthesisbibAugust{August\xspace}
+	\gdef\phdthesisbibSeptember{September\xspace}
+	\gdef\phdthesisbibOctober{October\xspace}
+	\gdef\phdthesisbibNovember{November\xspace}
+	\gdef\phdthesisbibDecember{December\xspace}
+}
 
 %%--------------------
 %% Force the name of the bibliography and other sections for French

@@ -221,8 +221,8 @@ FUNCTION {format.names}
 	{ namesleft #1 >
 	    { ", " * t * }
 	    { t "others" =
-		{ ", et~al." * }
-		{ ", and " * t * }
+		{ ", \phdthesisbiband" * }
+		{ ", \phdthesisbiband" * t * }
 	      if$
 	    }
 	  if$
@@ -254,8 +254,8 @@ FUNCTION {format.editors}
     { "" }
     { editor format.names
       editor num.names$ #1 >
-        { ", editors" * }
-        { ", editor" * }
+        { ", \phdthesisbibeditors" * }
+        { ", \phdthesisbibeditor" * }
       if$
     }
   if$
@@ -315,12 +315,12 @@ FUNCTION {either.or.check}
 FUNCTION {format.bvolume}
 { volume empty$
     { "" }
-    { "volume" volume tie.or.space.connect
+    { "\phdthesisbibvolume" volume tie.or.space.connect
       series empty$
         'skip$
-        { " of " * series emphasize * }
+        { " \phdthesisbibof " * series emphasize * }
       if$
-      "volume and number" number either.or.check
+      "\phdthesisbibvolumenumber" number either.or.check
     }
   if$
 }
@@ -330,13 +330,13 @@ FUNCTION {format.number.series}
     { number empty$
         { series field.or.null }
         { output.state mid.sentence =
-            { "number" }
-            { "Number" }
+            { "\phdthesisbibnumber" }
+            { "\phdthesisbibNumber" }
           if$
           number tie.or.space.connect
           series empty$
             { "there's a number but no series in " cite$ * warning$ }
-            { " in " * series * }
+            { " \phdthesisbibin " * series * }
           if$
         }
       if$
@@ -349,8 +349,8 @@ FUNCTION {format.edition}
 { edition empty$
     { "" }
     { output.state mid.sentence =
-        { edition "l" change.case$ " edition" * }
-        { edition "t" change.case$ " edition" * }
+        { edition "l" change.case$ " \phdthesisbibedition" * }
+        { edition "t" change.case$ " \phdthesisbibedition" * }
       if$
     }
   if$
@@ -382,8 +382,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-        { "pages" pages n.dashify tie.or.space.connect }
-        { "page" pages tie.or.space.connect }
+        { "\phdthesisbibpages" pages n.dashify tie.or.space.connect }
+        { "\phdthesisbibpage" pages tie.or.space.connect }
       if$
     }
   if$
@@ -414,7 +414,7 @@ FUNCTION {format.chapter.pages}
 { chapter empty$
     'format.pages
     { type empty$
-        { "chapter" }
+        { "\phdthesisbibchapter" }
         { type "l" change.case$ }
       if$
       chapter tie.or.space.connect
@@ -430,8 +430,8 @@ FUNCTION {format.in.ed.booktitle}
 { booktitle empty$
     { "" }
     { editor empty$
-        { "In " booktitle emphasize * }
-        { "In " format.editors * ", " * booktitle emphasize * }
+        { "\phdthesisbibIn " booktitle emphasize * }
+        { "\phdthesisbibIn " format.editors * ", " * booktitle emphasize * }
       if$
     }
   if$
@@ -448,7 +448,7 @@ FUNCTION {format.thesis.type}
 
 FUNCTION {format.tr.number}
 { type empty$
-    { "Technical Report" }
+    { "\phdthesisbibtechnicalreport" }
     'type
   if$
   number empty$
@@ -458,24 +458,24 @@ FUNCTION {format.tr.number}
 }
 
 FUNCTION {format.article.crossref}
-{ "In"                                                  % this is for apalike
+{ "\phdthesisbibIn\ "                                                  % this is for apalike
   " \cite{" * crossref * "}" *
 }
 
 FUNCTION {format.book.crossref}
 { volume empty$
     { "empty volume in " cite$ * "'s crossref of " * crossref * warning$
-      "In "
+      "\phdthesisbibIn\ "
     }
-    { "Volume" volume tie.or.space.connect
-      " of " *
+    { "\phdthesisbibVolume" volume tie.or.space.connect
+      " \phdthesisbibof\ " *
     }
   if$
   "\cite{" * crossref * "}" *                           % this is for apalike
 }
 
 FUNCTION {format.incoll.inproc.crossref}
-{ "In"                                                  % this is for apalike
+{ "\phdthesisbibIn"                                                  % this is for apalike
   " \cite{" * crossref * "}" *
 }
 
@@ -751,29 +751,29 @@ FUNCTION {unpublished}
 
 FUNCTION {default.type} { misc }
 
-MACRO {jan} {"January"}
+MACRO {jan} {"\phdthesisbibJanuary"}
 
-MACRO {feb} {"February"}
+MACRO {feb} {"\phdthesisbibFebruary"}
 
-MACRO {mar} {"March"}
+MACRO {mar} {"\phdthesisbibMarch"}
 
-MACRO {apr} {"April"}
+MACRO {apr} {"\phdthesisbibApril"}
 
-MACRO {may} {"May"}
+MACRO {may} {"\phdthesisbibMay"}
 
-MACRO {jun} {"June"}
+MACRO {jun} {"\phdthesisbibJune"}
 
-MACRO {jul} {"July"}
+MACRO {jul} {"\phdthesisbibJuly"}
 
-MACRO {aug} {"August"}
+MACRO {aug} {"\phdthesisbibAugust"}
 
-MACRO {sep} {"September"}
+MACRO {sep} {"\phdthesisbibSeptember"}
 
-MACRO {oct} {"October"}
+MACRO {oct} {"\phdthesisbibOctober"}
 
-MACRO {nov} {"November"}
+MACRO {nov} {"\phdthesisbibNovember"}
 
-MACRO {dec} {"December"}
+MACRO {dec} {"\phdthesisbibDecember"}
 
 MACRO {acmcs} {"ACM Computing Surveys"}
 
@@ -847,8 +847,8 @@ FUNCTION {format.lab.names}
     { #2 <
         'skip$
         { s #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
-            { " et~al." * }
-            { " and " * s #2 "{vv~}{ll}" format.name$ * }
+            { " \phdthesisbibetal" * }
+            { " \phdthesisbiband\ " * s #2 "{vv~}{ll}" format.name$ * }
           if$
         }
       if$
