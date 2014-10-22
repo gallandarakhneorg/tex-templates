@@ -838,11 +838,12 @@ FUNCTION {chop.word}
 %                       two (Jones and de~Bruijn), and more (Jones et~al.).
 %                       This function is much like format.crossref.editors.
 %
+% Note that if more than one name exist, the "et al." is output
 FUNCTION {format.lab.names}
 { 's :=
   s #1 "{vv~}{ll}" format.name$
   s num.names$ duplicate$
-  #2 >
+  #1 >
     { pop$ " et~al." * }
     { #2 <
         'skip$
