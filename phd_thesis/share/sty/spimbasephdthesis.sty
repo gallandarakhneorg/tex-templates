@@ -399,14 +399,12 @@
 %%--------------------
 %% Macro for starting a chapter with a standard format
 \global\long\def\upm@phdthesis@chapterintro@toc#1\section{%
-	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
 	\@ifundefined{minitoc}{}{%
-		\vspace{.5cm}%
-		\xdef\upm@phdthesis@reserveda{\thepage}%
+		\begin{figure}[bt]%
 		\minitoc%
-		\xdef\upm@phdthesis@reservedb{\thepage}%
-		\ifthenelse{\equal{\upm@phdthesis@reserveda}{\upm@phdthesis@reservedb}}{\vfill\pagebreak}{}%
+		\end{figure}%
 	}%
+	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
 	\expandafter\section}
 \global\long\def\upm@phdthesis@chapterintro@notoc#1\section{%
 	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
