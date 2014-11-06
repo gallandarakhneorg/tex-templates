@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2014/10/19]
+\ProvidesPackage{spimbasephdthesis}[2014/11/06]
 
 \RequirePackage{lettrine}
 
@@ -414,10 +414,10 @@
 %%--------------------
 %% Add a small message on the backcover.
 \Set{backcovermessage}{%
-	\begin{center}\scriptsize
+	\begin{center}\tiny
 		\ifthenelse{\equal{french}{\upmcurrentlang}}{
 			Document r\'ealis\'e avec \LaTeX\ et : \\
-			le style \LaTeX\ pour Thèse de Doctorat cr\'e\'e par S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
+			le style \LaTeX\ pour Th\`ese de Doctorat cr\'e\'e par S. Galland --- \url{http://www.multiagent.fr/ThesisStyle} \\
 			la collection de paquets \texttt{tex-upmethodology} --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
 		}{
 			Document generated with \LaTeX\ and: \\
