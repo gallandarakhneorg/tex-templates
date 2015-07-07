@@ -226,11 +226,42 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 
 \chapter{\'Etat de l'art}
 
-% The macro \chapterintro is formatting the following text according to the
-% standard chapter introduction format.
+% Automatic Lettrine and Minitoc at the begining of the chapter.
 %
-% NOTE: if you have included the MINITOC package, the \minitoc is automatically added
+% The following macros are formatting the text at the begining of a chapter according to the
+% standard format.
+%
+% \chapterintro*     transform to lettrine the first letter that is following this macro.
+%
+% \chapterintro               transform to lettrine the first letter that is following this macro,
+%                             AND
+%                             put a minitoc (if the minitoc package is included) just before
+%                             the next following \section macro. You must type the \section macro
+%                             in the same file as the \chapterintro macro.
+%
+% \chapterintrotosection      transform to lettrine the first letter that is following this macro,
+%                             AND
+%                             put a minitoc (if the minitoc package is included) just before
+%                             the next following \section macro. You must type the \section macro
+%                             in the same file as the \chapterintrotosection macro.
+%
+% \chapterintrotoinput        transform to lettrine the first letter that is following this macro,
+%                             AND
+%                             put a minitoc (if the minitoc package is included) just before
+%                             the next following \input macro. You must type the \input macro
+%                             in the same file as the \chapterintrotoinput macro.
+%
+% \chapterintrotoinclude      transform to lettrine the first letter that is following this macro,
+%                             AND
+%                             put a minitoc (if the minitoc package is included) just before
+%                             the next following \include macro. You must type the \include macro
+%                             in the same file as the \chapterintrotoinclude macro.
+
+%\chapterintro*
 \chapterintro
+%\chapterintrotosection
+%\chapterintrotoinput
+%\chapterintrotoinclude
 
 Pour vous aider à écrire votre ouvrage de thèse, un certain nombre d'outils sont décrits ci-dessous.
 De nombreuses autres macros sont disponibles dans l'ensemble de paquets \LaTeX\ \texttt{tex-upmethodology}
