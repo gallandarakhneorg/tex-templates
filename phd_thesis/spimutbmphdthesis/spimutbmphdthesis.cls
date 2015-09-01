@@ -51,7 +51,4 @@
 %% Use the style dedicated to PhD thesis from SPIM-UTBM
 \UseExtension{spimutbmphdthesis}
 
-% Add the default partner: the IRTES
-\addpartner{irteslogo}
-
 \endinput
