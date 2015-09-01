@@ -231,31 +231,33 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 % The following macros are formatting the text at the begining of a chapter according to the
 % standard format.
 %
-% \chapterintro*     transform to lettrine the first letter that is following this macro.
+% \chapterintro               See \chapterintrotosection.
 %
-% \chapterintro               transform to lettrine the first letter that is following this macro,
-%                             AND
-%                             put a minitoc (if the minitoc package is included) just before
-%                             the next following \section macro. You must type the \section macro
-%                             in the same file as the \chapterintro macro.
+% \chapterintro*              Similar to \chapterintro, except that the minitoc will be ignored.
 %
-% \chapterintrotosection      transform to lettrine the first letter that is following this macro,
-%                             AND
-%                             put a minitoc (if the minitoc package is included) just before
-%                             the next following \section macro. You must type the \section macro
+% \chapterintrotosection      transform to lettrine the first letter that is following this macro
+%                             until the next following \section macro.
+%                             YOU MUST type the \section macro
 %                             in the same file as the \chapterintrotosection macro.
-%
-% \chapterintrotoinput        transform to lettrine the first letter that is following this macro,
 %                             AND
 %                             put a minitoc (if the minitoc package is included) just before
-%                             the next following \input macro. You must type the \input macro
+%                             the next following \section macro.
+%
+% \chapterintrotoinput        transform to lettrine the first letter that is following this macro
+%                             until the next following \input macro.
+%                             YOU MUST type the \input macro
 %                             in the same file as the \chapterintrotoinput macro.
-%
-% \chapterintrotoinclude      transform to lettrine the first letter that is following this macro,
 %                             AND
 %                             put a minitoc (if the minitoc package is included) just before
-%                             the next following \include macro. You must type the \include macro
+%                             the next following \input macro.
+%
+% \chapterintrotoinclude      transform to lettrine the first letter that is following this macro
+%                             until the next following \include macro.
+%                             YOU MUST type the \include macro
 %                             in the same file as the \chapterintrotoinclude macro.
+%                             AND
+%                             put a minitoc (if the minitoc package is included) just before
+%                             the next following \include macro.
 
 %\chapterintro*
 \chapterintro

@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2015/07/07]
+\ProvidesPackage{spimbasephdthesis}[2015/09/01]
 
 \RequirePackage{lettrine}
 
@@ -413,25 +413,30 @@
 	}%
 }
 
-% Standard formating with looking forward for \section, \input, or \include
-\gdef\chapterintro{\@ifstar\upm@phdthesis@chapterintro@notoc\chapterintrotosection}
-
-% Standard formating with looking forward for \include
-\gdef\chapterintro{\@ifstar\upm@phdthesis@chapterintro@notoc\upm@phdthesis@chapterintro@include@toc}
-\global\long\def\upm@phdthesis@chapterintro@notoc{%
-	\ignorespaces\upm@phdthesis@MakeLettrine{}}
+% Add a lettrine and a minitoc at the next following \section
 \global\long\def\chapterintrotosection#1\section{%
 	\chapterintrominitoc%
 	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
 	\expandafter\section}
-\global\long\def\chapterintrotoinput#1\include{%
-	\chapterintrominitoc%
-	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
-	\expandafter\include}
-\global\long\def\chapterintrotoinclude#1\input{%
+
+% Add a lettrine and a minitoc at the next following \input
+\global\long\def\chapterintrotoinput#1\input{%
 	\chapterintrominitoc%
 	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
 	\expandafter\input}
+
+% Add a lettrine and a minitoc at the next following \include
+\global\long\def\chapterintrotoinclude#1\include{%
+	\chapterintrominitoc%
+	\ignorespaces\upm@phdthesis@MakeLettrine{}#1%
+	\expandafter\include}
+
+% No lettrine at the begining of the chapter
+\global\long\def\upm@phdthesis@chapterintro@notoc{%
+	\ignorespaces\upm@phdthesis@MakeLettrine{}}
+
+% Standard formating with looking forward for \section, \input, or \include
+\gdef\chapterintro{\@ifstar\upm@phdthesis@chapterintro@notoc\chapterintrotosection}
 
 %%--------------------
 %% Add a small message on the backcover.
