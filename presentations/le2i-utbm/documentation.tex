@@ -1,0 +1,788 @@
+\documentclass[english,circlenumberstyle]{le2iutbmbeamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{algpseudocode}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+\title{Documentation of the LE2I-UTBM Theme for Beamer}
+\subtitle{Macros provided by the theme}
+
+\author[S.~Galland]{St\'ephane~Galland}
+
+\finalslidetext{End of the Documentation}
+
+\AtBeginSection[]{
+  	\tableofcontentslide[currentsection,hideothersubsections]
+}
+
+\pgfdeclareimage[height=.2cm]{fakele2ilogoinpartners}{le2ilogo}
+\pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmlogo}
+\pgfdeclareimage[height=.2cm]{fakecnrslogoinpartners}{cnrslogo}
+\pgfdeclareimage[height=.25cm]{fakele2ilogointitle}{le2ilogoinv}
+\pgfdeclareimage[height=.25cm]{fakemaglogointitle}{multiagentlogoinv}
+\pgfdeclareimage[height=.25cm]{fakecnrslogointitle}{cnrslogo}
+
+\makeatletter
+\let\fakebackground\beamer@theme@leiiutbm@outer@background
+\makeatother
+
+\makeatletter
+\let\fakeoldunderline\beamer@theme@leiiutbm@oldunderline
+\makeatother
+
+\newcommand{\fakeslide}[3][fakele2ilogointitle]{
+	\framebox{\begin{minipage}{.4\paperwidth}
+		\begin{picture}(0,90)
+			\put(-3,81.25){\scalebox{0.41}{\fakebackground}}
+			\put(10,86){\textcolor{white}{\tiny #2}}
+			\ifthenelse{\equal{a#1}{a}}{}{\put(-1,84.5){\pgfuseimage{#1}}}
+			#3				
+			\put(118,-2){
+				\pgfuseimage{fakele2ilogoinpartners}\pgfuseimage{fakeutbmlogoinpartners}\pgfuseimage{fakecnrslogoinpartners}}
+		\end{picture}
+	\end{minipage}}
+}
+
+%\useheaderlinewithmaglogo
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontentslide
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\begin{frame}{\secname}
+	\begin{itemize}
+	\item This document explains the {\LaTeX} macros that are provided by the LE2I-UTBM theme for beamer.
+	\item To use the LE2I-UTBM theme for beamer, you must:
+		\begin{enumerate}
+		\item Install the files of the LE2I-UTBM theme inside your {\LaTeX} distribution.
+		\item Create a document, which uses the document class: \texttt{le2iutbmbeamer}
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Major Features}
+	\begin{itemize}
+	\item Provide the unofficial style for the research group of the LE2I located at the UTBM.
+	\item Add a title slide (with label \texttt{titleslide} for \texttt{{\textbackslash}hyperlink}) as the first slide.
+	\item Add a final slide at the end of the presentation to avoid ``black'' screen at the end of the presentation.
+	\item Provide high level macros for building the slides.
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Predefined Values}
+
+\subsection{Colors}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme defines the official colors:
+		\begin{itemize}
+		\item \texttt{LE2IUTBMblue} : \textcolor{LE2IUTBMblue}{Example}
+		\item \texttt{LE2IUTBMmagenta} : \textcolor{LE2IUTBMmagenta}{Example}
+		\item \texttt{LE2IUTBMgreen} : \textcolor{LE2IUTBMgreen}{Example}
+		\item \texttt{LE2IUTBMlightblue} : \textcolor{LE2IUTBMlightblue}{Example}
+		\item \texttt{LE2IUTBMlightestblue} : \textcolor{LE2IUTBMlightestblue}{Example}
+		\item \texttt{LE2IUTBMlightmagenta} : \textcolor{LE2IUTBMlightmagenta}{Example}
+		\item \texttt{LE2IUTBMlightestmagenta} : \textcolor{LE2IUTBMlightestmagenta}{Example}
+		\item \texttt{LE2IUTBMdarkgray} : \textcolor{LE2IUTBMdarkgray}{Example}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Class and Preamble}
+
+\subsection{Class Options}
+\begin{frame}{\subsecname~(1/2)}\smaller
+	The document class \texttt{le2iutbmbeamer} supports the following options:
+	\begin{itemize}
+	\item \texttt{english}: the slides are written in English (this is the default).
+	\item \texttt{french}: the slides are written in French.
+	\item \texttt{nocover}: do not add a slide for the title and the ``thanks''.
+	\item \texttt{thanksslide}: add a slide with the word ``Thanks'' at the end (this is the default). 
+	\item \texttt{questionslide}: add a slide with the word ``Question'' at the end. 
+	\item \texttt{repeattitleslide}: add the title slide at the end.
+	\item \texttt{textnumberstyle}: the frame numbers are output as text.\hfill\hyperlink{progressbartypes}{\beamergotobutton{See example}}
+	\item \texttt{circlenumberstyle}: the frame numbers are output in a circle.\hfill\hyperlink{progressbartypes}{\beamergotobutton{See example}}
+	\item \texttt{sectioncirclenumberstyle}: the frame numbers are output in a circle.\hfill\hyperlink{progressbartypes}{\beamergotobutton{See example}}
+ 	\end{itemize}
+\end{frame}
+
+\begin{frame}{\subsecname~(2/2)}\smaller
+	\begin{itemize}
+	\item \texttt{partcirclenumberstyle}: similar to \texttt{circlenumberstyle} except that the indicator is reset at the start of each part.
+	\item \texttt{partsectioncirclenumberstyle}: similar to \texttt{sectioncirclenumberstyle} except that the indicator is reset at the start of each part.
+	\item \texttt{nonumberstyle}: the frame numbers are not output.
+	\item \texttt{eventintitlebar}: on the title slide, the event's name should be put in the title bar.
+	\item \texttt{eventbelowauthors}: on the title slide, the event's name should be put below the authors.
+	\item All the options accepted by Beamer.
+ 	\end{itemize}
+\end{frame}
+
+\subsection{Title and Subtitle}
+\begin{frame}{\subsecname}
+	\begin{block}{Title}
+		Use the macro: \texttt{{\textbackslash}title\{title of the document\}}
+	\end{block}
+	\begin{block}{Subitle}
+		Use the macro: \texttt{{\textbackslash}subtitle\{subtitle of the document\}}
+	\end{block}
+	\begin{itemize}
+	\item These macros must be put in the preamble of your document.
+	\end{itemize}
+\end{frame}
+
+\subsection{Authors}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item Authors are defined with the macro: \\
+		\texttt{{\textbackslash}author[short]\{long\}}
+		\begin{itemize}
+		\item the \texttt{long} list of authors is displayed on the front page. You should separate the names with the macro \texttt{{\textbackslash}and}.
+		\item the \texttt{short} list of authors is displayed inside the foot line of the slides. You \alert{must not separate} the names with the macro \texttt{{\textbackslash}and}.
+		\end{itemize}
+	\item Alternatively, you could define the authors with the macros: \\
+		\texttt{{\textbackslash}addauthor[short]\{long\}} \\
+		\texttt{{\textbackslash}addauthor*[short]\{long\}}
+		\begin{itemize}
+		\item Add \textbf{one} author to the list of the authors.
+		\item The ``starred'' version applies some visual indicators to the name (underline, etc.) It may be used to indicate the name of the talker for example.
+		\end{itemize}
+	\item These macros must be put in the document preamble.
+	\end{itemize}
+\end{frame}
+
+\subsection{Event Name}
+\begin{frame}{\subsecname}
+	\begin{block}{Definition of the event name}
+		\begin{itemize}
+		\item You could specify the name of the event for which the slides are written: \\
+			\texttt{{\textbackslash}event[short]\{full\}}
+		\item the \texttt{full} name is displayed on the front page.
+		\item the \texttt{short} name is displayed inside the foot line of the slides.
+		\item Put these macros into the document preamble.
+		\end{itemize}
+	\end{block}
+	\begin{block}{Insert the event name in your slides}
+		\begin{itemize}
+		\item You could insert the full name of the event with: \\
+			\texttt{{\textbackslash}inserteventname}
+		\item You could insert the short name of the event with: \\
+			\texttt{{\textbackslash}insertshorteventname}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Institute Name and URL}
+\begin{frame}{Institute Name}
+	\begin{itemize}
+	\item You could change the name of the institute with the following macro in the document preamble: \\
+		\texttt{{\textbackslash}institute[short]\{full\}}
+	\item the \texttt{full} name is displayed on the front page.
+	\item the \texttt{short} name is displayed inside the foot line of the slides.
+	\vspace{1em}
+	\item The default full name is: \\
+		\small\textbf{Universit\'e de Bourgogne Franche-Comt\'e - UTBM - LE2I}, \\
+		\small90010 Belfort cedex, France - \url{http://le2i.cnrs.fr}
+	\item The default short name is: LE2I-UTBM.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Institute URL}
+	\begin{itemize}
+	\item You could change the URL of the institute with: \\
+		\texttt{{\textbackslash}instituteurl\{url\}}
+	\vspace{1em}
+	\item The default url is: \url{http://le2i.cnrs.fr}
+	\vspace{1em}
+	\item To insert the institute's URL, you could use the macro: \\
+			\texttt{{\textbackslash}insertinstituteurl}
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Parts and Sections}
+
+\subsection{Table of Contents}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides a convenient macro to insert a table of contents: \\
+		\texttt{{\textbackslash}tableofcontentsslide[options]}
+	\vspace{1em}
+	\item It is equivalent to: \\
+		\texttt{{\textbackslash}begin\{frame\}[c]} \\
+		\texttt{{\textbackslash}frametitle\{{\textbackslash}translate\{Outline\}\}} \\
+		\texttt{{\textbackslash}tableofcontents[options]} \\
+		\texttt{{\textbackslash}end\{frame\}}
+	\vspace{1em}
+	\item In additional to the standard options of {{\textbackslash}tableofcontents}, the option \texttt{onlyparts} permits to display the list of the parts, only.
+	\end{itemize}
+\end{frame}
+
+\subsection{Part Sectioning}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides a specific implementation of the \texttt{{\textbackslash}part} macro: \\
+		\texttt{{\textbackslash}part[options]{title}} \\
+		\texttt{{\textbackslash}part*[options]{title}} \\
+	\item Options may be: \begin{itemize}
+		\item a string value that is the ``short'' title of the part that is appearing in the table of contents.
+		\item the pair \texttt{title=text} to define the ``short'' title.
+		\item the pair \texttt{author=text} to define the author of the part.
+		\item the pair \texttt{label=id} to define the label of the part at the correct page.
+		\end{itemize}
+	\item The stared version of \texttt{{\textbackslash}part} does not add the part in the table of contents.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Changing the prefix in the part's slides}
+	\begin{itemize}
+	\item By default, each part is starting with a slide with only the part's title on, without a prefix such as ``Chapter X''.
+	\item The LE2I-UTBM theme provides the following macros to change the part's prefix:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}insertpartprefix} insert the current part prefix.
+		\item \texttt{{\textbackslash}partprefix[counter text]\{text\}} changes the prefix to ``text'' followed by ``counter text''.
+		\item \texttt{{\textbackslash}resetpartprefix} resets the prefix to the empty text.
+		\end{itemize}
+	\end{itemize}
+	\begin{example}
+		\texttt{{\textbackslash}partprefix[{\textbackslash}arabic\{part\}]\{Chapter\}} produces ``Chapter 1'', ``Chapter 2'', \dots
+	\end{example}
+\end{frame}
+
+\subsection{Appendix}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme supports the appendix.
+	\vspace{1em}
+	\item To create the appendix, you must:
+		\begin{enumerate}
+		\item put the macro \texttt{{\textbackslash}appendix} in your {\TeX} file; or
+		\item put the macro \texttt{{\textbackslash}bibliography} in your {\TeX} file.
+		\end{enumerate}
+	\vspace{1em}
+	\item All the slides that are put after the creation of the appendix are assumed to be part of the appendix.
+	\item The slides in the appendix are not considered in the total number of slides for the core part of the document (see \texttt{{\textbackslash}inserttotalcoreframenumber}).
+	\item The slide numbers in the appendix are roman (not arabic), and the numbers are reset.
+	\end{itemize}
+\end{frame}
+
+\subsection{Bibliography}
+\begin{frame}{Bibliography}
+	\begin{itemize}
+	\item You are able to include a bibliography in your slides with the two standard {\LaTeX} macros: \\
+		\texttt{{\textbackslash}bibliographystyle\{style\}} \\
+		\texttt{{\textbackslash}bibliography\{filename\}}
+	\vspace{1em}
+	\item The default style is \texttt{apalike}.
+	\vspace{1em}
+	\item When the macro \texttt{{\textbackslash}bibliography} is used, the appendix section is started if it was not already done.
+	\item The bibliography slides are \alert{always} at the end of the document. Even if you put slides after the {\textbackslash}bibliography macro.
+	\item \emph{The first slide of the bibliography has the label \texttt{bibliographyslide} for \texttt{{\textbackslash}hyperlink}.}
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special Slides}
+
+\subsection{Figure Slide}
+\begin{frame}{\subsecname}
+	The LE2I-UTBM theme provides a macro that permits to display a picture on the entire slide:
+	\begin{itemize}
+	\item \texttt{{\textbackslash}figureslide[width=V,height=V,scale=V]\{Title of the slide\}\{file\}}
+	\item Example: \texttt{{\textbackslash}figureslide\{XyZ\}\{le2ilogo\}} 
+	\end{itemize}
+	\vspace{1em}
+	\begin{center}
+		\fakeslide{XyZ}{
+			\put(30,5){\includegraphics[width=.55\linewidth]{le2ilogo}}
+		}
+	\end{center}
+\end{frame}
+
+\subsection{Final Slide}
+\begin{frame}{A Conclusion Slide}
+	\begin{itemize}
+	\item The L2EI-UTBM theme automatically adds a slide at the end of the presentation to avoid ``black'' screen.
+	\vspace{1em}
+	\item The default text on this slide is: ``\translate{Thanks}''.
+	\item An other text that is available is: ``\translate{Questions}''.
+	\vspace{1em}
+	\item The class options \texttt{thanksslide} and \texttt{questionslide} permit to select one of these possibilities.
+	\vspace{1em}
+	\item The macro \texttt{{\textbackslash}finalslidetext\{text\}} may be used to set the text by hand.
+	\vspace{1em}
+	\item \emph{This slide has the label \texttt{finalslide} for \texttt{{\textbackslash}hyperlink}.}
+	\end{itemize}
+\end{frame}
+
+\subsection{Book Description}
+\begin{frame}{Book Description}
+	\begin{itemize}
+	\item You are able to include a list of books in your presentation with the macro: \\
+		\texttt{{\textbackslash}libraryslide[options]\{picture\}} \\
+		\texttt{\{title\}\{authors\}\{How published\}\{ISBN\}}
+	\vspace{1em}
+	\item The macro creates a slide for a book.
+	\vspace{1em}
+	\item The \texttt{options} may be composed of pairs of name-value:
+		\begin{itemize}
+		\item \texttt{frametitle=text}: specifies the title of the frame.
+		\item \texttt{subtitle=text}: specifies the subtitle of the book.
+		\end{itemize}
+	\item If a name is not specified in the options, the ``\texttt{subtitle}'' name is assumed.
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Header and Footer Tuning}
+
+\subsection{Headline}
+\begin{frame}{\subsecname}
+	\begin{footnotesize}
+	\begin{itemize}
+	\item Beamer provides an headline in which the progress of the presentation my be shown.
+	In the LE2I-UTBM theme, this headline is located at the top left of the slides.
+	\item You could change this headline with: \begin{itemize}\footnotesize
+		\item \texttt{{\textbackslash}useheaderempty}: the headline is empty.
+		\item \texttt{{\textbackslash}useheaderdefault}: the headline is filled with the default value (may be changed with one of the following macros).
+		\item \texttt{{\textbackslash}useheaderlinewithmaglogo}: the default headline contains the Multiagent Group logo.
+		\item \texttt{{\textbackslash}useheaderlinewithleiilogo}: the default headline contains the LE2I logo.
+		\item \texttt{{\textbackslash}useheaderlinewithcnrslogo}: the default headline contains the CNRS logo.
+		\item \texttt{{\textbackslash}useheaderlinewithsections}: the default headline contains the sections of the presentation.
+		\end{itemize}
+	\end{itemize}
+	\end{footnotesize}
+\end{frame}
+
+\begin{frame}{\subsecname: Example without logo}
+	\begin{center}
+		\fakeslide[]{XyZ}{}
+	\end{center}
+\end{frame}
+
+\begin{frame}{\subsecname: Example with the Multiagent Group logo}
+	\begin{center}
+		\fakeslide[fakemaglogointitle]{XyZ}{}
+	\end{center}
+\end{frame}
+
+\begin{frame}{\subsecname: Example with the LE2I logo}
+	\begin{center}
+		\fakeslide[fakele2ilogointitle]{XyZ}{}
+	\end{center}
+\end{frame}
+
+\begin{frame}{\subsecname: Example with the CNRS logo}
+	\begin{center}
+		\fakeslide[fakecnrslogointitle]{XyZ}{}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Style of the Table of Content in the Headline}
+	\begin{itemize}
+	\item To change the style of the headline, you could set the Beamer template ``headline text style''.
+	\vspace{1em}
+	\item Example: \\
+		\texttt{{\textbackslash}setbeamertemplate\{headline text style\}\{{\textbackslash}Tiny\}} \\
+		changes the size of the headline's text to the Tiny size.
+	\end{itemize}
+\end{frame}
+
+\subsection{Partner Logo}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item You could add on all slides the logo of your partner: \\
+		\texttt{{\textbackslash}partnerlogo[options]\{filename\}}
+	\item The LE2I-UTBM theme recommands a logo with a width of 2cm.
+	\item The \texttt{filename} is the name of the picture.
+	\vspace{1em}
+	\item This figure is declared with \texttt{{\textbackslash}pgfdeclareimage} with the key ``LE2IUTBMpartnerlogo''.
+	\item The figure could be re-used with \texttt{{\textbackslash}pgfuseimage}.
+	\item The \texttt{options} are passed to \texttt{{\textbackslash}pgfdeclareimage}. The default option is \texttt{width=2cm}.
+	\end{itemize}
+\end{frame}
+
+\subsection{Frame Number}
+\begin{frame}[label=progressbartypes]{\subsecname}\tiny
+	\begin{itemize}
+	\item The total number of slides in the core part of the presentation could be obtained with: \\
+		\texttt{{\textbackslash}inserttotalcoreframenumber}
+	\item The following macro provides the progression in the slides:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}insertframenumbering[type number]}
+		\item The \texttt{type number} is the identifier of the progress bar to be used:
+			\begin{tabularx}{\linewidth}{|c|c|X|}
+			\hline
+			\textbf{Type number} & \textbf{Output} & \textbf{Explanation} \\
+			\hline
+			\texttt{1} & \insertframenumbering[1] & Show the current frame and its position in the total number of frames. \\
+			\hline
+			\texttt{2} & \colorbox{LE2IUTBMdarkgray}{\insertframenumbering[2]} & Show the current frame and the total number of frames. \\
+			\hline
+			\texttt{3} & \insertframenumbering[2] & Same as the type \texttt{1} with a progression bar for the current section. \\
+			\hline
+			\end{tabularx}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Slide Content}
+
+\subsection{Colorized Tables}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme puts colorized borders around tables.
+	\item In addition, you could create a table heading with specific colors:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}tabularheading} to use the heading background.
+		\item \texttt{{\textbackslash}chead\{text\}} to define the text of a column heading.
+		\end{itemize}
+	\end{itemize}
+	\begin{example}
+		\begin{columns}
+			\begin{column}{.6\linewidth}
+				\footnotesize
+				\texttt{{\textbackslash}begin\{tabular\}\{{\textbar}l{\textbar}l{\textbar}\}{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}tabularheading{\textbackslash}chead\{A\}\&{\textbackslash}chead\{B\}{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}C\&D{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}end\{tabular\}}
+			\end{column}
+			\begin{column}{.3\linewidth}
+				\begin{tabular}{|l|l|}
+					\hline
+					\tabularheading\chead{A}&\chead{B} \\
+					\hline
+					C & D \\
+					\hline
+				\end{tabular}	
+			\end{column}
+		\end{columns}
+	\end{example}
+\end{frame}
+
+\subsection{Alert Boxes}
+\begin{frame}{\subsecname}
+	The LE2I-UTBM theme defines the a box for alerts: \\
+	\begin{itemize}
+	\item \texttt{{\textbackslash}alertbox\ensuremath{<}frame\_spec\ensuremath{>}\{this is an alert text\}} \\[.5cm]
+		\alertbox{this is an alert text}
+		\vspace{1cm}
+	\item \texttt{{\textbackslash}alertbox*\ensuremath{<}frame\_spec\ensuremath{>}\{this is an alert text\}} \\[.5cm]
+		\alertbox*{this is an alert text}
+	\item Note that \texttt{\ensuremath{<}frame\_spec\ensuremath{>}} is optional. It permits to specify the Beamer frame in which the box is displayed.
+	\end{itemize}
+\end{frame}
+
+\subsection{Enhanced Description}
+\begin{frame}{\subsecname}
+	The LE2I-UTBM theme provides an enhanced definition of the \texttt{description} environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{description\}} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item[Item Name] text2} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$[Item Name] text2} \\
+	\texttt{{\textbackslash}end\{description\}}} \\[.5cm]
+	\begin{description}
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{description}
+\end{frame}
+
+\subsection{Enhanced Enumeration}
+\begin{frame}{\subsecname (1/2)}
+	The LE2I-UTBM theme provides an enhanced definition of the \texttt{enumerate} environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{enumerate\}[counter format]} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item[Item Name] text2} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$[Item Name] text2} \\
+	\texttt{{\textbackslash}end\{enumerate\}}} \\[.5cm]
+	\begin{enumerate}
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{\subsecname (2/2)}
+	Below, the optional parameter \texttt{counter format} is set to \texttt{"a)"}: \\[.5cm]
+	\begin{enumerate}[a)]
+	\item text1
+	\item[Item Name] text2
+	\item<2> text1
+	\item<2>[Item Name] text2
+	\end{enumerate}
+\end{frame}
+
+\subsection{Text Sizes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The standard Beamer macros for selected the text side are: \\
+		{\TINY\texttt{{\textbackslash}TINY}}, {\Tiny\texttt{{\textbackslash}Tiny}}, {\tiny\texttt{{\textbackslash}tiny}}, {\scriptsize\texttt{{\textbackslash}scriptsize}}, {\footnotesize\texttt{{\textbackslash}footnotesize}}, {\small\texttt{{\textbackslash}small}}, {\normalsize\texttt{{\textbackslash}normalsize}}, {\large\texttt{{\textbackslash}large}}, {\Large\texttt{{\textbackslash}Large}}, {\huge\texttt{{\textbackslash}huge}}, {\Huge\texttt{{\textbackslash}Huge}}
+	\vspace{1em}
+	\item The LE2I-UTBM theme includes two additional macros:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}smaller} : to decrease the size of the text, and
+		\item \texttt{{\textbackslash}larger} : to increase the size of the text.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Emphazed Text}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme redefines the macro \texttt{{\textbackslash}emph} to display the emphazed text with a color. \\
+		Example: \emph{This is an emphazed text.}
+	\vspace{2em}
+	\item The LE2I-UTBM theme defines the macro \texttt{{\textbackslash}Emph} to display the ``very emphazed'' text with a color. \\
+		Example: \Emph{This is a ``very emphazed'' text.}
+	\end{itemize}
+\end{frame}
+
+\subsection{Underlining}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme redefines the macro \texttt{{\textbackslash}underline} to move the line closer to the text.
+	\vspace{2em}
+	\item Before: \fakeoldunderline{Example}
+	\item After: \underline{Example}
+	\end{itemize}
+\end{frame}
+
+\subsection{Additional Symbols}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme (re)defines the macros for several symbols:
+	\end{itemize}
+	\begin{tabularx}{\linewidth}{|l|X|l|X|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{From LE2I-UTBM theme}} & \multicolumn{2}{c|}{\textbf{From \TeX}} \\
+	\hline
+	\texttt{{\textbackslash}copyright} & \copyright & \texttt{{\textbackslash}copyright} & \textcopyright \\
+	\hline
+	\texttt{{\textbackslash}trademark} & \trademark & \texttt{{\textbackslash}texttrademark} & \texttrademark \\
+	\hline
+	\texttt{{\textbackslash}servicemark} & \servicemark & \texttt{{\textbackslash}textservicemark} & \textservicemark \\
+	\hline
+	\texttt{{\textbackslash}regmark} & \regmark & \texttt{{\textbackslash}textregistered} & \textregistered \\
+	\hline
+	\texttt{{\textbackslash}checkmark} & \checkmark & \texttt{{\textbackslash}textcheckmark} & \textcheckmark \\
+	\hline
+	\texttt{{\textbackslash}xmark} & \xmark & & \\
+	\hline
+	\end{tabularx}
+\end{frame}
+
+\subsection{Exponents and Indices}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme (re)defines the macros to put text in exponent or in indice.
+	\item The macros \texttt{{\textbackslash}textup} and \texttt{{\textbackslash}textdown} try to add a space after the text, when it is allowed by the typographic rules (it uses the macro \texttt{{\textbackslash}xspace}).
+	\end{itemize}
+	\begin{tabularx}{\linewidth}{|l|X|l|X|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{From LE2I-UTBM theme}} & \multicolumn{2}{c|}{\textbf{From \TeX}} \\
+	\hline
+	\texttt{{\textbackslash}textup} & ABC\textup{ABC}D & \texttt{{\textbackslash}textsuperscript} & ABC\textsuperscript{ABC}D \\
+	\hline
+	\texttt{{\textbackslash}textsubscript} & ABC\textsubscript{ABC}D & - & - \\
+	\hline
+	\texttt{{\textbackslash}textdown} & ABC\textdown{ABC}D & - & - \\
+	\hline
+	\end{tabularx}
+\end{frame}
+
+\subsection{Continuation Text}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item When continuing a frame, Beamer insert the ``continuation text'' after the title.
+	\item To insert the continuation text manually, you should use:
+		\texttt{{\textbackslash}insertcontinuationwith\{integer\}}
+	\item The parameter is the value of the continuation counter to display.
+	\item Example: in the following frame, the macro is used in the title \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example of continuation\insertcontinuationwith{34}}
+	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
+\end{frame}
+
+\subsection{Examples in the Text}
+\begin{frame}{\subsecname}
+	\begin{small}
+	The LE2I-UTBM theme defines the the following macros to put examples in the text (not in a block, as predefined in Beamer):
+	\begin{itemize}
+	\item \texttt{{\textbackslash}insertexamplelabel} insert the text ``example''.
+	\item \texttt{{\textbackslash}insertexampleslabel} insert the text ``examples''.
+	\vspace{1em}
+	\item \texttt{{\textbackslash}inlineexample\{text\}} insert a example in the text. \\
+		Example: \texttt{This is a text followed by an inline example. {\textbackslash}inlineexample\{some text.\}} \\
+		This is a text followed by an inline example. \inlineexample{some text.}
+	\item \texttt{{\textbackslash}inlineexamples\{text\}} insert examples in the text. \\
+		Example: \texttt{This is a text followed by inline examples. {\textbackslash}inlineexamples\{some text.\}} \\
+		This is a text followed by inline examples. \inlineexamples{some text.}
+	\end{itemize}
+	\end{small}
+\end{frame}
+
+
+\subsection{Footnotes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides two versions of the footnote macro:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}footnote\{text1\}} shows a footnote\footnote{text1} with a number, and
+		\item \texttt{{\textbackslash}footnote*\{text2\}} shows a footnote\footnote*{text2} without a number.
+		\end{itemize}
+	\vspace{1em}
+	\item Additionnally, a footnote with bibliography citation may be added:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}footcite\{keys\}} shows the given citations in a footnote.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Sidenotes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides a macro to put a text on the side of the frame: \\
+		\texttt{{\textbackslash}sidenode\{text\}}
+	\vspace{1em}
+	\item Example: \texttt{{\textbackslash}sidenote\{text on the side\}}
+		\sidenote{text on the side}
+	\end{itemize}
+\end{frame}
+
+\subsection{Localized Quotes}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides macros to output localized quotes:
+		\begin{description}
+		\item[English] \texttt{{\textbackslash}ukquote\{text\}} \\
+			Example: \ukquote{text}
+		\item[French] \texttt{{\textbackslash}frquote\{text\}} \\
+			Example: \frquote{text}
+		\item[Latin] \texttt{{\textbackslash}latquote\{text\}} \\
+			Example: \latquote{text}
+		\end{description}
+	\vspace{1em}
+	\item The following macros are used by the quote macros:
+		\begin{itemize}
+		\item \texttt{{\textbackslash}textgravedbl} : \textgravedbl
+		\item \texttt{{\textbackslash}textacutedbl} : \textacutedbl
+		\item \texttt{{\textbackslash}guillemotleft} : \guillemotleft
+		\item \texttt{{\textbackslash}guillemotright} : \guillemotright
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Multimedia Link}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides a convenient macro to include links to multimedia resources.
+	\item \texttt{{\textbackslash}videolink[options]\{resource\_path\}\{img\_path\}}
+		\begin{itemize}
+		\item Display a picture with a link button. When the user click on the picture, the resource is run (viewed).
+		\item \texttt{options} are the options to pass to the \texttt{{\textbackslash}includegraphics} (width...)
+		\item \texttt{resource\_path} is the path to the multimedia resource.
+		\item \texttt{img\_path} is the path to the picture to display in the slide.
+		\end{itemize}
+	\end{itemize}
+	\begin{center}
+		\videolink[width=.3\linewidth]{./documentation.tex}{le2ilogo}
+	\end{center}
+\end{frame}
+
+
+\subsection{Link to a Slide from an Picture}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM theme provides a convenient macro to create links to other slides with a picture in the link.
+	\item \texttt{{\textbackslash}picturegoto[options]\{label\}\{img\_path\}}
+		\begin{itemize}
+		\item Display a picture with a link button. When the user click on the picture, the slide with the given label is displayed.
+		\item \texttt{options} are the options to pass to the \texttt{{\textbackslash}includegraphics} (width...)
+		\item \texttt{label} is the label of the target slide.
+		\item \texttt{img\_path} is the path to the picture to display in the slide.
+		\end{itemize}
+	\end{itemize}
+	\begin{center}
+		\picturegoto[width=.3\linewidth]{progressbartypes}{le2ilogo}
+	\end{center}
+\end{frame}
+
+\subsection{Zooming on a \TeX\ Box}
+\begin{frame}[t]{\subsecname\ (1/2)}
+	\begin{itemize}
+	\item Beamer provides the macro \texttt{{\textbackslash}framezoom} to zoom on a part of a frame. \emph{But, it create a new slide and it is difficult to return to the original slide with a single click}.	
+	\item The LE2I-UTBM theme provides a new macro for zooming on click.
+	\item \texttt{{\textbackslash}zoombox[options]\{box content\}}
+		\begin{itemize}
+		\item Display the content of the box. When clicked, display the box content after fitting it to the entire screen. When clicked again, the original slide is restore.
+		\item \texttt{options} are:
+			\begin{enumerate}
+			\item \texttt{border=XXpt}: specify the size of the border lines around the box.
+			\item \texttt{left=XXpt}: specify the size of the left margin.
+			\item \texttt{right=XXpt}: specify the size of the right margin.
+			\item \texttt{top=XXpt}: specify the size of the top margin.
+			\item \texttt{bottom=XXpt}: specify the size of the bottom margin.
+			\item \texttt{margin=XXpt}: specify the size of all of the margins.
+			\end{enumerate}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{\subsecname\ (2/2)}
+	\begin{alertblock}{Caution}
+	The macro \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)
+	\end{alertblock}
+	\vspace{1em}
+	\begin{center}
+		\zoombox{ZOOMING EXAMPLE}
+	\end{center}
+\end{frame}
+
+\subsection{Adjusting a Box}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item The LE2I-UTBM style provides the macro \texttt{{\textbackslash}adjustbox} to add margins to a box.
+	\vspace{1em}
+	\item \texttt{{\textbackslash}adjustbox[options]\{box content\}}
+	\vspace{1em}
+	\item The options are:
+		\begin{itemize}
+		\item \texttt{left=XXpt} is the size of the left margin.
+		\item \texttt{right=XXpt} is the size of the right margin.
+		\item \texttt{top=XXpt} is the size of the top margin.
+		\item \texttt{bottom=XXpt} is the size of the bottom margin.
+		\item \texttt{size=XXpt} is the size of all of the margins.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Put at absolute position}
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item If you want to pout something at an absolute position in your frame, you could use: \\
+		\texttt{{\textbackslash}putat(x,y)\{something\}}
+	\vspace{1em}
+	\item Example: \\
+		\texttt{{\textbackslash}putat(56,-170)\{{\textbackslash}color\{red\}\{TESTING\}\}}
+	\end{itemize}
+	\putat(56,-170){\color{red}{TESTING}}
+\end{frame}
+
+\end{document}

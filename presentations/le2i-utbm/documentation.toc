@@ -1,0 +1,44 @@
+\beamer@endinputifotherversion {3.24pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Predefined Values}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Colors}{7}{0}{2}
+\beamer@sectionintoc {3}{Class and Preamble}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Class Options}{9}{0}{3}
+\beamer@subsectionintoc {3}{2}{Title and Subtitle}{11}{0}{3}
+\beamer@subsectionintoc {3}{3}{Authors}{12}{0}{3}
+\beamer@subsectionintoc {3}{4}{Event Name}{13}{0}{3}
+\beamer@subsectionintoc {3}{5}{Institute Name and URL}{14}{0}{3}
+\beamer@sectionintoc {4}{Parts and Sections}{16}{0}{4}
+\beamer@subsectionintoc {4}{1}{Table of Contents}{17}{0}{4}
+\beamer@subsectionintoc {4}{2}{Part Sectioning}{18}{0}{4}
+\beamer@subsectionintoc {4}{3}{Appendix}{20}{0}{4}
+\beamer@subsectionintoc {4}{4}{Bibliography}{21}{0}{4}
+\beamer@sectionintoc {5}{Special Slides}{22}{0}{5}
+\beamer@subsectionintoc {5}{1}{Figure Slide}{23}{0}{5}
+\beamer@subsectionintoc {5}{2}{Final Slide}{24}{0}{5}
+\beamer@subsectionintoc {5}{3}{Book Description}{25}{0}{5}
+\beamer@sectionintoc {6}{Header and Footer Tuning}{26}{0}{6}
+\beamer@subsectionintoc {6}{1}{Headline}{27}{0}{6}
+\beamer@subsectionintoc {6}{2}{Partner Logo}{33}{0}{6}
+\beamer@subsectionintoc {6}{3}{Frame Number}{34}{0}{6}
+\beamer@sectionintoc {7}{Slide Content}{35}{0}{7}
+\beamer@subsectionintoc {7}{1}{Colorized Tables}{36}{0}{7}
+\beamer@subsectionintoc {7}{2}{Alert Boxes}{37}{0}{7}
+\beamer@subsectionintoc {7}{3}{Enhanced Description}{38}{0}{7}
+\beamer@subsectionintoc {7}{4}{Enhanced Enumeration}{40}{0}{7}
+\beamer@subsectionintoc {7}{5}{Text Sizes}{44}{0}{7}
+\beamer@subsectionintoc {7}{6}{Emphazed Text}{45}{0}{7}
+\beamer@subsectionintoc {7}{7}{Underlining}{46}{0}{7}
+\beamer@subsectionintoc {7}{8}{Additional Symbols}{47}{0}{7}
+\beamer@subsectionintoc {7}{9}{Exponents and Indices}{48}{0}{7}
+\beamer@subsectionintoc {7}{10}{Continuation Text}{49}{0}{7}
+\beamer@subsectionintoc {7}{11}{Examples in the Text}{51}{0}{7}
+\beamer@subsectionintoc {7}{12}{Footnotes}{52}{0}{7}
+\beamer@subsectionintoc {7}{13}{Sidenotes}{53}{0}{7}
+\beamer@subsectionintoc {7}{14}{Localized Quotes}{54}{0}{7}
+\beamer@subsectionintoc {7}{15}{Multimedia Link}{55}{0}{7}
+\beamer@subsectionintoc {7}{16}{Link to a Slide from an Picture}{56}{0}{7}
+\beamer@subsectionintoc {7}{17}{Zooming on a \textlatin {T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m }\ Box}{57}{0}{7}
+\beamer@subsectionintoc {7}{18}{Adjusting a Box}{59}{0}{7}
+\beamer@subsectionintoc {7}{19}{Put at absolute position}{60}{0}{7}

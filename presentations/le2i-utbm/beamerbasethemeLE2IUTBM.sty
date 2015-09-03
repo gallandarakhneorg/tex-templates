@@ -1,0 +1,1256 @@
+% Copyright (c) 2014-15 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM logo and name are registered and owned by the
+% "Universite de Technology of Belfort-Montbeliard".
+%
+% L2EI logo and name are registered and owned by the
+% "Universite de Bourgogne".
+%
+% CNRS logo and name are registered and owned by the
+% "Centre National de la Recherche Scientifique".
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+\ProvidesPackage{beamerbasethemeLE2IUTBM}
+   [2015/09/01 Beamer Base Defs 'LE2I at UTBM' Theme]
+
+%%%%%%%--------------------------------------
+%%%%%%% PREAMBLE DEFINITIONS
+%%%%%%%--------------------------------------
+\newcounter{@beamer@theme@leiiutbm@finalslidelabel}
+\setcounter{@beamer@theme@leiiutbm@finalslidelabel}{0} %0: Thanks, 1: Questions, 2: user, 3: title
+
+\gdef\beamer@theme@leiiutbm@label@finalslidelabel{}
+
+\newcounter{@beamer@theme@leiiutbm@visualframenumber}
+\setcounter{@beamer@theme@leiiutbm@visualframenumber}{1} % 0: none, 1: circle, 2: text, 3:section-circle,
+                                                         % 4:part-circle, 5: section-part-circle
+
+\newlength\beamer@theme@leiiutbm@contentheight
+\setlength{\beamer@theme@leiiutbm@contentheight}{6cm}
+
+\newboolean{beamer@theme@leiiutbm@eventintitlebar}
+\setboolean{beamer@theme@leiiutbm@eventintitlebar}{true}
+
+%%%%%%%--------------------------------------
+%%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
+%%%%%%%--------------------------------------
+
+%\RequirePackage[T1]{fontenc}
+\RequirePackage{ifthen}
+\RequirePackage{relsize}
+\RequirePackage{hyphenat}
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+\RequirePackage{xcolor}
+\RequirePackage{url}
+\RequirePackage{graphicx}
+\RequirePackage{keyval}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{pifont}
+\RequirePackage{tikz}
+\RequirePackage{environ}% for advanced environment declaration
+\RequirePackage{textcomp}
+\RequirePackage{colortbl}
+\RequirePackage{translator} % Should be provided by Beamer, be sometime missed
+
+\DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@leiiutbm@finalslidelabel}{0}}
+\DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@leiiutbm@finalslidelabel}{1}}
+\DeclareOptionBeamer{repeattitleslide}{\global\setcounter{@beamer@theme@leiiutbm@finalslidelabel}{3}}
+\DeclareOptionBeamer{nonumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{0}%
+}
+\DeclareOptionBeamer{circlenumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{1}%
+}
+\DeclareOptionBeamer{textnumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{2}%
+}
+\DeclareOptionBeamer{sectioncirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{3}%
+}
+\DeclareOptionBeamer{partcirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{4}%
+}
+\DeclareOptionBeamer{partsectioncirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@leiiutbm@visualframenumber}{5}%
+}
+\DeclareOptionBeamer{eventintitlebar}{%
+	\setboolean{beamer@theme@leiiutbm@eventintitlebar}{true}%
+}
+\DeclareOptionBeamer{eventbelowauthors}{%
+	\setboolean{beamer@theme@leiiutbm@eventintitlebar}{false}%
+}
+%\ExecuteOptionsBeamer{left}
+\ProcessOptionsBeamer
+
+%%%%%%%--------------------------------------
+%%%%%%% PROTECTED API
+%%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Fixing a strange bug: the default color of the
+% text is not the "normal text" color.
+% Also reset the font in case of a bug! ;-)
+\let\beamer@theme@leiiutbm@old@frame\frame
+\gdef\frame{
+	\normalcolor\normalfont\beamer@theme@leiiutbm@old@frame%
+}
+
+%-----------------------------------------
+% Wrap the text formatting functions (for inside the titles)
+\long\gdef\@beamer@theme@leiiutbm@wraptextformats#1{%
+	\let\@beamer@theme@leiiutbm@oldtextsc\textsc%
+	\def\textsc##1{\smaller\MakeUppercase{##1}\larger}#1%
+	\let\textsc\@beamer@theme@leiiutbm@oldtextsc%
+}
+
+%-----------------------------------------
+% Put the first parameter at the end of the second
+% parameter, iff the second parameter is not empty.
+\gdef\@beamer@theme@leiiutbm@postfix#1#2{\ifthenelse{\equal{a#2}{a}}{{}}{#2#1}}
+
+%-----------------------------------------
+% Localization support
+\deftranslation[to=English]{ColumnChar}{:}
+\deftranslation[to=English]{Thanks}{Thank you for your attention\dots}
+\deftranslation[to=English]{Questions}{Questions\dots}
+\deftranslation[to=French]{ColumnChar}{\,:}
+\deftranslation[to=French]{Thanks}{Merci de votre attention\dots}
+\deftranslation[to=French]{Questions}{Questions\dots}
+\deftranslation[to=German]{ColumnChar}{ :}
+\deftranslation[to=German]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
+\deftranslation[to=German]{Questions}{Fragen\dots}
+
+%-----------------------------------------
+% Thank slide
+\gdef\beamer@theme@leiiutbm@thanksslide{%
+	\beamer@theme@leiiutbm@outer@thanksslide%
+	\global\let\beamer@theme@leiiutbm@thanksslide\relax
+}
+
+%-----------------------------------------
+% Visual progression indicator
+%
+% Parameters: (x,y){3:begin angle}{4:end angle}{5:radius}{6:fill color}{7:line color}{8:style}
+\def\beamer@theme@leiiutbm@pgf@pie(#1,#2)#3#4#5#6#7#8{%
+	\pgfmathsetmacro{\beamer@theme@leiiutbm@tmp}{0.5*(#3)+0.5*(#4)}%
+	\path (#1,#2) -- ++(\beamer@theme@leiiutbm@tmp:0) coordinate(FRAMEPROGRESS);%
+	% slice
+	\draw[line join=round, color=#7, fill=#6, #8] (FRAMEPROGRESS) -- ++(#3:#5) arc (#3:#4:#5) -- cycle;
+}
+% Parameters: {Number to display}{counter for the current page}{counter for the total number of pages}
+\newcommand{\beamer@theme@leiiutbm@pi@circle}[3]{%
+	\begin{tikzpicture}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@endangle}{(360.0/(max(#3,1))*max(1,min(#2,#3))}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@startangle}{min(90-\beamer@theme@leiiutbm@pi@endangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@endangle}{max(90-\beamer@theme@leiiutbm@pi@endangle,90)}%
+		%
+		\beamer@theme@leiiutbm@pgf@pie(0,0){90}{450}{.32cm}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){\beamer@theme@leiiutbm@pi@startangle}{\beamer@theme@leiiutbm@pi@endangle}{.27cm}{circle progress bar/first bar.bg}{circle progress bar/first bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){0}{360}{.18cm}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		\path[color=white] (FRAMEPROGRESS) node {\tiny\normalfont\usebeamercolor[fg]{circle progress bar}#1};
+	\end{tikzpicture}%
+}
+% Parameters: {Number to display}{counter for the current page}{counter for the total number of pages}{counter for the current page in the section}{counter for the total number of pages in the section}
+\newcommand{\beamer@theme@leiiutbm@pi@seccircle}[5]{%
+	\begin{tikzpicture}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@endangle}{(360.0/(max(#3,1))*max(1,min(#2,#3))}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@startangle}{min(90-\beamer@theme@leiiutbm@pi@endangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@endangle}{max(90-\beamer@theme@leiiutbm@pi@endangle,90)}%
+		%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@secendangle}{(360.0/max(#5,1))*min(#4,#5)}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@secstartangle}{min(90-\beamer@theme@leiiutbm@pi@secendangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@pi@secendangle}{max(90-\beamer@theme@leiiutbm@pi@secendangle,90)}%
+		%
+		\beamer@theme@leiiutbm@pgf@pie(0,0){90}{450}{.32cm}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){\beamer@theme@leiiutbm@pi@startangle}{\beamer@theme@leiiutbm@pi@endangle}{.27cm}{circle progress bar/first bar.bg}{circle progress bar/first bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){0}{360}{.235cm}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){\beamer@theme@leiiutbm@pi@secstartangle}{\beamer@theme@leiiutbm@pi@secendangle}{.235cm}{circle progress bar/second bar.bg}{circle progress bar/second bar.bg}{thick}
+		\beamer@theme@leiiutbm@pgf@pie(0,0){0}{360}{.18cm}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		%
+		\path[color=white] (FRAMEPROGRESS) node {\normalfont\tiny\usebeamercolor[fg]{circle progress bar}#1};
+	\end{tikzpicture}%
+}
+
+%-----------------------------------------
+% Option parameters
+\newif\ifbeamer@theme@leiiutbm@optlist@needdefault
+\gdef\beamer@theme@leiiutbm@optlist@parseparams#1=#2\@nil{%
+	\ifthenelse{\equal{#2}{===}}{%
+		\global\beamer@theme@leiiutbm@optlist@needdefaulttrue%
+	}{%
+		\global\beamer@theme@leiiutbm@optlist@needdefaultfalse%
+	}%
+}
+\DeclareRobustCommand{\beamer@theme@leiiutbm@optlist}[1]{%
+	{\beamer@theme@leiiutbm@optlist@parseparams #1====\@nil}%
+}
+
+%%%%%%%--------------------------------------
+%%%%%%% PUBLIC API
+%%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Headlines
+\newif\ifbeamer@theme@leiiutbm@headline@enableheadline
+\beamer@theme@leiiutbm@headline@enableheadlinetrue
+
+\let\beamer@theme@leiiutbm@headline@frame\frame
+\gdef\frame{%
+	\global\beamer@theme@leiiutbm@headline@enableheadlinetrue%
+	\beamer@theme@leiiutbm@headline@frame%
+}
+
+\let\beamer@theme@leiiutbm@headline@oldtitlepage\titlepage
+\gdef\titlepage{%
+	\global\beamer@theme@leiiutbm@headline@enableheadlinefalse%
+	\beamer@theme@leiiutbm@headline@oldtitlepage%
+}
+
+\global\let\beamer@theme@leiiutbm@headline@default\relax
+\global\let\beamer@theme@leiiutbm@headline@defaultpicture\relax
+\gdef\beamer@theme@leiiutbm@headline@current{\beamer@theme@leiiutbm@headline@default}
+\gdef\beamer@theme@leiiutbm@headline@currentpicture{\beamer@theme@leiiutbm@headline@defaultpicture}
+\setbeamertemplate{headline}{%
+	\ifbeamer@theme@leiiutbm@headline@enableheadline%
+		\beamer@theme@leiiutbm@headline@current%
+	\fi%
+}
+\setbeamertemplate{headline text style}{}%
+\newcommand{\useheaderempty}{%
+	\gdef\beamer@theme@leiiutbm@headline@current{}%
+	\gdef\beamer@theme@leiiutbm@headline@currentpicture{}%
+}
+\newcommand{\useheaderdefault}{%
+	\gdef\beamer@theme@leiiutbm@headline@current{\beamer@theme@leiiutbm@headline@default}%
+	\gdef\beamer@theme@leiiutbm@headline@currentpicture{\beamer@theme@leiiutbm@headline@defaultpicture}%
+}
+
+\newcommand{\insertheaderlinewithsections}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(-4,11){\parbox[t]{2.65cm}{%
+			\begin{flushleft}%
+				\usebeamertemplate{headline text style}%
+				\insertsectionnavigation{\linewidth}%
+			\end{flushleft}%
+			}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithsections}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithsections}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{}%
+}
+
+\pgfdeclareimage[height=.7cm]{LE2IUTBMlogointitle}{le2ilogoinv}
+\newcommand{\insertheaderlinewithleiilogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(2,-22){%
+			\pgfuseimage{LE2IUTBMlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithleiilogo}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithleiilogo}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{LE2IUTBMlogointitle}}%
+}
+
+\pgfdeclareimage[width=.7cm]{CNRSlogointitle}{cnrslogo}
+\newcommand{\insertheaderlinewithcnrslogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(2,-22){%
+			\pgfuseimage{CNRSlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithcnrslogo}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithcnrslogo}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{CNRSlogointitle}}%
+}
+
+\pgfdeclareimage[width=.7cm]{MAGlogointitle}{multiagentlogoinv}
+\newcommand{\insertheaderlinewithmaglogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(2,-22){%
+			\pgfuseimage{MAGlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithmaglogo}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithmaglogo}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{MAGlogointitle}}%
+}
+
+\useheaderlinewithleiilogo
+\useheaderdefault
+
+%-----------------------------------------
+% Put something at an absolute position
+\newcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}
+\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{0}
+
+\long\def\putat(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{1}%
+	\expandafter\gdef\csname @tmp@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}\endcsname{\put(#1,#2){#3}}%
+}
+\newcommand{\beamer@theme@leiiutbm@insertabsolutepositionelements}{%
+	\whiledo{\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}>0}{%
+		\csname @tmp@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}\endcsname%
+		\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{-1}%
+	}%
+	\global\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{0}%
+}
+
+%-----------------------------------------
+% Localized quotes
+\def\selectguillemotfont{\fontencoding{T1}\fontfamily{cmr}\selectfont}
+\def\guillemotleft{{\selectguillemotfont\symbol{19}}\,}
+\def\guillemotright{\,{\selectguillemotfont\symbol{20}}}
+\newcommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
+\newcommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
+\newcommand{\latquote}[1]{\textit{#1}\xspace}
+
+%-----------------------------------------
+% Underline
+\let\beamer@theme@leiiutbm@oldunderline\underline
+\renewcommand{\underline}[1]{\beamer@theme@leiiutbm@oldunderline{\smash{#1}}}
+
+%-----------------------------------------
+% Emphasing
+\let\beamer@theme@leiiutbm@oldemph\emph
+\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
+
+\newcommand{\Emph}[1]{{\usebeamercolor[fg]{emphased text}\textbf{#1}}}
+
+%-----------------------------------------
+% Footnote
+\let\beamer@theme@leiiutbm@oldfootnote\footnote
+\gdef\beamer@theme@leiiutbm@footnote#1{%
+	\global\let\oldthefootnote\thefootnote%
+	\global\let\thefootnote\relax%
+	\footnotetext{#1}%
+	\global\let\thefootnote\oldthefootnote}
+\gdef\footnote{\@ifstar\beamer@theme@leiiutbm@footnote\beamer@theme@leiiutbm@oldfootnote}
+
+%-----------------------------------------
+% Citation in footnote
+\newcommand{\footcite}[1]{\footnote*{\cite{#1}}}
+
+%-----------------------------------------
+% Side note
+\let\beamer@theme@leiiutbm@sidenote\relax
+\newcommand{\sidenote}[1]{%
+	\gdef\beamer@theme@leiiutbm@sidenote{#1}%
+}
+
+%-----------------------------------------
+% Inline examples
+\newcommand{\inlineexample}[1]{%
+	\insertexamplelabel\ #1\xspace%
+}
+\newcommand{\inlineexamples}[1]{%
+	\insertexampleslabel\ #1\xspace%
+}
+\newcommand{\insertexamplelabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Example}\translate{ColumnChar}}%
+}
+\newcommand{\insertexampleslabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Examples}\translate{ColumnChar}}%
+}
+
+%-----------------------------------------
+% EVENT
+\gdef\inserteventname{}
+\gdef\insertshorteventname{}
+\newcommand{\event}[2][1]{%
+	\gdef\inserteventname{#2}%
+	\ifthenelse{\equal{a#1}{a}}{%
+		\gdef\insertshorteventname{#2}%
+	}{%
+		\gdef\insertshorteventname{#1}%
+	}
+}
+
+%-----------------------------------------
+% Slide numbering
+\newcounter{beamer@theme@leiiutbm@nav@previoussection}
+\setcounter{beamer@theme@leiiutbm@nav@previoussection}{0}
+\newcounter{beamer@theme@leiiutbm@nav@previouspart}
+\setcounter{beamer@theme@leiiutbm@nav@previouspart}{0}
+\newcounter{beamer@theme@leiiutbm@nav@tmp}
+\newcounter{beamer@theme@leiiutbm@appendixframenumber}
+%
+\newcommand{\beamer@theme@leiiutbm@totalcoreframenumber}{\the\c@framenumber}
+\newcommand{\inserttotalcoreframenumber}{1}
+%
+\newcommand{\beamer@theme@leiiutbm@definesectionframenumber}[3]{\@namedef{beamer@theme@leiiutbm@nav@sectionsize@#1@#2}{#3}}
+\newcommand{\beamer@theme@leiiutbm@sectionframenumber}[2]{%
+	\expandafter\ifx\csname beamer@theme@leiiutbm@nav@sectionsize@#1@#2\endcsname\relax%
+		1%
+	\else%
+		\csname beamer@theme@leiiutbm@nav@sectionsize@#1@#2\endcsname%
+	\fi%
+}
+%
+\newcommand{\beamer@theme@leiiutbm@definepartframenumber}[2]{\@namedef{beamer@theme@leiiutbm@nav@partsize@#1}{#2}}
+\newcommand{\beamer@theme@leiiutbm@partframenumber}[1]{%
+	\expandafter\ifx\csname beamer@theme@leiiutbm@nav@partsize@#1\endcsname\relax%
+		1%
+	\else%
+		\csname beamer@theme@leiiutbm@nav@partsize@#1\endcsname%
+	\fi%
+}
+%
+\newcommand{\insertframenumbering}[1][\value{@beamer@theme@leiiutbm@visualframenumber}]{%
+	\edef\beamer@theme@leiiutbm@nav@tmpmode{#1}%
+	\ifnum\the\c@framenumber>\beamer@theme@leiiutbm@totalcoreframenumber%
+		% The current frame is in the appendix
+		\expandafter\setcounter{beamer@theme@leiiutbm@appendixframenumber}{\inserttotalframenumber}%
+		\expandafter\addtocounter{beamer@theme@leiiutbm@appendixframenumber}{-\beamer@theme@leiiutbm@totalcoreframenumber}%
+		\addtocounter{beamer@theme@leiiutbm@appendixframenumber}{-2}%
+		\xdef\beamer@theme@leiiutbm@pi@numberpages{\arabic{beamer@theme@leiiutbm@appendixframenumber}}%
+		%
+		\setcounter{beamer@theme@leiiutbm@appendixframenumber}{\c@framenumber}%
+		\expandafter\addtocounter{beamer@theme@leiiutbm@appendixframenumber}{-\beamer@theme@leiiutbm@totalcoreframenumber}%
+		\addtocounter{beamer@theme@leiiutbm@appendixframenumber}{-2}%
+		%
+		\xdef\beamer@theme@leiiutbm@pi@shortlabel{\roman{beamer@theme@leiiutbm@appendixframenumber}}%
+		\global\let\beamer@theme@leiiutbm@pi@longlabel\beamer@theme@leiiutbm@pi@shortlabel%
+		\xdef\beamer@theme@leiiutbm@pi@currentpage{\value{beamer@theme@leiiutbm@appendixframenumber}}%
+		%
+		\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+		\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\thebeamer@theme@leiiutbm@nav@previoussection}%
+		\xdef\beamer@theme@leiiutbm@pi@seccurrentpage{\thebeamer@theme@leiiutbm@nav@tmp}%
+		\xdef\beamer@theme@leiiutbm@pi@secnumberpages{\beamer@theme@leiiutbm@sectionframenumber{\thepart}{\thesection}}%
+	\else%
+		% The current frame is in the core part of the document
+		\ifnum\beamer@theme@leiiutbm@nav@tmpmode=4%
+			\def\beamer@theme@leiiutbm@nav@tmpmode{1}% Force circles
+			\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\thebeamer@theme@leiiutbm@nav@previouspart}%
+			\xdef\beamer@theme@leiiutbm@pi@shortlabel{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@longlabel{{\thebeamer@theme@leiiutbm@nav@tmp}/{\beamer@theme@leiiutbm@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@leiiutbm@pi@currentpage{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@numberpages{\beamer@theme@leiiutbm@partframenumber{\thepart}}%
+			%
+		\else\ifnum\beamer@theme@leiiutbm@nav@tmpmode=5%
+			\def\beamer@theme@leiiutbm@nav@tmpmode{3}% Force circles with sections
+			\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\thebeamer@theme@leiiutbm@nav@previouspart}%
+			\xdef\beamer@theme@leiiutbm@pi@shortlabel{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@longlabel{{\thebeamer@theme@leiiutbm@nav@tmp}/{\beamer@theme@leiiutbm@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@leiiutbm@pi@currentpage{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@numberpages{\beamer@theme@leiiutbm@partframenumber{\thepart}}%
+			%
+			\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\thebeamer@theme@leiiutbm@nav@previoussection}%
+			\xdef\beamer@theme@leiiutbm@pi@seccurrentpage{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@secnumberpages{\beamer@theme@leiiutbm@sectionframenumber{\thepart}{\thesection}}%
+		\else%
+			\xdef\beamer@theme@leiiutbm@pi@shortlabel{\insertframenumber}%
+			\xdef\beamer@theme@leiiutbm@pi@longlabel{{\insertframenumber}/{\inserttotalcoreframenumber}}%
+			\xdef\beamer@theme@leiiutbm@pi@currentpage{\insertframenumber}%
+			\xdef\beamer@theme@leiiutbm@pi@numberpages{\inserttotalcoreframenumber}%
+			%
+			\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\thebeamer@theme@leiiutbm@nav@previoussection}%
+			\xdef\beamer@theme@leiiutbm@pi@seccurrentpage{\thebeamer@theme@leiiutbm@nav@tmp}%
+			\xdef\beamer@theme@leiiutbm@pi@secnumberpages{\beamer@theme@leiiutbm@sectionframenumber{\thepart}{\thesection}}%
+		\fi\fi%
+	\fi%
+	%
+	\expandafter\ifcase\beamer@theme@leiiutbm@nav@tmpmode%
+		% No numbering
+		\relax
+	\or
+		% Circle for the entire document
+		\beamer@theme@leiiutbm@pi@circle{\beamer@theme@leiiutbm@pi@shortlabel}{\beamer@theme@leiiutbm@pi@currentpage}{\beamer@theme@leiiutbm@pi@numberpages}%
+	\or
+		% Text
+		{\normalfont\usebeamercolor[fg]{circle progress bar}\beamer@theme@leiiutbm@pi@longlabel}%
+	\or%
+		% Circle for the current section and for the entire document
+		\ifnum\thesection<1% display a simple circle when no section started
+			\beamer@theme@leiiutbm@pi@circle{\beamer@theme@leiiutbm@pi@shortlabel}{\beamer@theme@leiiutbm@pi@currentpage}{\beamer@theme@leiiutbm@pi@numberpages}%
+		\else%
+			\beamer@theme@leiiutbm@pi@seccircle{\beamer@theme@leiiutbm@pi@shortlabel}{\beamer@theme@leiiutbm@pi@currentpage}{\beamer@theme@leiiutbm@pi@numberpages}{\beamer@theme@leiiutbm@pi@seccurrentpage}{\beamer@theme@leiiutbm@pi@secnumberpages}%
+		\fi%
+	\else%
+		% Circle for the entire document
+		\beamer@theme@leiiutbm@pi@circle{\beamer@theme@leiiutbm@pi@shortlabel}{\beamer@theme@leiiutbm@pi@currentpage}{\beamer@theme@leiiutbm@pi@numberpages}%
+	\fi%
+}
+%
+\def\beamer@theme@leiiutbm@nav@advancesection{%
+	\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+	\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\c@beamer@theme@leiiutbm@nav@previoussection}%
+	\setcounter{beamer@theme@leiiutbm@nav@previoussection}{\c@framenumber}%
+	%
+	\immediate\write\@auxout{\string\@writefile{nav}{%
+		\string\headcommand{\string\beamer@theme@leiiutbm@definesectionframenumber{\thepart}{\thesection}{%
+		\thebeamer@theme@leiiutbm@nav@tmp}}}}%
+}
+%
+\def\beamer@theme@leiiutbm@nav@advancepart{%
+	\setcounter{beamer@theme@leiiutbm@nav@tmp}{\c@framenumber}%
+	\addtocounter{beamer@theme@leiiutbm@nav@tmp}{-\c@beamer@theme@leiiutbm@nav@previouspart}%
+	\setcounter{beamer@theme@leiiutbm@nav@previouspart}{\c@framenumber}%
+	%
+	\immediate\write\@auxout{\string\@writefile{nav}{%
+		\string\headcommand{\string\beamer@theme@leiiutbm@definepartframenumber{\thepart}{%
+		\thebeamer@theme@leiiutbm@nav@tmp}}}}%
+}
+
+% Write data in the aux file
+\AtEndDocument{%
+	\beamer@theme@leiiutbm@nav@advancesection%
+	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
+	\immediate\write\@auxout{\string\@writefile{nav}%
+        {\noexpand\headcommand{\noexpand\def\noexpand\inserttotalcoreframenumber
+		{\beamer@theme@leiiutbm@totalcoreframenumber}}}}
+}
+
+%-----------------------------------------
+% Parts
+
+\let\beamer@theme@leiiutbm@part@oldpart\part
+\let\beamer@theme@leiiutbm@part@oldbeamerpart\beamer@part
+
+\newif\ifbeamer@theme@leiiutbm@part@hasoptionparam
+\newif\ifbeamer@theme@leiiutbm@part@hasauthor
+\newif\ifbeamer@theme@leiiutbm@part@addintoc
+
+\gdef\beamer@part[#1]#2{%
+	\beamer@theme@leiiutbm@part@oldbeamerpart[#1]{#2}%
+	\ifbeamer@inlecture\else%
+		\beamer@atbeginpart%
+	\fi%
+	\setbeamertemplate{footline}{}%
+	%\useheaderempty%
+	\usebackgroundtemplate{\beamer@theme@leiiutbm@outer@background}%
+	\frame{%
+		\ifthenelse{\equal{a\beamer@theme@leiiutbm@part@partlabel}{a}}{}{% Issue #19
+			\protected@xdef\@currentlabel{\the\c@part}%
+			\expandafter\label{\beamer@theme@leiiutbm@part@partlabel}%
+			\gdef\beamer@theme@leiiutbm@part@partlabel{}%
+		}%
+		\partpage%
+	}%
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@leiiutbm@outer@background\fi}%
+	\setbeamertemplate{footline}{\beamer@theme@leiiutbm@outer@footline}%
+	\ifbeamer@theme@leiiutbm@part@addintoc%
+		\addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partname}{\the\c@page}}%
+	\fi%
+	%\useheaderdefault%
+	\protected@xdef\@currentlabel{\the\c@part}% Issue #19
+}
+
+
+\define@key{beamerthemeleiiutbmpart}{author}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@leiiutbm@part@hasauthortrue%
+		\gdef\beamer@theme@leiiutbm@part@theauthor{#1}%
+	}
+}
+\define@key{beamerthemeleiiutbmpart}{title}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@leiiutbm@part@hasoptionparamtrue%
+		\gdef\beamer@theme@leiiutbm@part@shorttitle{#1}%
+	}%
+}
+\define@key{beamerthemeleiiutbmpart}{label}{%
+	\gdef\beamer@theme@leiiutbm@part@partlabel{#1}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@part@partmacro}[2][]{%
+	\beamer@theme@leiiutbm@optlist{#1}%
+	\global\beamer@theme@leiiutbm@part@hasoptionparamfalse%
+	\global\beamer@theme@leiiutbm@part@hasauthorfalse%
+	\gdef\beamer@theme@leiiutbm@part@partlabel{}%
+	\ifbeamer@theme@leiiutbm@optlist@needdefault%
+		\setkeys{beamerthemeleiiutbmpart}{title=#1}%
+	\else%
+		\setkeys{beamerthemeleiiutbmpart}{#1}%
+	\fi%
+	\beamer@theme@leiiutbm@nav@advancepart%
+	\beamer@theme@leiiutbm@nav@advancesection%
+	\ifbeamer@theme@leiiutbm@part@hasoptionparam%
+		\def\@tmp{\expandafter\beamer@theme@leiiutbm@part@oldpart[\beamer@theme@leiiutbm@part@shorttitle]}%
+	\else%
+		\let\@tmp\beamer@theme@leiiutbm@part@oldpart%
+	\fi%
+	% Reset sections's numbers when a part is started
+	\c@section=0% From TeX background
+	\beamer@tocsectionnumber=0% From Beamer background
+	% Run the TeX \part macro
+	\@tmp{#2}%
+}
+
+\def\beamer@theme@leiiutbm@part@part{%
+	\beamer@theme@leiiutbm@part@addintoctrue%
+	\beamer@theme@leiiutbm@part@partmacro%
+}
+
+\def\beamer@theme@leiiutbm@part@partstar{%
+	\beamer@theme@leiiutbm@part@addintocfalse%
+	\beamer@theme@leiiutbm@part@partmacro%
+}
+
+\gdef\part{\@ifstar\beamer@theme@leiiutbm@part@partstar\beamer@theme@leiiutbm@part@part}
+
+% Part prefix in the slide
+\let\insertpartprefix\relax
+\newcommand{\partprefix}[2][\protect\Alph{part}]{%
+	\gdef\insertpartprefix{#2~#1\protect\\}%
+}
+\newcommand{\resetpartprefix}{%
+	\global\let\insertpartprefix\relax%
+}
+
+% Parts in the TOC
+\define@key{beamertoc}{onlyparts}[]{%
+	\beamer@toc@sectionstyle{hide}%
+	\beamer@toc@subsectionstyle{hide}%
+	\c@tocdepth=-1%
+}
+
+\newcount\beamer@partadjust
+\beamer@partadjust=-2
+
+\newcommand{\beamer@partintoc}[3]{%
+	\ifnum\c@tocdepth=-1%
+		\beamer@tempcount=#1%
+		\edef\inserttocpartnumber{\expandafter\@Alph\beamer@tempcount}%
+		\beamer@tempcount=#3%
+		\advance\beamer@tempcount by\beamer@partadjust%
+		\protected@edef\inserttocpart{\protect\hyperlink{Navigation\the\beamer@tempcount}{#2}}%
+		\ifx\beamer@toc@ooss\beamer@hidetext%
+			\vskip1.5em%
+		\else%
+			\vfill%
+		\fi%
+		{%
+			\hbox{\vbox{%
+				\leavevmode\normalsize\usebeamerfont*{section number projected}\usebeamercolor[bg]{section number projected}%
+				\vrule width2.25ex height1.85ex depth.4ex%
+				\hskip-2.25ex%
+				\hbox to2.25ex{\hfil\color{fg}\inserttocpartnumber\hfil}%
+				\kern1.25ex%
+				\inserttocpart\par%
+			}}%
+			\par%
+		}%
+	\fi%
+}
+
+%-----------------------------------------
+% Sections
+
+\let\beamer@theme@leiiutbm@nav@oldsection\section
+\gdef\section{%
+	\beamer@theme@leiiutbm@nav@advancesection%
+	\beamer@theme@leiiutbm@nav@oldsection%
+}
+
+%-----------------------------------------
+% Institute
+\gdef\beamer@theme@leiiutbm@instituteurl{http://le2i.cnrs.fr}
+\newcommand{\instituteurl}[1]{%
+	\gdef\beamer@theme@leiiutbm@instituteurl{#1}
+}
+\newcommand{\insertinstituteurl}{%
+	\expandafter\url{\beamer@theme@leiiutbm@instituteurl}%
+}
+\institute[L2EI-UTBM]{
+	\textbf{Universit\'e de Bourgogne Franche-Comt\'e - UTBM - LE2I}, \\[0cm]
+	90010 Belfort cedex, France - \insertinstituteurl
+}
+
+%-----------------------------------------
+% Partner Logo
+\gdef\beamer@theme@leiiutbm@partnerlogo{}
+\newcommand{\beamer@theme@leiiutbm@partnerlogo@search}[1]{%
+	\IfFileExists{#1}{%
+                \gdef\beamer@theme@leiiutbm@partnerlogo@tmp{#1}%
+        }{%
+                \@for\beamer@theme@leiiutbm@partnerlogo@pathtmp:=\Ginput@path\do{%
+                        \ifx\beamer@theme@leiiutbm@partnerlogo@tmp\relax%
+                                \IfFileExists{\beamer@theme@leiiutbm@partnerlogo@pathtmp#1}{%
+                                        \xdef\beamer@theme@leiiutbm@partnerlogo@tmp{\beamer@theme@leiiutbm@partnerlogo@pathtmp#1}%
+                                }{}%
+                        \fi%
+                }%
+        }%
+}
+\newcommand{\partnerlogo}[2][width=2cm]{%
+	\begingroup%
+        %
+        \global\let\beamer@theme@leiiutbm@partnerlogo@tmp\relax%
+        \filename@parse{#2}%
+        \ifx\filename@ext\relax%
+                \@for\beamer@theme@leiiutbm@partnerlogo@exttmp:=\Gin@extensions\do{%
+                        \beamer@theme@leiiutbm@partnerlogo@search{#2\beamer@theme@leiiutbm@partnerlogo@exttmp}%
+                }%
+        \else%
+                \beamer@theme@leiiutbm@partnerlogo@search{#2}%
+        \fi%
+        %
+        \ifx\@autolatex@wtfig@tmp\relax%
+                \errmessage{Package Beamer/LE2I-UTBM: File not found '#2', needed for Partner Logo.}%
+        \else%
+		\expandafter\pgfdeclareimage[#1]{LE2IUTBMpartnerlogo}{\beamer@theme@leiiutbm@partnerlogo@tmp}%
+		\gdef\beamer@theme@leiiutbm@partnerlogo{\hspace{.1cm}\pgfuseimage{LE2IUTBMpartnerlogo}}%
+        \fi%
+	%
+        \endgroup%
+}
+
+%-----------------------------------------
+% Table of content
+\newcommand{\tableofcontentslide}[1][hideallsubsections]{%
+	\begin{frame}[c]{\translate{Outline}}%
+	\small\tableofcontents[#1]%
+	\end{frame}%
+}
+
+%-----------------------------------------
+% Slide Environment
+\newenvironment{slide}[2][t]{%
+	\PackageWarning{LE2I-UTBM Beamer Style}{Environment 'slide' is deprecated}%
+	\begin{frame}[#1]{#2}%
+}{%
+	\end{frame}%
+}
+
+%-----------------------------------------
+% Slide Environment with only a figure
+\newsavebox{\beamer@theme@leiiutbm@figureslide@box}
+\newlength{\beamer@theme@leiiutbm@figureslide@width}
+\newlength{\beamer@theme@leiiutbm@figureslide@height}
+\newif\ifbeamer@theme@leiiutbm@figureslide@dynamic@width
+\newif\ifbeamer@theme@leiiutbm@figureslide@dynamic@height
+\define@key{beamerthemeleiiutbmfigureslide}{width}{%
+	\gdef\beamer@theme@leiiutbm@figureslide@widtht{#1}%
+	\global\beamer@theme@leiiutbm@figureslide@dynamic@widthfalse%
+}
+\define@key{beamerthemeleiiutbmfigureslide}{height}{%
+	\gdef\beamer@theme@leiiutbm@figureslide@heightt{#1}%
+	\global\beamer@theme@leiiutbm@figureslide@dynamic@heightfalse%
+}
+\define@key{beamerthemeleiiutbmfigureslide}{scale}{%
+	\gdef\beamer@theme@leiiutbm@figureslide@scale{#1}%
+}
+\newcommand{\figureslide}[3][]{%
+	\global\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
+	\global\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
+	\gdef\beamer@theme@leiiutbm@figureslide@scale{1}%
+	\setkeys{beamerthemeleiiutbmfigureslide}{#1}%
+	\savebox{\beamer@theme@leiiutbm@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}%
+	\begin{frame}[c]{#2}%
+		\begin{center}%
+			\ifbeamer@theme@leiiutbm@figureslide@dynamic@width%
+				\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
+					\settowidth{\beamer@theme@leiiutbm@figureslide@width}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
+					\settoheight{\beamer@theme@leiiutbm@figureslide@height}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
+					\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratiow}{\strip@pt\beamer@theme@leiiutbm@figureslide@width / \strip@pt\linewidth}%
+					\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratioh}{\strip@pt\beamer@theme@leiiutbm@figureslide@height / \strip@pt\beamer@theme@leiiutbm@contentheight}%
+					\pgfmathtruncatemacro{\beamer@theme@leiiutbm@figureslide@ratio}{\beamer@theme@leiiutbm@figureslide@ratiow / \beamer@theme@leiiutbm@figureslide@ratioh}%
+					\ifthenelse{\beamer@theme@leiiutbm@figureslide@ratio=0}{%
+						\resizebox{!}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@contentheight}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+					}{%
+						\resizebox{\beamer@theme@leiiutbm@figureslide@scale\linewidth}{!}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+					}%
+				\else%
+					\resizebox{!}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@heightt}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+				\fi%
+			\else%
+				\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
+					\resizebox{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@widtht}{!}{\beamer@theme@leiiutbm@figureslide@scale\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+				\else%
+					\resizebox{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@widtht}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@heightt}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+				\fi%
+			\fi%
+		\end{center}%
+	\end{frame}%
+}
+
+
+%-----------------------------------------
+% Bibliography
+\newif\ifbeamer@theme@leiiutbm@bibliographystyle
+\beamer@theme@leiiutbm@bibliographystylefalse
+\global\let\beamer@theme@leiiutbm@oldbibliographystyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{%
+	\beamer@theme@leiiutbm@bibliographystyletrue%
+	\beamer@theme@leiiutbm@oldbibliographystyle{#1}%
+}
+\global\let\beamer@theme@leiiutbm@oldbibliography\bibliography
+\renewcommand{\bibliography}[1]{%
+	\AtEndDocument{%
+		\appendix%
+		\beamer@theme@leiiutbm@bibliographyslide{#1}%
+	}%
+}
+\newcommand{\beamer@theme@leiiutbm@bibliographyslide}[1]{%
+	\section{\bibname}%
+	\begin{frame}[t,allowframebreaks]%
+	\frametitle{\bibname}%
+	\tiny%
+	\ifbeamer@theme@leiiutbm@bibliographystyle\else%
+		\beamer@theme@leiiutbm@oldbibliographystyle{le2iutbm}%
+	\fi%
+	\beamer@theme@leiiutbm@oldbibliography{#1}%
+	\end{frame}%
+}
+
+% Remove icons from the bibliography
+\setbeamertemplate{bibliography item}{}
+
+%-----------------------------------------
+% Appendix
+\global\let\beamer@theme@leiiutbm@oldappendix\appendix
+\renewcommand{\appendix}{%
+	\resetpartprefix%
+	\let\beamer@theme@leiiutbm@oldpart\part%
+	\def\part{\beamer@theme@leiiutbm@oldpart*}%
+	\beamer@theme@leiiutbm@thanksslide%
+	\beamer@theme@leiiutbm@oldappendix%
+	\global\let\beamer@theme@leiiutbm@oldappendix\relax%
+	\let\part\beamer@theme@leiiutbm@oldpart%
+}
+
+%-----------------------------------------
+% Default Graphics Configuration
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+
+%-----------------------------------------
+% Symbols
+\renewcommand{\copyright}{\Pisymbol{psy}{227}\xspace}
+\newcommand{\trademark}{\Pisymbol{psy}{228}\xspace}
+\let\servicemark\textservicemark
+\newcommand{\regmark}{\Pisymbol{psy}{226}\xspace}
+\let\textcheckmark\checkmark
+\renewcommand{\checkmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+%-----------------------------------------
+% Alert box
+\def\beamer@theme@leiiutbm@alertbox@noframed#1{%
+	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{\beamer@theme@leiiutbm@alertbox@style}%
+		\centering\nohyphens{#1}%
+	\end{beamercolorbox}%
+}
+\def\beamer@theme@leiiutbm@alertbox@framed<#1>#2{%
+	\only<#1>{%
+		\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{block body alerted}%
+			\centering\nohyphens{#2}%
+		\end{beamercolorbox}%
+	}%
+}
+\def\beamer@theme@leiiutbm@alertbox@nostar{%
+	\gdef\beamer@theme@leiiutbm@alertbox@style{block body alerted}%
+	\@ifnextchar<\beamer@theme@leiiutbm@alertbox@framed\beamer@theme@leiiutbm@alertbox@noframed%
+}
+\def\beamer@theme@leiiutbm@alertbox@star{%
+	\gdef\beamer@theme@leiiutbm@alertbox@style{block body remark}%
+	\@ifnextchar<\beamer@theme@leiiutbm@alertbox@framed\beamer@theme@leiiutbm@alertbox@noframed%
+}
+\def\alertbox{\@ifstar\beamer@theme@leiiutbm@alertbox@star\beamer@theme@leiiutbm@alertbox@nostar}
+
+%-----------------------------------------
+% Description environment with bullets
+\let\beamer@theme@leiiutbm@olditem\item
+\def\beamer@theme@leiiutbm@description@afterseparator{\translate{ColumnChar}}
+\newcommand{\beamer@theme@leiiutbm@itemc}[1][]{\ifthenelse{\equal{a#1}{a}}{}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+	{\usebeamercolor[fg]{description item}#1\beamer@theme@leiiutbm@description@afterseparator}\xspace}%
+}}
+\long\def\beamer@theme@leiiutbm@itema<#1>{%
+	\beamer@theme@leiiutbm@olditem<#1>\relax\beamer@theme@leiiutbm@itemc%
+}
+\long\def\beamer@theme@leiiutbm@itemb{%
+	\beamer@theme@leiiutbm@olditem\relax\beamer@theme@leiiutbm@itemc%
+}
+\renewenvironment{description}[1][]{%
+	\begingroup%
+	\itemize
+	\global\let\beamer@theme@leiiutbm@olditem\item%
+	\renewcommand{\item}{\@ifnextchar<{\beamer@theme@leiiutbm@itema}{\beamer@theme@leiiutbm@itemb}}%
+}{%
+	\global\let\item\beamer@theme@leiiutbm@olditem%
+	\enditemize%
+	\endgroup%
+}
+
+%-----------------------------------------
+% Joint Enumeration/Description environment
+\let\beamer@theme@leiiutbm@oldenumerate\enumerate
+\let\endbeamer@theme@leiiutbm@oldenumerate\endenumerate
+\renewenvironment{enumerate}[1][]{%
+	\begingroup%
+	\ifthenelse{\equal{a#1}{a}}{\def\@tmp{}}{\def\@tmp{[#1]}}%
+	\expandafter\beamer@theme@leiiutbm@oldenumerate\@tmp%
+	\global\let\beamer@theme@leiiutbm@olditem\item%
+	\renewcommand{\item}{\@ifnextchar<{\beamer@theme@leiiutbm@itema}{\beamer@theme@leiiutbm@itemb}}%
+}{%
+	\global\let\item\beamer@theme@leiiutbm@olditem%
+	\endbeamer@theme@leiiutbm@oldenumerate%
+	\endgroup%
+}
+%\newcounter{@beamer@theme@leiiutbm@enumdescription@cnt@}
+%\newcommand{\beamer@theme@leiiutbm@enumdescription@fmt@}[1]{}
+%\newcommand{\enumdescriptionlabel}[1]{\textbf{#1}}
+%\newenvironment{enumdescriptionx}[3][i]{%
+%	\begingroup\setcounter{@upm@fmt@enumdescription@cnt@}{1}%
+%	\let\upm@fmt@enumdescription@savedlabel\@currentlabel%
+%	\ifthenelse{\equal{#1}{a}}{%
+%		\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\alph{##1}#3}%
+%	}{%
+%		\ifthenelse{\equal{#1}{i}}{%
+%			\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\roman{##1}#3}%
+%		}{%
+%			\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\expandafter{\csname the##1\endcsname}#3}%
+%		}%
+%	}%
+%	\begin{list}{}{%
+%		\renewcommand{\makelabel}[1]{\xdef\@currentlabel{\upm@fmt@enumdescription@fmt@{@upm@fmt@enumdescription@cnt@}}\enumdescriptionlabel{\@currentlabel~-~##1}:~{\addtocounter{@upm@fmt@enumdescription@cnt@}{1}}}%
+%		\settowidth{\labelwidth}{iii)~}%
+%	}
+%}{%
+%	\global\let\@currentlabel\upm@fmt@enumdescription@savedlabel%
+%	\end{list}\endgroup%
+%}
+%\newenvironment{enumdescription}[1][i]{%
+%	\begin{enumdescriptionx}[#1]{}{}%
+%}{%
+%	\end{enumdescriptionx}%
+%}
+
+%-----------------------------------------
+% Exponents and Indices
+\renewcommand{\textup}[1]{\textsuperscript{#1}\xspace}
+\def\@textsubscript#1{%
+  {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+\newcommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
+\newcommand{\textdown}[1]{\textsubscript{#1}\xspace}
+
+%-----------------------------------------
+% Links to external resources
+\newsavebox{\beamer@theme@leiiutbm@externalresource@box@a}
+\newsavebox{\beamer@theme@leiiutbm@externalresource@box@b}
+\newlength{\beamer@theme@leiiutbm@externalresource@height}
+\newlength{\beamer@theme@leiiutbm@externalresource@width}
+\newcommand{\beamer@theme@leiiutbm@makelink}[3]{%
+	\savebox{\beamer@theme@leiiutbm@externalresource@box@a}{#1}%
+	\savebox{\beamer@theme@leiiutbm@externalresource@box@b}{\beamergotobutton{\usebox{\beamer@theme@leiiutbm@externalresource@box@a}}}%
+	\settoheight{\beamer@theme@leiiutbm@externalresource@height}{\usebox{\beamer@theme@leiiutbm@externalresource@box@a}}%
+	\settowidth{\beamer@theme@leiiutbm@externalresource@width}{\usebox{\beamer@theme@leiiutbm@externalresource@box@b}}%
+	\beamer@theme@leiiutbm@makelink@do{#3#2}{%
+		\vbox to \the\beamer@theme@leiiutbm@externalresource@height{%
+		\vfil \hbox to \the\beamer@theme@leiiutbm@externalresource@width{%
+			\raisebox{-\beamer@theme@leiiutbm@externalresource@height}{%
+				\usebox{\beamer@theme@leiiutbm@externalresource@box@b}%
+			}%
+		}\vfil}%
+	}%
+}
+\newcommand{\videolink}[3][]{%
+	\global\let\beamer@theme@leiiutbm@makelink@do\href%
+	\beamer@theme@leiiutbm@makelink{\includegraphics[#1]{#3}}{#2}{run:}%
+	\global\let\beamer@theme@leiiutbm@makelink@do\relax%
+}
+
+\newcommand{\picturegoto}[3][]{%
+	\global\let\beamer@theme@leiiutbm@makelink@do\hyperlink%
+	\beamer@theme@leiiutbm@makelink{\includegraphics[#1]{#3}}{#2}{}%
+	\global\let\beamer@theme@leiiutbm@makelink@do\relax%
+}
+
+%-----------------------------------------
+% Label for the final slide
+\newcommand{\finalslidetext}[1]{%
+	\global\setcounter{@beamer@theme@leiiutbm@finalslidelabel}{2}%
+	\gdef\beamer@theme@leiiutbm@label@finalslidelabel{#1}%
+}
+
+%-----------------------------------------
+% Adjust Box
+%
+\newsavebox{\beamer@theme@leiiutbm@adjustbox@content}
+\newlength{\beamer@theme@leiiutbm@adjustbox@left}
+\newlength{\beamer@theme@leiiutbm@adjustbox@right}
+\newlength{\beamer@theme@leiiutbm@adjustbox@top}
+\newlength{\beamer@theme@leiiutbm@adjustbox@bottom}
+\newlength{\beamer@theme@leiiutbm@adjustbox@width}
+\newlength{\beamer@theme@leiiutbm@adjustbox@height}
+\define@key{beamerthemeleiiutbmadjustbox}{left}{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@left}{#1}%
+}
+\define@key{beamerthemeleiiutbmadjustbox}{right}{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@right}{#1}%
+}
+\define@key{beamerthemeleiiutbmadjustbox}{top}{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@top}{#1}%
+}
+\define@key{beamerthemeleiiutbmadjustbox}{bottom}{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@bottom}{#1}%
+}
+\define@key{beamerthemeleiiutbmadjustbox}{size}{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@left}{#1}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@right}{#1}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@top}{#1}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@bottom}{#1}%
+}
+\DeclareRobustCommand{\adjustbox}[2][]{%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@left}{1em}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@right}{1em}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@top}{1em}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@bottom}{1em}%
+	\setkeys{beamerthemeleiiutbmadjustbox}{#1}%
+	\sbox{\beamer@theme@leiiutbm@adjustbox@content}{#2}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@width}{\the\wd\beamer@theme@leiiutbm@adjustbox@content}%
+	\addtolength{\beamer@theme@leiiutbm@adjustbox@width}{\beamer@theme@leiiutbm@adjustbox@left}%
+	\addtolength{\beamer@theme@leiiutbm@adjustbox@width}{\beamer@theme@leiiutbm@adjustbox@right}%
+	\setlength{\beamer@theme@leiiutbm@adjustbox@height}{\the\ht\beamer@theme@leiiutbm@adjustbox@content}%
+	\addtolength{\beamer@theme@leiiutbm@adjustbox@height}{\beamer@theme@leiiutbm@adjustbox@top}%
+	\addtolength{\beamer@theme@leiiutbm@adjustbox@height}{\beamer@theme@leiiutbm@adjustbox@bottom}%
+	\vbox to \beamer@theme@leiiutbm@adjustbox@height {%
+		\vspace{\beamer@theme@leiiutbm@adjustbox@top}%
+		\hbox to \beamer@theme@leiiutbm@adjustbox@width {%
+			\hspace{\beamer@theme@leiiutbm@adjustbox@left}%
+			\usebox{\beamer@theme@leiiutbm@adjustbox@content}%
+		}%
+	}%
+}
+
+%-----------------------------------------
+% Zoomable Box
+%
+\newsavebox{\beamer@theme@leiiutbm@zoombox@content}
+\newcounter{beamer@theme@leiiutbm@zoombox@counter}
+\newlength{\beamer@theme@leiiutbm@zoombox@borderlength}
+\gdef\beamer@theme@leiiutbm@zoombox@borderwidth{0}
+\newlength{\beamer@theme@leiiutbm@zoombox@left}
+\newlength{\beamer@theme@leiiutbm@zoombox@right}
+\newlength{\beamer@theme@leiiutbm@zoombox@top}
+\newlength{\beamer@theme@leiiutbm@zoombox@bottom}
+\newlength{\beamer@theme@leiiutbm@zoombox@zoomwidth}
+\newlength{\beamer@theme@leiiutbm@zoombox@zoomheight}
+\define@key{beamerthemeleiiutbmzoombox}{border}{%
+	\ifthenelse{\equal{a#1}{atrue}}{%
+		\xdef\beamer@theme@leiiutbm@zoombox@borderwidth{0.1}%
+	}{%
+		\ifthenelse{\equal{a#1}{afalse}}{%
+			\xdef\beamer@theme@leiiutbm@zoombox@borderwidth{0}%
+		}{%
+			\setlength{\beamer@theme@leiiutbm@zoombox@borderlength}{#1}%
+			\xdef\beamer@theme@leiiutbm@zoombox@borderwidth{\strip@pt\beamer@theme@leiiutbm@zoombox@borderlength}%
+		}
+	}%
+}
+\define@key{beamerthemeleiiutbmzoombox}{margin}{%
+	\ifthenelse{\equal{a#1}{atrue}}{%
+		\setlength{\beamer@theme@leiiutbm@zoombox@left}{1em}%
+		\setlength{\beamer@theme@leiiutbm@zoombox@right}{1em}%
+		\setlength{\beamer@theme@leiiutbm@zoombox@top}{1em}%
+		\setlength{\beamer@theme@leiiutbm@zoombox@bottom}{1em}%
+	}{%
+		\ifthenelse{\equal{a#1}{afalse}}{%
+			\setlength{\beamer@theme@leiiutbm@zoombox@left}{0pt}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@right}{0pt}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@top}{0pt}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@bottom}{0pt}%
+		}{%
+			\setlength{\beamer@theme@leiiutbm@zoombox@left}{#1}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@right}{#1}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@top}{#1}%
+			\setlength{\beamer@theme@leiiutbm@zoombox@bottom}{#1}%
+		}
+	}%
+}
+\define@key{beamerthemeleiiutbmzoombox}{left}{%
+	\setlength{\beamer@theme@leiiutbm@zoombox@left}{#1}%
+}
+\define@key{beamerthemeleiiutbmzoombox}{right}{%
+	\setlength{\beamer@theme@leiiutbm@zoombox@right}{#1}%
+}
+\define@key{beamerthemeleiiutbmzoombox}{top}{%
+	\setlength{\beamer@theme@leiiutbm@zoombox@top}{#1}%
+}
+\define@key{beamerthemeleiiutbmzoombox}{bottom}{%
+	\setlength{\beamer@theme@leiiutbm@zoombox@bottom}{#1}%
+}
+% Parameters: [border=XXpt,left=XXpt,right=XXpt,top=XXpt,bottom=XXpt,margin=XXpt]{box content}
+\newcommand{\zoombox}[2][]{%
+	\setlength{\beamer@theme@leiiutbm@zoombox@borderlength}{0pt}%
+	\setlength{\beamer@theme@leiiutbm@zoombox@left}{1em}%
+	\setlength{\beamer@theme@leiiutbm@zoombox@right}{1em}%
+	\setlength{\beamer@theme@leiiutbm@zoombox@top}{1em}%
+	\setlength{\beamer@theme@leiiutbm@zoombox@bottom}{1em}%
+	\setkeys{beamerthemeleiiutbmzoombox}{#1}%
+	\leavevmode%
+	\sbox\beamer@theme@leiiutbm@zoombox@content{#2}%
+	\ifx\pdfdest\@undefined%
+		\PackageWarning{beamerle2iutbm}{The \zoombox is not supported by your TeX tool.}%
+	\else%
+		%Put an anchor in the PDF for the "standard" documentation (not zommed).
+		\pdfdest name {zb\thebeamer@theme@leiiutbm@zoombox@counter.out} fit%
+		%
+		%Put an anchor in the PDF for the "zooming" documentation.
+		%Set the sizes of the zooming area.
+		\setlength{\beamer@theme@leiiutbm@zoombox@zoomwidth}%
+				{\the\wd\beamer@theme@leiiutbm@zoombox@content}%
+		\addtolength{\beamer@theme@leiiutbm@zoombox@zoomwidth}{\beamer@theme@leiiutbm@zoombox@left}%
+		\addtolength{\beamer@theme@leiiutbm@zoombox@zoomwidth}{\beamer@theme@leiiutbm@zoombox@right}%
+		\setlength{\beamer@theme@leiiutbm@zoombox@zoomheight}%
+				{\the\ht\beamer@theme@leiiutbm@zoombox@content}%
+		\addtolength{\beamer@theme@leiiutbm@zoombox@zoomheight}{\beamer@theme@leiiutbm@zoombox@top}%
+		\addtolength{\beamer@theme@leiiutbm@zoombox@zoomheight}{\beamer@theme@leiiutbm@zoombox@bottom}%
+		\vbox to \beamer@theme@leiiutbm@zoombox@top {%
+			\hbox to \beamer@theme@leiiutbm@zoombox@left {%
+				\pdfdest name {zb\thebeamer@theme@leiiutbm@zoombox@counter.in} fitr%
+				width  \beamer@theme@leiiutbm@zoombox@zoomwidth\space%
+				height \beamer@theme@leiiutbm@zoombox@zoomheight\space%
+				depth  \the\dp\beamer@theme@leiiutbm@zoombox@content\space%
+			}%
+		}
+		%
+		%Put the link that permits to zoom.
+		\immediate\pdfannot%
+		width  \the\wd\beamer@theme@leiiutbm@zoombox@content\space%
+		height \the\ht\beamer@theme@leiiutbm@zoombox@content\space%
+		depth  \the\dp\beamer@theme@leiiutbm@zoombox@content\space%
+		{%
+			/Subtype/Link/H/N
+			/Border [0 0 \beamer@theme@leiiutbm@zoombox@borderwidth [1 2]]
+			/A <<
+				/S/JavaScript
+				/JS (
+					if(typeof(zoomed\thebeamer@theme@leiiutbm@zoombox@counter)=='undefined'){
+					  this.gotoNamedDest('zb\thebeamer@theme@leiiutbm@zoombox@counter.out');
+					  var zoomed\thebeamer@theme@leiiutbm@zoombox@counter=false;
+					}
+				)
+				/Next <<
+					/S/GoTo/D (zb\thebeamer@theme@leiiutbm@zoombox@counter.in)
+					/Next <<
+					  /S/JavaScript
+					  /JS(
+						if(zoomed\thebeamer@theme@leiiutbm@zoombox@counter){
+							this.gotoNamedDest('zb\thebeamer@theme@leiiutbm@zoombox@counter.out');
+							zoomed\thebeamer@theme@leiiutbm@zoombox@counter=false;
+						}else{
+							zoomed\thebeamer@theme@leiiutbm@zoombox@counter=true;
+						}
+					  )
+					>>
+				>>
+			>>
+		}%
+	\fi%
+	\usebox{\beamer@theme@leiiutbm@zoombox@content}%
+	\stepcounter{beamer@theme@leiiutbm@zoombox@counter}%
+}
+
+%-----------------------------------------
+% Extended Author API
+%
+\let\beamer@theme@leiiutbm@authors@short\relax
+\let\beamer@theme@leiiutbm@authors@long\relax
+\newcommand{\beamer@theme@leiiutbm@authors@format@long}[1]{\underline{#1}}
+\newcommand{\beamer@theme@leiiutbm@authors@format@short}[1]{\textbf{#1}}
+\newcommand{\beamer@theme@leiiutbm@authors@longprefix}[1]{#1}
+\newcommand{\beamer@theme@leiiutbm@authors@shortprefix}[1]{#1}
+\newcommand{\beamer@theme@leiiutbm@buildauthorlist}[2][]{%
+	% Build the long list of authors
+	\ifx\beamer@theme@leiiutbm@authors@long\relax%
+		\protected@xdef\beamer@theme@leiiutbm@authors@long{\beamer@theme@leiiutbm@authors@longprefix{\protect{#2}}}%
+	\else%
+		\protected@xdef\beamer@theme@leiiutbm@authors@long{\beamer@theme@leiiutbm@authors@long \protect\and \beamer@theme@leiiutbm@authors@longprefix{\protect{#2}}}%
+	\fi%
+	% Build the short list of authors
+	\ifx\beamer@theme@leiiutbm@authors@short\relax%
+		\protected@xdef\beamer@theme@leiiutbm@authors@short{\beamer@theme@leiiutbm@authors@shortprefix{\protect{#1}}}%
+	\else%
+		\protected@xdef\beamer@theme@leiiutbm@authors@short{\beamer@theme@leiiutbm@authors@short \protect\and \beamer@theme@leiiutbm@authors@shortprefix{\protect{#1}}}%
+	\fi%
+	% Give the two lists to Beamer
+	\expandafter\author[\beamer@theme@leiiutbm@authors@short]{\beamer@theme@leiiutbm@authors@long}%
+}
+\newcommand{\beamer@theme@leiiutbm@addauthorstar}{%
+	\renewcommand{\beamer@theme@leiiutbm@authors@longprefix}[1]{\protect\beamer@theme@leiiutbm@authors@format@long{##1}}
+	\renewcommand{\beamer@theme@leiiutbm@authors@shortprefix}[1]{\protect\beamer@theme@leiiutbm@authors@format@short{##1}}
+	\beamer@theme@leiiutbm@buildauthorlist}
+\newcommand{\beamer@theme@leiiutbm@addauthor}{
+	\renewcommand{\beamer@theme@leiiutbm@authors@longprefix}[1]{##1}
+	\renewcommand{\beamer@theme@leiiutbm@authors@shortprefix}[1]{##1}
+	\beamer@theme@leiiutbm@buildauthorlist}
+\newcommand{\addauthor}{\@ifstar\beamer@theme@leiiutbm@addauthorstar\beamer@theme@leiiutbm@addauthor}
+
+%---------------------------------------------
+% LIBRARY
+
+\define@key{beamerthemeleiiutbmlibraryslide}{frametitle}{%
+	\gdef\beamer@theme@leiiutbm@libraryslide@frametitle{#1}%
+}
+\define@key{beamerthemeleiiutbmlibraryslide}{subtitle}{%
+	\gdef\beamer@theme@leiiutbm@libraryslide@subtitle{#1}%
+}
+% \libraryslide[frametitle=text,subtitle=text]{picture}{title}{authors}{How published}{ISBN}
+\newcommand{\libraryslide}[6][]{%
+	\beamer@theme@leiiutbm@optlist{#1}%
+	\gdef\beamer@theme@leiiutbm@libraryslide@frametitle{\subsecname}%
+	\gdef\beamer@theme@leiiutbm@libraryslide@subtitle{}%
+	\ifbeamer@theme@leiiutbm@optlist@needdefault%
+		\setkeys{beamerthemeleiiutbmlibraryslide}{subtitle=#1}%
+	\else%
+		\setkeys{beamerthemeleiiutbmlibraryslide}{#1}%
+	\fi%
+	\begin{frame}[c]{\beamer@theme@leiiutbm@libraryslide@frametitle}%
+		\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
+		\begin{minipage}[t]{.65\linewidth}
+		\begin{raggedright}
+		\mbox{}\\%
+		\nohyphens{\textbf{#3}}
+		\ifthenelse{\equal{a\beamer@theme@leiiutbm@libraryslide@subtitle}{a}}{}{%
+			\\ \nohyphens{\small\beamer@theme@leiiutbm@libraryslide@subtitle}%
+		} \\[.5cm]%
+		\nohyphens{#4} \\[.5cm]%
+		\nohyphens{#5} \\[.25cm]%
+		\nohyphens{ISBN #6}%
+		\end{raggedright}
+		\end{minipage}%
+	\end{frame}%
+}
+
+%---------------------------------------------
+% Colorized tabulars
+
+\arrayrulecolor{LE2IUTBMblue}
+\def\chead#1{\textcolor{white}{#1}}%
+\def\tabularheading{\rowcolor{LE2IUTBMlightblue}}%
+
+%---------------------------------------------
+% Continuation
+
+\newcommand{\insertcontinuationwith}[1]{%
+	\global\beamer@autobreakcount=#1%
+	\usebeamertemplate****{}%
+}
+
+\endinput
