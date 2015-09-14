@@ -24,8 +24,9 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 %
+
 \ProvidesPackage{beamerbasethemeLE2IUTBM}
-   [2015/09/01 Beamer Base Defs 'LE2I at UTBM' Theme]
+   [2015/09/14 Beamer Base Defs 'LE2I at UTBM' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -39,11 +40,16 @@
 \setcounter{@beamer@theme@leiiutbm@visualframenumber}{1} % 0: none, 1: circle, 2: text, 3:section-circle,
                                                          % 4:part-circle, 5: section-part-circle
 
-\newlength\beamer@theme@leiiutbm@contentheight
-\setlength{\beamer@theme@leiiutbm@contentheight}{6cm}
-
 \newboolean{beamer@theme@leiiutbm@eventintitlebar}
 \setboolean{beamer@theme@leiiutbm@eventintitlebar}{true}
+
+\newboolean{beamer@theme@leiiutbm@hyphenation}
+\setboolean{beamer@theme@leiiutbm@hyphenation}{false}
+
+\newboolean{beamer@theme@leiiutbm@lablogo}
+\setboolean{beamer@theme@leiiutbm@lablogo}{true}
+
+\newlength{\beamer@theme@leiiutbm@tmplength}
 
 %%%%%%%--------------------------------------
 %%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
@@ -95,8 +101,24 @@
 \DeclareOptionBeamer{eventbelowauthors}{%
 	\setboolean{beamer@theme@leiiutbm@eventintitlebar}{false}%
 }
+\DeclareOptionBeamer{hyphenation}{%
+	\setboolean{beamer@theme@leiiutbm@hyphenation}{true}%
+}
+\DeclareOptionBeamer{nohyphenation}{%
+	\setboolean{beamer@theme@leiiutbm@hyphenation}{false}%
+}
+\DeclareOptionBeamer{lablogo}{%
+	\setboolean{beamer@theme@leiiutbm@lablogo}{true}%
+}
+\DeclareOptionBeamer{nolablogo}{%
+	\setboolean{beamer@theme@leiiutbm@lablogo}{false}%
+}
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
+
+\ifthenelse{\boolean{beamer@theme@leiiutbm@hyphenation}}{}{%
+	\RequirePackage[english=nohyphenation,french=nohyphenation]{hyphsubst}
+}
 
 %%%%%%%--------------------------------------
 %%%%%%% PROTECTED API
@@ -108,8 +130,27 @@
 % Also reset the font in case of a bug! ;-)
 \let\beamer@theme@leiiutbm@old@frame\frame
 \gdef\frame{
+	\message{################ FRAME \the\c@page}
 	\normalcolor\normalfont\beamer@theme@leiiutbm@old@frame%
 }
+
+%-----------------------------------------
+% Hooks for end of slides
+\gdef\beamer@theme@leiiutbm@beginframe@hooks{}
+\newcommand{\AtBeginFrame}[1]{%
+	\g@addto@macro\beamer@theme@leiiutbm@beginframe@hooks{#1}%
+}
+
+\gdef\beamer@theme@leiiutbm@endframe@hooks{}
+\newcommand{\AtEndFrame}[1]{%
+	\g@addto@macro\beamer@theme@leiiutbm@endframe@hooks{#1}%
+}
+\let\beamer@theme@leiiutbm@endframeslide\endbeamer@frameslide
+\gdef\endbeamer@frameslide{%
+	\beamer@theme@leiiutbm@endframe@hooks%
+	\beamer@theme@leiiutbm@endframeslide%
+}
+
 
 %-----------------------------------------
 % Wrap the text formatting functions (for inside the titles)
@@ -209,6 +250,8 @@
 % Headlines
 \newif\ifbeamer@theme@leiiutbm@headline@enableheadline
 \beamer@theme@leiiutbm@headline@enableheadlinetrue
+\newif\ifbeamer@theme@leiiutbm@headline@empty
+\beamer@theme@leiiutbm@headline@emptyfalse
 
 \let\beamer@theme@leiiutbm@headline@frame\frame
 \gdef\frame{%
@@ -231,30 +274,17 @@
 		\beamer@theme@leiiutbm@headline@current%
 	\fi%
 }
-\setbeamertemplate{headline text style}{}%
+\setbeamertemplate{headline text style}{}
+
 \newcommand{\useheaderempty}{%
+	\global\beamer@theme@leiiutbm@headline@emptytrue%
 	\gdef\beamer@theme@leiiutbm@headline@current{}%
 	\gdef\beamer@theme@leiiutbm@headline@currentpicture{}%
 }
 \newcommand{\useheaderdefault}{%
+	\global\beamer@theme@leiiutbm@headline@emptyfalse%
 	\gdef\beamer@theme@leiiutbm@headline@current{\beamer@theme@leiiutbm@headline@default}%
 	\gdef\beamer@theme@leiiutbm@headline@currentpicture{\beamer@theme@leiiutbm@headline@defaultpicture}%
-}
-
-\newcommand{\insertheaderlinewithsections}{%
-	\begin{picture}(0,0)(0,0)%
-		\put(-4,11){\parbox[t]{2.65cm}{%
-			\begin{flushleft}%
-				\usebeamertemplate{headline text style}%
-				\insertsectionnavigation{\linewidth}%
-			\end{flushleft}%
-			}%
-		}%
-	\end{picture}%
-}
-\newcommand{\useheaderlinewithsections}[1][]{%
-	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithsections}%
-	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{}%
 }
 
 \pgfdeclareimage[height=.7cm]{LE2IUTBMlogointitle}{le2ilogoinv}
@@ -296,24 +326,142 @@
 	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{MAGlogointitle}}%
 }
 
+\pgfdeclareimage[width=.7cm]{UTBMlogointitle}{utbmlogoinv}
+\newcommand{\insertheaderlinewithutbmlogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(2,-22){%
+			\pgfuseimage{UTBMlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithutbmlogo}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithutbmlogo}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{UTBMlogointitle}}%
+}
+
+\let\insertheaderlinewithuserlogo\relax
+\newcommand{\useheaderlinewithuserlogo}[2][width=.7cm]{%
+	\expandafter\ifcsname pgf@image@USERlogointitle@#2!\endcsname\else%
+		\resolvepicturename{#2}%
+		\expandafter\pgfdeclareimage[#1]{USERlogointitle@#2}{\resolvedfilename}%
+	\fi
+	\protected@xdef\insertheaderlinewithuserlogo{%
+		\protect\begin{picture}(0,0)(0,0)%
+			\protect\put(2,-22){%
+				\protect\pgfuseimage{USERlogointitle@#2}%
+			}%
+		\protect\end{picture}%
+	}%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithuserlogo}%
+	\protected@xdef\beamer@theme@leiiutbm@headline@defaultpicture{\protect\pgfuseimage{USERlogointitle@#2}}%
+}
+
 \useheaderlinewithleiilogo
 \useheaderdefault
 
 %-----------------------------------------
-% Put something at an absolute position
-\newcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}
-\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{0}
-
-\long\def\putat(#1,#2)#3{%
-	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{1}%
-	\expandafter\gdef\csname @tmp@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}\endcsname{\put(#1,#2){#3}}%
+% Footlines
+\newlength\beamer@theme@leiiutbm@outer@footlinewidth
+\setlength\beamer@theme@leiiutbm@outer@footlinewidth{\paperwidth}
+\addtolength{\beamer@theme@leiiutbm@outer@footlinewidth}{-1em}
+\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
+	\addtolength{\beamer@theme@leiiutbm@outer@footlinewidth}{-2.9cm}%
+}{%
+	\addtolength{\beamer@theme@leiiutbm@outer@footlinewidth}{-1em}%
 }
-\newcommand{\beamer@theme@leiiutbm@insertabsolutepositionelements}{%
-	\whiledo{\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}>0}{%
-		\csname @tmp@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt}\endcsname%
-		\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{-1}%
+
+\newcommand{\insertfootlinewithsections}{%
+	\put(6,7){%
+		\parbox[c]{\beamer@theme@leiiutbm@outer@footlinewidth}{%
+		%
+		\def\slideentry##1##2##3##4##5##6{}%
+		\def\sectionentry##1##2##3##4##5{%
+			\ifnum##5=\c@part%
+				\def\insertsectionhead{##2}%
+				\def\insertsectionheadnumber{##1}%
+				\def\insertpartheadnumber{##5}%
+				\strut{%
+				  \usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+				  \ifnum\c@section=##1%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot}}}}%
+				  \else%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot shaded}}}}%
+				  \fi%
+				}%
+				\hskip1em%
+			\fi\ignorespaces%
+		}%
+		%
+		\dohead}}%
+}
+
+\newcommand{\insertfootlinewithdocumentname}{%
+	\put(6,7){
+		\parbox[c]{\beamer@theme@leiiutbm@outer@footlinewidth}{%
+		\begin{flushleft}%
+		\usebeamerfont{author in head/foot}\usebeamercolor[fg]{author in head/foot}%
+		\insertshortauthor%
+		\@beamer@theme@leiiutbm@postfix{~--~}{\insertshorteventname}%
+		\insertshortinstitute\end{flushleft}}}%
+}
+
+\global\let\beamer@theme@leiiutbm@footline@default\relax
+
+\newcommand{\usefootlinewithsections}[1][]{%
+	\gdef\beamer@theme@leiiutbm@footline@default{\insertfootlinewithsections}%
+}
+
+\newcommand{\usefootlinewithdocumentname}[1][]{%
+	\gdef\beamer@theme@leiiutbm@footline@default{\insertfootlinewithdocumentname}%
+}
+
+\usefootlinewithdocumentname
+
+%-----------------------------------------
+% Put something at an absolute position
+\newcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}
+\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{0}
+\newcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}
+\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{0}
+
+\long\def\beamer@theme@leiiutbm@putat@background(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{1}%
+	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@bgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}\endcsname{\put(#1,#2){#3}}%
+}
+
+\long\def\beamer@theme@leiiutbm@putat@foreground(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{1}%
+	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@fgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}\endcsname{\put(#1,#2){#3}}%
+}
+
+\def\putat{\@ifstar\beamer@theme@leiiutbm@putat@background\beamer@theme@leiiutbm@putat@foreground}
+
+\newcommand{\beamer@theme@leiiutbm@insertabsolutepositionelements@background}{%
+	\whiledo{\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}>0}{%
+		\csname beamer@theme@leiiutbm@absolutepositionelements@bgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}\endcsname%
+		\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{-1}%
 	}%
-	\global\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt}{0}%
+	\global\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{0}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@insertabsolutepositionelements@foreground}{%
+	\whiledo{\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}>0}{%
+		\csname beamer@theme@leiiutbm@absolutepositionelements@fgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}\endcsname%
+		\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{-1}%
+	}%
+	\global\setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{0}%
+}
+
+\AtBeginFrame{%
+		\begin{picture}(0,0)(0,0)%
+			\beamer@theme@leiiutbm@insertabsolutepositionelements@background%
+		\end{picture}%
+}
+
+\AtEndFrame{%
+		\begin{picture}(0,0)(0,0)%
+			\beamer@theme@leiiutbm@insertabsolutepositionelements@foreground%
+		\end{picture}%
 }
 
 %-----------------------------------------
@@ -356,6 +504,10 @@
 \let\beamer@theme@leiiutbm@sidenote\relax
 \newcommand{\sidenote}[1]{%
 	\gdef\beamer@theme@leiiutbm@sidenote{#1}%
+}
+
+\newcommand{\sidecite}[1]{%
+	\sidenote{\cite{#1}}%
 }
 
 %-----------------------------------------
@@ -677,53 +829,70 @@
 	\expandafter\url{\beamer@theme@leiiutbm@instituteurl}%
 }
 \institute[L2EI-UTBM]{
-	\textbf{Universit\'e de Bourgogne Franche-Comt\'e - UTBM - LE2I}, \\[0cm]
+	\textbf{Universit\'e de Bourgogne Franche-Comt\'e - UTBM - LE2I} \\[0cm]
 	90010 Belfort cedex, France - \insertinstituteurl
 }
 
 %-----------------------------------------
-% Partner Logo
-\gdef\beamer@theme@leiiutbm@partnerlogo{}
-\newcommand{\beamer@theme@leiiutbm@partnerlogo@search}[1]{%
+% Search graphical resource in "graphics" paths
+\gdef\beamer@theme@leiiutbm@resolvepicturename@search#1{%
 	\IfFileExists{#1}{%
-                \gdef\beamer@theme@leiiutbm@partnerlogo@tmp{#1}%
-        }{%
-                \@for\beamer@theme@leiiutbm@partnerlogo@pathtmp:=\Ginput@path\do{%
-                        \ifx\beamer@theme@leiiutbm@partnerlogo@tmp\relax%
-                                \IfFileExists{\beamer@theme@leiiutbm@partnerlogo@pathtmp#1}{%
-                                        \xdef\beamer@theme@leiiutbm@partnerlogo@tmp{\beamer@theme@leiiutbm@partnerlogo@pathtmp#1}%
-                                }{}%
-                        \fi%
-                }%
-        }%
+            \xdef\resolvedfilename{#1}%
+    }{%
+            \@for\beamer@theme@leiiutbm@resolvepicturename@pathtmp:=\Ginput@path\do{%
+                    \ifx\resolvedfilename\relax%
+                            \expandafter\IfFileExists{\beamer@theme@leiiutbm@resolvepicturename@pathtmp#1}{%
+                                    \xdef\resolvedfilename{\beamer@theme@leiiutbm@resolvepicturename@pathtmp#1}%
+                            }{}%
+                    \fi%
+            }%
+    }%
 }
-\newcommand{\partnerlogo}[2][width=2cm]{%
-	\begingroup%
-        %
-        \global\let\beamer@theme@leiiutbm@partnerlogo@tmp\relax%
-        \filename@parse{#2}%
-        \ifx\filename@ext\relax%
-                \@for\beamer@theme@leiiutbm@partnerlogo@exttmp:=\Gin@extensions\do{%
-                        \beamer@theme@leiiutbm@partnerlogo@search{#2\beamer@theme@leiiutbm@partnerlogo@exttmp}%
-                }%
-        \else%
-                \beamer@theme@leiiutbm@partnerlogo@search{#2}%
-        \fi%
-        %
-        \ifx\@autolatex@wtfig@tmp\relax%
-                \errmessage{Package Beamer/LE2I-UTBM: File not found '#2', needed for Partner Logo.}%
-        \else%
-		\expandafter\pgfdeclareimage[#1]{LE2IUTBMpartnerlogo}{\beamer@theme@leiiutbm@partnerlogo@tmp}%
-		\gdef\beamer@theme@leiiutbm@partnerlogo{\hspace{.1cm}\pgfuseimage{LE2IUTBMpartnerlogo}}%
-        \fi%
-	%
-        \endgroup%
+\newcommand{\resolvepicturename}[1]{%
+    \global\let\resolvedfilename\relax%
+	\bgroup%
+    \filename@parse{#1}%
+    \ifx\filename@ext\relax%
+        \@for\beamer@theme@leiiutbm@resolvepicturename@exttmp:=\Gin@extensions\do{%
+                \expandafter\beamer@theme@leiiutbm@resolvepicturename@search{#1\beamer@theme@leiiutbm@resolvepicturename@exttmp}%
+        }%
+    \else%
+        \beamer@theme@leiiutbm@resolvepicturename@search{#1}%
+    \fi%
+    %
+    \ifx\resolvedfilename\relax%
+		% File not found in the local directory nor in the Graphic's input paths.
+		\errmessage{Package Beamer/LE2I-UTBM: File not found '#1' with the extensions: \Gin@extensions; and in the paths: \Ginput@path}%
+    \fi%
+	\egroup%
+}
+
+%-----------------------------------------
+% Partner Logo
+\newlength{\beamer@theme@leiiutbm@partnerlogo@margin}
+\setlength{\beamer@theme@leiiutbm@partnerlogo@margin}{.1cm}
+\gdef\beamer@theme@leiiutbm@partnerlogo{}
+\newcommand{\partnerlogo}[2][height=.5cm]{%
+	\ifcsname pgf@image@LE2IUTBMpartnerlogo@#2!\endcsname%
+	\else%
+		\resolvepicturename{#2}%
+		\expandafter\pgfdeclareimage[#1]{LE2IUTBMpartnerlogo@#2}{\resolvedfilename}%
+		\addtolength{\beamer@theme@leiiutbm@outer@footlinewidth}{-\beamer@theme@leiiutbm@partnerlogo@margin}%
+		\settowidth{\beamer@theme@leiiutbm@tmplength}{\pgfuseimage{LE2IUTBMpartnerlogo@#2}}%
+		\addtolength{\beamer@theme@leiiutbm@outer@footlinewidth}{-\beamer@theme@leiiutbm@tmplength}%
+	\fi%
+	\g@addto@macro\beamer@theme@leiiutbm@partnerlogo{\hspace{\beamer@theme@leiiutbm@partnerlogo@margin}\pgfuseimage{LE2IUTBMpartnerlogo@#2}}%
+	
+}
+
+\newcommand{\nopartnerlogo}{%
+	\gdef\beamer@theme@leiiutbm@partnerlogo{}%
 }
 
 %-----------------------------------------
 % Table of content
 \newcommand{\tableofcontentslide}[1][hideallsubsections]{%
-	\begin{frame}[c]{\translate{Outline}}%
+	\begin{frame}[t]{\translate{Outline}}%
 	\small\tableofcontents[#1]%
 	\end{frame}%
 }
@@ -740,53 +909,238 @@
 %-----------------------------------------
 % Slide Environment with only a figure
 \newsavebox{\beamer@theme@leiiutbm@figureslide@box}
-\newlength{\beamer@theme@leiiutbm@figureslide@width}
-\newlength{\beamer@theme@leiiutbm@figureslide@height}
+\newlength{\beamer@theme@leiiutbm@figureslide@ow}
+\newlength{\beamer@theme@leiiutbm@figureslide@oh}
+\newlength{\beamer@theme@leiiutbm@figureslide@textheight}
 \newif\ifbeamer@theme@leiiutbm@figureslide@dynamic@width
 \newif\ifbeamer@theme@leiiutbm@figureslide@dynamic@height
+\newif\ifbeamer@theme@leiiutbm@figureslide@haslabel
 \define@key{beamerthemeleiiutbmfigureslide}{width}{%
-	\gdef\beamer@theme@leiiutbm@figureslide@widtht{#1}%
-	\global\beamer@theme@leiiutbm@figureslide@dynamic@widthfalse%
+	\def\beamer@theme@leiiutbm@figureslide@widtht{#1}%
+	\beamer@theme@leiiutbm@figureslide@dynamic@widthfalse%
 }
 \define@key{beamerthemeleiiutbmfigureslide}{height}{%
-	\gdef\beamer@theme@leiiutbm@figureslide@heightt{#1}%
-	\global\beamer@theme@leiiutbm@figureslide@dynamic@heightfalse%
+	\def\beamer@theme@leiiutbm@figureslide@heightt{#1}%
+	\beamer@theme@leiiutbm@figureslide@dynamic@heightfalse%
 }
 \define@key{beamerthemeleiiutbmfigureslide}{scale}{%
-	\gdef\beamer@theme@leiiutbm@figureslide@scale{#1}%
+	\edef\beamer@theme@leiiutbm@figureslide@scale{#1}%
 }
-\newcommand{\figureslide}[3][]{%
-	\global\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
-	\global\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
-	\gdef\beamer@theme@leiiutbm@figureslide@scale{1}%
+\define@key{beamerthemeleiiutbmfigureslide}{valign}{%
+	\edef\beamer@theme@leiiutbm@figureslide@valign{#1}%
+}
+\define@key{beamerthemeleiiutbmfigureslide}{halign}{%
+	\edef\beamer@theme@leiiutbm@figureslide@halign{#1}%
+}
+\define@key{beamerthemeleiiutbmfigureslide}{label}{%
+	\edef\beamer@theme@leiiutbm@figureslide@label{#1}%
+	\beamer@theme@leiiutbm@figureslide@haslabeltrue%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame@dynamic@wh}[2]{%
+	% Compute the height of the slide
+	\setlength{\beamer@theme@leiiutbm@figureslide@textheight}{\beamer@paperheight}%
+	\addtolength{\beamer@theme@leiiutbm@figureslide@textheight}{-0.5cm}% Bottom line height
+	\addtolength{\beamer@theme@leiiutbm@figureslide@textheight}{-1cm}% Top margin.
+	\addtolength{\beamer@theme@leiiutbm@figureslide@textheight}{-0.3cm}% Head sep
+	% Get size of the picture
+	\settowidth{\beamer@theme@leiiutbm@figureslide@ow}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
+	\settoheight{\beamer@theme@leiiutbm@figureslide@oh}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
+	%
+	% Determine the new dimensions of the picture after scaling
+	\pgfmathtruncatemacro{\beamer@theme@leiiutbm@figureslide@ratio}{\strip@pt\beamer@theme@leiiutbm@figureslide@ow / \strip@pt\beamer@theme@leiiutbm@figureslide@oh}%
+	\ifnum0<\beamer@theme@leiiutbm@figureslide@ratio%
+%						% wider image
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratio}{\strip@pt\textwidth / \strip@pt\beamer@theme@leiiutbm@figureslide@ow}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sw}{\strip@pt\beamer@theme@leiiutbm@figureslide@ow * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sh}{\strip@pt\beamer@theme@leiiutbm@figureslide@oh * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\pgfmathtruncatemacro{\beamer@theme@leiiutbm@tmp}{\beamer@theme@leiiutbm@figureslide@sh > \strip@pt\beamer@theme@leiiutbm@figureslide@textheight}%
+		\ifnum1=\beamer@theme@leiiutbm@tmp%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratio}{\strip@pt\beamer@theme@leiiutbm@figureslide@textheight / \beamer@theme@leiiutbm@figureslide@sh}%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sw}{\beamer@theme@leiiutbm@figureslide@sw * \beamer@theme@leiiutbm@figureslide@ratio}%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sh}{\beamer@theme@leiiutbm@figureslide@sh * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\fi%
+	\else%
+%						% taller image
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratio}{\strip@pt\beamer@theme@leiiutbm@figureslide@textheight / \strip@pt\beamer@theme@leiiutbm@figureslide@oh}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sh}{\strip@pt\beamer@theme@leiiutbm@figureslide@oh * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sw}{\strip@pt\beamer@theme@leiiutbm@figureslide@ow * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\pgfmathtruncatemacro{\beamer@theme@leiiutbm@tmp}{\beamer@theme@leiiutbm@figureslide@sw > \strip@pt\textwidth}%
+		\ifnum1=\beamer@theme@leiiutbm@tmp%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratio}{\strip@pt\textwidth / \beamer@theme@leiiutbm@figureslide@sw}%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sh}{\beamer@theme@leiiutbm@figureslide@sh * \beamer@theme@leiiutbm@figureslide@ratio}%
+			\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@sw}{\beamer@theme@leiiutbm@figureslide@sw * \beamer@theme@leiiutbm@figureslide@ratio}%
+		\fi%
+	\fi%
+	% Resize the picture
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{\beamer@theme@leiiutbm@figureslide@sw pt}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{#1\beamer@theme@leiiutbm@figureslide@ow}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{\beamer@theme@leiiutbm@figureslide@sh pt}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{#1\beamer@theme@leiiutbm@figureslide@oh}%
+	\resizebox{\beamer@theme@leiiutbm@figureslide@ow}{\beamer@theme@leiiutbm@figureslide@oh}{#2}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame@dynamic@h}[3]{%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{#1}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{#2\beamer@theme@leiiutbm@figureslide@oh}%
+	\resizebox{!}{\beamer@theme@leiiutbm@figureslide@oh}{#3}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame@dynamic@w}[3]{%
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{#1}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{#2\beamer@theme@leiiutbm@figureslide@ow}%
+	\resizebox{\beamer@theme@leiiutbm@figureslide@ow}{!}{#3}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame@dynamic@none}[4]{%
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{#1}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@ow}{#3\beamer@theme@leiiutbm@figureslide@ow}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{#2}%
+	\setlength{\beamer@theme@leiiutbm@figureslide@oh}{#3\beamer@theme@leiiutbm@figureslide@oh}%
+	\resizebox{\beamer@theme@leiiutbm@figureslide@ow}{\beamer@theme@leiiutbm@figureslide@oh}{#4}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[8]{%
+	\begin{frame}[#4,label=#6]{#2}%
+		#8%
+		\ifthenelse{\equal{=#5}{=c}%
+		            \OR \equal{=#5}{=r}}{\mbox{}\hfill}{}%
+		#7%
+		\ifthenelse{\equal{=#5}{=c}%
+		            \OR \equal{=#5}{=l}}{\hfill\mbox{}}{}%
+	\end{frame}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame}[7]{%
+	\beamer@theme@leiiutbm@figureslide@@frame
+		{#1}{#2}{#3}{#4}{#5}{#6}{#7}%
+		{\savebox{\beamer@theme@leiiutbm@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@figureslide}[4][]{%
+	\bgroup%
+	\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
+	\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
+	\beamer@theme@leiiutbm@figureslide@haslabelfalse%
+	\def\beamer@theme@leiiutbm@figureslide@scale{1}%
+	\def\beamer@theme@leiiutbm@figureslide@valign{t}%
+	\def\beamer@theme@leiiutbm@figureslide@halign{c}%
+	\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
+	%
 	\setkeys{beamerthemeleiiutbmfigureslide}{#1}%
-	\savebox{\beamer@theme@leiiutbm@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}%
-	\begin{frame}[c]{#2}%
-		\begin{center}%
+	%
+	\ifbeamer@theme@leiiutbm@figureslide@dynamic@width%
+		\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@leiiutbm@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@leiiutbm@figureslide@valign}%
+						{\beamer@theme@leiiutbm@figureslide@halign}%
+						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@wh%
+							{\beamer@theme@leiiutbm@figureslide@scale}%
+							{#4}}%
+			}%
+		\else%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@leiiutbm@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@leiiutbm@figureslide@valign}%
+						{\beamer@theme@leiiutbm@figureslide@halign}%
+						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@h%
+							{\beamer@theme@leiiutbm@figureslide@heightt}%
+							{\beamer@theme@leiiutbm@figureslide@scale}%
+							{#4}}%
+			}%
+		\fi%
+	\else%
+		\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@leiiutbm@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@leiiutbm@figureslide@valign}%
+						{\beamer@theme@leiiutbm@figureslide@halign}%
+						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@w%
+							{\beamer@theme@leiiutbm@figureslide@widtht}%
+							{\beamer@theme@leiiutbm@figureslide@scale}%
+							{#4}}%
+			}%
+		\else%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@leiiutbm@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@leiiutbm@figureslide@valign}%
+						{\beamer@theme@leiiutbm@figureslide@halign}%
+						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@none%
+							{\beamer@theme@leiiutbm@figureslide@widtht}%
+							{\beamer@theme@leiiutbm@figureslide@heightt}%
+							{\beamer@theme@leiiutbm@figureslide@scale}%
+							{#4}}%
+			}%
+		\fi%
+	\fi%
+	%
+	\@tmp%
+	%
+	\egroup%
+}
+
+\newcommand{\figureslide}[3][]{%
+	\beamer@theme@leiiutbm@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
+}
+
+\AtBeginDocument{
+	\ifcsname includeanimatedfigure\endcsname%
+		\newcommand{\animatedfigureslide}[3][width=\linewidth]{%
+			\bgroup%
+			\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
+			\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
+			\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
+			\def\beamer@theme@leiiutbm@figureslide@valign{t}%
+			\def\beamer@theme@leiiutbm@figureslide@halign{c}%
+			%
+			\setkeys*{beamerthemeleiiutbmfigureslide}{#1}%
+			%
 			\ifbeamer@theme@leiiutbm@figureslide@dynamic@width%
 				\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
-					\settowidth{\beamer@theme@leiiutbm@figureslide@width}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
-					\settoheight{\beamer@theme@leiiutbm@figureslide@height}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
-					\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratiow}{\strip@pt\beamer@theme@leiiutbm@figureslide@width / \strip@pt\linewidth}%
-					\pgfmathsetmacro{\beamer@theme@leiiutbm@figureslide@ratioh}{\strip@pt\beamer@theme@leiiutbm@figureslide@height / \strip@pt\beamer@theme@leiiutbm@contentheight}%
-					\pgfmathtruncatemacro{\beamer@theme@leiiutbm@figureslide@ratio}{\beamer@theme@leiiutbm@figureslide@ratiow / \beamer@theme@leiiutbm@figureslide@ratioh}%
-					\ifthenelse{\beamer@theme@leiiutbm@figureslide@ratio=0}{%
-						\resizebox{!}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@contentheight}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
-					}{%
-						\resizebox{\beamer@theme@leiiutbm@figureslide@scale\linewidth}{!}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
-					}%
+					\def\@tmp{width=\protect\linewidth}
 				\else%
-					\resizebox{!}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@heightt}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+					\def\@tmp{height=\beamer@theme@leiiutbm@figureslide@heightt}
 				\fi%
 			\else%
 				\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
-					\resizebox{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@widtht}{!}{\beamer@theme@leiiutbm@figureslide@scale\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+					\def\@tmp{width=\beamer@theme@leiiutbm@figureslide@widtht}%
 				\else%
-					\resizebox{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@widtht}{\beamer@theme@leiiutbm@figureslide@scale\beamer@theme@leiiutbm@figureslide@heightt}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}
+					\def\@tmp{width=\beamer@theme@leiiutbm@figureslide@widtht,height=\beamer@theme@leiiutbm@figureslide@heightt}%
 				\fi%
 			\fi%
-		\end{center}%
-	\end{frame}%
+			%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@leiiutbm@figureslide@@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@leiiutbm@figureslide@valign}%
+						{\beamer@theme@leiiutbm@figureslide@halign}%
+						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\protect\includeanimatedfigure[\@tmp]{#3}}%
+						{}}%
+			\@tmp%
+			%
+			\egroup%
+		}
+	\fi
 }
 
 
@@ -825,6 +1179,7 @@
 % Appendix
 \global\let\beamer@theme@leiiutbm@oldappendix\appendix
 \renewcommand{\appendix}{%
+	\usefootlinewithdocumentname%
 	\resetpartprefix%
 	\let\beamer@theme@leiiutbm@oldpart\part%
 	\def\part{\beamer@theme@leiiutbm@oldpart*}%
@@ -832,6 +1187,7 @@
 	\beamer@theme@leiiutbm@oldappendix%
 	\global\let\beamer@theme@leiiutbm@oldappendix\relax%
 	\let\part\beamer@theme@leiiutbm@oldpart%
+	\global\let\appendix\relax%
 }
 
 %-----------------------------------------
@@ -933,7 +1289,7 @@
 %	}
 %}{%
 %	\global\let\@currentlabel\upm@fmt@enumdescription@savedlabel%
-%	\end{list}\endgroup%
+%	\end{list}\endgroutup%
 %}
 %\newenvironment{enumdescription}[1][i]{%
 %	\begin{enumdescriptionx}[#1]{}{}%
@@ -979,6 +1335,14 @@
 	\global\let\beamer@theme@leiiutbm@makelink@do\hyperlink%
 	\beamer@theme@leiiutbm@makelink{\includegraphics[#1]{#3}}{#2}{}%
 	\global\let\beamer@theme@leiiutbm@makelink@do\relax%
+}
+
+\newcommand{\textgoto}[2]{%
+	\savebox{\beamer@theme@leiiutbm@externalresource@box@a}{\hyperlink{#1}{\beamergotobutton{#2}}}%
+	\settoheight{\beamer@theme@leiiutbm@externalresource@height}{\usebox{\beamer@theme@leiiutbm@externalresource@box@a}}%
+	\setlength{\beamer@theme@leiiutbm@externalresource@height}{.3\beamer@theme@leiiutbm@externalresource@height}%
+	\addtolength{\beamer@theme@leiiutbm@externalresource@height}{0pt}%
+	\raisebox{-\beamer@theme@leiiutbm@externalresource@height}{\usebox{\beamer@theme@leiiutbm@externalresource@box@a}}%
 }
 
 %-----------------------------------------
@@ -1251,6 +1615,42 @@
 \newcommand{\insertcontinuationwith}[1]{%
 	\global\beamer@autobreakcount=#1%
 	\usebeamertemplate****{}%
+}
+
+%---------------------------------------------
+% Graphic grid
+
+\newcommand{\graphicaxes}{%
+	\begin{tikzpicture}[scale=.35]%
+		\draw [<->,thick] (0,1) |- (1,0);
+	\end{tikzpicture}
+}
+
+\newcommand{\showgraphicaxes}{%
+	\putat(0,0){%
+		\graphicaxes%
+	}%
+}
+
+%---------------------------------------------
+% Wrap figure and list item.
+
+\def\wrapfigure{%
+	\@ifstar\beamer@theme@leiiutbm@wrapfigurelength\beamer@theme@leiiutbm@wrapfigure%
+}
+
+\newcommand{\beamer@theme@leiiutbm@wrapfigure}[2][width=.25\linewidth]{%
+	\beamer@theme@leiiutbm@wrapfigurelength[#1]{#2}{-1em}%
+}
+
+\newcommand{\beamer@theme@leiiutbm@wrapfigurelength}[3][width=.25\linewidth]{%
+	\mbox{}\hfill\raisebox{-\height}[0pt][0pt]{%
+			\includegraphics[#1]{#2}}%
+	\vspace*{#3}%
+}
+
+\newcommand{\wrapitem}[2][.7\linewidth]{%
+	\item\parbox[t]{#1}{\strut #2\strut}%
 }
 
 \endinput

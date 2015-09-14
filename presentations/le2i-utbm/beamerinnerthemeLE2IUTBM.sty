@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerinnerthemeLE2IUTBM}
-   [2015/09/01 Beamer Inner 'LE2I at UTBM' Theme]
+   [2015/09/14 Beamer Inner 'LE2I at UTBM' Theme]
 
 \DeclareOptionBeamer{language}{\gdef\beamer@innertheme@leiiutbm@lang{#1}}
 %\ExecuteOptionsBeamer{left}
@@ -38,6 +38,9 @@
 \global\let\footnoterule\relax % no rule for footnotes
 
 \setbeamertemplate{blocks}[rounded][shadow=true]
+
+% Issue #16: The size of the block title must follow the size of the enclosing context.
+\setbeamerfont{block title}{size={}}
 
 \mode
 <all>

@@ -24,13 +24,15 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeLE2IUTBM}
-   [2015/09/01 Beamer Outer 'LE2I at UTBM' Theme]
+   [2015/09/14 Beamer Outer 'LE2I at UTBM' Theme]
 
 \mode<presentation>
 
 \useoutertheme{default}
 
 \gdef\beamer@theme@leiiutbm@outer@offsety{0}
+
+\newlength\beamer@theme@leiiutbm@outer@tmplength
 
 \newlength\beamer@theme@leiiutbm@outer@linewidth
 \setlength\beamer@theme@leiiutbm@outer@linewidth{\paperwidth}
@@ -45,6 +47,32 @@
 
 \newlength\beamer@theme@leiiutbm@outer@sideboxwidth
 \setlength\beamer@theme@leiiutbm@outer@sideboxwidth{6.8cm}
+
+\gdef\beamer@theme@leiiutbm@outer@valign{c}
+
+\let\beamer@theme@leiiutbm@outer@KV@beamerframe@t\KV@beamerframe@t
+\define@key{beamerframe}{t}[true]{%
+	\beamer@theme@leiiutbm@outer@KV@beamerframe@t{#1}%
+	\ifthenelse{\equal{#1}{true}}{%
+		\gdef\beamer@theme@leiiutbm@outer@valign{t}%
+	}{}%
+}
+
+\let\beamer@theme@leiiutbm@outer@KV@beamerframe@c\KV@beamerframe@c
+\define@key{beamerframe}{c}[true]{%
+	\beamer@theme@leiiutbm@outer@KV@beamerframe@c{#1}%
+	\ifthenelse{\equal{#1}{true}}{%
+		\gdef\beamer@theme@leiiutbm@outer@valign{c}%
+	}{}%
+}
+
+\let\beamer@theme@leiiutbm@outer@KV@beamerframe@b\KV@beamerframe@b
+\define@key{beamerframe}{b}[true]{%
+	\beamer@theme@leiiutbm@outer@KV@beamerframe@b{#1}%
+	\ifthenelse{\equal{#1}{true}}{%
+		\gdef\beamer@theme@leiiutbm@outer@valign{b}%
+	}{}%
+}
 
 \pgfdeclareimage[height=.5cm]{le2ilogoinpartners}{le2ilogo}
 \pgfdeclareimage[height=.5cm]{utbmlogoinpartners}{utbmlogo}
@@ -114,11 +142,15 @@
 			{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}\end{flushleft}}}%
 		% Partner logos
 		\put(175,-151.7){\parbox[b]{5.4cm}{\mbox{}\hfill%
-					\beamer@theme@leiiutbm@partnerlogo\hspace{.1cm}%
-					\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{cnrslogoinpartners}%
+					\beamer@theme@leiiutbm@partnerlogo%
+					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
+						\hspace{.1cm}%
+						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{cnrslogoinpartners}%
+					}{}%
 					}}%
+		%
 		\end{picture}%
 }
 
@@ -126,7 +158,7 @@
 		\ifbeamer@plainframe%
 			\begin{picture}(0,40)(0,0)%
 			% Header
-			\put(5,26){\usebeamercolor[fg]{plain frametitle}%
+			\put(-23,26){\usebeamercolor[fg]{plain frametitle}%
 				\parbox[c]{\beamer@theme@leiiutbm@outer@titlewidth@plain}{%
 				\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@leiiutbm@wraptextformats{\insertframetitle}%
 				\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
@@ -137,8 +169,16 @@
 		\else%
 			\begin{picture}(0,40)(0,0)%
 			% Header
-			\put(5,26){\usebeamercolor[fg]{frametitle}%
-				\parbox[c]{\beamer@theme@leiiutbm@outer@titlewidth}{%
+			\ifbeamer@theme@leiiutbm@headline@empty%
+				\setlength{\beamer@theme@leiiutbm@outer@tmplength}{\beamer@theme@leiiutbm@outer@titlewidth}%
+				\addtolength{\beamer@theme@leiiutbm@outer@tmplength}{1cm}%
+				\def\@tmp{-23}%
+			\else%
+				\setlength{\beamer@theme@leiiutbm@outer@tmplength}{\beamer@theme@leiiutbm@outer@titlewidth}%
+				\def\@tmp{5}%
+			\fi%
+			\expandafter\put(\@tmp,26){\usebeamercolor[fg]{frametitle}%
+				\parbox[c]{\beamer@theme@leiiutbm@outer@tmplength}{%
 				\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@leiiutbm@wraptextformats{\insertframetitle}%
 				\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
 					\usebeamercolor[fg]{framesubtitle}\small\bf~--~\@beamer@theme@leiiutbm@wraptextformats{\insertframesubtitle}}%
@@ -152,21 +192,28 @@
 				}}}%
 				\global\let\beamer@theme@leiiutbm@sidenote\relax%
 			\fi%
-			% Absolute elements
-			\beamer@theme@leiiutbm@insertabsolutepositionelements%
 			% Frame number
 			\put(292,26){\parbox[c]{3em}{%
 				{\mbox{}\hfill\usebeamercolor[fg]{frametitle}\tiny\insertframenumbering}%
 			}}%
 			% Partner logo
 			\put(175,-231){\parbox[b]{5.4cm}{\mbox{}\hfill%
-					\beamer@theme@leiiutbm@partnerlogo\hspace{.1cm}%
-					\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{cnrslogoinpartners}%
+					\beamer@theme@leiiutbm@partnerlogo%
+					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
+						\hspace{.1cm}%
+						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{cnrslogoinpartners}%
+					}{}%
 					}}%
+			% Put the background elements
+			\beamer@theme@leiiutbm@beginframe@hooks
 			\end{picture}%
 		\fi%
+		% Change the space between the header and the body of the text.
+		\ifthenelse{\equal{=\beamer@theme@leiiutbm@outer@valign}{=t}}{%
+			\vspace{-.7cm}%
+		}{}%
 }
 
 \gdef\beamer@theme@leiiutbm@outer@footline{%
@@ -176,17 +223,11 @@
 		\put(0,0){%
 			\begin{tikzpicture}%
 			\draw[white] (0,0) -- (13,0);
-			\draw[LE2IUTBMblue] (0.2,0.6) -- (12.6,0.6);
+			\draw[LE2IUTBMblue] (0.2,0.65) -- (12.6,0.65);
 			\end{tikzpicture}%
 		}%
 		% Left text
-		\put(6,7){
-				\parbox[c]{\beamer@theme@leiiutbm@outer@titlewidth}{%
-				\begin{flushleft}%
-				\usebeamerfont{author in head/foot}\usebeamercolor[fg]{author in head/foot}%
-				\insertshortauthor%
-				\@beamer@theme@leiiutbm@postfix{~--~}{\insertshorteventname}%
-				\insertshortinstitute\end{flushleft}}}%
+		\beamer@theme@leiiutbm@footline@default%
 	\end{picture}%
 	\fi%
 }
@@ -205,10 +246,13 @@
 			{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}\end{flushleft}}}%
 		% Partners
 		\put(175,-166.2){\parbox[b]{5.4cm}{\mbox{}\hfill%
-					\beamer@theme@leiiutbm@partnerlogo\hspace{.1cm}%
-					\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-					\pgfuseimage{cnrslogoinpartners}%
+					\beamer@theme@leiiutbm@partnerlogo%
+					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
+						\hspace{.1cm}%
+						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
+						\pgfuseimage{cnrslogoinpartners}%
+					}{}%
 					}}%
 		% Title
 		\put(-20,-39){\usebeamercolor[fg]{maintitle}\parbox[c]{\beamer@theme@leiiutbm@outer@linewidth}{%
@@ -263,10 +307,13 @@
 					{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}\end{flushleft}}}%
 				% Partner logos
 				\put(175,-166.15){\parbox[b]{5.4cm}{\mbox{}\hfill%
-							\beamer@theme@leiiutbm@partnerlogo\hspace{.1cm}%
-							\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-							\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-							\pgfuseimage{cnrslogoinpartners}%
+							\beamer@theme@leiiutbm@partnerlogo
+							\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
+								\hspace{.1cm}%
+								\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
+								\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
+								\pgfuseimage{cnrslogoinpartners}%
+							}{}%
 							}}%
 			\end{picture}%
 		}%
