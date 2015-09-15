@@ -24,7 +24,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeLE2IUTBM}
-   [2015/09/14 Beamer Outer 'LE2I at UTBM' Theme]
+   [2015/09/15 Beamer Outer 'LE2I at UTBM' Theme]
 
 \mode<presentation>
 
@@ -47,6 +47,13 @@
 
 \newlength\beamer@theme@leiiutbm@outer@sideboxwidth
 \setlength\beamer@theme@leiiutbm@outer@sideboxwidth{6.8cm}
+
+\newlength\beamer@theme@leiiutbm@outer@topalignmentspan
+\setlength\beamer@theme@leiiutbm@outer@topalignmentspan{-.7cm}
+\newlength\beamer@theme@leiiutbm@outer@centeralignmentspan
+\setlength\beamer@theme@leiiutbm@outer@centeralignmentspan{0cm}
+\newlength\beamer@theme@leiiutbm@outer@bottomalignmentspan
+\setlength\beamer@theme@leiiutbm@outer@bottomalignmentspan{0cm}
 
 \gdef\beamer@theme@leiiutbm@outer@valign{c}
 
@@ -211,9 +218,16 @@
 			\end{picture}%
 		\fi%
 		% Change the space between the header and the body of the text.
+		\mbox{}%
 		\ifthenelse{\equal{=\beamer@theme@leiiutbm@outer@valign}{=t}}{%
-			\vspace{-.7cm}%
-		}{}%
+			\vspace{\beamer@theme@leiiutbm@outer@topalignmentspan}%
+		}{%
+			\ifthenelse{\equal{=\beamer@theme@leiiutbm@outer@valign}{=c}}{%
+				\vspace{\beamer@theme@leiiutbm@outer@centeralignmentspan}%
+			}{%
+				\vspace{\beamer@theme@leiiutbm@outer@bottomalignmentspan}%
+			}%
+		}%
 }
 
 \gdef\beamer@theme@leiiutbm@outer@footline{%

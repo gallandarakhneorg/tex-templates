@@ -33,8 +33,12 @@ h2. Technical Reports
 
 - Presentation styles (for Beamer)
 
+h2. Conference Papers
 
-h2. Installation
+@tex-templates@ provides the styles for the following conferences:
+- IngéDoc at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
+
+h1. Installation
 
 # For the reports, install the "@tex-upmethodology@ collection of packages":http://www.arakhne.org/tex-upmethodology 
 # Copy the content of the current directory inside one of your @texmf@ directory, usually @/usr/share/texmf/tex/latex/tex-templates@ or @$HOME/.texmf@ on Unix operating systems.

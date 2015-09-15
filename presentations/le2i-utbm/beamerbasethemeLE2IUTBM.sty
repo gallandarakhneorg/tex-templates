@@ -25,8 +25,10 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\ProvidesPackage{beamerbasethemeLE2IUTBM}
-   [2015/09/14 Beamer Base Defs 'LE2I at UTBM' Theme]
+\gdef\insertleiiutbmbeamerthemeversion{2015/09/15}
+
+\expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
+   [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -123,6 +125,10 @@
 %%%%%%%--------------------------------------
 %%%%%%% PROTECTED API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Change the description of the PDF creator.
+\hypersetup{pdfcreator={Beamer \beamer@version\ and LE2I-UTBM Theme \insertleiiutbmbeamerthemeversion}}
 
 %-----------------------------------------
 % Fixing a strange bug: the default color of the
@@ -245,6 +251,24 @@
 %%%%%%%--------------------------------------
 %%%%%%% PUBLIC API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Keywords
+\let\beamer@theme@leiiutbm@keywords@old\keywords
+\def\insertkeywords{}
+\renewcommand{\keywords}[1]{%
+	\beamer@theme@leiiutbm@keywords@old{#1}%
+	\gdef\insertkeywords{#1}%
+}
+
+%-----------------------------------------
+% Subject
+\let\beamer@theme@leiiutbm@subject@old\subject
+\def\insertsubject{}
+\renewcommand{\subject}[1]{%
+	\beamer@theme@leiiutbm@subject@old{#1}%
+	\gdef\insertsubject{#1}%
+}
 
 %-----------------------------------------
 % Headlines
@@ -893,6 +917,7 @@
 % Table of content
 \newcommand{\tableofcontentslide}[1][hideallsubsections]{%
 	\begin{frame}[t]{\translate{Outline}}%
+	\vfill%
 	\small\tableofcontents[#1]%
 	\end{frame}%
 }
@@ -1001,6 +1026,12 @@
 }
 
 \newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[8]{%
+	% Change locally the vertical spanning
+	\bgroup%
+	\ifthenelse{\equal{=\beamer@theme@leiiutbm@figureslide@valign}{=t}}{}{%
+		\setlength{\beamer@theme@leiiutbm@outer@centeralignmentspan}{-.5cm}%
+		\setlength{\beamer@theme@leiiutbm@outer@bottomalignmentspan}{-.5cm}%
+	}%
 	\begin{frame}[#4,label=#6]{#2}%
 		#8%
 		\ifthenelse{\equal{=#5}{=c}%
@@ -1009,6 +1040,7 @@
 		\ifthenelse{\equal{=#5}{=c}%
 		            \OR \equal{=#5}{=l}}{\hfill\mbox{}}{}%
 	\end{frame}%
+	\egroup%
 }
 
 \newcommand{\beamer@theme@leiiutbm@figureslide@frame}[7]{%
@@ -1023,7 +1055,7 @@
 	\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
 	\beamer@theme@leiiutbm@figureslide@haslabelfalse%
 	\def\beamer@theme@leiiutbm@figureslide@scale{1}%
-	\def\beamer@theme@leiiutbm@figureslide@valign{t}%
+	\def\beamer@theme@leiiutbm@figureslide@valign{c}%
 	\def\beamer@theme@leiiutbm@figureslide@halign{c}%
 	\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
 	%
@@ -1192,7 +1224,7 @@
 
 %-----------------------------------------
 % Default Graphics Configuration
-\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.pdftex_t}
 
 %-----------------------------------------
 % Symbols
