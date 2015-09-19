@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/09/15}
+\gdef\insertleiiutbmbeamerthemeversion{2015/09/19}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -324,7 +324,7 @@
 	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{LE2IUTBMlogointitle}}%
 }
 
-\pgfdeclareimage[width=.7cm]{CNRSlogointitle}{cnrslogo}
+\pgfdeclareimage[width=.7cm]{CNRSlogointitle}{cnrslogoinv}
 \newcommand{\insertheaderlinewithcnrslogo}{%
 	\begin{picture}(0,0)(0,0)%
 		\put(2,-22){%
@@ -363,21 +363,64 @@
 	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{UTBMlogointitle}}%
 }
 
+\define@key{beamerthemeleiiutbmeaderlineuserlogo}{width}{%
+	\def\beamer@theme@leiiutbm@headerlineuserlogo@width{#1}%
+}
+\define@key{beamerthemeleiiutbmeaderlineuserlogo}{height}{%
+	\def\beamer@theme@leiiutbm@headerlineuserlogo@height{#1}%
+}
+\define@key{beamerthemeleiiutbmeaderlineuserlogo}{x}{%
+	\gdef\beamer@theme@leiiutbm@headerlineuserlogo@x{#1}%
+}
+\define@key{beamerthemeleiiutbmeaderlineuserlogo}{y}{%
+	\gdef\beamer@theme@leiiutbm@headerlineuserlogo@y{#1}%
+}
+
+
+\gdef\beamer@theme@leiiutbm@headerlineuserlogo@x{2}%
+\gdef\beamer@theme@leiiutbm@headerlineuserlogo@y{-22}%
 \let\insertheaderlinewithuserlogo\relax
-\newcommand{\useheaderlinewithuserlogo}[2][width=.7cm]{%
+\newcommand{\useheaderlinewithuserlogo}[2][]{%
+	\bgroup%
+	\def\beamer@theme@leiiutbm@headerlineuserlogo@width{.7cm}%
+	\def\beamer@theme@leiiutbm@headerlineuserlogo@height{}%
+	\gdef\beamer@theme@leiiutbm@headerlineuserlogo@x{2}%
+	\gdef\beamer@theme@leiiutbm@headerlineuserlogo@y{-22}%
+	\setkeys{beamerthemeleiiutbmeaderlineuserlogo}{#1}%
+	%
 	\expandafter\ifcsname pgf@image@USERlogointitle@#2!\endcsname\else%
+		\def\beamer@theme@leiiutbm@headerlineuserlogo@imageopts{}%
+		\ifthenelse{\equal{=\beamer@theme@leiiutbm@headerlineuserlogo@width}{=}}{}{%
+			\ifthenelse{\equal{=\beamer@theme@leiiutbm@headerlineuserlogo@imageopts}{=}}{%
+				\protected@edef\beamer@theme@leiiutbm@headerlineuserlogo@imageopts{width=\beamer@theme@leiiutbm@headerlineuserlogo@width}%
+			}{%
+				\protected@edef\beamer@theme@leiiutbm@headerlineuserlogo@imageopts{\beamer@theme@leiiutbm@headerlineuserlogo@imageopts,width=\beamer@theme@leiiutbm@headerlineuserlogo@width}%
+			}%
+		}%
+		\ifthenelse{\equal{=\beamer@theme@leiiutbm@headerlineuserlogo@height}{=}}{}{%
+			\ifthenelse{\equal{=\beamer@theme@leiiutbm@headerlineuserlogo@imageopts}{=}}{%
+				\protected@edef\beamer@theme@leiiutbm@headerlineuserlogo@imageopts{height=\beamer@theme@leiiutbm@headerlineuserlogo@height}%
+			}{%
+				\protected@edef\beamer@theme@leiiutbm@headerlineuserlogo@imageopts{\beamer@theme@leiiutbm@headerlineuserlogo@imageopts,height=\beamer@theme@leiiutbm@headerlineuserlogo@height}%
+			}%
+		}%
+		%
 		\resolvepicturename{#2}%
-		\expandafter\pgfdeclareimage[#1]{USERlogointitle@#2}{\resolvedfilename}%
+		\protected@edef\beamer@theme@leiiutbm@tmp{%
+			\protect\pgfdeclareimage[\beamer@theme@leiiutbm@headerlineuserlogo@imageopts]{USERlogointitle@#2}{\resolvedfilename}%
+		}%
+		\beamer@theme@leiiutbm@tmp%
 	\fi
 	\protected@xdef\insertheaderlinewithuserlogo{%
 		\protect\begin{picture}(0,0)(0,0)%
-			\protect\put(2,-22){%
+			\protect\put(\beamer@theme@leiiutbm@headerlineuserlogo@x,\beamer@theme@leiiutbm@headerlineuserlogo@y){%
 				\protect\pgfuseimage{USERlogointitle@#2}%
 			}%
 		\protect\end{picture}%
 	}%
 	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithuserlogo}%
 	\protected@xdef\beamer@theme@leiiutbm@headline@defaultpicture{\protect\pgfuseimage{USERlogointitle@#2}}%
+	\egroup%
 }
 
 \useheaderlinewithleiilogo
@@ -1139,14 +1182,14 @@
 			\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
 			\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
 			\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
-			\def\beamer@theme@leiiutbm@figureslide@valign{t}%
+			\def\beamer@theme@leiiutbm@figureslide@valign{c}%
 			\def\beamer@theme@leiiutbm@figureslide@halign{c}%
 			%
 			\setkeys*{beamerthemeleiiutbmfigureslide}{#1}%
 			%
 			\ifbeamer@theme@leiiutbm@figureslide@dynamic@width%
 				\ifbeamer@theme@leiiutbm@figureslide@dynamic@height%
-					\def\@tmp{width=\protect\linewidth}
+					\def\@tmp{width=\linewidth}
 				\else%
 					\def\@tmp{height=\beamer@theme@leiiutbm@figureslide@heightt}
 				\fi%
@@ -1167,7 +1210,8 @@
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
 						{\protect\includeanimatedfigure[\@tmp]{#3}}%
-						{}}%
+						{}%
+			}%
 			\@tmp%
 			%
 			\egroup%

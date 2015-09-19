@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerinnerthemeLE2IUTBM}
-   [2015/09/14 Beamer Inner 'LE2I at UTBM' Theme]
+   [2015/09/19 Beamer Inner 'LE2I at UTBM' Theme]
 
 \DeclareOptionBeamer{language}{\gdef\beamer@innertheme@leiiutbm@lang{#1}}
 %\ExecuteOptionsBeamer{left}
@@ -41,6 +41,66 @@
 
 % Issue #16: The size of the block title must follow the size of the enclosing context.
 \setbeamerfont{block title}{size={}}
+
+% Create the style for the pseudo-code or programs
+\defbeamertemplate*{code basic style}{default}{%
+	\tiny%
+}
+\defbeamertemplate*{code inline style}{default}{%
+	\normalcolor%
+}
+\defbeamertemplate*{code identifier style}{default}{%
+	\ttfamily%
+}
+\defbeamertemplate*{code keyword style}{default}{%
+	\bfseries%
+}
+
+
+% Redefine the style for definition blocks
+\newenvironment<>{definitionblock}[1]{%
+	\begin{actionenv}#2%
+		\def\insertblocktitle{#1}%
+		\par%
+		\usebeamertemplate{block begin definition}%
+}{%
+	\par%
+	\usebeamertemplate{block end definition}%
+	\end{actionenv}
+}
+
+\gdef\th@definition{%
+	\normalfont % body font
+	\def\inserttheoremblockenv{definitionblock}
+}
+
+\setbeamertemplate{theorem begin}{%
+  \begin{\inserttheoremblockenv}%
+    {%
+		\ifthenelse{\equal{\inserttheoremblockenv}{definitionblock}}{%
+			\ifx\inserttheoremaddition\@empty%
+				\inserttheoremname%
+			\else%
+				\inserttheoremname: \inserttheoremaddition%
+			\fi%
+		}{%
+			\inserttheoremname%
+			\ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+		}%
+    }%
+}
+
+\defbeamertemplate*{block begin definition}{default}{%
+  \par\vskip\medskipamount%
+  \begin{beamerboxesrounded}[upper=block title definition,lower=block body definition,shadow=true]%
+    {\raggedright\usebeamerfont*{block title definition}\insertblocktitle}%
+    \raggedright%
+    \usebeamerfont{block body definition}%
+}
+
+\defbeamertemplate*{block end definition}{default}{%
+	\end{beamerboxesrounded}\vskip\smallskipamount%
+}
 
 \mode
 <all>

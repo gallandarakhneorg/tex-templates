@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamercolorthemeLE2IUTBM}
-   [2015/09/01 Beamer 'L2EI at UTBM' Color Theme]
+   [2015/09/19 Beamer 'L2EI at UTBM' Color Theme]
 
 \mode<presentation>
 
@@ -49,11 +49,12 @@
 \definecolor{LE2IUTBMgreen}{RGB}{0,128,0}
 
 \definecolor{LE2IUTBMdarkgray}{RGB}{99,104,110}
+\definecolor{LE2IUTBMlightgray}{RGB}{208,218,231}
 
 \setbeamercolor{normal text}{fg=black}
+\setbeamercolor{example text}{fg=LE2IUTBMlightblue}
 \setbeamercolor{emphased text}{fg=LE2IUTBMblue}
 \setbeamercolor{alerted text}{fg=LE2IUTBMmagenta}
-\setbeamercolor{example text}{fg=LE2IUTBMlightblue}
 \setbeamercolor{verse}{fg=LE2IUTBMlightblue}
 \setbeamercolor{quotation}{fg=LE2IUTBMlightblue}
 \setbeamercolor{quote}{fg=LE2IUTBMblue}
@@ -72,12 +73,15 @@
 \setbeamercolor{footnote}{fg=LE2IUTBMdarkgray}
 \setbeamercolor{sidenote}{fg=LE2IUTBMblue}
 \setbeamercolor{button}{bg=LE2IUTBMblue,fg=white}
+\setbeamercolor{description item}{fg=LE2IUTBMmagenta}
 \setbeamercolor{block title}{fg=white,bg=LE2IUTBMlightblue}
 \setbeamercolor{block body}{fg=black,bg=LE2IUTBMlightestblue}
 \setbeamercolor{block title alerted}{fg=white,bg=LE2IUTBMmagenta}
 \setbeamercolor{block body alerted}{fg=LE2IUTBMmagenta,bg=LE2IUTBMlightestmagenta}
 \setbeamercolor{block body remark}{fg=LE2IUTBMblue,bg=LE2IUTBMlightestblue}
-\setbeamercolor{description item}{fg=LE2IUTBMmagenta}
+\setbeamercolor{block title example}{fg=black,bg=LE2IUTBMlightgray}
+\setbeamercolor{block title definition}{parent=block title,bg=LE2IUTBMblue}
+\setbeamercolor{block body definition}{parent=block body}
 
 \setbeamercolorXXX{circle progress bar}{bg=LE2IUTBMdarkgray,fg=white}
 \setbeamercolorXXX{circle progress bar/first bar}{bg=LE2IUTBMlightblue}
@@ -86,6 +90,10 @@
 
 \setbeamercolorXXX{plain frametitle}{fg=LE2IUTBMlightblue}
 \setbeamercolorXXX{plain framesubtitle}{fg=LE2IUTBMlightblue}
+
+\setbeamercolorXXX{code keyword}{fg=LE2IUTBMblue}
+\setbeamercolorXXX{code string}{fg=LE2IUTBMmagenta}
+\setbeamercolorXXX{code comment}{fg=LE2IUTBMgreen}
 
 \mode<all>
 

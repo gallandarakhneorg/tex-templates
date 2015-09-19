@@ -25,7 +25,7 @@
 \pgfdeclareimage[height=.25cm]{fakele2ilogointitle}{le2ilogoinv}
 \pgfdeclareimage[height=.25cm]{fakemaglogointitle}{multiagentlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{utbmlogoinv}
-\pgfdeclareimage[height=.25cm]{fakecnrslogointitle}{cnrslogo}
+\pgfdeclareimage[height=.25cm]{fakecnrslogointitle}{cnrslogoinv}
 \pgfdeclareimage[height=.25cm]{fakeuserlogointitle}{utbmlogo}
 
 \makeatletter
@@ -91,9 +91,10 @@
 \tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}]
 
 \subsection{Colors}
+
 \begin{frame}{Colors}
 	\begin{itemize}
-	\item The LE2I-UTBM theme defines the official colors:
+	\item The LE2I-UTBM theme defines the colors for the macros provided by the \texttt{xcolor} package:
 		\begin{itemize}
 		\item \texttt{LE2IUTBMblue} : \fbox{\textcolor{LE2IUTBMblue}{Example}} \colorbox{LE2IUTBMblue}{\textcolor{white}{Example}}
 		\vfill
@@ -110,6 +111,38 @@
 		\item \texttt{LE2IUTBMlightestmagenta} : \fbox{\textcolor{LE2IUTBMlightestmagenta}{Example}} \colorbox{LE2IUTBMlightestmagenta}{\textcolor{black}{Example}}
 		\vfill
 		\item \texttt{LE2IUTBMdarkgray} : \fbox{\textcolor{LE2IUTBMdarkgray}{Example}} \colorbox{LE2IUTBMdarkgray}{\textcolor{white}{Example}}
+		\vfill
+		\item \texttt{LE2IUTBMlightgray} : \fbox{\textcolor{LE2IUTBMlightgray}{Example}} \colorbox{LE2IUTBMlightgray}{\textcolor{black}{Example}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Beamer Colors}
+	\begin{itemize}
+	\item The LE2I-UTBM theme defines color for beamer, that may be used with the macro \texttt{{\textbackslash}usebeamercolor\{color\_name\}}:
+		\begin{itemize}
+		\item \texttt{code keyword} : \fbox{\usebeamercolor[fg]{code keyword}Example}
+		\vfill
+		\item \texttt{code string} : \fbox{\usebeamercolor[fg]{code string}Example}
+		\vfill
+		\item \texttt{code comment} : \fbox{\usebeamercolor[fg]{code comment}Example}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Styles}
+\begin{frame}{Beamer Templates}
+	\begin{itemize}
+	\item The LE2I-UTBM theme defines the specific templates for Beamer. These templates could be used with 
+		\texttt{{\textbackslash}usebeamertemplate\{name\}}:
+		\begin{itemize}
+		\item \texttt{code basic style} : the style for the standard text in a program or an algorithm. 
+		\vfill
+		\item \texttt{code inline style} : the style for the standard text in a program or an algorithm when it is displayed inline. 
+		\vfill
+		\item \texttt{code identifier style} : the style for the identifiers in a program or an algorithm. 
+		\vfill
+		\item \texttt{code keyword style} : the style for the keywords in a program or an algorithm. 
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -365,9 +398,15 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Headline with a User-defined Logo}
+\begin{frame}[t]{Headline with a User-defined Logo}
 	\begin{itemize}
-	\item \texttt{{\textbackslash}useheaderlinewithuserlogo\{filename\}}: the default headline contains the given image.
+	\item \texttt{{\textbackslash}useheaderlinewithuserlogo[options]\{filename\}}: the default headline contains the given image.
+	\item Options may be: \begin{itemize}
+			\item \texttt{width=<length>} - the width of the image (default: 0.7cm);
+			\item \texttt{height=<length>} - the height of the image (no default);
+			\item \texttt{x=<float>} - the position of the image along x axis (default: 2);
+			\item \texttt{y=<float>} - the position of the image along y axis (default: -22).
+			\end{itemize}
 	\end{itemize}
 	\begin{center}
 		\fakeslide[fakeuserlogointitle]{XyZ}{}

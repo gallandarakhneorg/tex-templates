@@ -103,7 +103,9 @@
 		\put(-28.4,91.8){%
 			\beamer@theme@leiiutbm@outer@background%
 		}%
-		\put(-26.5,98.3){%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@titlepagetemplate@tmpa}{\beamer@theme@leiiutbm@headerlineuserlogo@x - 28.5}%
+		\pgfmathsetmacro{\beamer@theme@leiiutbm@titlepagetemplate@tmpb}{\beamer@theme@leiiutbm@headerlineuserlogo@y + 120.3}%
+		\expandafter\put(\beamer@theme@leiiutbm@titlepagetemplate@tmpa,\beamer@theme@leiiutbm@titlepagetemplate@tmpb){%
 			\beamer@theme@leiiutbm@headline@currentpicture%
 		}%
 		% Title
