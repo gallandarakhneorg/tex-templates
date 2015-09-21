@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerinnerthemeLE2IUTBM}
-   [2015/09/19 Beamer Inner 'LE2I at UTBM' Theme]
+   [2015/09/21 Beamer Inner 'LE2I at UTBM' Theme]
 
 \DeclareOptionBeamer{language}{\gdef\beamer@innertheme@leiiutbm@lang{#1}}
 %\ExecuteOptionsBeamer{left}
@@ -81,7 +81,7 @@
 			\ifx\inserttheoremaddition\@empty%
 				\inserttheoremname%
 			\else%
-				\inserttheoremname: \inserttheoremaddition%
+				\inserttheoremaddition%
 			\fi%
 		}{%
 			\inserttheoremname%
