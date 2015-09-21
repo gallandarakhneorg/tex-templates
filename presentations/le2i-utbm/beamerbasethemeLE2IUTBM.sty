@@ -1004,6 +1004,9 @@
 	\edef\beamer@theme@leiiutbm@figureslide@label{#1}%
 	\beamer@theme@leiiutbm@figureslide@haslabeltrue%
 }
+\define@key{beamerthemeleiiutbmfigureslide}{subtitle}{%
+	\edef\beamer@theme@leiiutbm@figureslide@subtitle{#1}%
+}
 
 \newcommand{\beamer@theme@leiiutbm@figureslide@frame@dynamic@wh}[2]{%
 	% Compute the height of the slide
@@ -1068,7 +1071,16 @@
 	\resizebox{\beamer@theme@leiiutbm@figureslide@ow}{\beamer@theme@leiiutbm@figureslide@oh}{#4}%
 }
 
-\newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[8]{%
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = vertical alignment
+% #5 = horizontal alignment
+% #6 = label
+% #7 = subtitle
+% #8 = macros in the content
+% #9 = macros before content and content's alignment
+\newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[9]{%
 	% Change locally the vertical spanning
 	\bgroup%
 	\ifthenelse{\equal{=\beamer@theme@leiiutbm@figureslide@valign}{=t}}{}{%
@@ -1076,19 +1088,30 @@
 		\setlength{\beamer@theme@leiiutbm@outer@bottomalignmentspan}{-.5cm}%
 	}%
 	\begin{frame}[#4,label=#6]{#2}%
-		#8%
+		\ifthenelse{\equal{=#7}{=}}{}{%
+			\framesubtitle{#7}%
+		}%
+		#9%
 		\ifthenelse{\equal{=#5}{=c}%
 		            \OR \equal{=#5}{=r}}{\mbox{}\hfill}{}%
-		#7%
+		#8%
 		\ifthenelse{\equal{=#5}{=c}%
 		            \OR \equal{=#5}{=l}}{\hfill\mbox{}}{}%
 	\end{frame}%
 	\egroup%
 }
 
-\newcommand{\beamer@theme@leiiutbm@figureslide@frame}[7]{%
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = vertical alignment
+% #5 = horizontal alignment
+% #6 = label
+% #7 = subtitle
+% #8 = macros in the content
+\newcommand{\beamer@theme@leiiutbm@figureslide@frame}[8]{%
 	\beamer@theme@leiiutbm@figureslide@@frame
-		{#1}{#2}{#3}{#4}{#5}{#6}{#7}%
+		{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}%
 		{\savebox{\beamer@theme@leiiutbm@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
 }
 
@@ -1101,6 +1124,7 @@
 	\def\beamer@theme@leiiutbm@figureslide@valign{c}%
 	\def\beamer@theme@leiiutbm@figureslide@halign{c}%
 	\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
+	\def\beamer@theme@leiiutbm@figureslide@subtitle{}%
 	%
 	\setkeys{beamerthemeleiiutbmfigureslide}{#1}%
 	%
@@ -1114,6 +1138,7 @@
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\beamer@theme@leiiutbm@figureslide@subtitle}%
 						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@wh%
 							{\beamer@theme@leiiutbm@figureslide@scale}%
 							{#4}}%
@@ -1127,6 +1152,7 @@
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\beamer@theme@leiiutbm@figureslide@subtitle}%
 						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@h%
 							{\beamer@theme@leiiutbm@figureslide@heightt}%
 							{\beamer@theme@leiiutbm@figureslide@scale}%
@@ -1143,6 +1169,7 @@
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\beamer@theme@leiiutbm@figureslide@subtitle}%
 						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@w%
 							{\beamer@theme@leiiutbm@figureslide@widtht}%
 							{\beamer@theme@leiiutbm@figureslide@scale}%
@@ -1157,6 +1184,7 @@
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\beamer@theme@leiiutbm@figureslide@subtitle}%
 						{\protect\beamer@theme@leiiutbm@figureslide@frame@dynamic@none%
 							{\beamer@theme@leiiutbm@figureslide@widtht}%
 							{\beamer@theme@leiiutbm@figureslide@heightt}%
@@ -1182,6 +1210,7 @@
 			\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
 			\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
 			\edef\beamer@theme@leiiutbm@figureslide@label{frame\the\c@framenumber}%
+			\def\beamer@theme@leiiutbm@figureslide@subtitle{}%
 			\def\beamer@theme@leiiutbm@figureslide@valign{c}%
 			\def\beamer@theme@leiiutbm@figureslide@halign{c}%
 			%
@@ -1209,6 +1238,7 @@
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
+						{\beamer@theme@leiiutbm@figureslide@subtitle}%
 						{\protect\includeanimatedfigure[\@tmp]{#3}}%
 						{}%
 			}%
