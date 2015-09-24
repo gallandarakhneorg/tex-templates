@@ -3,7 +3,7 @@
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
 %
-% L2EI logo and name are registered and owned by the
+% LE2I logo and name are registered and owned by the
 % "Universite de Bourgogne".
 %
 % CNRS logo and name are registered and owned by the
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/09/21}
+\gdef\insertleiiutbmbeamerthemeversion{2015/09/25}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -895,7 +895,7 @@
 \newcommand{\insertinstituteurl}{%
 	\expandafter\url{\beamer@theme@leiiutbm@instituteurl}%
 }
-\institute[L2EI-UTBM]{
+\institute[LE2I-UTBM]{
 	\textbf{Universit\'e de Bourgogne Franche-Comt\'e - UTBM - LE2I} \\[0cm]
 	90010 Belfort cedex, France - \insertinstituteurl
 }
@@ -1071,32 +1071,31 @@
 	\resizebox{\beamer@theme@leiiutbm@figureslide@ow}{\beamer@theme@leiiutbm@figureslide@oh}{#4}%
 }
 
-% #1 = options
+% #1 = frame spec (included the enclosing symbols)
 % #2 = title
-% #3 = filename
-% #4 = vertical alignment
-% #5 = horizontal alignment
-% #6 = label
-% #7 = subtitle
-% #8 = macros in the content
-% #9 = macros before content and content's alignment
-\newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[9]{%
+% #3 = vertical alignment
+% #4 = horizontal alignment
+% #5 = label
+% #6 = subtitle
+% #7 = macros in the content
+% #8 = macros before content and content's alignment
+\newcommand{\beamer@theme@leiiutbm@figureslide@@frame}[8]{%
 	% Change locally the vertical spanning
 	\bgroup%
-	\ifthenelse{\equal{=\beamer@theme@leiiutbm@figureslide@valign}{=t}}{}{%
+	\ifthenelse{\equal{=#3}{=t}}{}{%
 		\setlength{\beamer@theme@leiiutbm@outer@centeralignmentspan}{-.5cm}%
 		\setlength{\beamer@theme@leiiutbm@outer@bottomalignmentspan}{-.5cm}%
 	}%
-	\begin{frame}[#4,label=#6]{#2}%
-		\ifthenelse{\equal{=#7}{=}}{}{%
-			\framesubtitle{#7}%
+	\begin{frame}#1[#3,label=#5]{#2}%
+		\ifthenelse{\equal{=#6}{=}}{}{%
+			\framesubtitle{#6}%
 		}%
-		#9%
-		\ifthenelse{\equal{=#5}{=c}%
-		            \OR \equal{=#5}{=r}}{\mbox{}\hfill}{}%
 		#8%
-		\ifthenelse{\equal{=#5}{=c}%
-		            \OR \equal{=#5}{=l}}{\hfill\mbox{}}{}%
+		\ifthenelse{\equal{=#4}{=c}%
+		            \OR \equal{=#4}{=r}}{\mbox{}\hfill}{}%
+		#7%
+		\ifthenelse{\equal{=#4}{=c}%
+		            \OR \equal{=#4}{=l}}{\hfill\mbox{}}{}%
 	\end{frame}%
 	\egroup%
 }
@@ -1111,7 +1110,7 @@
 % #8 = macros in the content
 \newcommand{\beamer@theme@leiiutbm@figureslide@frame}[8]{%
 	\beamer@theme@leiiutbm@figureslide@@frame
-		{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}%
+		{}{#2}{#4}{#5}{#6}{#7}{#8}%
 		{\savebox{\beamer@theme@leiiutbm@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
 }
 
@@ -1199,13 +1198,47 @@
 	\egroup%
 }
 
+% #1 = options
+% #2 = title
+% #3 = filename
 \newcommand{\figureslide}[3][]{%
 	\beamer@theme@leiiutbm@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@leiiutbm@figureslide@box}}%
 }
 
 \AtBeginDocument{
 	\ifcsname includeanimatedfigure\endcsname%
-		\newcommand{\animatedfigureslide}[3][width=\linewidth]{%
+		% Redefine \includeanimatedfigure for supporting the slide specification: \includeanimatedfigure<X>
+		\global\let\beamer@theme@leiiutbm@includeanimatedfigure@old\includeanimatedfigure%
+		\gdef\beamer@theme@leiiutbm@includeanimatedfigure@framespec<#1>{%
+			\bgroup%
+			\newcommand{\beamer@theme@leiiutbm@includeanimatedfigure@wrapper}[3][width=\linewidth]{%
+				\only<#1>{\beamer@theme@leiiutbm@includeanimatedfigure@old[##1]{##2}{##3}}%
+				\egroup%
+			}			
+			\beamer@theme@leiiutbm@includeanimatedfigure@wrapper%
+		}
+		\gdef\includeanimatedfigure{%
+			\@ifnextchar<\beamer@theme@leiiutbm@includeanimatedfigure@framespec\beamer@theme@leiiutbm@includeanimatedfigure@old%
+		}
+		%\animatedfigureslide<#1>[#2]{#3}{#4}
+		% #1 = frame spec (optional)
+		% #2 = options (optional)
+		% #3 = title
+		% #4 = filename
+		\def\animatedfigureslide{%
+			\@ifnextchar<\beamer@theme@leiiutbm@animatedfigureslide@framespec\beamer@theme@leiiutbm@animatedfigureslide@noframespec%
+		}%
+		\def\beamer@theme@leiiutbm@animatedfigureslide@framespec<#1>{%
+			\providecommand{\beamer@theme@leiiutbm@tmp}{}% For ensure redefinition below
+			\renewcommand{\beamer@theme@leiiutbm@tmp}[3][width=\linewidth]{%
+				\beamer@theme@leiiutbm@animatedfigureslide{##1}{##2}{##3}{<#1>}%
+			}%
+			\beamer@theme@leiiutbm@tmp%
+		}%
+		\newcommand{\beamer@theme@leiiutbm@animatedfigureslide@noframespec}[3][width=\linewidth]{%
+			\beamer@theme@leiiutbm@animatedfigureslide{#1}{#2}{#3}{}%
+		}%
+		\newcommand{\beamer@theme@leiiutbm@animatedfigureslide}[4]{%
 			\bgroup%
 			\beamer@theme@leiiutbm@figureslide@dynamic@widthtrue%
 			\beamer@theme@leiiutbm@figureslide@dynamic@heighttrue%
@@ -1232,14 +1265,13 @@
 			%
 			\protected@edef\@tmp{%
 				\protect\beamer@theme@leiiutbm@figureslide@@frame%
-						{#1}%
+						{#4}%
 						{#2}%
-						{#3}%
 						{\beamer@theme@leiiutbm@figureslide@valign}%
 						{\beamer@theme@leiiutbm@figureslide@halign}%
 						{\beamer@theme@leiiutbm@figureslide@label}%
 						{\beamer@theme@leiiutbm@figureslide@subtitle}%
-						{\protect\includeanimatedfigure[\@tmp]{#3}}%
+						{\protect\beamer@theme@leiiutbm@includeanimatedfigure@old[\@tmp]{#3}}%
 						{}%
 			}%
 			\@tmp%

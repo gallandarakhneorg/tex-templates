@@ -6,7 +6,7 @@
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
 %
-% L2EI logo and name are registered and owned by the
+% LE2I logo and name are registered and owned by the
 % "Universite de Bourgogne".
 %
 % CNRS logo and name are registered and owned by the

@@ -639,7 +639,7 @@
 	\item The AutoLaTeX\footnote{\url{http://www.arakhne.org/autolatex}} tool provides a \LaTeX\ package that enables to include images with layers. Each layers may be displayed in a separate frame by Beamer.
 	\vfill
 	\item If you have included the AutoLaTeX package, the following macro enables you to display an animated figure on the entire space of a slide: \\
-		\texttt{{\textbackslash}animatedfigureslide[options]\{Title\}\{file\}}
+		\texttt{{\textbackslash}animatedfigureslide<framespec>[options]\{title\}\{file\}}
 	\item This macro is similar to \texttt{{\textbackslash}figureslide}, except that the given picture must be displayable by the macro \texttt{{\textbackslash}includeanimatedfigure}, provided by AutoLaTeX.
 	\end{itemize}
 \end{frame}
@@ -652,7 +652,7 @@
 	\item Create the SVG figure with a layer for each frame.
 	\item Put the frame specification into the names of the layers. The frame specification gives the frame numbers for which the SVG layer is displayed. \inlineexample{\texttt{<1-3>} indicates the frames 1 to 3. Do not forget to put the lower-than and upper-than symbols.}
 	\item Save and run AutoLaTeX. This tool will create a PDF file for each layer, and a \TeX\ file that is controlling the displaying of the figure.
-	\item Include the figure with: \texttt{{\textbackslash}includeanimatedfigure[options]\{texfilename\}}
+	\item Include the figure with: \texttt{{\textbackslash}includeanimatedfigure<framespec>[options]\{texfilename\}} or with \texttt{{\textbackslash}animatedfigureslide}.
 	\end{enumerate}
 \end{frame}
 
@@ -678,7 +678,7 @@
 
 \begin{frame}{A Slide at the End}
 	\begin{itemize}
-	\item The L2EI-UTBM theme automatically adds a slide at the end of the presentation to avoid ``black'' screen.
+	\item The LE2I-UTBM theme automatically adds a slide at the end of the presentation to avoid ``black'' screen.
 	\vfill
 	\item The default text on this slide is: ``\translate{Thanks}''.
 	\item An other text that is available is: ``\translate{Questions}''.
