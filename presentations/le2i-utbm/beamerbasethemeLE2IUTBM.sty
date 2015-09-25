@@ -491,17 +491,31 @@
 \newcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}
 \setcounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{0}
 
+\def\beamer@theme@leiiutbm@putat@background@pre{%
+	\@ifnextchar<\beamer@theme@leiiutbm@putat@background@framespec\beamer@theme@leiiutbm@putat@background%
+}
+\long\def\beamer@theme@leiiutbm@putat@background@framespec<#1>(#2,#3)#4{%
+	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{1}%
+	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@bgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}\endcsname{\only<#1>{\put(#2,#3){#4}}}%
+}
 \long\def\beamer@theme@leiiutbm@putat@background(#1,#2)#3{%
 	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}{1}%
 	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@bgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}\endcsname{\put(#1,#2){#3}}%
 }
 
+\def\beamer@theme@leiiutbm@putat@foreground@pre{%
+	\@ifnextchar<\beamer@theme@leiiutbm@putat@foreground@framespec\beamer@theme@leiiutbm@putat@foreground%
+}
+\long\def\beamer@theme@leiiutbm@putat@foreground@framespec<#1>(#2,#3)#4{%
+	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{1}%
+	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@fgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}\endcsname{\only<#1>{\put(#2,#3){#4}}}%
+}
 \long\def\beamer@theme@leiiutbm@putat@foreground(#1,#2)#3{%
 	\global\addtocounter{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}{1}%
 	\expandafter\gdef\csname beamer@theme@leiiutbm@absolutepositionelements@fgbox@\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@fg}\endcsname{\put(#1,#2){#3}}%
 }
 
-\def\putat{\@ifstar\beamer@theme@leiiutbm@putat@background\beamer@theme@leiiutbm@putat@foreground}
+\def\putat{\@ifstar\beamer@theme@leiiutbm@putat@background@pre\beamer@theme@leiiutbm@putat@foreground@pre}
 
 \newcommand{\beamer@theme@leiiutbm@insertabsolutepositionelements@background}{%
 	\whiledo{\arabic{beamer@theme@leiiutbm@absolutepositionelements@cnt@bg}>0}{%

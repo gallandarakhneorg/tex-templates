@@ -721,10 +721,10 @@
 \begin{frame}{Put at an Absolute Position}
 	\begin{itemize}
 	\item If you want to put something at an absolute position in your frame, you could use: \\
-		\texttt{{\textbackslash}putat(x,y)\{something\}}
+		\texttt{{\textbackslash}putat<framespec>(x,y)\{something\}}
 	\item \alert{Caution: The added elements are put less deeper than the slide text.}
 	\item For putting the elements more deeper than the slide text, use: \\
-		\texttt{{\textbackslash}putat*(x,y)\{something\}}
+		\texttt{{\textbackslash}putat*<framespec>(x,y)\{something\}}
 	\vspace{1em}
 	\item Example: \\
 		\texttt{{\textbackslash}putat(100,-20)\{{\textbackslash}color\{red\}\{TESTING\}\}}
