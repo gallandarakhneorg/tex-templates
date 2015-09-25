@@ -1146,4 +1146,17 @@
 	\end{example}
 \end{frame}
 
+\begin{frame}{Local Definition of the Picture Search Paths}
+	\begin{itemize}
+	\item You could locally redefine the picture search path in your presentation.
+	\item The environment \texttt{graphicspathcontext} permits to override the value of the picture search path inside its content: \\
+			\texttt{{\textbackslash}begin\{graphicspathcontext\}\{paths\}} \\
+			\texttt{...} \\
+			\texttt{{\textbackslash}end\{graphicspathcontext\}}
+	\item The provided path must follow the same syntax as the parameter of the \texttt{{\textbackslash}graphicspath} macro.
+	\item You could reuse the paths from the enclosing context by putting \texttt{{\textbackslash}old} in the environment's parameter. \\
+		\inlineexample{\texttt{\{./path/to/pictures/\}\{./other/path/\},{\textbackslash}old}}
+	\end{itemize}
+\end{frame}
+
 \end{document}

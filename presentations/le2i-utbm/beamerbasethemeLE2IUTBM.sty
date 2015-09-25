@@ -1347,6 +1347,18 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.pdftex_t}
 
 %-----------------------------------------
+% Local definition of a graphics path.
+\newenvironment{graphicspathcontext}[1]{%
+	\bgroup%
+	\let\beamer@theme@leiiutbm@graphicspathcontext@ginputpath\Ginput@path%
+	\def\old{\beamer@theme@leiiutbm@graphicspathcontext@ginputpath}%
+	\protected@edef\beamer@theme@leiiutbm@tmp{\protect\graphicspath{#1}}%
+	\beamer@theme@leiiutbm@tmp%
+}{%
+	\egroup%
+}
+
+%-----------------------------------------
 % Symbols
 \renewcommand{\copyright}{\Pisymbol{psy}{227}\xspace}
 \newcommand{\trademark}{\Pisymbol{psy}{228}\xspace}
