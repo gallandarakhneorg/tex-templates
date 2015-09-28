@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/09/25}
+\gdef\insertleiiutbmbeamerthemeversion{2015/09/28}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -770,6 +770,8 @@
 
 \gdef\beamer@part[#1]#2{%
 	\beamer@theme@leiiutbm@part@oldbeamerpart[#1]{#2}%
+	\protected@edef\psecname{\beamer@partname}%
+	\protected@edef\lastpart{\beamer@partnameshort}%
 	\ifbeamer@inlecture\else%
 		\beamer@atbeginpart%
 	\fi%
@@ -779,8 +781,10 @@
 	\frame{%
 		\ifthenelse{\equal{a\beamer@theme@leiiutbm@part@partlabel}{a}}{}{% Issue #19
 			\protected@xdef\@currentlabel{\the\c@part}%
-			\expandafter\label{\beamer@theme@leiiutbm@part@partlabel}%
+			\expandafter\NR@gettitle\expandafter{\psecname}% For \nameref
+			\protected@edef\beamer@theme@leiiutbm@tmp{\protect\label{\beamer@theme@leiiutbm@part@partlabel}}%
 			\gdef\beamer@theme@leiiutbm@part@partlabel{}%
+			\beamer@theme@leiiutbm@tmp%
 		}%
 		\partpage%
 	}%
@@ -792,7 +796,6 @@
 	%\useheaderdefault%
 	\protected@xdef\@currentlabel{\the\c@part}% Issue #19
 }
-
 
 \define@key{beamerthemeleiiutbmpart}{author}{%
 	\ifthenelse{\equal{a#1}{a}}{}{%
@@ -1432,34 +1435,6 @@
 	\endbeamer@theme@leiiutbm@oldenumerate%
 	\endgroup%
 }
-%\newcounter{@beamer@theme@leiiutbm@enumdescription@cnt@}
-%\newcommand{\beamer@theme@leiiutbm@enumdescription@fmt@}[1]{}
-%\newcommand{\enumdescriptionlabel}[1]{\textbf{#1}}
-%\newenvironment{enumdescriptionx}[3][i]{%
-%	\begingroup\setcounter{@upm@fmt@enumdescription@cnt@}{1}%
-%	\let\upm@fmt@enumdescription@savedlabel\@currentlabel%
-%	\ifthenelse{\equal{#1}{a}}{%
-%		\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\alph{##1}#3}%
-%	}{%
-%		\ifthenelse{\equal{#1}{i}}{%
-%			\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\roman{##1}#3}%
-%		}{%
-%			\renewcommand{\upm@fmt@enumdescription@fmt@}[1]{#2\expandafter{\csname the##1\endcsname}#3}%
-%		}%
-%	}%
-%	\begin{list}{}{%
-%		\renewcommand{\makelabel}[1]{\xdef\@currentlabel{\upm@fmt@enumdescription@fmt@{@upm@fmt@enumdescription@cnt@}}\enumdescriptionlabel{\@currentlabel~-~##1}:~{\addtocounter{@upm@fmt@enumdescription@cnt@}{1}}}%
-%		\settowidth{\labelwidth}{iii)~}%
-%	}
-%}{%
-%	\global\let\@currentlabel\upm@fmt@enumdescription@savedlabel%
-%	\end{list}\endgroutup%
-%}
-%\newenvironment{enumdescription}[1][i]{%
-%	\begin{enumdescriptionx}[#1]{}{}%
-%}{%
-%	\end{enumdescriptionx}%
-%}
 
 %-----------------------------------------
 % Exponents and Indices
