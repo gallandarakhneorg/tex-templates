@@ -1,12 +1,15 @@
 \documentclass[article]{upmethodology-document}
 
-\declaredocument{multiagent.fr Style Extension for tex-upmethodology}{Official Documentation}{UPM-2009-03}
+\declaredocument{multiagent.fr Style Extension for tex-upmethodology}{Official Documentation}{UPM-2015-01}
 
 \addauthorvalidator[galland@arakhne.org]{St{\'e}phane}{Galland}
 
-\setdockeywords{multiagent.fr, Laboratoire Sys\`emes et Transports, Institut IRTES, UTBM, Style Extension, tex-upmethodology, \LaTeX}
+\setdockeywords{multiagent.fr, UBFC, UTBM, Style Extension, tex-upmethodology, \LaTeX}
 
-\setdocabstract{This document describes the style extension for \texttt{tex-upmethodology} which is providing the standard document layout and colors of Multiagent Group from the Laboratoire Sys\`emes et Transports of the Universit\'e de Technologie de Belfort-Monb\'eliard, France.}
+\setdocabstract{This document describes the style extension for \texttt{tex-upmethodology} which is providing the standard document layout and colors of Multiagent Group from the Universit\'e Bourgogne Franche-Comt\'e, France.}
+
+\updateversion{1.0}{\makedate{14}{05}{2014}}{First version of the documentation.}{\upmpublic}
+\incversion{\makedate{30}{09}{2015}}{Change the top institution to UBFC.}{\upmpublic}
 
 \makeatletter
 \upm@extension@savealllangtrue
@@ -21,7 +24,7 @@
 \renewcommand{\definecolor}[3]{%
 	\upm@extensiondoc@old@definecolor{#1}{#2}{#3}%
 	\protected@xdef\upmextensiondoccolorlist{\upmextensiondoccolorlist%
-		\protect\upm@protect{#1} & #2 & #3 & \protect\textcolor{#1}{\protect\upm@protect{#1}} \protect\\%
+		\protect\ensuremath{\protect\upm@protect{#1}} & #2 & #3 & \protect\textcolor{#1}{\protect\ensuremath{\protect\upm@protect{#1}}} \protect\\%
 	}%
 }
 
@@ -79,11 +82,11 @@ This document contains only the values and the macros provided by the extensions
 
 \textbf{THE ACCOMPANYING EXTENSION IS PROVIDED UNDER THE TERMS OF THIS LICENSE AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.}
 
-\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT-MONTB\'ELIARD, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT-MONTB\'ELIARD.}
+\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE MULTIAGENT.FR STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE MULTIAGENT GROUP, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E BOURGOGNE FRANCHE-COMT\'E OR THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT-MONTB\'ELIARD.}
 
 \section{Requirements}
 
-\texttt{tex-upmethdology-multiagentfr} requires the core packages of \texttt{tex-upmethodology} and the style extension \texttt{tex-upmethdology-setlab}.
+\texttt{tex-upmethdology-multiagentfr} requires the core packages of \texttt{tex-upmethodology}.
 
 \section{Installation}
 
@@ -91,7 +94,7 @@ Copy \texttt{tex-upmethdology-multiagentfr} configuration file (\texttt{.cfg}) a
 
 \section{Provided Macros}
 
-\texttt{tex-upmethdology-multiagentfr} does not provide macros.
+\texttt{tex-upmethdology-multiagentfr} does not provide macros by itself. The packages of \texttt{tex-upmethodology} (a dependency of this style) provides plenty of additional macros. See the documentation of \texttt{tex-upmethodology} for details.
 
 \section{Provided Colors}
 
@@ -107,11 +110,13 @@ Copy \texttt{tex-upmethdology-multiagentfr} configuration file (\texttt{.cfg}) a
 
 \texttt{tex-upmethdology-multiagentfr} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
 
+\begin{tiny}
 \begin{mtabular}{3}{XcX}
 \tabulartitle{Provided Values}
 \tabularheader{Name}{Language}{Content}
 \upmextensiondocvaluelist
 \end{mtabular}
+\end{tiny}
 
 \section{Copyright of the Extension's Source Code}
 
@@ -121,11 +126,17 @@ Copy \texttt{tex-upmethdology-multiagentfr} configuration file (\texttt{.cfg}) a
 
 \section{Copyright of Materials}
 
-Copyright \copyright 2009, 2012 Universit\'e de Technologie de Belfort-Monb\'eliard. All rights reserved.
+Copyright \copyright 2009, 2012 Universit\'e de Technologie de Belfort-Monb\'eliard. All rights reserved. \\
+Copyright \copyright 2015 Universit\'e Bourgogne Franche-Comt\'e. All rights reserved.
 
-All SeT, IRTES and UTBM logos are the property of the Universit\'e de Technologie de Belfort-Monb\'eliard, France.
+UTBM and all UTBM-related trademarks and logos are trademarks or registered trademarks of Universit\'e de Technologie de Belfort-Montb\'eliard in the France, other countries, or both.
 
-You are not granted to use, modify or distribute this package without the explicit authorization of the Universit\'e de Technologie de Belfort-Monb\'eliard.
+UB and all UB-related trademarks and logos are trademarks or registered trademarks of Universit\'e de Bourgogne in the France, other countries, or both.
 
+UBFC and all UBFC-related trademarks and logos are trademarks or registered trademarks of Universit\'e Bourgogne France-Comt\'e in the France, other countries, or both.
+
+CNRS and all CNRS-related trademarks and logos are trademarks or registered trademarks of Centre National de la Recherche Scientifique in the France, other countries, or both.
+
+You are not granted to use, modify or distribute this package without the explicit authorization of the representative of the organizations.
 
 \end{document}

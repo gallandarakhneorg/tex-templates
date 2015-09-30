@@ -1,6 +1,6 @@
 % Document class for the IRTES reports
 %
-% Copyright (c) 2013-14 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-15 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,10 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{irtesreport}[2014/03/03]
+\ProvidesClass{irtesreport}[2015/09/30]
+
+\ClassWarningNoLine{****************** THE IRTES TEMPLATE FOR REPORTS IS DEPRECATED ******************}
+
 
 %%--------------------
 %% Class options
