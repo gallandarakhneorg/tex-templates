@@ -21,10 +21,12 @@
 
 \pgfdeclareimage[height=.2cm]{fakele2ilogoinpartners}{le2ilogo}
 \pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmlogo}
+\pgfdeclareimage[height=.2cm]{fakeubfclogoinpartners}{ubfclogo}
 \pgfdeclareimage[height=.2cm]{fakecnrslogoinpartners}{cnrslogo}
 \pgfdeclareimage[height=.25cm]{fakele2ilogointitle}{le2ilogoinv}
 \pgfdeclareimage[height=.25cm]{fakemaglogointitle}{multiagentlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{utbmlogoinv}
+\pgfdeclareimage[height=.25cm]{fakeubfclogointitle}{ubfclogoinv}
 \pgfdeclareimage[height=.25cm]{fakecnrslogointitle}{cnrslogoinv}
 \pgfdeclareimage[height=.25cm]{fakeuserlogointitle}{utbmlogo}
 
@@ -43,8 +45,8 @@
 			\put(10,86){\textcolor{white}{\tiny #2}}
 			\ifthenelse{\equal{a#1}{a}}{}{\put(-1,84.5){\pgfuseimage{#1}}}
 			#3				
-			\put(118,-2){
-				\pgfuseimage{fakele2ilogoinpartners}\pgfuseimage{fakeutbmlogoinpartners}\pgfuseimage{fakecnrslogoinpartners}}
+			\put(100,-1){
+				\pgfuseimage{fakele2ilogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeutbmlogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}\hspace{0.05cm}\pgfuseimage{fakecnrslogoinpartners}}
 		\end{picture}
 	\end{minipage}}
 }
@@ -389,6 +391,15 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}{Headline with the UBFC Logo}
+	\begin{itemize}
+	\item \texttt{{\textbackslash}useheaderlinewithubfclogo}: the default headline contains the UBFC logo.
+	\end{itemize}
+	\begin{center}
+		\fakeslide[fakeubfclogointitle]{XyZ}{}
+	\end{center}
+\end{frame}
+
 \begin{frame}{Headline with the CNRS Logo}
 	\begin{itemize}
 	\item \texttt{{\textbackslash}useheaderlinewithcnrslogo}: the default headline contains the CNRS logo.
@@ -415,14 +426,21 @@
 
 \subsection{Footline}
 
-\begin{frame}{Footline}
+\begin{frame}[t]{Footline}
 	\begin{itemize}
 	\item Beamer provides an footline in which the progress of the presentation may be shown.
 	In the LE2I-UTBM theme, this footline is located at the bottom left of the slides.
-	\vfill
+	\vspace{1em}
 	\item You could change this footline with: \begin{itemize}
 		\item \texttt{{\textbackslash}usefootlinewithdocumentname}: the footline contains the title of the presentation, and other document informations.
 		\item \texttt{{\textbackslash}usefootlinewithsections}: the footline contains the list of the sections of the presentation.
+		\end{itemize}
+	\vspace{1em}
+	\item The following macro is used for inserting the official laboratory logos at the bottom right corner of the slides: \\
+		\texttt{{\textbackslash}insertinstitutelogosinfootline\{macros\}}
+		\begin{itemize}
+		\item The parameter is the set of macros to insert between the logos (basically a spacing macro).
+		\item You could redefine this macro for changing the logos.
 		\end{itemize}
 	\end{itemize}
 \end{frame}

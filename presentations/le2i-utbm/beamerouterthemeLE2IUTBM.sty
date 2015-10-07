@@ -81,10 +81,6 @@
 	}{}%
 }
 
-\pgfdeclareimage[height=.5cm]{le2ilogoinpartners}{le2ilogo}
-\pgfdeclareimage[height=.5cm]{utbmlogoinpartners}{utbmlogo}
-\pgfdeclareimage[height=.5cm]{cnrslogoinpartners}{cnrslogo}
-
 % No navigation symbols
 \setbeamertemplate{navigation symbols}{}
 
@@ -153,10 +149,7 @@
 		\put(175,-151.7){\parbox[b]{5.4cm}{\mbox{}\hfill%
 					\beamer@theme@leiiutbm@partnerlogo%
 					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
-						\hspace{.1cm}%
-						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{cnrslogoinpartners}%
+						\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
 					}{}%
 					}}%
 		%
@@ -209,10 +202,7 @@
 			\put(175,-231){\parbox[b]{5.4cm}{\mbox{}\hfill%
 					\beamer@theme@leiiutbm@partnerlogo%
 					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
-						\hspace{.1cm}%
-						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{cnrslogoinpartners}%
+						\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
 					}{}%
 					}}%
 			% Put the background elements
@@ -264,10 +254,7 @@
 		\put(175,-166.2){\parbox[b]{5.4cm}{\mbox{}\hfill%
 					\beamer@theme@leiiutbm@partnerlogo%
 					\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
-						\hspace{.1cm}%
-						\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-						\pgfuseimage{cnrslogoinpartners}%
+						\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
 					}{}%
 					}}%
 		% Title
@@ -325,10 +312,7 @@
 				\put(175,-166.15){\parbox[b]{5.4cm}{\mbox{}\hfill%
 							\beamer@theme@leiiutbm@partnerlogo
 							\ifthenelse{\boolean{beamer@theme@leiiutbm@lablogo}}{%
-								\hspace{.1cm}%
-								\pgfuseimage{le2ilogoinpartners}\hspace{.1cm}%
-								\pgfuseimage{utbmlogoinpartners}\hspace{.1cm}%
-								\pgfuseimage{cnrslogoinpartners}%
+								\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
 							}{}%
 							}}%
 			\end{picture}%

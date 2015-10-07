@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/09/28}
+\gdef\insertleiiutbmbeamerthemeversion{2015/10/07}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -363,6 +363,19 @@
 	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{UTBMlogointitle}}%
 }
 
+\pgfdeclareimage[width=.7cm]{UBFClogointitle}{ubfclogoinv}
+\newcommand{\insertheaderlinewithubfclogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(2,-19){%
+			\pgfuseimage{UBFClogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithubfclogo}[1][]{%
+	\gdef\beamer@theme@leiiutbm@headline@default{\insertheaderlinewithubfclogo}%
+	\gdef\beamer@theme@leiiutbm@headline@defaultpicture{\pgfuseimage{UBFClogointitle}}%
+}
+
 \define@key{beamerthemeleiiutbmeaderlineuserlogo}{width}{%
 	\def\beamer@theme@leiiutbm@headerlineuserlogo@width{#1}%
 }
@@ -423,7 +436,7 @@
 	\egroup%
 }
 
-\useheaderlinewithleiilogo
+\useheaderlinewithmaglogo
 \useheaderdefault
 
 %-----------------------------------------
@@ -483,6 +496,18 @@
 }
 
 \usefootlinewithdocumentname
+
+\pgfdeclareimage[height=.5cm]{le2ilogoinpartners}{le2ilogo}
+\pgfdeclareimage[height=.5cm]{utbmlogoinpartners}{utbmlogo}
+\pgfdeclareimage[height=.5cm]{ubfclogoinpartners}{ubfclogo}
+\pgfdeclareimage[height=.5cm]{cnrslogoinpartners}{cnrslogo}
+
+\newcommand{\insertinstitutelogosinfootline}[1]{%
+	\pgfuseimage{le2ilogoinpartners}#1%
+	\pgfuseimage{utbmlogoinpartners}#1%
+	\pgfuseimage{ubfclogoinpartners}#1%
+	\pgfuseimage{cnrslogoinpartners}%
+}
 
 %-----------------------------------------
 % Put something at an absolute position
