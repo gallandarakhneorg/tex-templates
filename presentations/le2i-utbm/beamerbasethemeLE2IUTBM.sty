@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/10/07}
+\gdef\insertleiiutbmbeamerthemeversion{2015/11/02}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -1466,7 +1466,7 @@
 \renewcommand{\textup}[1]{\textsuperscript{#1}\xspace}
 \def\@textsubscript#1{%
   {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
-\newcommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
+\providecommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
 \newcommand{\textdown}[1]{\textsubscript{#1}\xspace}
 
 %-----------------------------------------
