@@ -1,4 +1,4 @@
-% Copyright (c) 2014 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2014-15 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM, IRTES  and SET logos and names are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2014/09/10 Beamer Base Defs 'IRTES' Theme]
+   [2015/11/09 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -878,7 +878,7 @@
 \renewcommand{\textup}[1]{\textsuperscript{#1}\xspace}
 \def\@textsubscript#1{%
   {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
-\newcommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
+\providecommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
 \newcommand{\textdown}[1]{\textsubscript{#1}\xspace}
 
 %-----------------------------------------
