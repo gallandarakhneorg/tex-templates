@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2015/11/02}
+\gdef\insertleiiutbmbeamerthemeversion{2015/11/30}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -575,9 +575,9 @@
 \def\selectguillemotfont{\fontencoding{T1}\fontfamily{cmr}\selectfont}
 \def\guillemotleft{{\selectguillemotfont\symbol{19}}\,}
 \def\guillemotright{\,{\selectguillemotfont\symbol{20}}}
-\newcommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
-\newcommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
-\newcommand{\latquote}[1]{\textit{#1}\xspace}
+\providecommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
+\providecommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
+\providecommand{\latquote}[1]{\textit{#1}\xspace}
 
 %-----------------------------------------
 % Underline
