@@ -19,7 +19,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerbasethemeIRTES}
-   [2015/11/09 Beamer Base Defs 'IRTES' Theme]
+   [2015/11/30 Beamer Base Defs 'IRTES' Theme]
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -246,9 +246,9 @@
 \def\selectguillemotfont{\fontencoding{T1}\fontfamily{cmr}\selectfont}
 \def\guillemotleft{{\selectguillemotfont\symbol{19}}\,}
 \def\guillemotright{\,{\selectguillemotfont\symbol{20}}}
-\newcommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
-\newcommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
-\newcommand{\latquote}[1]{\textit{#1}\xspace}
+\providecommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
+\providecommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
+\providecommand{\latquote}[1]{\textit{#1}\xspace}
 
 %-----------------------------------------
 % Underline
