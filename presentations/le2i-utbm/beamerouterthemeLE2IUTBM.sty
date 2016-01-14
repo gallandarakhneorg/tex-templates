@@ -1,4 +1,4 @@
-% Copyright (c) 2013-15 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-16 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -24,7 +24,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeLE2IUTBM}
-   [2015/09/15 Beamer Outer 'LE2I at UTBM' Theme]
+   [2015/09/16 Beamer Outer 'LE2I at UTBM' Theme]
 
 \mode<presentation>
 
@@ -270,7 +270,7 @@
 		\end{picture}%
 }
 
-\newcommand{\beamer@theme@leiiutbm@outer@thanksslide}{%
+\newcommand{\thanksslide}{%
 	\beamer@theme@leiiutbm@nav@advancesection%
 	\xdef\beamer@theme@leiiutbm@totalcoreframenumber{\the\c@framenumber}
 	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
@@ -322,6 +322,7 @@
 	\setbeamertemplate{footline}{\beamer@theme@leiiutbm@outer@footline}%
 	%\useheaderdefault%
 }
+\global\let\beamer@theme@leiiutbm@outer@thanksslide\thanksslide%
 
 \setbeamertemplate{frametitle continuation}{%
 	{\smaller(\#\insertcontinuationcount)}%
