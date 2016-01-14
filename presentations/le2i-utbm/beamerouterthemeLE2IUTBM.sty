@@ -271,12 +271,8 @@
 }
 
 \newcommand{\thanksslide}{%
-	\beamer@theme@leiiutbm@nav@advancesection%
-	\xdef\beamer@theme@leiiutbm@totalcoreframenumber{\the\c@framenumber}
-	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
 	\setbeamertemplate{footline}{}
 	\usebackgroundtemplate{\beamer@theme@leiiutbm@outer@background}%
-	%\useheaderempty
 	\frame{
 		% Copy of the title page
 		\ifthenelse{\value{@beamer@theme@leiiutbm@finalslidelabel}=3}{%
@@ -320,9 +316,13 @@
 	}%
 	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@leiiutbm@outer@background\fi}%
 	\setbeamertemplate{footline}{\beamer@theme@leiiutbm@outer@footline}%
-	%\useheaderdefault%
 }
-\global\let\beamer@theme@leiiutbm@outer@thanksslide\thanksslide%
+\newcommand{\beamer@theme@leiiutbm@outer@thanksslide}{%
+	\beamer@theme@leiiutbm@nav@advancesection%
+	\xdef\beamer@theme@leiiutbm@totalcoreframenumber{\the\c@framenumber}
+	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
+	\thanksslide%
+}
 
 \setbeamertemplate{frametitle continuation}{%
 	{\smaller(\#\insertcontinuationcount)}%
