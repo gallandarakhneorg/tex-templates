@@ -525,12 +525,12 @@
 \begin{frame}{Table of Contents/Outline}
 	\begin{itemize}
 	\item The LE2I-UTBM theme provides a convenient macro to insert a table of contents into a slide: \\
-		\texttt{{\textbackslash}tableofcontentsslide[options]}
+		\texttt{{\textbackslash}tableofcontentsslide[toc options][frame options]}
 	\vspace{1em}
 	\item It is equivalent to: \\
-		\texttt{{\textbackslash}begin\{frame\}[c]} \\
+		\texttt{{\textbackslash}begin\{frame\}[t,frame options]} \\
 		\texttt{{\textbackslash}frametitle\{{\textbackslash}translate\{Outline\}\}} \\
-		\texttt{{\textbackslash}tableofcontents[options]} \\
+		\texttt{{\textbackslash}tableofcontents[toc options]} \\
 		\texttt{{\textbackslash}end\{frame\}}
 	\vspace{1em}
 	\item In addition to the standard options for {{\textbackslash}tableofcontents}, the option \texttt{onlyparts} permits to display the list of the parts, only.

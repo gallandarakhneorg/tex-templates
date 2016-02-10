@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2016/01/14}
+\gdef\insertleiiutbmbeamerthemeversion{2016/02/10}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -1000,8 +1000,32 @@
 
 %-----------------------------------------
 % Table of content
-\newcommand{\tableofcontentslide}[1][hideallsubsections]{%
-	\begin{frame}[t]{\translate{Outline}}%
+\def\tableofcontentslide{%
+	\@ifnextchar[%
+		\beamer@theme@leiiutbm@tableofcontentslide@a%
+		\beamer@theme@leiiutbm@tableofcontentslide@b%
+}
+\def\beamer@theme@leiiutbm@tableofcontentslide@a[#1]{%
+	\beamer@theme@leiiutbm@tableofcontentslide@c{#1}%
+}
+\def\beamer@theme@leiiutbm@tableofcontentslide@b{%
+	\beamer@theme@leiiutbm@tableofcontentslide@c{hideallsubsections}%
+}
+\def\beamer@theme@leiiutbm@tableofcontentslide@c#1{%
+	\@ifnextchar[%
+		{\beamer@theme@leiiutbm@tableofcontentslide@d{#1}}%
+		{\beamer@theme@leiiutbm@tableofcontentslide@e{#1}{}}%
+}
+\def\beamer@theme@leiiutbm@tableofcontentslide@d#1[#2]{%
+	\beamer@theme@leiiutbm@tableofcontentslide@e{#1}{,#2}%
+}
+\define@key{beamerthemeleiiutbmtoc}{sections}{%
+	\gdef\beamer@theme@leiiutbm@toc@sections{,#1}%
+}
+\newcommand{\beamer@theme@leiiutbm@tableofcontentslide@e}[2]{%
+	\global\let\beamer@theme@leiiutbm@toc@sections\relax%
+	\setkeys*{beamerthemeleiiutbmtoc}{#1}%
+	\begin{frame}[t#2]{\translate{Outline}}%
 	\vfill%
 	\small\tableofcontents[#1]%
 	\end{frame}%
@@ -1013,6 +1037,7 @@
 	\PackageWarning{LE2I-UTBM Beamer Style}{Environment 'slide' is deprecated}%
 	\begin{frame}[#1]{#2}%
 }{%
+		\alertbox{Environment 'slide' is deprecated.}
 	\end{frame}%
 }
 
