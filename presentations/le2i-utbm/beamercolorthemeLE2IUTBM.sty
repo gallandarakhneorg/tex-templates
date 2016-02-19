@@ -1,4 +1,4 @@
-% Copyright (c) 2014-15 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2014-16 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamercolorthemeLE2IUTBM}
-   [2015/09/19 Beamer 'LE2I at UTBM' Color Theme]
+   [2016/02/19 Beamer 'LE2I at UTBM' Color Theme]
 
 \mode<presentation>
 
@@ -39,10 +39,12 @@
 }
 
 \definecolor{LE2IUTBMblue}{RGB}{0,41,75}
+\definecolor{LE2IUTBMdarkblue}{RGB}{0,14,26}
 \definecolor{LE2IUTBMlightblue}{RGB}{18,123,202}
 \definecolor{LE2IUTBMlightestblue}{RGB}{223,239,247}
 
 \definecolor{LE2IUTBMmagenta}{RGB}{153,30,102}
+\definecolor{LE2IUTBMdarkmagenta}{RGB}{77,15,51}
 \definecolor{LE2IUTBMlightmagenta}{RGB}{204,122,170}
 \definecolor{LE2IUTBMlightestmagenta}{RGB}{250,240,246}
 
@@ -79,6 +81,10 @@
 \setbeamercolor{block title alerted}{fg=white,bg=LE2IUTBMmagenta}
 \setbeamercolor{block body alerted}{fg=LE2IUTBMmagenta,bg=LE2IUTBMlightestmagenta}
 \setbeamercolor{block body remark}{fg=LE2IUTBMblue,bg=LE2IUTBMlightestblue}
+\setbeamercolor{block body alerted emphased text}{fg=LE2IUTBMdarkmagenta}
+\setbeamercolor{block body alerted alerted text}{fg=red}
+\setbeamercolor{block body remark emphased text}{fg=LE2IUTBMdarkblue}
+\setbeamercolor{block body remark alerted text}{fg=LE2IUTBMmagenta}
 \setbeamercolor{block title example}{fg=black,bg=LE2IUTBMlightgray}
 \setbeamercolor{block title definition}{parent=block title,bg=LE2IUTBMblue}
 \setbeamercolor{block body definition}{parent=block body}

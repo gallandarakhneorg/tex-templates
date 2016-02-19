@@ -603,7 +603,7 @@
 \let\beamer@theme@leiiutbm@oldemph\emph
 \renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
 
-\newcommand{\Emph}[1]{{\usebeamercolor[fg]{emphased text}\textbf{#1}}}
+\newcommand{\Emph}[1]{\emph{\textbf{#1}}}
 
 %-----------------------------------------
 % Footnote
@@ -1438,23 +1438,26 @@
 %-----------------------------------------
 % Alert box
 \def\beamer@theme@leiiutbm@alertbox@noframed#1{%
-	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{\beamer@theme@leiiutbm@alertbox@style}%
-		\centering\nohyphens{#1}%
+	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,center,vmode,shadow=true]{\beamer@theme@leiiutbm@alertbox@style}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{\beamer@theme@leiiutbm@alertbox@style@emph}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{\beamer@theme@leiiutbm@alertbox@style@alert}##1}}%
+		\par\vspace{-\parskip}\nohyphens{#1}%
 	\end{beamercolorbox}%
 }
 \def\beamer@theme@leiiutbm@alertbox@framed<#1>#2{%
-	\only<#1>{%
-		\begin{beamercolorbox}[wd=\linewidth,rounded=true,shadow=true]{block body alerted}%
-			\centering\nohyphens{#2}%
-		\end{beamercolorbox}%
-	}%
+	\only<#1>{\beamer@theme@leiiutbm@alertbox@noframed{#2}}%
 }
 \def\beamer@theme@leiiutbm@alertbox@nostar{%
 	\gdef\beamer@theme@leiiutbm@alertbox@style{block body alerted}%
+	\gdef\beamer@theme@leiiutbm@alertbox@style@emph{block body alerted emphased text}%
+	\gdef\beamer@theme@leiiutbm@alertbox@style@alert{block body alerted alerted text}%
 	\@ifnextchar<\beamer@theme@leiiutbm@alertbox@framed\beamer@theme@leiiutbm@alertbox@noframed%
 }
 \def\beamer@theme@leiiutbm@alertbox@star{%
 	\gdef\beamer@theme@leiiutbm@alertbox@style{block body remark}%
+	\gdef\beamer@theme@leiiutbm@alertbox@style@emph{block body remark emphased text}%
+	\gdef\beamer@theme@leiiutbm@alertbox@style@alert{block body remark alerted text}%
 	\@ifnextchar<\beamer@theme@leiiutbm@alertbox@framed\beamer@theme@leiiutbm@alertbox@noframed%
 }
 \def\alertbox{\@ifstar\beamer@theme@leiiutbm@alertbox@star\beamer@theme@leiiutbm@alertbox@nostar}
