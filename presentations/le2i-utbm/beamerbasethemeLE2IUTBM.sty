@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2016/02/10}
+\gdef\insertleiiutbmbeamerthemeversion{2016/02/19}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -1033,12 +1033,7 @@
 \def\beamer@theme@leiiutbm@tableofcontentslide@d#1[#2]{%
 	\beamer@theme@leiiutbm@tableofcontentslide@e{#1}{,#2}%
 }
-\define@key{beamerthemeleiiutbmtoc}{sections}{%
-	\gdef\beamer@theme@leiiutbm@toc@sections{,#1}%
-}
 \newcommand{\beamer@theme@leiiutbm@tableofcontentslide@e}[2]{%
-	\global\let\beamer@theme@leiiutbm@toc@sections\relax%
-	\setkeys*{beamerthemeleiiutbmtoc}{#1}%
 	\begin{frame}[t#2]{\translate{Outline}}%
 	\vfill%
 	\small\tableofcontents[#1]%
