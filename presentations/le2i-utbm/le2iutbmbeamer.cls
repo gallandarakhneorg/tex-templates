@@ -1,4 +1,4 @@
-% Copyright (c) 2013-15 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-16 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -28,7 +28,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{le2iutbmbeamer}
-   [2015/09/01 Class for LE2I-UTBM slides]
+   [2016/02/19 Class for LE2I-UTBM slides]
 
 \LoadClassWithOptions{beamer}
 

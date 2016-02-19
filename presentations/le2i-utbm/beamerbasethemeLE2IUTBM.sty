@@ -51,6 +51,9 @@
 \newboolean{beamer@theme@leiiutbm@lablogo}
 \setboolean{beamer@theme@leiiutbm@lablogo}{true}
 
+\newboolean{beamer@theme@leiiutbm@handout}
+\setboolean{beamer@theme@leiiutbm@handout}{false}
+
 \newlength{\beamer@theme@leiiutbm@tmplength}
 
 %%%%%%%--------------------------------------
@@ -115,12 +118,23 @@
 \DeclareOptionBeamer{nolablogo}{%
 	\setboolean{beamer@theme@leiiutbm@lablogo}{false}%
 }
+\DeclareOptionBeamer{handout}{%
+	\setboolean{beamer@theme@leiiutbm@handout}{true}%
+}
+\DeclareOptionBeamer{nohandout}{%
+	\setboolean{beamer@theme@leiiutbm@handout}{false}%
+}
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
 
 \ifthenelse{\boolean{beamer@theme@leiiutbm@hyphenation}}{}{%
 	\RequirePackage[english=nohyphenation,french=nohyphenation]{hyphsubst}
 }
+
+\ifthenelse{\boolean{beamer@theme@leiiutbm@handout}}{%
+	\RequirePackage{beamerhandoutthemeLE2IUTBM}
+	\pgfpagesuselayout{4 on 1 with notes}[a4paper,border shrink=5mm]
+}{}
 
 %%%%%%%--------------------------------------
 %%%%%%% PROTECTED API
