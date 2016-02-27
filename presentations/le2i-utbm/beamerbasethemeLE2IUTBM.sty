@@ -1,4 +1,4 @@
-% Copyright (c) 2014-16 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2014-2016 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2016/02/19}
+\gdef\insertleiiutbmbeamerthemeversion{2016/02/27}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -143,6 +143,13 @@
 %-----------------------------------------
 % Change the description of the PDF creator.
 \hypersetup{pdfcreator={Beamer \beamer@version\ and LE2I-UTBM Theme \insertleiiutbmbeamerthemeversion}}
+
+%-----------------------------------------
+% Override the graphics macro for having a default width set to \linewidth
+\let\beamer@theme@leiiutbm@old@includegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{
+	\beamer@theme@leiiutbm@old@includegraphics[width=\linewidth,keepaspectratio,#1]{#2}%
+}
 
 %-----------------------------------------
 % Fixing a strange bug: the default color of the
