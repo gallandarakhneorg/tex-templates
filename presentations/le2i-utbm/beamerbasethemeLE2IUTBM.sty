@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertleiiutbmbeamerthemeversion{2016/02/27}
+\gdef\insertleiiutbmbeamerthemeversion{2017/07/20}
 
 \expandafter\ProvidesPackage{beamerbasethemeLE2IUTBM}
    [\insertleiiutbmbeamerthemeversion\ Beamer Base Defs 'LE2I at UTBM' Theme]
@@ -1858,5 +1858,16 @@
 \newcommand{\wrapitem}[2][.7\linewidth]{%
 	\item\parbox[t]{#1}{\strut #2\strut}%
 }
+
+%---------------------------------------------
+% Authors' description
+\gdef\beamer@theme@leiiutbm@authordescription{}
+\newif\ifauthordescription
+\authordescriptionfalse
+\newcommand{\authordescription}[1]{%
+	\gdef\beamer@theme@leiiutbm@authordescription{#1}%
+	\global\authordescriptiontrue%
+}
+\gdef\insertauthordescription{\beamer@theme@leiiutbm@authordescription}
 
 \endinput

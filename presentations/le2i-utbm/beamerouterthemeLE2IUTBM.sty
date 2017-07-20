@@ -24,7 +24,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeLE2IUTBM}
-   [2016/02/19 Beamer Outer 'LE2I at UTBM' Theme]
+   [2017/07/20 Beamer Outer 'LE2I at UTBM' Theme]
 
 \mode<presentation>
 
@@ -134,6 +134,9 @@
 					\\\usebeamercolor[fg]{author}\footnotesize\inserteventname%
 				}%
 			}%
+			\ifauthordescription%
+				\\[.4cm]\usebeamercolor[fg]{author}\tiny\insertauthordescription%
+			\fi%
 			\end{center}}}%
 		% Separation line
 		\put(-28.45,-152.9){%
