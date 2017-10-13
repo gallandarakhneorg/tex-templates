@@ -138,10 +138,31 @@ Style Date
 	ParSep			1
 	Align			Center
 	Font
-		Size		normal
+	Size			normal
 	EndFont
 	LabelType		Static
 	LabelString		"Soutenue le "
+End
+
+Nostyle Location
+Style Location
+	Margin			Static
+	LatexType		Command
+	Category		FrontMatter
+	InTitle			false
+	InPreamble		true
+	LatexName		gdef\edspim@phdthesis@class@defenselocation
+	LabelSep		x
+	ParSkip			0.4
+	TopSep			0.9
+	BottomSep		0.5
+	ParSep			1
+	Align			Center
+	Font
+	Size			normal
+	EndFont
+	LabelType		Static
+	LabelString		"Soutenue à "
 End
 
 Style Laboratory

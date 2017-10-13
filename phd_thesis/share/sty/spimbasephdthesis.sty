@@ -1,6 +1,6 @@
 % Document class for the PhD thesis
 %
-% Copyright (c) 2012-14 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2012-17 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,13 +20,13 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2015/09/01]
+\ProvidesPackage{spimbasephdthesis}[2017/10/13]
 
 \RequirePackage{lettrine}
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2014/07/09}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20140710}\@eha}
+\@ifclasslater{UPMVERSION}{2017/10/12}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20171013}\@eha}
 
 %%--------------------
 %% Underlining if the author's name (in bibliography)
@@ -51,16 +51,17 @@
 
 %%--------------------
 % Define the PhD thesis document
-%\declarethesis[subtitle]{title}{defense date}{ID}
-\newcommand{\declarethesis}[4][] {
-	\declaredocument{#2}{#1}{#4}%
+%\declarethesis[subtitle]{title}{defense date}{defense location}{ID}
+\newcommand{\declarethesis}[5][] {
+	\declaredocument{#2}{#1}{#5}%
 	\Set{defensedate}{#3}%
+	\Set{defenselocation}{#4}%
 	\initialversion{\makedate{11}{04}{2006}}{PhD Thesis}{\upmpublic}%
 }
 
 %%--------------------
 % Add menber of the jury
-%\addjury[email]{firstname}{lastname}{type}{position}
+%\addjury[email]{firstname}{lastname}{role}{position}
 \newcommand{\upm@phdthesis@protectnl}[1]{%
 	\begingroup%
 		\let\\\newline%
@@ -70,8 +71,8 @@
 \gdef\upm@phdthesis@jurylist{}
 \global\let\thejurytab\relax
 \newcommand{\addjury}[5][]{%
-	\global\protected@edef\upm@phdthesis@jurylist{\upm@phdthesis@jurylist\protect\protect\Get{jurystyle}\protect\protect\upmmakename{#2}{#3}{~} & \protect\upm@phdthesis@protectnl{#4} & \protect\upm@phdthesis@protectnl{#5} \protect\\}%
-	\global\protected@edef\thejurytab{\protect\noindent\protect\begin{tabularx}{\Get{jurytabwidth}}{@{}llX@{}}\upm@phdthesis@jurylist\protect\end{tabularx}}%
+	\global\protected@edef\upm@phdthesis@jurylist{\upm@phdthesis@jurylist\protect\protect\Get{jurystyle}\protect\protect\upmmakenamestar{#2}{#3}{~} & \protect\upm@phdthesis@protectnl{#5} & \protect\upm@phdthesis@protectnl{#4} \protect\\}%
+	\global\protected@edef\thejurytab{\protect\noindent\protect\begin{tabularx}{\Get{jurytabwidth}}{@{}lXl@{}}\upm@phdthesis@jurylist\protect\end{tabularx}}%
 }
 
 %%--------------------
@@ -106,12 +107,12 @@
 \newif\ifpartnerlist
 \global\partnerlistfalse
 \gdef\thepartnerlist{}
-\newcommand{\addpartner}[2][height=1cm]{%
+\newcommand{\addpartner}[2][height=2cm]{%
 	\ifpartnerlist%
-		\protected@xdef\thepartnerlist{\thepartnerlist\protect\hfill\protect\includegraphics[#1]{#2}}%
+		\protected@xdef\thepartnerlist{\thepartnerlist\\[.5cm]\protect\includegraphics[#1]{#2}}%
 	\else%
 		\global\partnerlisttrue%
-		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[height=1cm]{#2}}%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[#1]{#2}}%
 	\fi%
 }
 
@@ -147,7 +148,8 @@
 \phdthesisminorabstractfalse
 \gdef\phdthesismainabstract{}
 \gdef\phdthesisminorabstract{}
-\gdef\phdthesismainabstracttitle{R\'esum\'e~:}
+\gdef\phdthesismaindocumenttitle{Titre\;:}
+\gdef\phdthesismainabstracttitle{R\'esum\'e\;:}
 \gdef\phdthesisminorabstracttitle{Abstract:}
 \newcommand{\thesisabstract}[2][\upmcurrentlang]{%
 	\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
@@ -155,17 +157,21 @@
 		\gdef\phdthesismainabstract{#2}%
 		\setdocabstract{#2}%
 		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesismaindocumenttitle{Title:}
 			\gdef\phdthesismainabstracttitle{Abstract:}
 		}{%
-			\gdef\phdthesismainabstracttitle{R\'esum\'e~:}
+			\gdef\phdthesismaindocumenttitle{Titre\;:}
+			\gdef\phdthesismainabstracttitle{R\'esum\'e\;:}
 		}%
 	}{%
 		\global\phdthesisminorabstracttrue%
 		\gdef\phdthesisminorabstract{#2}%
 		\ifthenelse{\equal{english}{#1}}{%
+			\gdef\phdthesisminordocumenttitle{Title:}
 			\gdef\phdthesisminorabstracttitle{Abstract:}
 		}{%
-			\gdef\phdthesisminorabstracttitle{R\'esum\'e~:}
+			\gdef\phdthesisminordocumenttitle{Titre\;:}
+			\gdef\phdthesisminorabstracttitle{R\'esum\'e\;:}
 		}%
 	}%
 }
@@ -188,7 +194,7 @@
 		\ifthenelse{\equal{english}{#1}}{%
 			\gdef\phdthesismainkeywordstitle{Keywords:}
 		}{%
-			\gdef\phdthesismainkeywordstitle{Mots-cl\'es~:}
+			\gdef\phdthesismainkeywordstitle{Mots-cl\'es\;:}
 		}%
 	}{%
 		\global\phdthesisminorkeywordstrue%
@@ -196,7 +202,7 @@
 		\ifthenelse{\equal{english}{#1}}{%
 			\gdef\phdthesisminorkeywordstitle{Keywords:}
 		}{%
-			\gdef\phdthesisminorkeywordstitle{Mots-cl\'es~:}
+			\gdef\phdthesisminorkeywordstitle{Mots-cl\'es\;:}
 		}%
 	}%
 }
@@ -452,6 +458,31 @@
 			the \texttt{tex-upmethodology} package suite --- \url{http://www.arakhne.org/tex-upmethodology/}\\[.25cm]
 		}
 	\end{center}
+}
+
+%%--------------------
+%% Command for determing to prefix with "de" or "d'".
+%\De{text}
+\let\upm@phdthesis@firstchartok\relax
+\newcommand{\upm@phdthesis@firstchar}[1]{\upm@phdthesis@firstcharaux#1\@nil}
+\def\upm@phdthesis@firstcharaux#1#2\@nil{\gdef\upm@phdthesis@firstchartok{\detokenize{#1}}}
+\newcommand{\De}[1]{%
+	\protected@edef\upm@phdthesis@tmp{\protect\upm@phdthesis@firstchar{#1}}%
+	\upm@phdthesis@tmp%
+	\ifthenelse{%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{a}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{A}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{e}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{E}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{i}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{I}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{o}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{O}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{u}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{U}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{y}}\or%
+		\equal{\upm@phdthesis@firstchartok}{\detokenize{Y}}%
+	}{d'#1}{de #1}%
 }
 
 \endinput

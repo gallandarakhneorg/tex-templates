@@ -70,9 +70,10 @@
 %% The optional parameter is the subtitle of the PhD thesis.
 %% The first mandatory parameter is the title of the PhD thesis.
 %% The second mandatory parameter is the date of the PhD defense.
-%% The third mandatory parameter is the reference number given by
+%% The third mandatory parameter is the location/city of the PhD defense.
+%% The forth mandatory parameter is the reference number given by
 %% the University Library after the PhD defense.
-\declarethesis[Sous-titre]{Titre}{17 septembre 2012}{XXX}
+\declarethesis[Sous-titre]{Titre}{17 septembre 2012}{Belfort}{XXX}
  
 %%--------------------
 %% Set the author of the PhD thesis
@@ -80,10 +81,23 @@
  
 %%--------------------
 %% Add a member of the jury
+%%
+%% CAUTION 1: If a Jury member is not present during the defense,
+%%            she/he must be in the list of the Jury members.
+%%            Only the reviewers and the members who are present during the defense must
+%%            appear in the Jyry member list. 
+%% CAUTION 2: After your defense, you must assign the role "Pr\'esident" to
+%%            the Jury member who have been the President of the Jury.
+%% CAUTION 3: The recommended order for the Jury members is:
+%%            President, Reviewer(s), Examiner(s), Director(s),
+%%            Other supervisor(s), Invited person(s).
 %% \addjury{Firstname}{Lastname}{Role in the jury}{Position}
-\addjury{Incroyable}{Hulk}{Rapporteur}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+\addjury{Incroyable}{Hulk}{Pr\'esident}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+\addjury{Captain}{America}{Rapporteur}{Professeur à l'Université USA}
 \addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
 \addjury{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
+\addjury{The}{Volwerine}{Codirecteur de thèse}{Professeur à l'Université de Gotham City}
+\addjury{Pac}{Man}{Invité}{Professeur quelque part}
  
 %%--------------------
 %% Change style of the table of the jury
@@ -92,7 +106,7 @@
  
 %%--------------------
 %% Set the English abstract
-\thesisabstract[english]{This is the abstract in English}
+\thesisabstract[english]{This is the abstract in English.}
  
 %%--------------------
 %% Set the English keywords. They only appear if
@@ -101,7 +115,7 @@
  
 %%--------------------
 %% Set the French abstract
-\thesisabstract[french]{Ceci est le résumé en français}
+\thesisabstract[french]{Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français.}
  
 %%--------------------
 %% Set the French keywords. They only appear if
@@ -154,14 +168,16 @@
 
 %%--------------------
 %% Clear the list of the partner/sponsor logos
-\resetpartners
+%\resetpartners
 
 %%--------------------
 %% Add the logos of the partners or the sponsors on the front page
+%%
+%% CAUTION 1: At least, the logo of the University should appear (UTBM)
+%%
 %\addpartner[image options]{image name}
 
-\addpartner{le2ilogo}
-\addpartner{cnrslogo}
+%\addpartner{utbm}
 
 %%--------------------
 %% Change the header and the foot of the pages.
