@@ -1141,6 +1141,19 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}[t]{Embedded Video}
+	\begin{itemize}
+	\item The CIAD theme provides a convenient macro to include a video link into the PDF that could be displayed during the show with a viewer such as PDFPS.
+	\item \texttt{{\textbackslash}embeddedvideo[options]\{video\_path\}\{img\_path\}}
+		\begin{itemize}
+		\item Display the image if the viewer cannot show up the video, or the video itself.
+		\item \texttt{options} may one of the options \texttt{width}, \texttt{height}, or \texttt{view}.
+		\item \texttt{video\_path} is the path to the multimedia resource.
+		\item \texttt{img\_path} is the path to the picture to display in the slide.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Low-level Macros}
