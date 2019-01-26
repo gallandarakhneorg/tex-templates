@@ -19,10 +19,9 @@
 
 \usefootlinewithsections
 
-\pgfdeclareimage[height=.2cm]{fakeciadlogoinpartners}{ciadlogo}
-\pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmlogo}
-\pgfdeclareimage[height=.2cm]{fakeublogoinpartners}{ublogo}
-\pgfdeclareimage[height=.2cm]{fakeubfclogoinpartners}{ubfclogo}
+\pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmgraylogo}
+\pgfdeclareimage[height=.2cm]{fakeublogoinpartners}{ubgraylogo}
+\pgfdeclareimage[height=.2cm]{fakeubfclogoinpartners}{ubfcgraylogo}
 \pgfdeclareimage[height=.25cm]{fakeciadlogointitle}{ciadlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{utbmlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeublogointitle}{ublogoinv}
@@ -43,9 +42,9 @@
 			\put(-3,81.25){\scalebox{0.41}{\fakebackground}}
 			\put(10,86){\textcolor{white}{\tiny #2}}
 			\ifthenelse{\equal{a#1}{a}}{}{\put(-1,84.5){\pgfuseimage{#1}}}
-			#3				
-			\put(107,-1){
-				\pgfuseimage{fakeciadlogoinpartners}\hspace{0.05cm}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}\hspace{0.05cm}}
+			#3
+			\put(101,-1){
+				\pgfuseimage{fakeutbmlogoinpartners}\hspace{0.05cm}\hspace{0.05cm}\pgfuseimage{fakeublogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}}
 		\end{picture}
 	\end{minipage}}
 }
@@ -214,6 +213,12 @@
 		\item \texttt{handout} and \texttt{nohandout}: enable or disable the generation of the handout document.
 		\end{itemize}
 	\end{block}
+	\begin{block}{Fancy Title Page}
+		\begin{itemize}
+		\item \texttt{fancytitlepage} and \texttt{nofancytitlepage}: enable or disable the generation of the fancy title page.
+		\item \texttt{titlefancyletters} and \texttt{notitlefancyletters}: enable or disable the fancy rendering of the first letters of the words.
+		\end{itemize}
+	\end{block}
 	\alertbox{All the options accepted by Beamer are also accepted.}
 \end{frame}
 
@@ -229,6 +234,36 @@
 	\end{block}
 	\vfill
 	\alertbox{These macros must be put in the preamble of your document.}
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page}
+	\begin{block}{Change the image manually}
+		Use the macro for defining the image: \\
+		{\smaller\texttt{{\textbackslash}pgfdeclareimage[width={\textbackslash}paperwidth]\{pgf image name\}\{image filename\}}} \\[.5cm]
+		Use the macro for changing the image: \\
+		{\smaller\texttt{{\textbackslash}setciadtitlebackground\{x\}\{y\}\{pgf image name\}}}
+	\end{block}
+	\texttt{x} or/and \texttt{y} could be \texttt{\string!} for representing the default position of the image.
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgrounda} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground1}}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundb} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground2}}}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgroundc} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground3}}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundd} \raisebox{-.5\height}{\resizebox{2cm}{!}{\pgfuseimage{CIADtitlebackground4}}}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgrounde} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground5}}}
+	\end{block}
 \end{frame}
 
 \subsection{Authors}
@@ -523,7 +558,7 @@
 	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationtext}.
 \end{frame}
 
-\begin{frame}{Example of continuation\insertcontinuationwith{34}}
+\begin{frame}{Example of continuation \insertcontinuationwith{34}}
 	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
 \end{frame}
 
@@ -749,7 +784,7 @@
 \subsection{{\textbackslash}includegraphics}
 \tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
 
-\begin{frame}{\textbf{{\textbackslash}includegraphics}}
+\begin{frame}{{\textbackslash}includegraphics}
 	\alertbox{The macro \textbf{{\textbackslash}includegraphics} is overridden by the theme.}
 	\begin{itemize}
 	\vspace{2em}
@@ -1018,17 +1053,42 @@
 	\item The CIAD theme (re)defines the macros to put text in exponent or in indice.
 	\item The macros \texttt{{\textbackslash}textup} and \texttt{{\textbackslash}textdown} try to add a space after the text, when it is allowed by the typographic rules (it uses the macro \texttt{{\textbackslash}xspace}).
 	\end{itemize}
+	\smaller
 	\begin{tabularx}{\linewidth}{|l|X|l|X|}
 	\hline
 	\tabularheading\multicolumn{2}{|c|}{\chead{From CIAD theme}} & \multicolumn{2}{c|}{\chead{From \TeX}} \\
 	\hline
 	\texttt{{\textbackslash}textup} & ABC\textup{ABC}D & \texttt{{\textbackslash}textsuperscript} & ABC\textsuperscript{ABC}D \\
 	\hline
-	\texttt{{\textbackslash}textsubscript} & ABC\textsubscript{ABC}D & - & - \\
-	\hline
-	\texttt{{\textbackslash}textdown} & ABC\textdown{ABC}D & - & - \\
+	\texttt{{\textbackslash}textdown} & ABC\textdown{ABC}D & \texttt{{\textbackslash}textsubscript} & ABC\textsubscript{ABC}D \\
 	\hline
 	\end{tabularx}
+\end{frame}
+
+\begin{frame}{Making fancy the first letters of the words}
+	\begin{itemize}
+	\item The CIAD theme defines a macro for making fancy the first letters of the words within a given sentence.
+	\item Macro:\\
+		\texttt{{\textbackslash}colorizedfirstletters\{beamer style\}\{sentence\}}
+	\item \texttt{beamer style} is the name of the beamer style of the first letters. A beamer style could be defined with \texttt{{\textbackslash}setbeamercolor} or \texttt{{\textbackslash}setbeamercolorXXX}.
+	\item \texttt{sentence} is the text to make fancy.
+	\end{itemize}
+	\begin{example}[with style \texttt{alerted text}]
+		\colorizedfirstletters{alerted text}{This is an example of a sentence}
+	\end{example}
+\end{frame}
+
+\begin{frame}{Making fancy the words of a sentence}
+	\begin{itemize}
+	\item The CIAD theme defines a macro for making fancy the words within a given sentence.
+	\item Macro:\\
+		\texttt{{\textbackslash}colorizedtailwords\{beamer style\}\{sentence\}}
+	\item \texttt{beamer style} is the name of the Beamer style of the tail words. A beamer style could be defined with \texttt{{\textbackslash}setbeamercolor} or \texttt{{\textbackslash}setbeamercolorXXX}.
+	\item \texttt{sentence} is the text to make fancy.
+	\end{itemize}
+	\begin{example}[with style \texttt{alerted text}]
+		\colorizedtailwords{alerted text}{This is an example of a sentence}
+	\end{example}
 \end{frame}
 
 \begin{frame}{Quoting the Text}
@@ -1212,6 +1272,12 @@
 	\item The provided path must follow the same syntax as the parameter of the \texttt{{\textbackslash}graphicspath} macro.
 	\item You could reuse the paths from the enclosing context by putting \texttt{{\textbackslash}old} in the environment's parameter. \\
 		\inlineexample{\texttt{\{./path/to/pictures/\}\{./other/path/\},{\textbackslash}old}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{You could locally r\'edefine the picture}
+	\begin{itemize}
+	\item \insertformattedframetitle
 	\end{itemize}
 \end{frame}
 

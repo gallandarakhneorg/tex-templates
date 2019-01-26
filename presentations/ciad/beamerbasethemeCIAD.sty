@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/01/12}
+\gdef\insertciadbeamerthemeversion{2019/01/26}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -54,13 +54,21 @@
 \newboolean{beamer@theme@ciad@handout}
 \setboolean{beamer@theme@ciad@handout}{false}
 
+\newboolean{beamer@theme@ciad@fancytitlepage}
+\setboolean{beamer@theme@ciad@fancytitlepage}{true}
+
+\newboolean{beamer@theme@ciad@titlefancyletters}
+\setboolean{beamer@theme@ciad@titlefancyletters}{true}
+
+\newboolean{beamer@theme@ciad@fancyframetitle}
+\setboolean{beamer@theme@ciad@fancyframetitle}{true}
+
 \newlength{\beamer@theme@ciad@tmplength}
 
 %%%%%%%--------------------------------------
 %%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
 %%%%%%%--------------------------------------
 
-%\RequirePackage[T1]{fontenc}
 \RequirePackage{ifthen}
 \RequirePackage{relsize}
 \RequirePackage{hyphenat}
@@ -78,6 +86,7 @@
 \RequirePackage{textcomp}
 \RequirePackage{colortbl}
 \RequirePackage{translator} % Should be provided by Beamer, be sometime missed
+\RequirePackage{textcase} % for changing the case of the text
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{1}}
@@ -123,6 +132,24 @@
 }
 \DeclareOptionBeamer{nohandout}{%
 	\setboolean{beamer@theme@ciad@handout}{false}%
+}
+\DeclareOptionBeamer{fancytitlepage}{%
+	\setboolean{beamer@theme@ciad@fancytitlepage}{true}%
+}
+\DeclareOptionBeamer{nofancytitlepage}{%
+	\setboolean{beamer@theme@ciad@fancytitlepage}{false}%
+}
+\DeclareOptionBeamer{titlefancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters}{true}%
+}
+\DeclareOptionBeamer{notitlefancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters}{false}%
+}
+\DeclareOptionBeamer{fancyframetitle}{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{true}%
+}
+\DeclareOptionBeamer{nofancyframetitle}{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
 }
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
@@ -183,7 +210,7 @@
 % Wrap the text formatting functions (for inside the titles)
 \long\gdef\@beamer@theme@ciad@wraptextformats#1{%
 	\let\@beamer@theme@ciad@oldtextsc\textsc%
-	\def\textsc##1{\smaller\MakeUppercase{##1}\larger}#1%
+	\def\textsc##1{\smaller\MakeTextUppercase{##1}\larger}#1%
 	\let\textsc\@beamer@theme@ciad@oldtextsc%
 }
 
@@ -267,6 +294,49 @@
 }
 \DeclareRobustCommand{\beamer@theme@ciad@optlist}[1]{%
 	{\beamer@theme@ciad@optlist@parseparams #1====\@nil}%
+}
+
+%-----------------------------------------
+% Internal macro for looping on a text based on separators
+\newif\ifbeamer@theme@ciad@foreach@hasseparator
+\newif\ifbeamer@theme@ciad@foreach@oneseparator
+
+\let\beamer@theme@ciad@foreach@end\relax
+
+\def\beamer@theme@ciad@foreach@rec#1{%
+	{\beamer@theme@ciad@foreach@searchseparator#1\beamer@theme@ciad@foreach@end\@nil}%
+	\ifbeamer@theme@ciad@foreach@hasseparator%
+		\protected@xdef\beamer@theme@ciad@foreach@continue{\protect\beamer@theme@ciad@foreach@rec{\beamer@theme@ciad@foreach@rest}}%
+		\beamer@theme@ciad@foreach@body%
+		\beamer@theme@ciad@foreach@continue%
+	\else%
+		\ifbeamer@theme@ciad@foreach@oneseparator\else%
+			\beamer@theme@ciad@foreach@lastbody%
+		\fi%
+	\fi%
+}
+
+% Loop on parts of a text given a specific separator.
+% In the bodies, the macro \beamer@theme@ciad@foreach@term is the current data.
+% #1: is the separator to consider
+% #2: is the data set
+% #3: is the body to run for each loop, except the last.
+% #4: is the body to run for the last loop.
+\def\beamer@theme@ciad@foreach#1\in#2\do#3\and#4{%
+	\global\beamer@theme@ciad@foreach@oneseparatorfalse%
+	\gdef\beamer@theme@ciad@foreach@searchseparator##1#1##2\@nil{%
+		\gdef\beamer@theme@ciad@foreach@term{##1}%
+		\ifx\beamer@theme@ciad@foreach@end##2%
+			\global\beamer@theme@ciad@foreach@hasseparatorfalse%
+		\else%
+			\gdef\beamer@theme@ciad@foreach@rest{##2}%
+			\global\beamer@theme@ciad@foreach@hasseparatortrue%
+			\global\beamer@theme@ciad@foreach@oneseparatortrue%
+		\fi%
+	}%
+	\gdef\beamer@theme@ciad@foreach@body{#3}%
+	\gdef\beamer@theme@ciad@foreach@lastbody{#4}%
+	\beamer@theme@ciad@foreach@rec{#2#1}%
 }
 
 %%%%%%%--------------------------------------
@@ -510,9 +580,15 @@
 \pgfdeclareimage[height=.5cm]{ublogoinpartners}{ublogo}
 \pgfdeclareimage[height=.5cm]{ubfclogoinpartners}{ubfclogo}
 
+\pgfdeclareimage[height=.5cm]{ciadgraylogoinpartners}{ciadgraylogo}
+\pgfdeclareimage[height=.5cm]{utbmgraylogoinpartners}{utbmgraylogo}
+\pgfdeclareimage[height=.5cm]{ubgraylogoinpartners}{ubgraylogo}
+\pgfdeclareimage[height=.5cm]{ubfcgraylogoinpartners}{ubfcgraylogo}
+
 \newcommand{\insertinstitutelogosinfootline}[1]{%
-	\pgfuseimage{ciadlogoinpartners}#1%
-	\pgfuseimage{ubfclogoinpartners}#1%
+	\pgfuseimage{utbmgraylogoinpartners}#1%
+	\pgfuseimage{ubgraylogoinpartners}#1%
+	\pgfuseimage{ubfcgraylogoinpartners}#1%
 }
 
 %-----------------------------------------
@@ -1831,9 +1907,13 @@
 %---------------------------------------------
 % Continuation
 
-\newcommand{\insertcontinuationwith}[1]{%
+\def\beamer@theme@ciad@insertcontinuationwith#1{%
 	\global\beamer@autobreakcount=#1%
-	\usebeamertemplate****{}%
+	(\##1)%\usebeamertemplate****{}%
+}
+
+\newcommand{\insertcontinuationwith}[1]{%
+	\beamer@theme@ciad@insertcontinuationwith{#1}%
 }
 
 %---------------------------------------------
@@ -1882,5 +1962,130 @@
 	\global\authordescriptiontrue%
 }
 \gdef\insertauthordescription{\beamer@theme@ciad@authordescription}
+
+%-----------------------------------------
+% Title page
+
+\gdef\beamer@theme@ciad@baselinefortitleimage#1{}
+
+% #1: x position
+% #2: y position
+% #3: PGF image name
+\newcommand{\setciadtitlebackground}[3]{%
+	\ifthenelse{\equal{=!}{=#2}}{%
+		\ifthenelse{\equal{=!}{=#1}}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(-28.5,-51.5){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(#1,-51.5){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}%
+	}{%
+		\ifthenelse{\equal{=!}{=#1}}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(-28.5,#2){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(#1,#2){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}%
+	}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground1}{ciad-bg1}
+\newcommand{\setciadtitlebackgrounda}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground1}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground2}{ciad-bg2}
+\newcommand{\setciadtitlebackgroundb}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground2}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground3}{ciad-bg3}
+\newcommand{\setciadtitlebackgroundc}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground3}%
+}
+
+\pgfdeclareimage[width=.4\paperwidth]{CIADtitlebackground4}{ciad-bg4}
+\newcommand{\setciadtitlebackgroundd}{%
+	\setciadtitlebackground{0}{!}{CIADtitlebackground4}%
+}
+
+\pgfdeclareimage[width=.8\paperwidth]{CIADtitlebackground5}{ciad-bg5}
+\newcommand{\setciadtitlebackgrounde}{%
+	\setciadtitlebackground{15}{-30}{CIADtitlebackground5}%
+}
+
+% Default image
+\setciadtitlebackgrounda
+
+
+%-----------------------------------------
+% Colorize the first letters of the words
+
+\def\beamer@theme@ciad@firsttailletters#1#2\@nil#3{%
+	{\usebeamercolor[fg]{#3}#1}#2%
+}
+
+% #1: name of the color of the first letters
+% #2: the text to colorize
+\newcommand{\colorizedfirstletters}[2]{%
+	\beamer@theme@ciad@foreach{ }\in#2 \do%
+		{\expandafter\beamer@theme@ciad@firsttailletters\beamer@theme@ciad@foreach@term\@nil{#1}\xspace}\and%
+		{}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionalfirsttailletters}[2][maintitle fancy letter]{%
+	\ifthenelse{\boolean{beamer@theme@ciad@titlefancyletters}}{%
+		\protected@edef\beamer@theme@ciad@firsttailletters@tmp{\protect\colorizedfirstletters{#1}{#2}}%
+	}{%
+		\def\beamer@theme@ciad@firsttailletters@tmp{#2}%
+	}%
+	\beamer@theme@ciad@firsttailletters@tmp%
+}
+
+
+%-----------------------------------------
+% Colorize the second and next words
+
+\def\beamer@theme@ciad@tailwords#1 #2\@nil#3#4{%
+	{#4{#1} {\usebeamercolor[fg]{#3}#4{#2}}}%
+}
+
+% #1: name of the color of the second and next words
+% #2: the text to colorize
+\newcommand{\colorizedtailwords}[2]{%
+	\beamer@theme@ciad@tailwords#2 \@nil{#1}{}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionaltailwords@colorize}[2]{%
+	\beamer@theme@ciad@tailwords#2 \@nil{#1}{\MakeTextUppercase}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionaltailwords}[2][frametitle fancy words]{%
+	\ifthenelse{\boolean{beamer@theme@ciad@fancyframetitle}}{%
+		\protected@edef\beamer@theme@ciad@tailwords@tmp{\protect\beamer@theme@ciad@conditionaltailwords@colorize{#1}{#2}}%
+	}{%
+		\def\beamer@theme@ciad@tailwords@tmp{#2}%
+	}%
+	\beamer@theme@ciad@tailwords@tmp%
+}
+
+\newcommand{\insertformattedframetitle}{%
+	\expandafter\beamer@theme@ciad@conditionaltailwords\insertframetitle%
+	%\insertframetitle%
+}%
 
 \endinput
