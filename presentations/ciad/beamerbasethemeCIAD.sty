@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/01/26}
+\gdef\insertciadbeamerthemeversion{2019/01/27}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -2028,8 +2028,28 @@
 	\setciadtitlebackground{15}{-30}{CIADtitlebackground5}%
 }
 
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground6}{ciad-bg6}
+\newcommand{\setciadtitlebackgroundf}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground6}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground7}{ciad-bg7}
+\newcommand{\setciadtitlebackgroundg}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground7}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground8}{ciad-bg8}
+\newcommand{\setciadtitlebackgroundh}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground8}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground9}{ciad-bg9}
+\newcommand{\setciadtitlebackgroundi}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground9}%
+}
+
 % Default image
-\setciadtitlebackgrounda
+\setciadtitlebackgroundi
 
 
 %-----------------------------------------
@@ -2055,7 +2075,6 @@
 	}%
 	\beamer@theme@ciad@firsttailletters@tmp%
 }
-
 
 %-----------------------------------------
 % Colorize the second and next words

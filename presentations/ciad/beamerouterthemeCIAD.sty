@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2019/01/26 Beamer Outer 'CIAD' Theme]
+   [2019/01/27 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -353,19 +353,23 @@
 			\usebeamertemplate{title page}%
 			\gdef\beamer@theme@ciad@outer@offsety{0}%
 		}{%
+			\ifcase\value{@beamer@theme@ciad@finalslidelabel}%
+				\def\beamer@theme@ciad@outer@thanks@tmp{\translate{Thanks}}%
+			\or%
+				\def\beamer@theme@ciad@outer@thanks@tmp{\translate{Questions}}%
+			\or%
+				\def\beamer@theme@ciad@outer@thanks@tmp{%
+					\beamer@theme@ciad@conditionalfirsttailletters\beamer@theme@ciad@label@finalslidelabel%
+				}
+			\else%
+				\def\beamer@theme@ciad@outer@thanks@tmp{}%
+				\errmessage{Package Beamer/CIAD: Unsupported type of message for the final slide.}%
+			\fi%
 			\begin{picture}(0,10)(0,0)%
 				% Message
 				\put(-20,-38.5){\usebeamercolor[fg]{maintitle}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
 					\nohyphens{\begin{center}\LARGE\textbf{%
-						\ifcase\value{@beamer@theme@ciad@finalslidelabel}%
-							\beamer@theme@ciad@conditionalfirsttailletters{\translate{Thanks}}%
-						\or%
-							\beamer@theme@ciad@conditionalfirsttailletters{\translate{Questions}}%
-						\or%
-							\beamer@theme@ciad@conditionalfirsttailletters{\beamer@theme@ciad@label@finalslidelabel}%
-						\else%
-							\errmessage{Package Beamer/CIAD: Unsupported type of message for the final slide.}%
-						\fi%
+						\beamer@theme@ciad@outer@thanks@tmp%
 					}\end{center}}}}%
 					% Foot background
 
