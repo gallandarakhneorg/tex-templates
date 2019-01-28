@@ -148,9 +148,16 @@
 \DeclareOptionBeamer{fancyframetitle}{%
 	\setboolean{beamer@theme@ciad@fancyframetitle}{true}%
 }
+\define@key{beamerframe}{fancyframetitle}[true]{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{#1}%
+}
 \DeclareOptionBeamer{nofancyframetitle}{%
 	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
 }
+\define@key{beamerframe}{nofancyframetitle}[]{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
+}
+
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
 
@@ -1444,8 +1451,7 @@
 }
 \newcommand{\beamer@theme@ciad@bibliographyslide}[1]{%
 	\section{\bibname}%
-	\begin{frame}[t,allowframebreaks]%
-	\frametitle{\bibname}%
+	\begin{frame}[t,allowframebreaks,fancyframetitle=false]{\bibname}%
 	\tiny%
 	\ifbeamer@theme@ciad@bibliographystyle\else%
 		\beamer@theme@ciad@oldbibliographystyle{ciad}%
