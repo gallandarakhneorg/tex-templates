@@ -28,7 +28,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{ciadbeamer}
-   [2019/01/27 Class for CIAD slides]
+   [2019/01/29 Class for CIAD slides]
 
 \LoadClassWithOptions{beamer}
 

@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2019/01/27 Beamer Outer 'CIAD' Theme]
+   [2019/01/29 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -248,7 +248,7 @@
 			\fi%
 			\expandafter\put(\@tmp,26){\usebeamercolor[fg]{frametitle}%
 				\parbox[c]{\beamer@theme@ciad@outer@tmplength}{%
-				\nohyphens{\begin{flushleft}\large\bf\@beamer@theme@ciad@wraptextformats{\insertformattedframetitle}%
+				\nohyphens{\begin{flushleft}\normalsize\bf\@beamer@theme@ciad@wraptextformats{\setstretch{.75}\insertformattedframetitle}%
 				\ifthenelse{\equal{a\insertframesubtitle}{a}}{{}}{%
 					\usebeamercolor[fg]{framesubtitle}\small\bf~--~\@beamer@theme@ciad@wraptextformats{\insertframesubtitle}}%
 				\end{flushleft}}%
