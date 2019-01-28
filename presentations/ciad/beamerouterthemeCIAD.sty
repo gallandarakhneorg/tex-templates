@@ -313,18 +313,17 @@
 
 \setbeamertemplate{part page}{%
 		\begin{picture}(0,0)(0,0)%
-		% Separation line
-		\put(-28.45,-167.3){%
+		% Foot background
+		\put(-28.45,-167.5){%-172.9
 			\begin{tikzpicture}%
-			\draw[white] (0,0) -- (13,0);
-			\draw[CIADgreen] (0.2,0.6) -- (12.6,0.6);
+			\fill[CIADlightgray](0,0) rectangle (13,0.6);%
 			\end{tikzpicture}%
-		}%
+		}
 		% Institute
-		\put(-20,-161){\tiny\parbox[c]{\beamer@theme@ciad@outer@linewidth}{\begin{flushleft}%
+		\put(-20,-161.6){\tiny\parbox[c]{\beamer@theme@ciad@outer@linewidth}{\begin{flushleft}%
 			{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}\end{flushleft}}}%
-		% Partners
-		\put(175,-166.2){\parbox[b]{5.4cm}{\mbox{}\hfill%
+		% Partner logos
+		\put(175,-166.3){\parbox[b]{5.4cm}{\mbox{}\hfill%
 					\beamer@theme@ciad@partnerlogo%
 					\ifthenelse{\boolean{beamer@theme@ciad@lablogo}}{%
 						\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
