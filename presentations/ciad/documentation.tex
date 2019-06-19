@@ -22,6 +22,7 @@
 \pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmgraylogo}
 \pgfdeclareimage[height=.2cm]{fakeublogoinpartners}{ubgraylogo}
 \pgfdeclareimage[height=.2cm]{fakeubfclogoinpartners}{ubfcgraylogo}
+\pgfdeclareimage[height=.2cm]{fakecarnotlogoinpartners}{carnotgraylogo}
 \pgfdeclareimage[height=.25cm]{fakeciadlogointitle}{ciadlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{utbmlogoinv}
 \pgfdeclareimage[height=.25cm]{fakeublogointitle}{ublogoinv}
@@ -44,7 +45,7 @@
 			\ifthenelse{\equal{a#1}{a}}{}{\put(-1,84.5){\pgfuseimage{#1}}}
 			#3
 			\put(101,-1){
-				\pgfuseimage{fakeutbmlogoinpartners}\hspace{0.05cm}\hspace{0.05cm}\pgfuseimage{fakeublogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}}
+				\pgfuseimage{fakeutbmlogoinpartners}\hspace{0.05cm}\hspace{0.05cm}\pgfuseimage{fakeublogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}\hspace{0.05cm}\pgfuseimage{fakecarnotlogoinpartners}}
 		\end{picture}
 	\end{minipage}}
 }
@@ -249,42 +250,72 @@
 \begin{frame}{Change the image of the fancy title page}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgrounda} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground1}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundb} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground2}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground1\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundb} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground2}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground2\}}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgroundc} \raisebox{-.5\height}{\resizebox{5cm}{!}{\pgfuseimage{CIADtitlebackground3}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundd} \raisebox{-.5\height}{\resizebox{2cm}{!}{\pgfuseimage{CIADtitlebackground4}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground3\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundd} \raisebox{-.5\height}{\resizebox{2cm}{!}{\pgfuseimage{CIADtitlebackground4}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground4\}}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgrounde} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground5}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundf} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground6}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground5\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundf} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground6}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground6\}}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgroundg} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground7}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundh} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground8}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground7\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundh} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground8}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground8\}}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgroundi} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground9}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundj} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground10}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground9\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundj} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground10}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground10\}}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
 	\begin{block}{Use a predefined image}
 		\texttt{{\textbackslash}setciadtitlebackgroundk} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground11}}} \\
-		\texttt{{\textbackslash}setciadtitlebackgroundl} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground12}}}
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground11\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundl} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground12}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground12\}}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgroundm} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground13}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground13\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundn} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground14}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground14\}}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgroundo} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground15}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground15\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundp} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground16}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground16\}}
 	\end{block}
 \end{frame}
 
