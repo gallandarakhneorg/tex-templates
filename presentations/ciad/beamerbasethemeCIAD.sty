@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/05/28}
+\gdef\insertciadbeamerthemeversion{2019/06/19}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -583,20 +583,23 @@
 
 \usefootlinewithdocumentname
 
-\pgfdeclareimage[height=.5cm]{ciadlogoinpartners}{ciadlogo}
-\pgfdeclareimage[height=.5cm]{utbmlogoinpartners}{utbmlogo}
-\pgfdeclareimage[height=.5cm]{ublogoinpartners}{ublogo}
-\pgfdeclareimage[height=.5cm]{ubfclogoinpartners}{ubfclogo}
+\pgfdeclareimage[height=.35cm]{ciadlogoinpartners}{ciadlogo}
+\pgfdeclareimage[height=.35cm]{utbmlogoinpartners}{utbmlogo}
+\pgfdeclareimage[height=.35cm]{ublogoinpartners}{ublogo}
+\pgfdeclareimage[height=.35cm]{ubfclogoinpartners}{ubfclogo}
+\pgfdeclareimage[height=.35cm]{carnotlogoinpartners}{carnotlogo}
 
-\pgfdeclareimage[height=.5cm]{ciadgraylogoinpartners}{ciadgraylogo}
-\pgfdeclareimage[height=.5cm]{utbmgraylogoinpartners}{utbmgraylogo}
-\pgfdeclareimage[height=.5cm]{ubgraylogoinpartners}{ubgraylogo}
-\pgfdeclareimage[height=.5cm]{ubfcgraylogoinpartners}{ubfcgraylogo}
+\pgfdeclareimage[height=.35cm]{ciadgraylogoinpartners}{ciadgraylogo}
+\pgfdeclareimage[height=.35cm]{utbmgraylogoinpartners}{utbmgraylogo}
+\pgfdeclareimage[height=.35cm]{ubgraylogoinpartners}{ubgraylogo}
+\pgfdeclareimage[height=.35cm]{ubfcgraylogoinpartners}{ubfcgraylogo}
+\pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{carnotgraylogo}
 
 \newcommand{\insertinstitutelogosinfootline}[1]{%
 	\pgfuseimage{utbmgraylogoinpartners}#1%
 	\pgfuseimage{ubgraylogoinpartners}#1%
 	\pgfuseimage{ubfcgraylogoinpartners}#1%
+	\pgfuseimage{carnotgraylogoinpartners}#1%
 }
 
 %-----------------------------------------
@@ -1071,7 +1074,7 @@
 \newlength{\beamer@theme@ciad@partnerlogo@margin}
 \setlength{\beamer@theme@ciad@partnerlogo@margin}{.1cm}
 \gdef\beamer@theme@ciad@partnerlogo{}
-\newcommand{\partnerlogo}[2][height=.5cm]{%
+\newcommand{\partnerlogo}[2][height=.35cm]{%
 	\ifcsname pgf@image@CIADpartnerlogo@#2!\endcsname%
 	\else%
 		\resolvepicturename{#2}%
