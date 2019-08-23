@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/06/19}
+\gdef\insertciadbeamerthemeversion{2019/08/23}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -531,7 +531,7 @@
 \setlength\beamer@theme@ciad@outer@footlinewidth{\paperwidth}
 \addtolength{\beamer@theme@ciad@outer@footlinewidth}{-1em}
 \ifthenelse{\boolean{beamer@theme@ciad@lablogo}}{%
-	\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-2.9cm}%
+	\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-4.6cm}%
 }{%
 	\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-1em}%
 }
@@ -2075,7 +2075,7 @@
 
 \pgfdeclareimage[width=\paperwidth]{CIADtitlebackground13}{ciad-bg13}
 \newcommand{\setciadtitlebackgroundm}{%
-	\setciadtitlebackground{!}{!}{CIADtitlebackground13}%
+	\setciadtitlebackground{!}{-28}{CIADtitlebackground13}%
 }
 
 \pgfdeclareimage[width=\paperwidth]{CIADtitlebackground14}{ciad-bg14}
