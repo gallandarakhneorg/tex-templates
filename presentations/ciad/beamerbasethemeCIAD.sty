@@ -2114,7 +2114,12 @@
 % Colorize the first letters of the words
 
 \def\beamer@theme@ciad@firsttailletters#1#2\@nil#3{%
-	{\usebeamercolor[fg]{#3}#1}#2%
+	\testuppercase{#1}%
+	\ifuppercase%
+		{\usebeamercolor[fg]{#3}#1}#2%
+	\else%
+		#1#2%
+	\fi%
 }
 
 % #1: name of the color of the first letters
@@ -2148,7 +2153,7 @@
 }
 
 \newcommand{\beamer@theme@ciad@conditionaltailwords@colorize}[2]{%
-	\beamer@theme@ciad@tailwords#2 \@nil{#1}{\MakeTextUppercase}%
+	\beamer@theme@ciad@tailwords#2 \@nil{#1}{\beamer@theme@ciad@makeuppercase}%
 }
 
 \newcommand{\beamer@theme@ciad@conditionaltailwords}[2][frametitle fancy words]{%
@@ -2162,7 +2167,6 @@
 
 \newcommand{\insertformattedframetitle}{%
 	\expandafter\beamer@theme@ciad@conditionaltailwords\insertframetitle%
-	%\insertframetitle%
-}%
+}
 
 \endinput
