@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/08/23}
+\gdef\insertciadbeamerthemeversion{2019/08/24}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -60,6 +60,9 @@
 \newboolean{beamer@theme@ciad@titlefancyletters}
 \setboolean{beamer@theme@ciad@titlefancyletters}{true}
 
+\newboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}
+\setboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}{true}
+
 \newboolean{beamer@theme@ciad@fancyframetitle}
 \setboolean{beamer@theme@ciad@fancyframetitle}{true}
 
@@ -87,7 +90,8 @@
 \RequirePackage{colortbl}
 \RequirePackage{translator} % Should be provided by Beamer, be sometime missed
 \RequirePackage{textcase} % for changing the case of the text
-\RequirePackage{setspace} % for chaging the interline space
+\RequirePackage{stringstrings} % provides lot of functions for manipulating strings
+\RequirePackage{setspace} % for changing the interline space
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{1}}
@@ -146,6 +150,9 @@
 \DeclareOptionBeamer{notitlefancyletters}{%
 	\setboolean{beamer@theme@ciad@titlefancyletters}{false}%
 }
+\DeclareOptionBeamer{allfancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}{false}%
+}
 \DeclareOptionBeamer{fancyframetitle}{%
 	\setboolean{beamer@theme@ciad@fancyframetitle}{true}%
 }
@@ -178,6 +185,12 @@
 %-----------------------------------------
 % Change the description of the PDF creator.
 \hypersetup{pdfcreator={Beamer and CIAD Theme}}
+
+%-----------------------------------------
+% Internal implementation of the upper case macro.
+\newcommand{\beamer@theme@ciad@makeuppercase}[1]{%
+	\MakeTextUppercase{#1}%
+}
 
 %-----------------------------------------
 % Override the graphics macro for having a default width set to \linewidth
@@ -218,7 +231,7 @@
 % Wrap the text formatting functions (for inside the titles)
 \long\gdef\@beamer@theme@ciad@wraptextformats#1{%
 	\let\@beamer@theme@ciad@oldtextsc\textsc%
-	\def\textsc##1{\smaller\MakeTextUppercase{##1}\larger}#1%
+	\def\textsc##1{\smaller\beamer@theme@ciad@makeuppercase{##1}\larger}#1%
 	\let\textsc\@beamer@theme@ciad@oldtextsc%
 }
 
