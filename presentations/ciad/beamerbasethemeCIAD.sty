@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/08/24}
+\gdef\insertciadbeamerthemeversion{2019/08/26}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -89,9 +89,9 @@
 \RequirePackage{textcomp}
 \RequirePackage{colortbl}
 \RequirePackage{translator} % Should be provided by Beamer, be sometime missed
-\RequirePackage{textcase} % for changing the case of the text
 \RequirePackage{stringstrings} % provides lot of functions for manipulating strings
 \RequirePackage{setspace} % for changing the interline space
+\RequirePackage{textcase} % for making upper case the text
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{0}}
 \DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{1}}
@@ -185,12 +185,6 @@
 %-----------------------------------------
 % Change the description of the PDF creator.
 \hypersetup{pdfcreator={Beamer and CIAD Theme}}
-
-%-----------------------------------------
-% Internal implementation of the upper case macro.
-\newcommand{\beamer@theme@ciad@makeuppercase}[1]{%
-	\MakeTextUppercase{#1}%
-}
 
 %-----------------------------------------
 % Override the graphics macro for having a default width set to \linewidth
@@ -2167,6 +2161,13 @@
 
 \newcommand{\insertformattedframetitle}{%
 	\expandafter\beamer@theme@ciad@conditionaltailwords\insertframetitle%
+}
+
+%-----------------------------------------
+% Internal implementation of the upper case macro.
+
+\newcommand{\beamer@theme@ciad@makeuppercase}[1]{%
+	\MakeTextUppercase{#1}%
 }
 
 \endinput
