@@ -798,6 +798,37 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}[t]{Slide with a Single Embedded Video}
+	\begin{itemize}
+	\item The CIAD theme provides a macro that permits to display a \emph{embedded video} on the entire slide. This video could be displayed during the show with a viewer such as PDFPC: \\
+		\texttt{{\textbackslash}embeddedvideoslide[options]\{Title of the slide\}\{video file\}\{image file\}}
+	\item The size of the picture is adjusted to the slide drawing area.
+	\item Example: \texttt{{\textbackslash}embeddedvideoslide\{XyZ\}\{myvideo\}\{ciadlogo\}} 
+	\item The given image is displayed if the viewer cannot show up the video.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Slide with a Single Embedded Video \insertcontinuationtext}
+	\begin{itemize}
+	\item Options for \texttt{{\textbackslash}embeddedvideoslide} are:
+		\begin{itemize}
+		\item \texttt{width=<length>}, specifies the width of the video.
+		\vfill
+		\item \texttt{height=<length>}, specifies the height of the video.
+		\vfill
+		\item \texttt{scale=<float>}, specifies the scaling factor of the video.
+		\vfill
+		\item \texttt{valign=t|c|b}, specifies the vertical alignment of the video (\texttt{t}: top, \texttt{c}: center, \texttt{b}: bottom).
+		\vfill
+		\item \texttt{halign=l|c|r}, specifies the horizontal alignment of the video (\texttt{l}: left, \texttt{c}: center, \texttt{r}: right).
+		\vfill
+		\item \texttt{label=<text>}, specifies the label for the frame.
+		\vfill
+		\item \texttt{subtitle=<text>}, specifies the subtitle for the frame.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
 \subsection{Final Slide}
 
 \begin{frame}{A Slide at the End}
@@ -1263,7 +1294,7 @@
 
 \begin{frame}[t]{Embedded Video}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to include a video link into the PDF that could be displayed during the show with a viewer such as PDFPS.
+	\item The CIAD theme provides a convenient macro to include a video link into the PDF that could be displayed during the show with a viewer such as PDFPC.
 	\item \texttt{{\textbackslash}embeddedvideo[options]\{video\_path\}\{img\_path\}}
 		\begin{itemize}
 		\item Display the image if the viewer cannot show up the video, or the video itself.
@@ -1273,7 +1304,6 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Low-level Macros}

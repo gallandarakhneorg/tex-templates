@@ -1700,6 +1700,21 @@
 		\includegraphics[width=\beamer@theme@ciad@embeddedvideo@width]{#3}}%
 }
 
+%-----------------------------------------
+% Embedded video slide
+
+% #1 = options (default: view=autostart&loop).
+% #2 = title of the frame.
+% #3 = path to the video file.
+% #3 = path to the image that serves as video snapshot.
+\newcommand{\embeddedvideoslide}[4][]{%
+	\gdef\beamer@theme@ciad@embeddedvideo@view{autostart&loop}%
+	\setkeys{beamerthemeciadembeddedvideo}{#1}%
+	%\href{run:#2?\beamer@theme@ciad@embeddedvideo@view}{%
+	\beamer@theme@ciad@figureslide[#1]{#2}{#4}{%
+		\href{run:#3?\beamer@theme@ciad@embeddedvideo@view}{\usebox{\beamer@theme@ciad@figureslide@box}}%
+	}%
+}
 
 %-----------------------------------------
 % Label for the final slide
