@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/08/26}
+\gdef\insertciadbeamerthemeversion{2019/09/20}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -50,6 +50,18 @@
 
 \newboolean{beamer@theme@ciad@lablogo}
 \setboolean{beamer@theme@ciad@lablogo}{true}
+
+\newboolean{beamer@theme@ciad@utbmlogo}
+\setboolean{beamer@theme@ciad@utbmlogo}{true}
+
+\newboolean{beamer@theme@ciad@ublogo}
+\setboolean{beamer@theme@ciad@ublogo}{false}
+
+\newboolean{beamer@theme@ciad@ubfclogo}
+\setboolean{beamer@theme@ciad@ubfclogo}{true}
+
+\newboolean{beamer@theme@ciad@carnotlogo}
+\setboolean{beamer@theme@ciad@carnotlogo}{true}
 
 \newboolean{beamer@theme@ciad@handout}
 \setboolean{beamer@theme@ciad@handout}{false}
@@ -131,6 +143,30 @@
 }
 \DeclareOptionBeamer{nolablogo}{%
 	\setboolean{beamer@theme@ciad@lablogo}{false}%
+}
+\DeclareOptionBeamer{utbmlogo}{%
+	\setboolean{beamer@theme@ciad@utbmlogo}{true}%
+}
+\DeclareOptionBeamer{noutbmlogo}{%
+	\setboolean{beamer@theme@ciad@utbmlogo}{false}%
+}
+\DeclareOptionBeamer{ublogo}{%
+	\setboolean{beamer@theme@ciad@ublogo}{true}%
+}
+\DeclareOptionBeamer{noublogo}{%
+	\setboolean{beamer@theme@ciad@ublogo}{false}%
+}
+\DeclareOptionBeamer{ubfclogo}{%
+	\setboolean{beamer@theme@ciad@ubfclogo}{true}%
+}
+\DeclareOptionBeamer{noubfclogo}{%
+	\setboolean{beamer@theme@ciad@ubfclogo}{false}%
+}
+\DeclareOptionBeamer{carnotlogo}{%
+	\setboolean{beamer@theme@ciad@carnotlogo}{true}%
+}
+\DeclareOptionBeamer{nocarnotlogo}{%
+	\setboolean{beamer@theme@ciad@carnotlogo}{false}%
 }
 \DeclareOptionBeamer{handout}{%
 	\setboolean{beamer@theme@ciad@handout}{true}%
@@ -603,10 +639,18 @@
 \pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{carnotgraylogo}
 
 \newcommand{\insertinstitutelogosinfootline}[1]{%
-	\pgfuseimage{utbmgraylogoinpartners}#1%
-	\pgfuseimage{ubgraylogoinpartners}#1%
-	\pgfuseimage{ubfcgraylogoinpartners}#1%
-	\pgfuseimage{carnotgraylogoinpartners}#1%
+	\ifthenelse{\boolean{beamer@theme@ciad@utbmlogo}}{%
+		\pgfuseimage{utbmgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@ublogo}}{%
+		\pgfuseimage{ubgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@ubfclogo}}{%
+		\pgfuseimage{ubfcgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@carnotlogo}}{%
+		\pgfuseimage{carnotgraylogoinpartners}#1%
+	}{}%
 }
 
 %-----------------------------------------
