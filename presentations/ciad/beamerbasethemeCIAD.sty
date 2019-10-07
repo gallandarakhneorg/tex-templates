@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/09/20}
+\gdef\insertciadbeamerthemeversion{2019/10/07}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -2233,5 +2233,46 @@
 \newcommand{\beamer@theme@ciad@makeuppercase}[1]{%
 	\MakeTextUppercase{#1}%
 }
+
+%-----------------------------------------
+% Sectioning macros with "limited" view on the sections into the TOC.
+
+\gdef\beamer@theme@ciad@rsection@limits{}
+
+\let\beamer@theme@ciad@rsection@original@section\section
+\def\beamer@theme@ciad@rsection@sectioni<#1>{%
+	\xdef\@tableofcontentslidesectionlimits{,sections={#1}}\beamer@theme@ciad@rsection@original@section%
+}
+\def\beamer@theme@ciad@rsection@sectionii{%
+	\gdef\@tableofcontentslidesectionlimits{}\beamer@theme@ciad@rsection@original@section%
+}
+% \section<range>[toc title]{title}
+\gdef\section{\@ifnextchar<\beamer@theme@ciad@rsection@sectioni\beamer@theme@ciad@rsection@sectionii}
+
+\let\beamer@theme@ciad@rsection@original@part\part
+\gdef\part{\gdef\@tableofcontentslidesectionlimits{}\beamer@theme@ciad@rsection@original@part}
+
+%-----------------------------------------
+% Macros for showing TOC for sections, subsections.
+
+\newcommand{\sectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\newcommand{\subsectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\newcommand{\subsubsectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={show/shaded/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+
 
 \endinput

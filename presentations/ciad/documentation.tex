@@ -643,6 +643,16 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Table of Contents for Sections}
+	\begin{itemize}
+	\item The CIAD theme provides convenient macros for showing the TOC for sections: to insert a table of contents into a slide: \\
+		\texttt{{\textbackslash}sectiontableofcontentslide} \\
+		\texttt{{\textbackslash}subsectiontableofcontentslide} \\
+		\texttt{{\textbackslash}subsubsectiontableofcontentslide}
+	\item They provide standard show/hide configurations for each section type.
+	\end{itemize}
+\end{frame}
+
 \subsection{Part Sectioning}
 
 \begin{frame}{Part Sectioning}
@@ -678,6 +688,23 @@
 		\texttt{{\textbackslash}partprefix[{\textbackslash}arabic\{part\}]\{Chapter\}} \\
 		produces: ``Chapter 1'', ``Chapter 2'', \dots
 	\end{example}
+\end{frame}
+
+\subsection{Limit sections in TOC}
+
+\begin{frame}{Limit Sections in TOC}
+	\begin{itemize}
+	\item Sometimes the number of sections into the TOC is too high for enabling to show all the sections' titles on the slide.
+	\item It is possible to specifiy a range of section numbers that should appear on the TOC slide. The new optional argument \texttt{<>} of \texttt{{\textbackslash}section}: \\
+		\texttt{{\textbackslash}section<range>[title in toc]\{title\}} \\
+		\texttt{{\textbackslash}section<range>*[title in toc]\{title\}}
+	\vfill
+	\item Arguments are: \begin{itemize}
+		\item \texttt{range}: the range of section numbers to show on the TOC.
+		\item \texttt{title in toc}: the title of the section into the TOC.
+		\item \texttt{title}: the standard title of the section.
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \subsection{Appendix}
