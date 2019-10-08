@@ -44,7 +44,7 @@
 			\put(10,86){\textcolor{white}{\tiny #2}}
 			\ifthenelse{\equal{a#1}{a}}{}{\put(-1,84.5){\pgfuseimage{#1}}}
 			#3
-			\put(101,-1){
+			\put(85,-1){
 				\pgfuseimage{fakeutbmlogoinpartners}\hspace{0.05cm}\hspace{0.05cm}\pgfuseimage{fakeublogoinpartners}\hspace{0.05cm}\pgfuseimage{fakeubfclogoinpartners}\hspace{0.05cm}\pgfuseimage{fakecarnotlogoinpartners}}
 		\end{picture}
 	\end{minipage}}
@@ -118,6 +118,8 @@
 		\item \texttt{CIADdarkgray} : \fbox{\textcolor{CIADdarkgray}{Example}} \colorbox{CIADdarkgray}{\textcolor{white}{Example}}
 		\vfill
 		\item \texttt{CIADlightgray} : \fbox{\textcolor{CIADlightgray}{Example}} \colorbox{CIADlightgray}{\textcolor{black}{Example}}
+		\vfill
+		\item \texttt{CIADlightestgray} : \fbox{\textcolor{CIADlightestgray}{Example}} \colorbox{CIADlightestgray}{\textcolor{black}{Example}}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -326,6 +328,15 @@
 	\end{block}
 \end{frame}
 
+\begin{frame}{Change the image of the fancy title page \insertcontinuationtext}
+	\begin{block}{Use a predefined image}
+		\texttt{{\textbackslash}setciadtitlebackgroundq} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground17}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground17\}} \\
+		\texttt{{\textbackslash}setciadtitlebackgroundr} \raisebox{-.5\height}{\resizebox{4cm}{!}{\pgfuseimage{CIADtitlebackground18}}} \\
+		\texttt{\textbackslash{}pgfuseimage\{CIADtitlebackground18\}}
+	\end{block}
+\end{frame}
+
 \subsection{Authors}
 
 \begin{frame}{Authors}
@@ -435,9 +446,8 @@
 	\item the \texttt{short} name is displayed inside the foot line of the slides.
 	\vspace{1em}
 	\item The default full name is: \\
-		\small\textbf{Universit\'e de Bourgogne Franche-Comt\'e - CIAD - UTBM}, \\
-		\small90010 Belfort cedex, France - \url{http://ciadlab.fr}
-	\item The default short name is: CIAD.
+		{\smaller\insertinstitute}
+	\item The default short name is: \insertshortinstitute
 	\end{itemize}
 \end{frame}
 
@@ -697,6 +707,7 @@
 	\item Sometimes the number of sections into the TOC is too high for enabling to show all the sections' titles on the slide.
 	\item It is possible to specifiy a range of section numbers that should appear on the TOC slide. The new optional argument \texttt{<>} of \texttt{{\textbackslash}section}: \\
 		\texttt{{\textbackslash}section<range>[title in toc]\{title\}} \\
+		\texttt{{\textbackslash}section*<range>[title in toc]\{title\}}
 		\texttt{{\textbackslash}section<range>*[title in toc]\{title\}}
 	\vfill
 	\item Arguments are: \begin{itemize}
@@ -704,6 +715,7 @@
 		\item \texttt{title in toc}: the title of the section into the TOC.
 		\item \texttt{title}: the standard title of the section.
 		\end{itemize}
+	\item The `'starred'' macros above ignore the \texttt{title in toc} argument and do not add the section into the TOC.
 	\end{itemize}
 \end{frame}
 

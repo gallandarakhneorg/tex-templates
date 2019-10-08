@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2019/08/26 Beamer Outer 'CIAD' Theme]
+   [2019/10/08 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -50,7 +50,7 @@
 \setlength\beamer@theme@ciad@outer@sideboxwidth{6.8cm}
 
 \newlength\beamer@theme@ciad@outer@topalignmentspan
-\setlength\beamer@theme@ciad@outer@topalignmentspan{-.82cm}
+\setlength\beamer@theme@ciad@outer@topalignmentspan{-.78cm}%-.82cm
 \newlength\beamer@theme@ciad@outer@centeralignmentspan
 \setlength\beamer@theme@ciad@outer@centeralignmentspan{-1ex}
 \newlength\beamer@theme@ciad@outer@bottomalignmentspan
@@ -89,10 +89,19 @@
 \setbeamertemplate{navigation symbols}{}
 
 \newcommand{\beamer@theme@ciad@outer@background}{%
-	\begin{tikzpicture}%
-	\fill[CIADdarkgray](0,0) rectangle (13,0.95);%
-	\fill[CIADgreen](0,0.095) rectangle (13,0);%
-	\end{tikzpicture}%
+	\ifbeamer@theme@ciad@tableofcontentslide@background%
+		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
+		\begin{tikzpicture}%
+		\path[shading = axis, rectangle, left color={top background in toc.bg}, right color={bottom background in toc.bg},shading angle=0, anchor=west](0,0) rectangle (0.15,-8.2);%
+		\path[fill=CIADdarkgray](0,0) rectangle (13,0.95);%
+		\path[fill=CIADgreen](0,0.095) rectangle (13,0);%
+		\end{tikzpicture}%
+	\else%
+		\begin{tikzpicture}%
+		\path[fill=CIADdarkgray](0,0) rectangle (13,0.95);%
+		\path[fill=CIADgreen](0,0.095) rectangle (13,0);%
+		\end{tikzpicture}%
+	\fi
 }
 
 \setbeamertemplate{title page}{%
@@ -289,7 +298,7 @@
 		}%
 	}
 
-	\gdef\beamer@theme@ciad@outer@footline{%
+\gdef\beamer@theme@ciad@outer@footline{%
 	\ifbeamer@plainframe\else%
 	\begin{picture}(0,25)(0,0)%
 		% Foot background

@@ -1144,6 +1144,21 @@
 
 %-----------------------------------------
 % Table of content
+
+\newif\ifbeamer@theme@ciad@tableofcontentslide@background
+\beamer@theme@ciad@tableofcontentslide@backgroundfalse
+
+\def\beamer@theme@ciad@tableofcontentslideDO#1{%
+	\ifbeamer@theme@ciad@tableofcontentslide@background%
+		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
+		#1%
+	\fi%
+}
+
+\define@key{beamerframe}{tableofcontentbackground}[true]{%
+	\global\beamer@theme@ciad@tableofcontentslide@backgroundtrue%
+}
+
 \def\tableofcontentslide{%
 	\@ifnextchar[%
 		\beamer@theme@ciad@tableofcontentslide@a%
@@ -1164,7 +1179,7 @@
 	\beamer@theme@ciad@tableofcontentslide@e{#1}{,#2}%
 }
 \newcommand{\beamer@theme@ciad@tableofcontentslide@e}[2]{%
-	\begin{frame}[t#2]{\translate{Outline}}%
+	\begin{frame}[t,tableofcontentbackground#2]{\translate{Outline}}%
 	\vfill%
 	\small\tableofcontents[#1]%
 	\end{frame}%
