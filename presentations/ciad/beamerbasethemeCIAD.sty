@@ -2236,17 +2236,44 @@
 \gdef\beamer@theme@ciad@rsection@limits{}
 
 \let\beamer@theme@ciad@rsection@original@section\section
-\def\beamer@theme@ciad@rsection@sectioni<#1>{%
-	\xdef\@tableofcontentslidesectionlimits{,sections={#1}}\beamer@theme@ciad@rsection@original@section%
+
+\def\beamer@theme@ciad@rsection@section@sro<#1>{%
+	\xdef\beamer@theme@ciad@rsection@limits{,sections={#1}}\beamer@theme@ciad@rsection@original@section*%
 }
-\def\beamer@theme@ciad@rsection@sectionii{%
-	\gdef\@tableofcontentslidesectionlimits{}\beamer@theme@ciad@rsection@original@section%
+
+\def\beamer@theme@ciad@rsection@section@so{%
+	\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@section*%
 }
+
+\def\beamer@theme@ciad@rsection@section@ro<#1>{%
+	\xdef\beamer@theme@ciad@rsection@limits{,sections={#1}}\beamer@theme@ciad@rsection@original@section%
+}
+
+\def\beamer@theme@ciad@rsection@section@o{%
+	\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@section%
+}
+
+\def\beamer@theme@ciad@rsection@section@sc{%
+	\@ifnextchar<\beamer@theme@ciad@rsection@section@sro\beamer@theme@ciad@rsection@section@so%
+}
+
+\def\beamer@theme@ciad@rsection@section@c{%
+	\@ifnextchar<\beamer@theme@ciad@rsection@section@ro\beamer@theme@ciad@rsection@section@o%
+}
+
 % \section<range>[toc title]{title}
-\gdef\section{\@ifnextchar<\beamer@theme@ciad@rsection@sectioni\beamer@theme@ciad@rsection@sectionii}
+% \section*<range>[toc title]{title}
+% \section<range>*[toc title]{title}
+% \section[toc title]{title}
+% \section*[toc title]{title}
+% \section{title}
+% \section*{title}
+\gdef\section{%
+	\@ifstar\beamer@theme@ciad@rsection@section@sc\beamer@theme@ciad@rsection@section@c
+}
 
 \let\beamer@theme@ciad@rsection@original@part\part
-\gdef\part{\gdef\@tableofcontentslidesectionlimits{}\beamer@theme@ciad@rsection@original@part}
+\gdef\part{\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@part}
 
 %-----------------------------------------
 % Macros for showing TOC for sections, subsections.
