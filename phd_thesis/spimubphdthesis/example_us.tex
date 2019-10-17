@@ -9,7 +9,7 @@
 %% for details about the macros that are provided by the class and
 %% to obtain the list of the packages that are already included. 
  
-\documentclass[french]{spimutbmphdthesis}
+\documentclass[english]{spimubphdthesis}
  
 %%--------------------
 %% The TeX code is entering with UTF8
@@ -73,16 +73,16 @@
 %% The third mandatory parameter is the location/city of the PhD defense.
 %% The forth mandatory parameter is the reference number given by
 %% the University Library after the PhD defense.
-\declarethesis[Sous-titre]{Titre}{17 septembre 2012}{Belfort}{XXX}
- 
+\declarethesis[Subtitle]{Title}{17 septembre 2012}{Belfort}{XXX}
+
 %%--------------------
 %% Set the title in the secondary language
 %% (it is in English if the PhD dissertation is written in French; it is French if the PhD dissertation is written in English)
-\declareminorthesistitle{Titre dans la langue secondaire}
+\declareminorthesistitle{Title in secondary language}
 
 %%--------------------
 %% Set the author of the PhD thesis
-\addauthor[email]{Prénom}{Nom}
+\addauthor[email]{Firstname}{Name}
  
 %%--------------------
 %% Add a member of the jury
@@ -120,7 +120,7 @@
  
 %%--------------------
 %% Set the French abstract
-\thesisabstract[french]{Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français. Ceci est le résumé en français.}
+\thesisabstract[french]{Ceci est le résumé en français.}
  
 %%--------------------
 %% Set the French keywords. They only appear if
@@ -179,11 +179,11 @@
 %%--------------------
 %% Add the logos of the partners or the sponsors on the front page
 %%
-%% CAUTION 1: At least, the logo of the University should appear (UTBM)
+%% CAUTION 1: At least, the logo of the University should appear (UB)
 %%
 %\addpartner[image options]{image name}
 
-%\addpartner{utbm}
+%\addpartner{ub}
 
 %%--------------------
 %% Change the header and the foot of the pages.
@@ -224,7 +224,7 @@
 %% at the beginning of the document. This chapter has not a chapter
 %% number (using the "star-ed" version of \chapter) to prevent it to
 %% be in the table of contents
-\chapter*{Remerciements}
+\chapter*{Acknowledgements}
  
 %%--------------------
 %% Include a general table of contents
@@ -234,26 +234,41 @@
 %% The content of the PhD thesis
 \mainmatter
  
-\part{Contexte et Problématiques}
+\part{Context et Problems}
 
 \chapter{Introduction}
  
-\section{Contexte}
+\section{Context}
 
-Ce squelette décrit quelques éléments pouvant vous aider pour écrire votre ouvrage de thèse.
-Un plan typique d'une thèse scientifique est également proposé.
+This skeleton of report gives several elements in order to help you to write your PhD dissertation.
+A typical outline is provided.
 
-\section{Objectifs de la thèse}
+\section{Objectives of the thesis}
 
-L'objectif principal de votre thèse peut être mis en avant à l'aide de l'environnement ci-dessous:
+The main objective of the thesis could be emphasis with:
 
 \begin{emphbox}
-	Proposer un modèle qui fait quelque chose!
+	Propose a model for doing something!
 \end{emphbox}
 
-\section{Plan de la thèse}
+\section{Outline of the PhD thesis dissertation}
 
-\chapter{\'Etat de l'art}
+\chapter{Context and Problems}
+
+\section{Introduction}
+
+\section{Context}
+
+Describe the context of the PhD thesis, including the definitions.
+
+\section{Problems}
+
+Explain the problems related to the context.
+Details the ones that are takled into this dissertation.
+
+\section{Conclusion}
+
+\chapter{State of Art}
 
 % Automatic Lettrine and Minitoc at the begining of the chapter.
 %
@@ -289,200 +304,14 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 %                             the next following \include macro.
 
 %\chapterintro*
-\chapterintro
+%\chapterintro
 %\chapterintrotosection
 %\chapterintrotoinput
 %\chapterintrotoinclude
 
-Pour vous aider à écrire votre ouvrage de thèse, un certain nombre d'outils sont décrits ci-dessous.
-De nombreuses autres macros sont disponibles dans l'ensemble de paquets \LaTeX\ \texttt{tex-upmethodology}
-sur lequel est basé le style de cette thèse. Citons pour exemples les environnements permettant de créer
-automatiquement des sous-figures, les macros permettant de définir des sections non numérotées et présentes
-dans le sommaire.
+\section{Introduction}
 
-\section{Proposer une définition}
-
-La définition~\ref{def:unethese} illustre la proposition d'une définition.
-
-\begin{definition}[Une thèse] \label{def:unethese}
-Ouvrage présenté devant un jury universitaire pour l'obtention d'un doctorat.
-\end{definition}
-
-\section{Inclure une figure}
-
-L'inclusion d'une figure se réalise à l'aide des outils standards \LaTeX\ (environnement \texttt{figure}, \texttt{{\textbackslash}includegraphics}, etc.).
-
-Nous proposons une macro permettant de réduire l'écriture de l'inclusion d'une figure.
-
-\begin{verbatim}
-\mfigure[position]{options}{filename}{titre}{labelid}
-\end{verbatim}
-
-Ceci est équivalent à (notez l'ajout de \texttt{fig:} comme préfix du label):
-\begin{verbatim}
-\begin{figure}[position]
-	\begin{center}
-		\includegraphics[options]{filename}
-		\label{fig:labelid}
-		\caption{titre}
-	\end{center}
-\end{figure}
-\end{verbatim}
-
-Le référencement de la figure peut être réalisé à l'aide des macros:
-\begin{verbatim}
-\figref{labelid}
-\figpageref{labelid}
-\end{verbatim}
-
-\section{Inclure un tableau}
-
-L'inclusion d'un tableau se réalise à l'aide des outils standards \LaTeX\ (environnement \texttt{table}, environment \texttt{tabularx}, etc.).
-
-Nous proposons une macro permettant de réduire l'écriture de l'inclusion d'un tableau.
-
-\begin{verbatim}
-\begin{mtable}[options]{width}{nombrecolonnes}{columnspec}{title}{labelid}
-	content
-\end{mtable}
-\end{verbatim}
-
-Ceci est équivalent à (notez l'ajout de \texttt{tab:} comme préfix du label):
-\begin{verbatim}
-\begin{table}[options]
-	\begin{center}
-		\begin{tabularx}{width}{columnspec}
-			content
-		\end{tabularx}
-		\label{tab:labelid}
-		\caption{title}
-	\end{center}
-\end{table}
-\end{verbatim}
-
-Le référencement de la table peut être réalisé à l'aide des macros:
-\begin{verbatim}
-\tabref{labelid}
-\tabpageref{labelid}
-\end{verbatim}
-
-\subsection{Exemple 1}
-
-La table \tabref{exampletable1} est un exemple de table avec 4 colonnes, et dans laquelle un titre à été ajouté en sommet.
-\begin{mtable}[ht]{.9\linewidth}{4}{|l|X|l|X|}{Titre de la table}{exampletable1}
-	\tabulartitle{Un titre en sommet}
-	\tabularheader{Col1}{Col2}{Col3}{Col4}
-	a & b & c & d \\
-	\hline
-	e & f & g & h \\
-\end{mtable}
-
-\subsection{Exemple 2}
-
-La table \tabref{exampletable2} est un exemple de table avec 5 colonnes, et dans laquelle le titre de la table a été également ajouté en sommet.
-\begin{mtable}[ht]{.9\linewidth}{5}{|l|X|l|X|X|}{Titre de la table}{exampletable2}
-	\captionastitle % Affiche le titre de la figure en sommet de table
-	\tabularheader{Col1}{Col2}{Col3}{Col4}{Col5}
-	a & b & c & d & x \\
-	\hline
-	e & f & g & h & z \\
-\end{mtable}
-
-\section{\'Enumération en ligne}
-
-Vous pouvez énumérer des élements dans un paragraphe: \begin{inlineenumeration}
-\item élement 1,
-\item élement 2,
-\item élement 3;
-\end{inlineenumeration} et poursuivre votre texte.
-
-\section{Description}
-
-L'environnement \texttt{description} proposé par \LaTeX\ a été étendu:
-\begin{description}
-\item[\'Element 1] Texte 1
-\item[\'Element 2] Texte 2
-\item[\'Element 3] Texte 3
-\end{description}
-
-Omettre une entête d'item n'est pas un problème :
-\begin{description}
-\item[\'Element 1] Texte 1
-\item Texte 2
-\item[\'Element 3] Texte 3
-\end{description}
-
-\section{\'Enumération}
-
-L'environnement \texttt{enumerate} proposé par \LaTeX\ a été étendu afin de profiter des avantages des environnements \texttt{enumerate} et \texttt{description} en un seul environnement \LaTeX:
-\begin{enumerate}
-\item[\'Element 1] Texte 1
-\item[\'Element 2] Texte 2
-\item[\'Element 3] Texte 3
-\end{enumerate}
-
-Vous pouvez spécifier le type d'énumération en passant en mode numérique arabe :
-\begin{enumerate}[1]
-\item[\'Element 1] Texte 1
-\item[\'Element 2] Texte 2
-\item[\'Element 3] Texte 3
-\end{enumerate}
-
-Ou en mode numérique romain :
-\begin{enumerate}[i]
-\item[\'Element 1] Texte 1
-\item[\'Element 2] Texte 2
-\item[\'Element 3] Texte 3
-\end{enumerate}
-
-Ou en mode numérique alphabétique :
-\begin{enumerate}[a]
-\item[\'Element 1] Texte 1
-\item[\'Element 2] Texte 2
-\item[\'Element 3] Texte 3
-\end{enumerate}
-
-Omettre une entête d'item n'est pas un problème :
-\begin{enumerate}
-\item[\'Element 1] Texte 1
-\item Texte 2
-\item[\'Element 3] Texte 3
-\end{enumerate}
-
-\section{Formatter le texte}
-
-Vous pouvez placer un texte \textup{en exposant}. Vous pouvez placer un texte \textdown{en indice}.
-
-Vous pouvez mettre en avant \emph{un texte}, ou le mettre \Emph{encore plus en avant}.
-
-Vous pouvez formatter les noms de personnes de manière uniforme, comme par exemple \makename{Stéphane}{Galland} (d'autres macros sont disponibles).
-
-\section{Symboles mathématiques}
-
-\begin{itemize}
-\item \R
-\item \N
-\item \Z
-\item \Q
-\item \C
-\item $\powerset{a}$
-\item $\sgn(a)$
-\item $\min(a, b)$
-\item $\max(a, b)$
-\end{itemize}
-
-\section{Théorèmes}
-
-Vous pouvez définir votre propre environnement pour décrire un théorème, un lem, etc.
-Ce type d'environnement doit être déclaré dans le préambule de votre document avec la
-macro \texttt{{\textbackslash}declareupmtheorem} (voir l'exemple dans le préambule de
-ce squelette).
-
-\begin{mytheorem}[Theorem of Everything]
-This is the theorem of Evereything.
-\end{mytheorem}
-
-\`A la fin de votre document, vous pourrez alors ajouter un chapitre listant les théorèmes présents dans votre document: \texttt{{\textbackslash}listofmytheorems}
+\section{Detailed state-of-art}
 
 \section{Conclusion}
  
@@ -498,25 +327,27 @@ This is the theorem of Evereything.
 
 \section{Introduction}
 
-\section{Détails de la contribution}
+\section{Détails of the contribution}
 
 \section{Conclusion}
 
-\chapter{Réalisation}
+\chapter{Application}
 
 \section{Introduction}
 
-\section{Présentation de la réalisation}
+\section{Presentation of the application}
 
-\section{Résultats expérimentaux}
+\section{Specific implementation of the application}
+
+\section{Experimental results}
 
 \section{Conclusion}
 
 \part{Conclusion}
 
-\chapter{Conclusion générale}
+\chapter{General conclusion}
  
-\section{Bilan}
+\section{Summary of the PhD thesis}
 
 \section{Perpectives}
  
@@ -584,10 +415,10 @@ This is the theorem of Evereything.
 %%--------------------
 %% Appendixes
 \appendix
-\part{Annexes}
+\part{Appendix}
  
-\chapter{Premier chapitre des annexes}
+\chapter{First appendix}
 
-\chapter{Second chapitre des annexes}
+\chapter{Second appendix}
  
 \end{document}

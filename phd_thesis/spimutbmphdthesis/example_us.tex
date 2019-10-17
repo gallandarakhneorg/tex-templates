@@ -74,7 +74,12 @@
 %% The forth mandatory parameter is the reference number given by
 %% the University Library after the PhD defense.
 \declarethesis[Subtitle]{Title}{17 septembre 2012}{Belfort}{XXX}
- 
+
+%%--------------------
+%% Set the title in the secondary language
+%% (it is in English if the PhD dissertation is written in French; it is French if the PhD dissertation is written in English)
+\declareminorthesistitle{Title in secondary language}
+
 %%--------------------
 %% Set the author of the PhD thesis
 \addauthor[email]{Firstname}{Name}
@@ -161,10 +166,11 @@
 
 %%--------------------
 %% Add the laboratory where the thesis was made
-%\addlaboratory{Laboratoire Waynes Industry}
+\addlaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees}
 
-\addlaboratory{Laboratoire \'Electronique, Informatique et Image}
-
+%%--------------------
+%% The name of the university that is jointly delivering the Doctoral degree with UBFC
+\Set{jointuniversity}{Universit\'e de Ngaound\'er\'e au Cameroun}
 
 %%--------------------
 %% Clear the list of the partner/sponsor logos

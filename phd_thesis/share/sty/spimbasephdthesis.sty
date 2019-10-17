@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2019/10/15]
+\ProvidesPackage{spimbasephdthesis}[2019/10/17]
 
 \RequirePackage{lettrine}
 
@@ -57,6 +57,13 @@
 	\Set{defensedate}{#3}%
 	\Set{defenselocation}{#4}%
 	\initialversion{\makedate{11}{04}{2006}}{PhD Thesis}{\upmpublic}%
+}
+
+%%--------------------
+% Define the title in the minor language for PhD thesis document
+%\declareminorthesistitle{title}
+\newcommand{\declareminorthesistitle}[1] {
+	\Set{minorlanguagethesistitle}{#1}%
 }
 
 %%--------------------
