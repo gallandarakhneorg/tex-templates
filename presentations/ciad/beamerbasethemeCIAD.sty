@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/10/08}
+\gdef\insertciadbeamerthemeversion{2019/12/12}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -395,6 +395,11 @@
 %%%%%%%--------------------------------------
 
 %-----------------------------------------
+% CIAD Name
+\newcommand{\ciad}{{CIAD}\xspace}
+\newcommand{\colorciad}{{\textcolor{black}{C}\textcolor{CIADgreen}{IA}\textcolor{black}{D}}\xspace}
+
+%-----------------------------------------
 % Keywords
 \let\beamer@theme@ciad@keywords@old\keywords
 \def\insertkeywords{}
@@ -605,13 +610,23 @@
 }
 
 \newcommand{\insertfootlinewithdocumentname}{%
-	\put(6,7){
+	\put(6,7){%
 		\parbox[c]{\beamer@theme@ciad@outer@footlinewidth}{%
 		\begin{flushleft}%
 		\usebeamerfont{author in head/foot}\usebeamercolor[fg]{author in head/foot}%
 		\insertshortauthor%
 		\@beamer@theme@ciad@postfix{~--~}{\insertshorteventname}%
 		\insertshortinstitute\end{flushleft}}}%
+}
+
+\newcommand{\insertfootlinefortitlepage}{%
+	\put(6,7){%
+		\tiny\parbox[c]{%
+			\beamer@theme@ciad@outer@linewidth}{\begin{flushleft}%
+				{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}%
+				\end{flushleft}%
+			}%
+	}%
 }
 
 \global\let\beamer@theme@ciad@footline@default\relax
@@ -624,7 +639,11 @@
 	\gdef\beamer@theme@ciad@footline@default{\insertfootlinewithdocumentname}%
 }
 
-\usefootlinewithdocumentname
+\newcommand{\usefootlinefortitlepage}[1][]{%
+	\gdef\beamer@theme@ciad@footline@default{\insertfootlinefortitlepage}%
+}
+
+\usefootlinefortitlepage
 
 \pgfdeclareimage[height=.35cm]{ciadlogoinpartners}{ciadlogo}
 \pgfdeclareimage[height=.35cm]{utbmlogoinpartners}{utbmlogo}
