@@ -35,6 +35,7 @@ ENTRY
     type
     volume
     year
+    doi
   }
   {}
   { label }
@@ -394,6 +395,18 @@ FUNCTION {format.pages}
   if$
 }
 
+FUNCTION {format.doi}
+{ doi empty$
+    { "" }
+    { "doi:\href{https://doi.org/" write$
+      doi write$
+      "}{" write$
+      doi write$
+      "}" write$
+    }
+  if$
+}
+
 INTEGERS { multiresult }
 
 FUNCTION {multi.page.check}
@@ -636,6 +649,7 @@ FUNCTION {article}
       format.pp.pages output
     }
   if$
+  format.doi
   new.block
   note output
   fin.entry
@@ -668,6 +682,7 @@ FUNCTION {book}
     }
   if$
   format.date "year" output.check
+  format.doi
   new.block
   note output
   fin.entry
@@ -682,6 +697,7 @@ FUNCTION {booklet}
   howpublished output
   address output
   format.date output
+  format.doi
   new.block
   note output
   fin.entry
@@ -715,6 +731,7 @@ FUNCTION {inbook}
   if$
   format.date "year" output.check
   format.chapter.pages "chapter and pages" output.check
+  format.doi
   new.block
   note output
   fin.entry
@@ -739,6 +756,7 @@ FUNCTION {incollection}
     { format.incoll.inproc.crossref output.nonnull }
   if$
   format.chapter.pages output
+  format.doi
   new.block
   note output
   fin.entry
@@ -761,6 +779,7 @@ FUNCTION {inproceedings}
     { format.incoll.inproc.crossref output.nonnull }
   if$
   format.pp.pages output
+  format.doi
   new.block
   note output
   fin.entry
@@ -785,6 +804,7 @@ FUNCTION {manual}
   if$
   address output
   format.date output
+  format.doi
   new.block
   note output
   fin.entry
@@ -800,6 +820,7 @@ FUNCTION {mastersthesis}
   school "school" output.check
   address output
   format.date "year" output.check
+  format.doi
   new.block
   note output
   fin.entry
@@ -813,6 +834,7 @@ FUNCTION {misc}
   howpublished new.block.checka
   howpublished output
   format.date output
+  format.doi
   new.block
   note output
   fin.entry
@@ -829,6 +851,7 @@ FUNCTION {phdthesis}
   school "school" output.check
   address output
   format.date "year" output.check
+  format.doi
   new.block
   note output
   fin.entry
@@ -849,6 +872,7 @@ FUNCTION {proceedings}
     { organization output }
   if$
   publisher output
+  format.doi
   new.block
   note output
   fin.entry
@@ -864,6 +888,7 @@ FUNCTION {techreport}
   institution "institution" output.check
   address output
   format.date "year" output.check
+  format.doi
   new.block
   note output
   fin.entry
@@ -874,6 +899,7 @@ FUNCTION {unpublished}
   format.authors "author" output.check
   new.block
   format.title "title" output.check
+  format.doi
   new.block
   note "note" output.check
   format.date output

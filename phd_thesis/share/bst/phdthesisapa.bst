@@ -39,7 +39,8 @@
 %                    THIS `apalike' VERSION DOES NOT WORK WITH BIBTEX 0.98i.
 %    8-dec-10  (OP)  Still version 0.99a, as the code itself was unchanged;
 %                    this release clarified the license.
-%    07/09/14	(SG) Adapted for PHD thesis.
+%    07/09/14  (SG)  Adapted for PHD thesis.
+%   13-jan-20  (SG)  Add DOI support.
 
 ENTRY
   { address
@@ -64,6 +65,7 @@ ENTRY
     type
     volume
     year
+    doi
   }
   {}
   { label extra.label sort.label }
@@ -378,6 +380,18 @@ FUNCTION {multi.page.check}
   multiresult
 }
 
+FUNCTION {format.doi}
+{ doi empty$
+    { "" }
+    { "doi:\href{https://doi.org/" write$
+      doi write$
+      "}{" write$
+      doi write$
+      "}" write$
+    }
+  if$
+}
+
 FUNCTION {format.pages}
 { pages empty$
     { "" }
@@ -495,6 +509,7 @@ FUNCTION {article}
       format.pages output
     }
   if$
+  format.doi
   new.block
   note output
   fin.entry
@@ -529,6 +544,7 @@ FUNCTION {book}
     }
   if$
   format.edition output
+  format.doi
   new.block
   note output
   fin.entry
@@ -544,6 +560,7 @@ FUNCTION {booklet}
   new.block
   howpublished output
   address output
+  format.doi
   new.block
   note output
   fin.entry
@@ -580,6 +597,7 @@ FUNCTION {inbook}
     }
   if$
   format.edition output
+  format.doi
   new.block
   note output
   fin.entry
@@ -607,6 +625,7 @@ FUNCTION {incollection}
       format.chapter.pages output
     }
   if$
+  format.doi
   new.block
   note output
   fin.entry
@@ -634,6 +653,7 @@ FUNCTION {inproceedings}
       format.pages output
     }
   if$
+  format.doi
   new.block
   note output
   fin.entry
@@ -652,6 +672,7 @@ FUNCTION {manual}
   organization output
   address output
   format.edition output
+  format.doi
   new.block
   note output
   fin.entry
@@ -668,6 +689,7 @@ FUNCTION {mastersthesis}
   "Master's thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
+  format.doi
   new.block
   note output
   fin.entry
@@ -682,6 +704,7 @@ FUNCTION {misc}
   format.title output
   new.block
   howpublished output
+  format.doi
   new.block
   note output
   fin.entry
@@ -698,6 +721,7 @@ FUNCTION {phdthesis}
   "PhD thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
+  format.doi
   new.block
   note output
   fin.entry
@@ -716,6 +740,7 @@ FUNCTION {proceedings}
   new.sentence                                  % we always output
   organization output                           % a nonempty organization
   publisher output                              % here
+  format.doi
   new.block
   note output
   fin.entry
@@ -732,6 +757,7 @@ FUNCTION {techreport}
   format.tr.number output.nonnull
   institution "institution" output.check
   address output
+  format.doi
   new.block
   note output
   fin.entry
@@ -744,6 +770,7 @@ FUNCTION {unpublished}
   output.year.check                                     % apalike
   new.block
   format.title "title" output.check
+  format.doi
   new.block
   note "note" output.check
   fin.entry
