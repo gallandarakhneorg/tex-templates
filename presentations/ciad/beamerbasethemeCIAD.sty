@@ -1,4 +1,4 @@
-% Copyright (c) 2013-19 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-20 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2019/12/12}
+\gdef\insertciadbeamerthemeversion{2020/04/19}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -79,6 +79,9 @@
 \setboolean{beamer@theme@ciad@fancyframetitle}{true}
 
 \newlength{\beamer@theme@ciad@tmplength}
+
+\gdef\beamer@theme@ciad@outer@titleverticalalignment{c}
+\gdef\beamer@theme@ciad@outer@titleverticalposition{-96}
 
 %%%%%%%--------------------------------------
 %%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
@@ -185,6 +188,14 @@
 }
 \DeclareOptionBeamer{notitlefancyletters}{%
 	\setboolean{beamer@theme@ciad@titlefancyletters}{false}%
+}
+\DeclareOptionBeamer{titlecenteralignment}{%
+	\gdef\beamer@theme@ciad@outer@titleverticalalignment{c}
+	\gdef\beamer@theme@ciad@outer@titleverticalposition{-96}
+}
+\DeclareOptionBeamer{titlebottomalignment}{%
+	\gdef\beamer@theme@ciad@outer@titleverticalalignment{b}
+	\gdef\beamer@theme@ciad@outer@titleverticalposition{-145}
 }
 \DeclareOptionBeamer{allfancyletters}{%
 	\setboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}{false}%

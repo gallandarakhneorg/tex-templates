@@ -1,4 +1,4 @@
-% Copyright (c) 2013-19 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-20 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2019/10/08 Beamer Outer 'CIAD' Theme]
+   [2020/04/19 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -113,7 +113,7 @@
 		% Background
 		\beamer@theme@ciad@outer@titlebackground
 		% Text area
-		\put(-20,-96){\usebeamercolor[fg]{maintitle}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
+		\put(-20,\beamer@theme@ciad@outer@titleverticalposition){\usebeamercolor[fg]{maintitle}\parbox[\beamer@theme@ciad@outer@titleverticalalignment]{\beamer@theme@ciad@outer@linewidth}{%
 			% Title and subtitle
 			\nohyphens{\begin{center}\Large\textbf{\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@conditionalfirsttailletters{\inserttitle}}}%
 			\ifthenelse{\boolean{beamer@theme@ciad@eventintitlebar}}{%
