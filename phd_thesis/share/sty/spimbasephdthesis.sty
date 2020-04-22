@@ -20,13 +20,17 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2019/10/17]
+\ProvidesPackage{spimbasephdthesis}[2020/04/21]
 
 \RequirePackage{lettrine}
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
 \@ifclasslater{UPMVERSION}{2017/10/12}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20171013}\@eha}
+
+%%--------------------
+%% Change the default baseline
+\renewcommand{\baselinestretch}{1.25} 
 
 %%--------------------
 %% Underlining if the author's name (in bibliography)
