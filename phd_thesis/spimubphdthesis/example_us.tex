@@ -17,8 +17,8 @@
 \usepackage[utf8]{inputenc}
  
 %%-------------------
-%% You want to use the NatBib extension
-%\usepackage[authoryear]{natbib}
+%% NATBIB is enabled by default.
+%% If you would like to disable it, put the 'nonatbib' option to the class' options.
  
 %%--------------------
 %% Include the 'multibib' package to enable to
@@ -383,14 +383,8 @@ Details the ones that are takled into this dissertation.
  
 %% The following line set the style of
 %% the GENERAL bibliogaphy.
-%% The "phdthesisapa" is a "apalike" style with the following
-%% differences:
-%% a) The titles are output with the color of the institution.
-%% b) The name of the PhD thesis' author is underlined.
-\bibliographystyle{phdthesisapa}
-%% The following line may be used in place of the previous
-%% line if you prefer "numeric" citations.
-%\bibliographystyle{phdthesisnum}
+%% The following is an adaptation of "dinat.bst".
+\bibliographystyle{spimphdthesis}
  
 %% Link the GENERAL bibliogaphy to a BibTeX file.
 \bibliography{biblio.bib}
