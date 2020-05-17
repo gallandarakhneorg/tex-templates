@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2020/04/19 Beamer Outer 'CIAD' Theme]
+   [2020/05/17 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -92,12 +92,18 @@
 	\ifbeamer@theme@ciad@tableofcontentslide@background%
 		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
 		\begin{tikzpicture}%
+		\ifthenelse{\boolean{beamer@theme@ciad@showbackgroundpicture}}{%
+			\insertslidebackgroundpicture%
+		}{}%
 		\path[shading = axis, rectangle, left color={top background in toc.bg}, right color={bottom background in toc.bg},shading angle=0, anchor=west](0,0) rectangle (0.15,-8.2);%
 		\path[fill=CIADdarkgray](0,0) rectangle (13,0.95);%
 		\path[fill=CIADgreen](0,0.095) rectangle (13,0);%
 		\end{tikzpicture}%
 	\else%
 		\begin{tikzpicture}%
+		\ifthenelse{\boolean{beamer@theme@ciad@showbackgroundpicture}}{%
+			\insertslidebackgroundpicture%
+		}{}%
 		\path[fill=CIADdarkgray](0,0) rectangle (13,0.95);%
 		\path[fill=CIADgreen](0,0.095) rectangle (13,0);%
 		\end{tikzpicture}%

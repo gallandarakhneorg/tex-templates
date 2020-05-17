@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2020/04/22}
+\gdef\insertciadbeamerthemeversion{2020/05/17}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -77,6 +77,9 @@
 
 \newboolean{beamer@theme@ciad@fancyframetitle}
 \setboolean{beamer@theme@ciad@fancyframetitle}{true}
+
+\newboolean{beamer@theme@ciad@showbackgroundpicture}
+\setboolean{beamer@theme@ciad@showbackgroundpicture}{true}
 
 \newlength{\beamer@theme@ciad@tmplength}
 
@@ -211,6 +214,18 @@
 }
 \define@key{beamerframe}{nofancyframetitle}[]{%
 	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
+}
+\DeclareOptionBeamer{showbackgroundpicture}{%
+	\setboolean{beamer@theme@ciad@showbackgroundpicture}{true}%
+}
+\define@key{beamerframe}{showbackgroundpicture}[true]{%
+	\setboolean{beamer@theme@ciad@showbackgroundpicture}{#1}%
+}
+\DeclareOptionBeamer{hidebackgroundpicture}{%
+	\setboolean{beamer@theme@ciad@showbackgroundpicture}{false}%
+}
+\define@key{beamerframe}{hidebackgroundpicture}[]{%
+	\setboolean{beamer@theme@ciad@showbackgroundpicture}{false}%
 }
 
 %\ExecuteOptionsBeamer{left}
@@ -2384,5 +2399,26 @@
 	\fi%
 }
 
+%-----------------------------------------
+% Background picture
+
+\gdef\beamer@theme@ciad@backgroundpicture@x{140}
+\gdef\beamer@theme@ciad@backgroundpicture@y{-230}
+\gdef\beamer@theme@ciad@backgroundpicture@w{8cm}
+\gdef\beamer@theme@ciad@backgroundpicture@f{ciadbackground}
+
+% Insert the background picture of a slide
+\newcommand{\insertslidebackgroundpicture}{%
+	\expandafter\put(\beamer@theme@ciad@backgroundpicture@x,\beamer@theme@ciad@backgroundpicture@y){\expandafter\includegraphics[width=\beamer@theme@ciad@backgroundpicture@w]{\beamer@theme@ciad@backgroundpicture@f}}%
+}
+
+% Define the parameters of the slide background
+% \defineslidebackgroundpicture{picture position y}{picture poxition y}{picture width}{picture name}
+\newcommand{\defineslidebackgroundpicture}[4]{%
+	\gdef\beamer@theme@ciad@backgroundpicture@x{#1}%
+	\gdef\beamer@theme@ciad@backgroundpicture@y{#2}%
+	\gdef\beamer@theme@ciad@backgroundpicture@w{#3}%
+	\gdef\beamer@theme@ciad@backgroundpicture@f{#4}%
+}
 
 \endinput

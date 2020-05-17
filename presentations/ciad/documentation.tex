@@ -1,4 +1,4 @@
-\documentclass[english,sectioncirclenumberstyle]{ciadbeamer}
+\documentclass[english,sectioncirclenumberstyle,showbackgroundpicture]{ciadbeamer}
 
 \usepackage[utf8]{inputenc}
 \usepackage{algpseudocode}
@@ -227,6 +227,17 @@
 		\item \texttt{allfancyletters}: If the previous option is true, all the letters are colored. Otherwise only the upper case letters are colored.
 		\end{itemize}
 	\end{block}
+\end{frame}
+
+\begin{frame}[t]{Class Options \insertcontinuationtext}
+	\begin{block}{Slide Background Picture}
+		\begin{itemize}
+		\item \texttt{showbackgroundpicture}: show the slide background picture (default)
+		\item \texttt{hidebackgroundpicture}: hide the slide background picture
+		\item A macro is described after for changing the background picture
+		\end{itemize}
+	\end{block}
+	\vspace{1cm}
 	\alertbox{All the options accepted by Beamer are also accepted.}
 \end{frame}
 
@@ -538,6 +549,27 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}[t]{Slide Title Coloring}
+	\begin{itemize}
+	\item By default the title of a slide is rendered with two colors:
+		\begin{itemize}
+		\item The white color is used for the first part (as shown for the title of this slide); and
+		\item The green color is used for the second part.
+		\end{itemize}
+	\item \emph{By default, only the first word of the title is part of the first part (colored in white)}
+	\item If you would like to change the words in the first part (colored in white), you could enclose them with braces:
+	\item Example:
+		\begin{itemize}
+		\item The following slide has the title \texttt{This is an example}, and the two first words are colored in white.
+		\item The title is written as: \texttt{\{This is\} an example}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{This is} an example}
+	Show the previous slide for explaination on this example slide.
+\end{frame}
+
 \subsection{Footline}
 
 \begin{frame}[t]{Footline}
@@ -630,6 +662,22 @@
 \begin{frame}{Example of continuation \insertcontinuationwith{34}}
 	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background Picture}
+\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={1-6}]
+
+\begin{frame}{Changing the Background Picture}
+	\begin{itemize}
+	\item A macro for changing the background picture is provided:: \\
+		\texttt{{\textbackslash}defineslidebackgroundpicture{picture position y}{picture poxition y}{picture width}{picture name}}
+	\vspace{1em}
+	\item The preivous macro changes the parameters that are used within the macro for showing the background picture: \\
+		\texttt{{\textbackslash}insertslidebackgroundpicture}
+	\end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sectionning}
