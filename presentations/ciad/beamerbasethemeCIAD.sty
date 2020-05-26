@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2020/05/17}
+\gdef\insertciadbeamerthemeversion{2020/05/26}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -2402,10 +2402,30 @@
 %-----------------------------------------
 % Background picture
 
-\gdef\beamer@theme@ciad@backgroundpicture@x{140}
-\gdef\beamer@theme@ciad@backgroundpicture@y{-230}
-\gdef\beamer@theme@ciad@backgroundpicture@w{8cm}
-\gdef\beamer@theme@ciad@backgroundpicture@f{ciadbackground}
+% Reset background picture to CIAD
+\gdef\resetslidebackgroundpictureCIAD{%
+	\gdef\beamer@theme@ciad@backgroundpicture@x{140}
+	\gdef\beamer@theme@ciad@backgroundpicture@y{-230}
+	\gdef\beamer@theme@ciad@backgroundpicture@w{8cm}
+	\gdef\beamer@theme@ciad@backgroundpicture@f{ciadbackground}
+}
+\resetslidebackgroundpictureCIAD
+
+% Reset background picture to UTBM 1
+\gdef\resetslidebackgroundpictureUTBMPOWER{%
+	\gdef\beamer@theme@ciad@backgroundpicture@x{140}
+	\gdef\beamer@theme@ciad@backgroundpicture@y{-205}
+	\gdef\beamer@theme@ciad@backgroundpicture@w{8cm}
+	\gdef\beamer@theme@ciad@backgroundpicture@f{utbmbackground1}
+}
+
+% Reset background picture to UTBM 2
+\gdef\resetslidebackgroundpictureUTBMPEOPLE{%
+	\gdef\beamer@theme@ciad@backgroundpicture@x{140}
+	\gdef\beamer@theme@ciad@backgroundpicture@y{-230}
+	\gdef\beamer@theme@ciad@backgroundpicture@w{8cm}
+	\gdef\beamer@theme@ciad@backgroundpicture@f{utbmbackground2}
+}
 
 % Insert the background picture of a slide
 \newcommand{\insertslidebackgroundpicture}{%
