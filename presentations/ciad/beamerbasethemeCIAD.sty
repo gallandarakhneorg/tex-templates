@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2020/05/26}
+\gdef\insertciadbeamerthemeversion{2020/06/07}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -2262,8 +2262,18 @@
 	\setciadtitlebackground{!}{!}{CIADtitlebackground18}%
 }
 
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground19}{ciad-bg19}
+\newcommand{\setciadtitlebackgrounds}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground19}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground20}{ciad-bg20}
+\newcommand{\setciadtitlebackgroundt}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground20}%
+}
+
 % Default image
-\setciadtitlebackgroundj
+\setciadtitlebackgroundt
 
 
 %-----------------------------------------
