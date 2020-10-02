@@ -87,6 +87,8 @@
 %%--------------------
 %% Add a member of the jury
 %%
+%% Two macros are provided: one without civility, one with civility.
+%%
 %% CAUTION 1: If a Jury member is not present during the defense,
 %%            she/he must be in the list of the Jury members.
 %%            Only the reviewers and the members who are present during the defense must
@@ -100,9 +102,10 @@
 \addjury{Incroyable}{Hulk}{Pr\'esident}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
 \addjury{Captain}{America}{Rapporteur}{Professeur à l'Université USA}
 \addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
-\addjury{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
-\addjury{The}{Volwerine}{Codirecteur de thèse}{Professeur à l'Université de Gotham City}
-\addjury{Pac}{Man}{Invité}{Professeur quelque part}
+%% \addjuryex{Civility}{Firstname}{Lastname}{Role in the jury}{Position}
+\addjuryex{M.}{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
+\addjuryex{M.}{The}{Volwerine}{Codirecteur de thèse}{Professeur à l'Université de Gotham City}
+\addjuryex{Mme}{Pac}{Man}{Invité}{Professeur quelque part}
  
 %%--------------------
 %% Change style of the table of the jury
