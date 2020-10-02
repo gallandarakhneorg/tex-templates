@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2020/06/07}
+\gdef\insertciadbeamerthemeversion{2020/09/23}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -1399,13 +1399,19 @@
 % #6 = label
 % #7 = subtitle
 % #8 = macros in the content
-\newcommand{\beamer@theme@ciad@figureslide@frame}[8]{%
+% #9 = frame spec (with enclosing symbols)
+\newcommand{\beamer@theme@ciad@figureslide@frame}[9]{%
 	\beamer@theme@ciad@figureslide@@frame
-		{}{#2}{#4}{#5}{#6}{#7}{#8}%
+		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
 		{\savebox{\beamer@theme@ciad@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
 }
 
-\newcommand{\beamer@theme@ciad@figureslide}[4][]{%
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = slide content
+% #5 = frame spec (with enclosing symbols)
+\newcommand{\beamer@theme@ciad@figureslide}[5][]{%
 	\bgroup%
 	\beamer@theme@ciad@figureslide@dynamic@widthtrue%
 	\beamer@theme@ciad@figureslide@dynamic@heighttrue%
@@ -1415,6 +1421,7 @@
 	\def\beamer@theme@ciad@figureslide@halign{c}%
 	\edef\beamer@theme@ciad@figureslide@label{frame\the\c@framenumber}%
 	\def\beamer@theme@ciad@figureslide@subtitle{}%
+	\gdef\beamer@theme@ciad@figureslide@internalframespec{}%
 	% Compute the width of the slide
 	\setlength{\beamer@theme@ciad@figureslide@textwidth}{\beamer@paperwidth}%
 	\addtolength{\beamer@theme@ciad@figureslide@textwidth}{-0.25cm}% left and right margins
@@ -1440,6 +1447,7 @@
 						{\protect\beamer@theme@ciad@figureslide@frame@dynamic@wh%
 							{\beamer@theme@ciad@figureslide@scale}%
 							{#4}}%
+						{#5}%
 			}%
 		\else%
 			\protected@edef\@tmp{%
@@ -1455,6 +1463,7 @@
 							{\beamer@theme@ciad@figureslide@heightt}%
 							{\beamer@theme@ciad@figureslide@scale}%
 							{#4}}%
+						{#5}%
 			}%
 		\fi%
 	\else%
@@ -1472,6 +1481,7 @@
 							{\beamer@theme@ciad@figureslide@widtht}%
 							{\beamer@theme@ciad@figureslide@scale}%
 							{#4}}%
+						{#5}%
 			}%
 		\else%
 			\protected@edef\@tmp{%
@@ -1488,6 +1498,7 @@
 							{\beamer@theme@ciad@figureslide@heightt}%
 							{\beamer@theme@ciad@figureslide@scale}%
 							{#4}}%
+						{#5}%
 			}%
 		\fi%
 	\fi%
@@ -1501,83 +1512,56 @@
 % #2 = title
 % #3 = filename
 \newcommand{\figureslide}[3][]{%
-	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}%
+	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{}%
 }
 
+%\animatedfigureslide<#1>[#2]{#3}{#4}
+% #1 = frame spec (optional)
+% #2 = options (optional)
+% #3 = title
+% #4 = filename
+\def\animatedfigureslide{%
+	\@ifnextchar<\beamer@theme@ciad@animatedfigureslide@framespec\beamer@theme@ciad@animatedfigureslide@noframespec%
+}
+
+\def\beamer@theme@ciad@animatedfigureslide@framespec<#1>{%
+	\providecommand{\beamer@theme@ciad@tmp}{}% For ensure redefinition below
+	\renewcommand{\beamer@theme@ciad@tmp}[3][width=\linewidth]{%
+		\beamer@theme@ciad@animatedfigureslide{##1}{##2}{##3}{<#1>}%
+	}%
+	\beamer@theme@ciad@tmp%
+}
+
+\newcommand{\beamer@theme@ciad@animatedfigureslide@noframespec}[3][width=\linewidth]{%
+	\beamer@theme@ciad@animatedfigureslide{#1}{#2}{#3}{}%
+}
+
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = frame spec
+\newcommand{\beamer@theme@ciad@animatedfigureslide}[4]{%
+	\begin{frame}#4{#2}%
+		\includeanimatedfigure[width=\linewidth]{#3}%
+	\end{frame}%
+}
+
+%% Redefine \includeanimatedfigure for supporting the slide specification: \includeanimatedfigure<X>
 \AtBeginDocument{
-	\ifcsname includeanimatedfigure\endcsname%
-		% Redefine \includeanimatedfigure for supporting the slide specification: \includeanimatedfigure<X>
-		\global\let\beamer@theme@ciad@includeanimatedfigure@old\includeanimatedfigure%
-		\gdef\beamer@theme@ciad@includeanimatedfigure@framespec<#1>{%
-			\bgroup%
-			\newcommand{\beamer@theme@ciad@includeanimatedfigure@wrapper}[3][width=\linewidth]{%
-				\only<#1>{\beamer@theme@ciad@includeanimatedfigure@old[##1]{##2}{##3}}%
-				\egroup%
-			}			
-			\beamer@theme@ciad@includeanimatedfigure@wrapper%
-		}
-		\gdef\includeanimatedfigure{%
-			\@ifnextchar<\beamer@theme@ciad@includeanimatedfigure@framespec\beamer@theme@ciad@includeanimatedfigure@old%
-		}
-		%\animatedfigureslide<#1>[#2]{#3}{#4}
-		% #1 = frame spec (optional)
-		% #2 = options (optional)
-		% #3 = title
-		% #4 = filename
-		\def\animatedfigureslide{%
-			\@ifnextchar<\beamer@theme@ciad@animatedfigureslide@framespec\beamer@theme@ciad@animatedfigureslide@noframespec%
-		}%
-		\def\beamer@theme@ciad@animatedfigureslide@framespec<#1>{%
-			\providecommand{\beamer@theme@ciad@tmp}{}% For ensure redefinition below
-			\renewcommand{\beamer@theme@ciad@tmp}[3][width=\linewidth]{%
-				\beamer@theme@ciad@animatedfigureslide{##1}{##2}{##3}{<#1>}%
-			}%
-			\beamer@theme@ciad@tmp%
-		}%
-		\newcommand{\beamer@theme@ciad@animatedfigureslide@noframespec}[3][width=\linewidth]{%
-			\beamer@theme@ciad@animatedfigureslide{#1}{#2}{#3}{}%
-		}%
-		\newcommand{\beamer@theme@ciad@animatedfigureslide}[4]{%
-			\bgroup%
-			\beamer@theme@ciad@figureslide@dynamic@widthtrue%
-			\beamer@theme@ciad@figureslide@dynamic@heighttrue%
-			\edef\beamer@theme@ciad@figureslide@label{frame\the\c@framenumber}%
-			\def\beamer@theme@ciad@figureslide@subtitle{}%
-			\def\beamer@theme@ciad@figureslide@valign{c}%
-			\def\beamer@theme@ciad@figureslide@halign{c}%
-			%
-			\setkeys*{beamerthemeciadfigureslide}{#1}%
-			%
-			\ifbeamer@theme@ciad@figureslide@dynamic@width%
-				\ifbeamer@theme@ciad@figureslide@dynamic@height%
-					\def\@tmp{width=\linewidth}
-				\else%
-					\def\@tmp{height=\beamer@theme@ciad@figureslide@heightt}
-				\fi%
-			\else%
-				\ifbeamer@theme@ciad@figureslide@dynamic@height%
-					\def\@tmp{width=\beamer@theme@ciad@figureslide@widtht}%
-				\else%
-					\def\@tmp{width=\beamer@theme@ciad@figureslide@widtht,height=\beamer@theme@ciad@figureslide@heightt}%
-				\fi%
-			\fi%
-			%
-			\protected@edef\@tmp{%
-				\protect\beamer@theme@ciad@figureslide@@frame%
-						{#4}%
-						{#2}%
-						{\beamer@theme@ciad@figureslide@valign}%
-						{\beamer@theme@ciad@figureslide@halign}%
-						{\beamer@theme@ciad@figureslide@label}%
-						{\beamer@theme@ciad@figureslide@subtitle}%
-						{\protect\beamer@theme@ciad@includeanimatedfigure@old[\@tmp]{#3}}%
-						{}%
-			}%
-			\@tmp%
-			%
-			\egroup%
-		}
-	\fi
+%	\providecommand{\includeanimatedgraphics}[2][]{}%
+%	\ifcsname includeanimatedfigure\endcsname%
+%		\global\let\beamer@theme@ciad@includeanimatedfigure@old\includeanimatedfigure%
+%		\gdef\beamer@theme@ciad@includeanimatedfigure@framespec<#1>{%
+%			\bgroup%
+%			\newcommand{\beamer@theme@ciad@includeanimatedfigure@wrapper}[3][width=\linewidth]{%
+%				\only<#1>{\beamer@theme@ciad@includeanimatedfigure@old[##1]{##2}{##3}}%
+%				\egroup%
+%			}			
+%			\beamer@theme@ciad@includeanimatedfigure@wrapper%
+%		}
+%		\gdef\includeanimatedfigure{%
+%			\@ifnextchar<\beamer@theme@ciad@includeanimatedfigure@framespec\beamer@theme@ciad@includeanimatedfigure@old%
+%		}
 }
 
 
