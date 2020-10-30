@@ -1,4 +1,4 @@
-% Copyright (c) 2013-19 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-20 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technology of Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerthemeCIAD}
-   [2019/05/28 Beamer 'CIAD' Theme]
+   [2020/10/30 Beamer 'CIAD' Theme]
 
 \RequirePackage{ifthen}
 
@@ -46,6 +46,7 @@
 \usefonttheme{CIAD}
 \usecolortheme{CIAD}
 \useinnertheme[language=\beamer@theme@ciad@lang]{CIAD}
+\useinnertheme{default}
 \useoutertheme{CIAD}
 
 \setbeamercovered{dynamic}
@@ -55,12 +56,18 @@
 		\usebackgroundtemplate{} % do not put a background here because of a rendering bug of beamer. See "title page" template insteed.
 		\frame{\maketitle}
 	}{}
-	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@ciad@outer@background\fi}
-	\setbeamertemplate{footline}{\beamer@theme@ciad@outer@footline}
+	\usebackgroundtemplate{\ifbeamer@plainframe\else%
+		\providecommand{\beamer@theme@ciad@outer@background}{}%
+		\beamer@theme@ciad@outer@background%
+	\fi}%
+	\setbeamertemplate{footline}{%
+		\providecommand{\beamer@theme@ciad@outer@footline}{}%
+		\beamer@theme@ciad@outer@footline}%
 }
 
 \AtEndDocument{%
 	\ifthenelse{\boolean{beamer@theme@ciad@hascovers}}{%
+		\providecommand{\beamer@theme@ciad@thanksslide}{}%
 		\beamer@theme@ciad@thanksslide%
 	}{}
 }

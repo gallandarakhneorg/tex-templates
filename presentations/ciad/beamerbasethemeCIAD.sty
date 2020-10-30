@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2020/09/23}
+\gdef\insertciadbeamerthemeversion{2020/10/30}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -108,7 +108,6 @@
 \RequirePackage{colortbl}
 \RequirePackage{translator} % Should be provided by Beamer, be sometime missed
 \RequirePackage{stringstrings} % provides lot of functions for manipulating strings
-\RequirePackage{setspace} % for changing the interline space
 \RequirePackage{textcase} % for making upper case the text
 
 \DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{0}}
@@ -243,6 +242,17 @@
 %%%%%%%--------------------------------------
 %%%%%%% PROTECTED API
 %%%%%%%--------------------------------------
+
+%-----------------------------------------
+% Provide a basic command for changing
+% interline space.
+% This function is usually provided by
+% the "setspace" package; but this
+% package is incompatible with the
+% beamer footnotes
+\newcommand{\setstretch}[1]{%
+  \def\baselinestretch{#1}%
+}
 
 %-----------------------------------------
 % Change the description of the PDF creator.
@@ -783,16 +793,16 @@
 %-----------------------------------------
 % Footnote
 \let\beamer@theme@ciad@oldfootnote\footnote
-\gdef\beamer@theme@ciad@footnote#1{%
+\renewcommand<>\beamer@theme@ciad@footnote[2][]{%
 	\global\let\oldthefootnote\thefootnote%
 	\global\let\thefootnote\relax%
-	\footnotetext{#1}%
+	\footnotetext{#2}%
 	\global\let\thefootnote\oldthefootnote}
 \gdef\footnote{\@ifstar\beamer@theme@ciad@footnote\beamer@theme@ciad@oldfootnote}
 
 %-----------------------------------------
 % Citation in footnote
-\newcommand{\footcite}[1]{\footnote*{\cite{#1}}}
+\newcommand<>{\footcite}[1]{\footnote*{\cite{#1}}}
 
 %-----------------------------------------
 % Side note
