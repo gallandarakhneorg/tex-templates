@@ -802,7 +802,11 @@
 
 %-----------------------------------------
 % Citation in footnote
-\newcommand<>{\footcite}[1]{\footnote*{\cite{#1}}}
+\AtBeginDocument{%
+	\ifcsname footcite\endcsname\else%
+		\newcommand<>{\footcite}[1]{\footnote*{\cite{#1}}}%
+	\fi%
+}
 
 %-----------------------------------------
 % Side note
