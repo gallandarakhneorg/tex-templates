@@ -108,15 +108,15 @@
 	\expandafter\begin{picture}(0,0)(0,\beamer@theme@ciad@outer@offsety)%
 		% User left background
 		\ifx\beamer@theme@ciad@titleslide@background@userpgf\relax\else%
-			\put(-28,-142.5){\expandafter\pgfuseimage{\beamer@theme@ciad@titleslide@background@userpgf}}%
+			\put(-28.6,-142.7){\expandafter\pgfuseimage{\beamer@theme@ciad@titleslide@background@userpgf}}%
 		\fi%
 		% Page background
-		\put(-28,-142.5){\expandafter\pgfuseimage{\beamer@theme@ciad@titleslide@background}}%
-		% Background for the title
-		\put(171.6,-142.45){%
+		\put(-28.6,-142.7){\expandafter\pgfuseimage{\beamer@theme@ciad@titleslide@background}}%
+		% Background for the title (white and green)
+		\put(171.1,-142.7){%
 			\begin{tikzpicture}%
 			\fill[CIADgreen](0,0) -- (0.365,1.2) -- (9,1.2) -- (9,0) -- cycle;%
-			\fill[white](0.35,1.2) -- (0.45,1.6) -- (9,1.6) -- (9,1.2) -- cycle;%
+			\fill[white](0.3,1.1) -- (0.45,1.6) -- (9,1.6) -- (9,1.1) -- cycle;%
 			\end{tikzpicture}%
 		}%
 		% Right logo on the page
@@ -129,19 +129,19 @@
 				\expandafter\pgfuseimage{\beamer@theme@ciad@titleslide@leftlogo@pgf}%
 			}%
 		\fi%
-		% White area
-		\put(190,-106){%
-			\parbox[c]{8cm}{\centering\nohyphens{%
+		% Text in white area
+		\put(181,-107){%
+			\parbox[c]{8.35cm}{\centering\nohyphens{%
 				\usebeamercolor[fg]{text in small title area}%
 				\usebeamerfont{text in small title area}%
 				\ifthenelse{\equal{a\inserteventname}{a}}{%
 					\@beamer@theme@ciad@wraptextformats{\insertauthor}%
 				}{%
 					\@beamer@theme@ciad@wraptextformats{\inserteventname}%
-				}}}}%		
-		% Green area
-		\put(182,-128){%
-			\parbox[c]{8.28cm}{\centering\nohyphens{%
+				}}}}%
+		% Text in green area
+		\put(181,-130){%
+			\parbox[c]{8.35cm}{\centering\nohyphens{%
 				\usebeamercolor[fg]{text in big title area}%
 				{\usebeamerfont{text in big title area}\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@conditionalfirsttailletters\inserttitle}}%
 				{\usebeamerfont{subtext in big title area}%
