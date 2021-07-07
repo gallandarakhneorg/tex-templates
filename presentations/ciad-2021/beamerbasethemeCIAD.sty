@@ -1,0 +1,2862 @@
+% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM logo and name are registered and owned by the
+% "Universite de Technology of Belfort-Montbeliard".
+%
+% UB logo and name are registered and owned by the
+% "Universite de Bourgogne".
+
+% CIAD logo and name are registered and owned by the
+% "Universite de Bourgogne Franche-Comté".
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+
+\gdef\insertciadbeamerthemeversion{2021/07/08}
+
+\expandafter\ProvidesPackage{beamerbasethemeCIAD}
+   [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
+
+%%%%%%%--------------------------------------
+%%%%%%% PREAMBLE DEFINITIONS
+%%%%%%%--------------------------------------
+\newcounter{@beamer@theme@ciad@finalslidelabel}
+\setcounter{@beamer@theme@ciad@finalslidelabel}{0} %0: Thanks, 1: Questions, 2: user, 3: title
+
+\gdef\beamer@theme@ciad@label@finalslidelabel{}
+
+\newcounter{@beamer@theme@ciad@visualframenumber}
+\setcounter{@beamer@theme@ciad@visualframenumber}{1} % 0: none, 1: circle, 2: text, 3:section-circle,
+                                                         % 4:part-circle, 5: section-part-circle
+
+\newboolean{beamer@theme@ciad@hyphenation}
+\setboolean{beamer@theme@ciad@hyphenation}{false}
+
+\newboolean{beamer@theme@ciad@lablogo}
+\setboolean{beamer@theme@ciad@lablogo}{true}
+
+\newboolean{beamer@theme@ciad@utbmlogo}
+\setboolean{beamer@theme@ciad@utbmlogo}{true}
+
+\newboolean{beamer@theme@ciad@ublogo}
+\setboolean{beamer@theme@ciad@ublogo}{true}
+
+\newboolean{beamer@theme@ciad@ubfclogo}
+\setboolean{beamer@theme@ciad@ubfclogo}{true}
+
+\newboolean{beamer@theme@ciad@carnotlogo}
+\setboolean{beamer@theme@ciad@carnotlogo}{true}
+
+\newboolean{beamer@theme@ciad@handout}
+\setboolean{beamer@theme@ciad@handout}{false}
+
+\newboolean{beamer@theme@ciad@titlefancyletters}
+\setboolean{beamer@theme@ciad@titlefancyletters}{true}
+
+\newboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}
+\setboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}{true}
+
+\newboolean{beamer@theme@ciad@fancyframetitle}
+\setboolean{beamer@theme@ciad@fancyframetitle}{true}
+
+\newboolean{beamer@theme@ciad@randombackground}
+\setboolean{beamer@theme@ciad@randombackground}{false}
+
+\newlength{\beamer@theme@ciad@tmplength}
+
+\gdef\beamer@theme@ciad@outer@titleverticalalignment{c}
+\gdef\beamer@theme@ciad@outer@titleverticalposition{-96}
+
+\global\let\beamer@theme@ciad@backgroundpicture@current@global\relax
+
+%%%%%%%--------------------------------------
+%%%%%%% PACKAGE OPTIONS AND DEPENDENCIES
+%%%%%%%--------------------------------------
+
+\RequirePackage{ifthen}
+\RequirePackage{relsize}
+\RequirePackage{hyphenat}
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+\RequirePackage{xcolor}
+\RequirePackage{url}
+\RequirePackage{graphicx}
+\RequirePackage{keyval}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{pifont}
+\RequirePackage{tikz}
+\RequirePackage{environ}% for advanced environment declaration
+\RequirePackage{textcomp}
+\RequirePackage{colortbl}
+\RequirePackage{translator} % Should be provided by Beamer, be sometime missed
+\RequirePackage{stringstrings} % provides lot of functions for manipulating strings
+\RequirePackage{textcase} % for making upper case the text
+
+% Bug fix: force the theme to parse the key-value options
+% (See also the patch into the ciadbeamer.cls)
+\RequirePackage{etoolbox}
+\patchcmd{\ProcessOptionsBeamer}
+{\@ifundefined{KV@\@currname @\CurrentOption}}
+{\expandafter\beamer@theme@ciad@get@key\CurrentOption=\@nil
+	\@ifundefined{KV@\@currname @\CurrentOption@key}}
+{}{\fail}
+\def\beamer@theme@ciad@get@key#1=#2\@nil{\def\CurrentOption@key{#1}}
+
+
+\DeclareOptionBeamer{background}{%
+	\setboolean{beamer@theme@ciad@randombackground}{false}%
+	\gdef\beamer@theme@ciad@backgroundpicture@current@global{#1}%
+}
+\DeclareOptionBeamer{randombackground}{%
+	\setboolean{beamer@theme@ciad@randombackground}{true}%
+	\global\let\beamer@theme@ciad@backgroundpicture@current@global\relax%
+}
+\DeclareOptionBeamer{thanksslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{0}}
+\DeclareOptionBeamer{questionslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{1}}
+\DeclareOptionBeamer{repeattitleslide}{\global\setcounter{@beamer@theme@ciad@finalslidelabel}{3}}
+\DeclareOptionBeamer{nonumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{0}%
+}
+\DeclareOptionBeamer{circlenumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{1}%
+}
+\DeclareOptionBeamer{textnumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{2}%
+}
+\DeclareOptionBeamer{sectioncirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{3}%
+}
+\DeclareOptionBeamer{partcirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{4}%
+}
+\DeclareOptionBeamer{partsectioncirclenumberstyle}{%
+	\global\setcounter{@beamer@theme@ciad@visualframenumber}{5}%
+}
+\DeclareOptionBeamer{hyphenation}{%
+	\setboolean{beamer@theme@ciad@hyphenation}{true}%
+}
+\DeclareOptionBeamer{nohyphenation}{%
+	\setboolean{beamer@theme@ciad@hyphenation}{false}%
+}
+\DeclareOptionBeamer{lablogo}{%
+	\setboolean{beamer@theme@ciad@lablogo}{true}%
+}
+\DeclareOptionBeamer{nolablogo}{%
+	\setboolean{beamer@theme@ciad@lablogo}{false}%
+}
+\DeclareOptionBeamer{utbmlogo}{%
+	\setboolean{beamer@theme@ciad@utbmlogo}{true}%
+}
+\DeclareOptionBeamer{noutbmlogo}{%
+	\setboolean{beamer@theme@ciad@utbmlogo}{false}%
+}
+\DeclareOptionBeamer{ublogo}{%
+	\setboolean{beamer@theme@ciad@ublogo}{true}%
+}
+\DeclareOptionBeamer{noublogo}{%
+	\setboolean{beamer@theme@ciad@ublogo}{false}%
+}
+\DeclareOptionBeamer{ubfclogo}{%
+	\setboolean{beamer@theme@ciad@ubfclogo}{true}%
+}
+\DeclareOptionBeamer{noubfclogo}{%
+	\setboolean{beamer@theme@ciad@ubfclogo}{false}%
+}
+\DeclareOptionBeamer{carnotlogo}{%
+	\setboolean{beamer@theme@ciad@carnotlogo}{true}%
+}
+\DeclareOptionBeamer{nocarnotlogo}{%
+	\setboolean{beamer@theme@ciad@carnotlogo}{false}%
+}
+\DeclareOptionBeamer{handout}{%
+	\setboolean{beamer@theme@ciad@handout}{true}%
+}
+\DeclareOptionBeamer{nohandout}{%
+	\setboolean{beamer@theme@ciad@handout}{false}%
+}
+\DeclareOptionBeamer{titlefancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters}{true}%
+}
+\DeclareOptionBeamer{notitlefancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters}{false}%
+}
+\DeclareOptionBeamer{allfancyletters}{%
+	\setboolean{beamer@theme@ciad@titlefancyletters@onlyuppercase}{false}%
+}
+\DeclareOptionBeamer{fancyframetitle}{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{true}%
+}
+\define@key{beamerframe}{fancyframetitle}[true]{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{#1}%
+}
+\DeclareOptionBeamer{nofancyframetitle}{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
+}
+\define@key{beamerframe}{nofancyframetitle}[]{%
+	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
+}
+
+%\ExecuteOptionsBeamer{framebackground=1}
+\ProcessOptionsBeamer
+
+\ifthenelse{\boolean{beamer@theme@ciad@hyphenation}}{}{%
+	\RequirePackage[english=nohyphenation,french=nohyphenation]{hyphsubst}
+}
+
+\ifthenelse{\boolean{beamer@theme@ciad@handout}}{%
+	\RequirePackage{beamerhandoutthemeCIAD}
+	\pgfpagesuselayout{4 on 1 with notes}[a4paper,border shrink=5mm]
+}{}
+
+%%%%%%%--------------------------------------
+%%%%%%% PROTECTED API
+%%%%%%%--------------------------------------
+
+% Set the random seed
+\pgfmathsetseed{\number\pdfrandomseed}
+
+%-----------------------------------------
+% Provide a basic command for changing
+% interline space.
+% This function is usually provided by
+% the "setspace" package; but this
+% package is incompatible with the
+% beamer footnotes
+\newcommand{\setstretch}[1]{%
+  \def\baselinestretch{#1}%
+}
+
+%-----------------------------------------
+% Change the description of the PDF creator.
+\hypersetup{pdfcreator={Beamer and CIAD Theme}}
+
+%-----------------------------------------
+% Override the graphics macro for having a default width set to \linewidth
+\let\beamer@theme@ciad@old@includegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{
+	\beamer@theme@ciad@old@includegraphics[width=\linewidth,keepaspectratio,#1]{#2}%
+}
+
+%-----------------------------------------
+% Fixing a strange bug: the default color of the
+% text is not the "normal text" color.
+% Also reset the font in case of a bug! ;-)
+\let\beamer@theme@ciad@old@frame\frame
+\gdef\frame{
+	\message{################ FRAME \the\c@page}
+	\normalcolor\normalfont\beamer@theme@ciad@old@frame%
+}
+
+%-----------------------------------------
+% Hooks for begin and end of slides
+\gdef\beamer@theme@ciad@beginframe@hooks{}
+\newcommand{\AtBeginFrame}[1]{%
+	\g@addto@macro\beamer@theme@ciad@beginframe@hooks{#1}%
+}
+
+\gdef\beamer@theme@ciad@endframe@hooks{}
+\newcommand{\AtEndFrame}[1]{%
+	\g@addto@macro\beamer@theme@ciad@endframe@hooks{#1}%
+}
+\let\beamer@theme@ciad@endframeslide\endbeamer@frameslide
+\gdef\endbeamer@frameslide{%
+	\beamer@theme@ciad@endframe@hooks%
+	\beamer@theme@ciad@endframeslide%
+}
+
+
+%-----------------------------------------
+% Wrap the text formatting functions (for inside the titles)
+\long\gdef\@beamer@theme@ciad@wraptextformats#1{%
+	\let\@beamer@theme@ciad@oldtextsc\textsc%
+	\def\textsc##1{\smaller\beamer@theme@ciad@makeuppercase{##1}\larger}#1%
+	\let\textsc\@beamer@theme@ciad@oldtextsc%
+}
+
+%-----------------------------------------
+% Put the first parameter at the end of the second
+% parameter, iff the second parameter is not empty.
+\gdef\@beamer@theme@ciad@postfix#1#2{\ifthenelse{\equal{a#2}{a}}{{}}{#2#1}}
+
+%-----------------------------------------
+% Put the first parameter at the beginning of the second
+% parameter, iff the second parameter is not empty.
+\gdef\@beamer@theme@ciad@prefix#1#2{\ifthenelse{\equal{a#2}{a}}{{}}{#1#2}}
+
+%-----------------------------------------
+% Merge the first and third arguments with the second argument iff
+% the first and third arguments are not empty.
+\gdef\@beamer@theme@ciad@merge#1#2#3{%
+	\ifthenelse{\equal{a#1}{a}}{#3}{%
+		\ifthenelse{\equal{a#3}{a}}{#1}{#1#2#3}%
+	}}
+
+%-----------------------------------------
+% Localization support
+\deftranslation[to=English]{ColumnChar}{:}
+\deftranslation[to=English]{Thanks}{Thank you for your attention\dots}
+\deftranslation[to=English]{Questions}{Questions\dots}
+\deftranslation[to=French]{ColumnChar}{\,:}
+\deftranslation[to=French]{Thanks}{Merci de votre attention\dots}
+\deftranslation[to=French]{Questions}{Questions\dots}
+\deftranslation[to=German]{ColumnChar}{ :}
+\deftranslation[to=German]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
+\deftranslation[to=German]{Questions}{Fragen\dots}
+
+%-----------------------------------------
+% Thank slide
+\gdef\beamer@theme@ciad@thanksslide{%
+	\beamer@theme@ciad@outer@thanksslide%
+	\global\let\beamer@theme@ciad@thanksslide\relax
+}
+
+%-----------------------------------------
+% Title slide
+
+% Change the right icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\newcommand{\settitlepagerightfigure}[3]{%
+	\gdef\beamer@theme@ciad@titleslide@rightlogo@x{#1}%
+	\gdef\beamer@theme@ciad@titleslide@rightlogo@y{#2}%
+	\gdef\beamer@theme@ciad@titleslide@rightlogo@pgf{#3}%
+}
+
+\pgfdeclareimage[width=5cm]{ciadlogoontitleslide}{ciad-logoontitleslide}
+\settitlepagerightfigure{245}{-50}{ciadlogoontitleslide}
+
+% Change the left icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\newcommand{\settitlepageleftfigure}[3]{%
+	\gdef\beamer@theme@ciad@titleslide@leftlogo@x{#1}%
+	\gdef\beamer@theme@ciad@titleslide@leftlogo@y{#2}%
+	\gdef\beamer@theme@ciad@titleslide@leftlogo@pgf{#3}%
+}
+
+\pgfdeclareimage[width=12.5cm]{ciadpictureontitleslide}{ciad-title-hands}
+
+% Set the left icon to the default CIAD
+\newcommand{\setdefaulttitlepageleftfigure}{%
+	\settitlepageleftfigure{-117}{-120}{ciadpictureontitleslide}
+}
+
+% Remove the left icon
+\newcommand{\removetitlepageleftfigure}{%
+	\global\let\beamer@theme@ciad@titleslide@leftlogo@pgf\relax%
+}
+
+\setdefaulttitlepageleftfigure
+
+\pgfdeclareimage[width=\paperwidth]{titleslidebackground}{ciad-title-background}
+\pgfdeclareimage[width=\paperwidth]{titleslidebackground-right}{ciad-title-background-right}
+
+% Remove the user background on the title page
+\newcommand{\removetitlepageuserbackground}{%
+	\gdef\beamer@theme@ciad@titleslide@background{titleslidebackground}%
+	\global\let\beamer@theme@ciad@titleslide@background@userpgf\relax%
+}
+
+\removetitlepageuserbackground
+
+% Force the title page's background to be with the right black part only
+% The image is assumed to have the good size.
+% The left picture is automatically removed
+% #1: id of the image that was loaded with PGF
+\newcommand{\settitlepageuserbackground}[1]{%
+	\gdef\beamer@theme@ciad@titleslide@background{titleslidebackground-right}%
+	\gdef\beamer@theme@ciad@titleslide@background@userpgf{#1}%
+	\removetitlepageleftfigure%
+}
+
+% Use the pre-defined background for the left part of the title frame.
+% The file is "ciad-background-left%.png where "%" is the number of the background.
+% #1: the number of the background.
+\newcommand{\setpredefinedtitlepagebackground}[1]{%
+	\expandafter\settitlepageuserbackground{ciad-title-background-left#1}%
+}
+
+% Insert the predefined title page background with the given id.
+% The file is "ciad-background-left%.png where "%" is the number of the background.
+% #1: the number of the background.
+\newcommand{\insertpredefinedtitlepagebackground}[1]{%
+	\expandafter\pgfuseimage{ciad-title-background-left#1}%
+}
+
+% Predefined backgrounds for the title page.
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left1}{ciad-title-background-left1}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left2}{ciad-title-background-left2}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left3}{ciad-title-background-left3}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left4}{ciad-title-background-left4}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left5}{ciad-title-background-left5}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left6}{ciad-title-background-left6}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left7}{ciad-title-background-left7}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left8}{ciad-title-background-left8}
+\pgfdeclareimage[height=\paperheight]{ciad-title-background-left9}{ciad-title-background-left9}
+
+%-----------------------------------------
+% Visual progression indicator
+%
+
+%
+% Radius of the circles of the progress indicator
+%
+% radius of the area that covers the background (usually same color as the background)
+\gdef\beamer@theme@ciad@pi@circle@radius@backgroundcircle{.29cm}
+% radius of the circle that is the larger circle (outside bar)
+\gdef\beamer@theme@ciad@pi@circle@radius@outerradius{.24cm}
+% radius of the inner area when a single bar is draw (usually same color as the background)
+\gdef\beamer@theme@ciad@pi@circle@radius@innerareasingle{.15cm}
+% radius of the area that covers the background and make a separation between the two bars
+\gdef\beamer@theme@ciad@pi@circle@radius@interbar{.205cm}
+% radius of the circle that is the inner bar
+\gdef\beamer@theme@ciad@pi@circle@radius@innerradius{.185cm}
+
+% Style of the page numbers
+\gdef\beamer@theme@ciad@pi@circle@formattext#1{\normalfont\Tiny\usebeamercolor[fg]{circle progress bar}#1}
+
+% Parameters: (x,y){3:begin angle}{4:end angle}{5:radius}{6:fill color}{7:line color}{8:style}
+\def\beamer@theme@ciad@pgf@pie(#1,#2)#3#4#5#6#7#8{%
+	\pgfmathsetmacro{\beamer@theme@ciad@tmp}{0.5*(#3)+0.5*(#4)}%
+	\path (#1,#2) -- ++(\beamer@theme@ciad@tmp:0) coordinate(FRAMEPROGRESS);%
+	% slice
+	\draw[line join=round, color=#7, fill=#6, #8] (FRAMEPROGRESS) -- ++(#3:#5) arc (#3:#4:#5) -- cycle;
+}
+% Parameters: {Number to display}{counter for the current page}{counter for the total number of pages}
+\newcommand{\beamer@theme@ciad@pi@circle}[3]{%
+	\begin{tikzpicture}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@endangle}{(360.0/(max(#3,1))*max(1,min(#2,#3))}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@startangle}{min(90-\beamer@theme@ciad@pi@endangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@endangle}{max(90-\beamer@theme@ciad@pi@endangle,90)}%
+		% big circle for hidding the background
+		\beamer@theme@ciad@pgf@pie(0,0){90}{450}{\beamer@theme@ciad@pi@circle@radius@backgroundcircle}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		% circle for the outer bar
+		\beamer@theme@ciad@pgf@pie(0,0){\beamer@theme@ciad@pi@startangle}{\beamer@theme@ciad@pi@endangle}{\beamer@theme@ciad@pi@circle@radius@outerradius}{circle progress bar/first bar.bg}{circle progress bar/first bar.bg}{thick}
+		% circle that corresponds to the inner area where the pages are drawn
+		\beamer@theme@ciad@pgf@pie(0,0){0}{360}{\beamer@theme@ciad@pi@circle@radius@innerareasingle}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		% the page number
+		\path[color=white] (FRAMEPROGRESS) node {\beamer@theme@ciad@pi@circle@formattext{#1}};
+	\end{tikzpicture}%
+}
+% Parameters: {Number to display}{counter for the current page}{counter for the total number of pages}{counter for the current page in the section}{counter for the total number of pages in the section}
+\newcommand{\beamer@theme@ciad@pi@seccircle}[5]{%
+	\begin{tikzpicture}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@endangle}{(360.0/(max(#3,1))*max(1,min(#2,#3))}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@startangle}{min(90-\beamer@theme@ciad@pi@endangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@endangle}{max(90-\beamer@theme@ciad@pi@endangle,90)}%
+		%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@secendangle}{(360.0/max(#5,1))*min(#4,#5)}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@secstartangle}{min(90-\beamer@theme@ciad@pi@secendangle,90)}%
+		\pgfmathsetmacro{\beamer@theme@ciad@pi@secendangle}{max(90-\beamer@theme@ciad@pi@secendangle,90)}%
+		% big circle for hidding the background
+		\beamer@theme@ciad@pgf@pie(0,0){90}{450}{\beamer@theme@ciad@pi@circle@radius@backgroundcircle}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		% circle for the outer bar
+		\beamer@theme@ciad@pgf@pie(0,0){\beamer@theme@ciad@pi@startangle}{\beamer@theme@ciad@pi@endangle}{\beamer@theme@ciad@pi@circle@radius@outerradius}{circle progress bar/first bar.bg}{circle progress bar/first bar.bg}{thick}
+		% background circle to make a separation between the bars
+		\beamer@theme@ciad@pgf@pie(0,0){0}{360}{\beamer@theme@ciad@pi@circle@radius@interbar}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		% circle for the inner bar
+		\beamer@theme@ciad@pgf@pie(0,0){\beamer@theme@ciad@pi@secstartangle}{\beamer@theme@ciad@pi@secendangle}{\beamer@theme@ciad@pi@circle@radius@innerradius}{circle progress bar/second bar.bg}{circle progress bar/second bar.bg}{thick}
+		% circle that corresponds to the inner area where the pages are drawn
+		\beamer@theme@ciad@pgf@pie(0,0){0}{360}{\beamer@theme@ciad@pi@circle@radius@innerareasingle}{circle progress bar.bg}{circle progress bar.bg}{thick}
+		% the page number
+		\path[color=white] (FRAMEPROGRESS) node {\beamer@theme@ciad@pi@circle@formattext{#1}};
+	\end{tikzpicture}%
+}
+
+%-----------------------------------------
+% Option parameters
+\newif\ifbeamer@theme@ciad@optlist@needdefault
+\gdef\beamer@theme@ciad@optlist@parseparams#1=#2\@nil{%
+	\ifthenelse{\equal{#2}{===}}{%
+		\global\beamer@theme@ciad@optlist@needdefaulttrue%
+	}{%
+		\global\beamer@theme@ciad@optlist@needdefaultfalse%
+	}%
+}
+\DeclareRobustCommand{\beamer@theme@ciad@optlist}[1]{%
+	{\beamer@theme@ciad@optlist@parseparams #1====\@nil}%
+}
+
+%-----------------------------------------
+% Internal macro for looping on a text based on separators
+\newif\ifbeamer@theme@ciad@foreach@hasseparator
+\newif\ifbeamer@theme@ciad@foreach@oneseparator
+
+\let\beamer@theme@ciad@foreach@end\relax
+
+\def\beamer@theme@ciad@foreach@rec#1{%
+	{\beamer@theme@ciad@foreach@searchseparator#1\beamer@theme@ciad@foreach@end\@nil}%
+	\ifbeamer@theme@ciad@foreach@hasseparator%
+		\protected@xdef\beamer@theme@ciad@foreach@continue{\protect\beamer@theme@ciad@foreach@rec{\beamer@theme@ciad@foreach@rest}}%
+		\beamer@theme@ciad@foreach@body%
+		\beamer@theme@ciad@foreach@continue%
+	\else%
+		\ifbeamer@theme@ciad@foreach@oneseparator\else%
+			\beamer@theme@ciad@foreach@lastbody%
+		\fi%
+	\fi%
+}
+
+% Loop on parts of a text given a specific separator.
+% In the bodies, the macro \beamer@theme@ciad@foreach@term is the current data.
+% #1: is the separator to consider
+% #2: is the data set
+% #3: is the body to run for each loop, except the last.
+% #4: is the body to run for the last loop.
+\def\beamer@theme@ciad@foreach#1\in#2\do#3\and#4{%
+	\global\beamer@theme@ciad@foreach@oneseparatorfalse%
+	\gdef\beamer@theme@ciad@foreach@searchseparator##1#1##2\@nil{%
+		\gdef\beamer@theme@ciad@foreach@term{##1}%
+		\ifx\beamer@theme@ciad@foreach@end##2%
+			\global\beamer@theme@ciad@foreach@hasseparatorfalse%
+		\else%
+			\gdef\beamer@theme@ciad@foreach@rest{##2}%
+			\global\beamer@theme@ciad@foreach@hasseparatortrue%
+			\global\beamer@theme@ciad@foreach@oneseparatortrue%
+		\fi%
+	}%
+	\gdef\beamer@theme@ciad@foreach@body{#3}%
+	\gdef\beamer@theme@ciad@foreach@lastbody{#4}%
+	\beamer@theme@ciad@foreach@rec{#2#1}%
+}
+
+%%%%%%%--------------------------------------
+%%%%%%% PUBLIC API
+%%%%%%%--------------------------------------
+
+%-----------------------------------------
+% CIAD Name
+\newcommand{\ciad}{{CIAD}\xspace}
+\newcommand{\colorciad}{{\textcolor{black}{C}\textcolor{CIADgreen}{IA}\textcolor{black}{D}}\xspace}
+
+%-----------------------------------------
+% Keywords
+\let\beamer@theme@ciad@keywords@old\keywords
+\def\insertkeywords{}
+\renewcommand{\keywords}[1]{%
+	\beamer@theme@ciad@keywords@old{#1}%
+	\gdef\insertkeywords{#1}%
+}
+
+%-----------------------------------------
+% Subject
+\let\beamer@theme@ciad@subject@old\subject
+\def\insertsubject{}
+\renewcommand{\subject}[1]{%
+	\beamer@theme@ciad@subject@old{#1}%
+	\gdef\insertsubject{#1}%
+}
+
+%-----------------------------------------
+% Headlines
+\newif\ifbeamer@theme@ciad@headline@enableheadline
+\beamer@theme@ciad@headline@enableheadlinetrue
+\newif\ifbeamer@theme@ciad@headline@empty
+\beamer@theme@ciad@headline@emptyfalse
+
+\let\beamer@theme@ciad@headline@frame\frame
+\gdef\frame{%
+	\global\beamer@theme@ciad@headline@enableheadlinetrue%
+	\beamer@theme@ciad@headline@frame%
+}
+
+\let\beamer@theme@ciad@headline@oldtitlepage\titlepage
+\gdef\titlepage{%
+	\global\beamer@theme@ciad@headline@enableheadlinefalse%
+	\beamer@theme@ciad@headline@oldtitlepage%
+}
+
+\global\let\beamer@theme@ciad@headline@default\relax
+\global\let\beamer@theme@ciad@headline@defaultpicture\relax
+\gdef\beamer@theme@ciad@headline@current{\beamer@theme@ciad@headline@default}
+\gdef\beamer@theme@ciad@headline@currentpicture{\beamer@theme@ciad@headline@defaultpicture}
+\setbeamertemplate{headline}{%
+	\ifbeamer@theme@ciad@headline@enableheadline%
+		\beamer@theme@ciad@headline@current%
+	\fi%
+}
+\setbeamertemplate{headline text style}{}
+
+\newcommand{\useheaderempty}{%
+	\global\beamer@theme@ciad@headline@emptytrue%
+	\gdef\beamer@theme@ciad@headline@current{}%
+	\gdef\beamer@theme@ciad@headline@currentpicture{}%
+}
+\newcommand{\useheaderdefault}{%
+	\global\beamer@theme@ciad@headline@emptyfalse%
+	\gdef\beamer@theme@ciad@headline@current{\beamer@theme@ciad@headline@default}%
+	\gdef\beamer@theme@ciad@headline@currentpicture{\beamer@theme@ciad@headline@defaultpicture}%
+}
+
+\pgfdeclareimage[height=.5cm]{CIADlogointitle}{ciadlogointitle}
+\newcommand{\insertheaderlinewithciadlogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(415,-16){%
+			\pgfuseimage{CIADlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithciadlogo}[1][]{%
+	\gdef\beamer@theme@ciad@headline@default{\insertheaderlinewithciadlogo}%
+	\gdef\beamer@theme@ciad@headline@defaultpicture{\pgfuseimage{CIADlogointitle}}%
+}
+
+\pgfdeclareimage[width=.6cm]{UTBMlogointitle}{utbmlogointitle}
+\newcommand{\insertheaderlinewithutbmlogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(424,-17){%
+			\pgfuseimage{UTBMlogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithutbmlogo}[1][]{%
+	\gdef\beamer@theme@ciad@headline@default{\insertheaderlinewithutbmlogo}%
+	\gdef\beamer@theme@ciad@headline@defaultpicture{\pgfuseimage{UBlogointitle}}%
+}
+
+\pgfdeclareimage[width=.6cm]{UBlogointitle}{ublogointitle}
+\newcommand{\insertheaderlinewithublogo}{%
+	\begin{picture}(0,0)(0,0)%
+	\put(425,-14){%
+		\pgfuseimage{UBlogointitle}%
+	}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithublogo}[1][]{%
+	\gdef\beamer@theme@ciad@headline@default{\insertheaderlinewithublogo}%
+	\gdef\beamer@theme@ciad@headline@defaultpicture{\pgfuseimage{UBlogointitle}}%
+}
+
+\pgfdeclareimage[width=.5cm]{UBFClogointitle}{ubfclogointitle}
+\newcommand{\insertheaderlinewithubfclogo}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(427,-14){%
+			\pgfuseimage{UBFClogointitle}%
+		}%
+	\end{picture}%
+}
+\newcommand{\useheaderlinewithubfclogo}[1][]{%
+	\gdef\beamer@theme@ciad@headline@default{\insertheaderlinewithubfclogo}%
+	\gdef\beamer@theme@ciad@headline@defaultpicture{\pgfuseimage{UBFClogointitle}}%
+}
+
+\define@key{beamerthemeciadeaderlineuserlogo}{width}{%
+	\def\beamer@theme@ciad@headerlineuserlogo@width{#1}%
+}
+\define@key{beamerthemeciadeaderlineuserlogo}{height}{%
+	\def\beamer@theme@ciad@headerlineuserlogo@height{#1}%
+}
+\define@key{beamerthemeciadeaderlineuserlogo}{x}{%
+	\gdef\beamer@theme@ciad@headerlineuserlogo@x{#1}%
+}
+\define@key{beamerthemeciadeaderlineuserlogo}{y}{%
+	\gdef\beamer@theme@ciad@headerlineuserlogo@y{#1}%
+}
+
+
+\gdef\beamer@theme@ciad@headerlineuserlogo@x{415}%
+\gdef\beamer@theme@ciad@headerlineuserlogo@y{-16}%
+\let\insertheaderlinewithuserlogo\relax
+\newcommand{\useheaderlinewithuserlogo}[2][]{%
+	\bgroup%
+	\def\beamer@theme@ciad@headerlineuserlogo@width{.7cm}%
+	\def\beamer@theme@ciad@headerlineuserlogo@height{}%
+	\gdef\beamer@theme@ciad@headerlineuserlogo@x{415}%
+	\gdef\beamer@theme@ciad@headerlineuserlogo@y{-16}%
+	\setkeys{beamerthemeciadeaderlineuserlogo}{#1}%
+	%
+	\expandafter\ifcsname pgf@image@USERlogointitle@#2!\endcsname\else%
+		\def\beamer@theme@ciad@headerlineuserlogo@imageopts{}%
+		\ifthenelse{\equal{=\beamer@theme@ciad@headerlineuserlogo@width}{=}}{}{%
+			\ifthenelse{\equal{=\beamer@theme@ciad@headerlineuserlogo@imageopts}{=}}{%
+				\protected@edef\beamer@theme@ciad@headerlineuserlogo@imageopts{width=\beamer@theme@ciad@headerlineuserlogo@width}%
+			}{%
+				\protected@edef\beamer@theme@ciad@headerlineuserlogo@imageopts{\beamer@theme@ciad@headerlineuserlogo@imageopts,width=\beamer@theme@ciad@headerlineuserlogo@width}%
+			}%
+		}%
+		\ifthenelse{\equal{=\beamer@theme@ciad@headerlineuserlogo@height}{=}}{}{%
+			\ifthenelse{\equal{=\beamer@theme@ciad@headerlineuserlogo@imageopts}{=}}{%
+				\protected@edef\beamer@theme@ciad@headerlineuserlogo@imageopts{height=\beamer@theme@ciad@headerlineuserlogo@height}%
+			}{%
+				\protected@edef\beamer@theme@ciad@headerlineuserlogo@imageopts{\beamer@theme@ciad@headerlineuserlogo@imageopts,height=\beamer@theme@ciad@headerlineuserlogo@height}%
+			}%
+		}%
+		%
+		\resolvepicturename{#2}%
+		\protected@edef\beamer@theme@ciad@tmp{%
+			\protect\pgfdeclareimage[\beamer@theme@ciad@headerlineuserlogo@imageopts]{USERlogointitle@#2}{\resolvedfilename}%
+		}%
+		\beamer@theme@ciad@tmp%
+	\fi
+	\protected@xdef\insertheaderlinewithuserlogo{%
+		\protect\begin{picture}(0,0)(0,0)%
+			\protect\put(\beamer@theme@ciad@headerlineuserlogo@x,\beamer@theme@ciad@headerlineuserlogo@y){%
+				\protect\pgfuseimage{USERlogointitle@#2}%
+			}%
+		\protect\end{picture}%
+	}%
+	\gdef\beamer@theme@ciad@headline@default{\insertheaderlinewithuserlogo}%
+	\protected@xdef\beamer@theme@ciad@headline@defaultpicture{\protect\pgfuseimage{USERlogointitle@#2}}%
+	\egroup%
+}
+
+\useheaderlinewithciadlogo
+\useheaderdefault
+
+%-----------------------------------------
+% Footlines
+\newlength\beamer@theme@ciad@outer@footlinewidth
+\setlength\beamer@theme@ciad@outer@footlinewidth{\paperwidth}
+\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-1em}
+\ifthenelse{\boolean{beamer@theme@ciad@lablogo}}{%
+	\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-4.6cm}%
+}{%
+	\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-1em}%
+}
+
+\newcommand{\insertfootlinewithsections}{%
+	\put(6,7){%
+		\parbox[c]{\beamer@theme@ciad@outer@footlinewidth}{%
+		%
+		\def\slideentry##1##2##3##4##5##6{}%
+		\def\sectionentry##1##2##3##4##5{%
+			\ifnum##5=\c@part%
+				\def\insertsectionhead{##2}%
+				\def\insertsectionheadnumber{##1}%
+				\def\insertpartheadnumber{##5}%
+				\strut{%
+				  \usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+				  \ifnum\c@section=##1%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot}}}}%
+				  \else%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot shaded}}}}%
+				  \fi%
+				}%
+				\hskip1em%
+			\fi\ignorespaces%
+		}%
+		%
+		\dohead}}%
+}
+
+\newcommand{\insertfootlinewithdocumentname}{%
+	\put(6,7){%
+		\parbox[c]{\beamer@theme@ciad@outer@footlinewidth}{%
+		\begin{flushleft}%
+		\usebeamerfont{author in head/foot}\usebeamercolor[fg]{author in head/foot}%
+		{\insertshortauthor*}\@beamer@theme@ciad@prefix{~--~}{\insertshorteventname}\\%
+		\insertshortinstitute*\@beamer@theme@ciad@prefix{~--~}{\insertinstituteurl}%
+		\end{flushleft}}}%
+}
+
+\newcommand{\insertfootlinefortitlepage}{%
+	\put(6,7){%
+		\tiny\parbox[c]{%
+			\beamer@theme@ciad@outer@linewidth}{\begin{flushleft}%
+				{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}%
+				\end{flushleft}%
+			}%
+	}%
+}
+
+% Reference the footline that is used for outline page
+\global\let\beamer@theme@ciad@footline@foroutline\insertfootlinewithdocumentname
+
+\global\let\beamer@theme@ciad@footline@default\relax
+
+\newcommand{\usefootlinewithsections}[1][]{%
+	\gdef\beamer@theme@ciad@footline@default{\insertfootlinewithsections}%
+}
+
+\newcommand{\usefootlinewithdocumentname}[1][]{%
+	\gdef\beamer@theme@ciad@footline@default{\insertfootlinewithdocumentname}%
+}
+
+\newcommand{\usefootlinefortitlepage}[1][]{%
+	\gdef\beamer@theme@ciad@footline@default{\insertfootlinefortitlepage}%
+}
+
+\usefootlinefortitlepage
+
+\pgfdeclareimage[height=.35cm]{ciadlogoinpartners}{ciadlogo}
+\pgfdeclareimage[height=.35cm]{utbmlogoinpartners}{utbmlogo}
+\pgfdeclareimage[height=.35cm]{ublogoinpartners}{ublogo}
+\pgfdeclareimage[height=.35cm]{ubfclogoinpartners}{ubfclogo}
+\pgfdeclareimage[height=.35cm]{carnotlogoinpartners}{carnotlogo}
+
+\pgfdeclareimage[height=.35cm]{ciadgraylogoinpartners}{ciadgraylogo}
+\pgfdeclareimage[height=.35cm]{utbmgraylogoinpartners}{utbmgraylogo}
+\pgfdeclareimage[height=.35cm]{ubgraylogoinpartners}{ubgraylogo}
+\pgfdeclareimage[height=.35cm]{ubfcgraylogoinpartners}{ubfcgraylogo}
+\pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{carnotgraylogo}
+
+\newcommand{\insertinstitutelogosinfootline}[1]{%
+	\ifthenelse{\boolean{beamer@theme@ciad@utbmlogo}}{%
+		\pgfuseimage{utbmgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@ublogo}}{%
+		\pgfuseimage{ubgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@ubfclogo}}{%
+		\pgfuseimage{ubfcgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@carnotlogo}}{%
+		\pgfuseimage{carnotgraylogoinpartners}#1%
+	}{}%
+}
+
+%-----------------------------------------
+% Put something at an absolute position
+\newcounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}
+\setcounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}{0}
+\newcounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}
+\setcounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}{0}
+
+\def\beamer@theme@ciad@putat@background@pre{%
+	\@ifnextchar<\beamer@theme@ciad@putat@background@framespec\beamer@theme@ciad@putat@background%
+}
+\long\def\beamer@theme@ciad@putat@background@framespec<#1>(#2,#3)#4{%
+	\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}{1}%
+	\expandafter\gdef\csname beamer@theme@ciad@absolutepositionelements@bgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@bg}\endcsname{\only<#1>{\put(#2,#3){#4}}}%
+}
+\long\def\beamer@theme@ciad@putat@background(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}{1}%
+	\expandafter\gdef\csname beamer@theme@ciad@absolutepositionelements@bgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@bg}\endcsname{\put(#1,#2){#3}}%
+}
+
+\def\beamer@theme@ciad@putat@foreground@pre{%
+	\@ifnextchar<\beamer@theme@ciad@putat@foreground@framespec\beamer@theme@ciad@putat@foreground%
+}
+\long\def\beamer@theme@ciad@putat@foreground@framespec<#1>(#2,#3)#4{%
+	\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}{1}%
+	\expandafter\gdef\csname beamer@theme@ciad@absolutepositionelements@fgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@fg}\endcsname{\only<#1>{\put(#2,#3){#4}}}%
+}
+\long\def\beamer@theme@ciad@putat@foreground(#1,#2)#3{%
+	\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}{1}%
+	\expandafter\gdef\csname beamer@theme@ciad@absolutepositionelements@fgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@fg}\endcsname{\put(#1,#2){#3}}%
+}
+
+\def\putat{\@ifstar\beamer@theme@ciad@putat@background@pre\beamer@theme@ciad@putat@foreground@pre}
+
+\newcommand{\beamer@theme@ciad@insertabsolutepositionelements@background}{%
+	\whiledo{\arabic{beamer@theme@ciad@absolutepositionelements@cnt@bg}>0}{%
+		\csname beamer@theme@ciad@absolutepositionelements@bgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@bg}\endcsname%
+		\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}{-1}%
+	}%
+	\global\setcounter{beamer@theme@ciad@absolutepositionelements@cnt@bg}{0}%
+}
+
+\newcommand{\beamer@theme@ciad@insertabsolutepositionelements@foreground}{%
+	\whiledo{\arabic{beamer@theme@ciad@absolutepositionelements@cnt@fg}>0}{%
+		\csname beamer@theme@ciad@absolutepositionelements@fgbox@\arabic{beamer@theme@ciad@absolutepositionelements@cnt@fg}\endcsname%
+		\global\addtocounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}{-1}%
+	}%
+	\global\setcounter{beamer@theme@ciad@absolutepositionelements@cnt@fg}{0}%
+}
+
+\AtBeginFrame{%
+		\begin{picture}(0,0)(0,0)%
+			\beamer@theme@ciad@insertabsolutepositionelements@background%
+		\end{picture}%
+}
+
+\AtEndFrame{%
+		\begin{picture}(0,0)(0,0)%
+			\beamer@theme@ciad@insertabsolutepositionelements@foreground%
+		\end{picture}%
+}
+
+%-----------------------------------------
+% Localized quotes
+\def\selectguillemotfont{\fontencoding{T1}\fontfamily{cmr}\selectfont}
+\def\guillemotleft{{\selectguillemotfont\symbol{19}}\,}
+\def\guillemotright{\,{\selectguillemotfont\symbol{20}}}
+\providecommand{\ukquote}[1]{{\textgravedbl\!\textit{#1}\textacutedbl}\xspace}
+\providecommand{\frquote}[1]{{\guillemotleft#1\guillemotright}\xspace}
+\providecommand{\latquote}[1]{\textit{#1}\xspace}
+
+%-----------------------------------------
+% Underline
+\let\beamer@theme@ciad@oldunderline\underline
+\renewcommand{\underline}[1]{\beamer@theme@ciad@oldunderline{\smash{#1}}}
+
+%-----------------------------------------
+% Emphasing
+\let\beamer@theme@ciad@oldemph\emph
+\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
+
+\newcommand{\Emph}[1]{\emph{\textbf{#1}}}
+
+%-----------------------------------------
+% Footnote
+\let\beamer@theme@ciad@oldfootnote\footnote
+\renewcommand<>\beamer@theme@ciad@footnote[2][]{%
+	\global\let\oldthefootnote\thefootnote%
+	\global\let\thefootnote\relax%
+	\footnotetext{#2}%
+	\global\let\thefootnote\oldthefootnote}
+\gdef\footnote{\@ifstar\beamer@theme@ciad@footnote\beamer@theme@ciad@oldfootnote}
+
+%-----------------------------------------
+% Citation in footnote
+\AtBeginDocument{%
+	\ifcsname footcite\endcsname\else%
+		\newcommand<>{\footcite}[1]{\footnote*{\cite{#1}}}%
+	\fi%
+}
+
+%-----------------------------------------
+% Side note
+\let\beamer@theme@ciad@sidenote\relax
+\newcommand{\sidenote}[1]{%
+	\gdef\beamer@theme@ciad@sidenote{#1}%
+}
+
+\newcommand{\sidecite}[1]{%
+	\sidenote{\cite{#1}}%
+}
+
+%-----------------------------------------
+% Inline examples
+\newcommand{\inlineexample}[1]{%
+	\insertexamplelabel\ #1\xspace%
+}
+\newcommand{\inlineexamples}[1]{%
+	\insertexampleslabel\ #1\xspace%
+}
+\newcommand{\insertexamplelabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Example}\translate{ColumnChar}}%
+}
+\newcommand{\insertexampleslabel}{%
+	{\usebeamercolor[fg]{example text}\translate{Examples}\translate{ColumnChar}}%
+}
+
+%-----------------------------------------
+% EVENT
+\gdef\inserteventname{}
+\gdef\insertshorteventname{}
+\newcommand{\event}[2][1]{%
+	\gdef\inserteventname{#2}%
+	\ifthenelse{\equal{a#1}{a}}{%
+		\gdef\insertshorteventname{#2}%
+	}{%
+		\gdef\insertshorteventname{#1}%
+	}
+}
+
+%-----------------------------------------
+% Slide numbering
+\newcounter{beamer@theme@ciad@nav@previoussection}
+\setcounter{beamer@theme@ciad@nav@previoussection}{0}
+\newcounter{beamer@theme@ciad@nav@previouspart}
+\setcounter{beamer@theme@ciad@nav@previouspart}{0}
+\newcounter{beamer@theme@ciad@nav@tmp}
+\newcounter{beamer@theme@ciad@appendixframenumber}
+%
+\newcommand{\beamer@theme@ciad@totalcoreframenumber}{\the\c@framenumber}
+\newcommand{\inserttotalcoreframenumber}{1}
+%
+\newcommand{\beamer@theme@ciad@definesectionframenumber}[3]{\@namedef{beamer@theme@ciad@nav@sectionsize@#1@#2}{#3}}
+\newcommand{\beamer@theme@ciad@sectionframenumber}[2]{%
+	\expandafter\ifx\csname beamer@theme@ciad@nav@sectionsize@#1@#2\endcsname\relax%
+		1%
+	\else%
+		\csname beamer@theme@ciad@nav@sectionsize@#1@#2\endcsname%
+	\fi%
+}
+%
+\newcommand{\beamer@theme@ciad@definepartframenumber}[2]{\@namedef{beamer@theme@ciad@nav@partsize@#1}{#2}}
+\newcommand{\beamer@theme@ciad@partframenumber}[1]{%
+	\expandafter\ifx\csname beamer@theme@ciad@nav@partsize@#1\endcsname\relax%
+		1%
+	\else%
+		\csname beamer@theme@ciad@nav@partsize@#1\endcsname%
+	\fi%
+}
+%
+\newcommand{\insertframenumbering}[1][\value{@beamer@theme@ciad@visualframenumber}]{%
+	\edef\beamer@theme@ciad@nav@tmpmode{#1}%
+	\ifnum\the\c@framenumber>\beamer@theme@ciad@totalcoreframenumber%
+		% The current frame is in the appendix
+		\expandafter\setcounter{beamer@theme@ciad@appendixframenumber}{\inserttotalframenumber}%
+		\expandafter\addtocounter{beamer@theme@ciad@appendixframenumber}{-\beamer@theme@ciad@totalcoreframenumber}%
+		\addtocounter{beamer@theme@ciad@appendixframenumber}{-2}%
+		\xdef\beamer@theme@ciad@pi@numberpages{\arabic{beamer@theme@ciad@appendixframenumber}}%
+		%
+		\setcounter{beamer@theme@ciad@appendixframenumber}{\c@framenumber}%
+		\expandafter\addtocounter{beamer@theme@ciad@appendixframenumber}{-\beamer@theme@ciad@totalcoreframenumber}%
+		\addtocounter{beamer@theme@ciad@appendixframenumber}{-2}%
+		%
+		\xdef\beamer@theme@ciad@pi@shortlabel{\roman{beamer@theme@ciad@appendixframenumber}}%
+		\global\let\beamer@theme@ciad@pi@longlabel\beamer@theme@ciad@pi@shortlabel%
+		\xdef\beamer@theme@ciad@pi@currentpage{\value{beamer@theme@ciad@appendixframenumber}}%
+		%
+		\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+		\addtocounter{beamer@theme@ciad@nav@tmp}{-\thebeamer@theme@ciad@nav@previoussection}%
+		\xdef\beamer@theme@ciad@pi@seccurrentpage{\thebeamer@theme@ciad@nav@tmp}%
+		\xdef\beamer@theme@ciad@pi@secnumberpages{\beamer@theme@ciad@sectionframenumber{\thepart}{\thesection}}%
+	\else%
+		% The current frame is in the core part of the document
+		\ifnum\beamer@theme@ciad@nav@tmpmode=4%
+			\def\beamer@theme@ciad@nav@tmpmode{1}% Force circles
+			\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@ciad@nav@tmp}{-\thebeamer@theme@ciad@nav@previouspart}%
+			\xdef\beamer@theme@ciad@pi@shortlabel{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@longlabel{{\thebeamer@theme@ciad@nav@tmp}/{\beamer@theme@ciad@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@ciad@pi@currentpage{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@numberpages{\beamer@theme@ciad@partframenumber{\thepart}}%
+			%
+		\else\ifnum\beamer@theme@ciad@nav@tmpmode=5%
+			\def\beamer@theme@ciad@nav@tmpmode{3}% Force circles with sections
+			\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@ciad@nav@tmp}{-\thebeamer@theme@ciad@nav@previouspart}%
+			\xdef\beamer@theme@ciad@pi@shortlabel{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@longlabel{{\thebeamer@theme@ciad@nav@tmp}/{\beamer@theme@ciad@partframenumber{\thepart}}}%
+			\xdef\beamer@theme@ciad@pi@currentpage{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@numberpages{\beamer@theme@ciad@partframenumber{\thepart}}%
+			%
+			\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@ciad@nav@tmp}{-\thebeamer@theme@ciad@nav@previoussection}%
+			\xdef\beamer@theme@ciad@pi@seccurrentpage{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@secnumberpages{\beamer@theme@ciad@sectionframenumber{\thepart}{\thesection}}%
+		\else%
+			\xdef\beamer@theme@ciad@pi@shortlabel{\insertframenumber}%
+			\xdef\beamer@theme@ciad@pi@longlabel{{\insertframenumber}/{\inserttotalcoreframenumber}}%
+			\xdef\beamer@theme@ciad@pi@currentpage{\insertframenumber}%
+			\xdef\beamer@theme@ciad@pi@numberpages{\inserttotalcoreframenumber}%
+			%
+			\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+			\addtocounter{beamer@theme@ciad@nav@tmp}{-\thebeamer@theme@ciad@nav@previoussection}%
+			\xdef\beamer@theme@ciad@pi@seccurrentpage{\thebeamer@theme@ciad@nav@tmp}%
+			\xdef\beamer@theme@ciad@pi@secnumberpages{\beamer@theme@ciad@sectionframenumber{\thepart}{\thesection}}%
+		\fi\fi%
+	\fi%
+	%
+	\expandafter\ifcase\beamer@theme@ciad@nav@tmpmode%
+		% No numbering
+		\relax
+	\or
+		% Circle for the entire document
+		\beamer@theme@ciad@pi@circle{\beamer@theme@ciad@pi@shortlabel}{\beamer@theme@ciad@pi@currentpage}{\beamer@theme@ciad@pi@numberpages}%
+	\or
+		% Text
+		{\normalfont\usebeamercolor[fg]{circle progress bar}\beamer@theme@ciad@pi@longlabel}%
+	\or%
+		% Circle for the current section and for the entire document
+		\ifnum\thesection<1% display a simple circle when no section started
+			\beamer@theme@ciad@pi@circle{\beamer@theme@ciad@pi@shortlabel}{\beamer@theme@ciad@pi@currentpage}{\beamer@theme@ciad@pi@numberpages}%
+		\else%
+			\beamer@theme@ciad@pi@seccircle{\beamer@theme@ciad@pi@shortlabel}{\beamer@theme@ciad@pi@currentpage}{\beamer@theme@ciad@pi@numberpages}{\beamer@theme@ciad@pi@seccurrentpage}{\beamer@theme@ciad@pi@secnumberpages}%
+		\fi%
+	\else%
+		% Circle for the entire document
+		\beamer@theme@ciad@pi@circle{\beamer@theme@ciad@pi@shortlabel}{\beamer@theme@ciad@pi@currentpage}{\beamer@theme@ciad@pi@numberpages}%
+	\fi%
+}
+%
+\def\beamer@theme@ciad@nav@advancesection{%
+	\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+	\addtocounter{beamer@theme@ciad@nav@tmp}{-\c@beamer@theme@ciad@nav@previoussection}%
+	\setcounter{beamer@theme@ciad@nav@previoussection}{\c@framenumber}%
+	%
+	\immediate\write\@auxout{\string\@writefile{nav}{%
+		\string\headcommand{\string\beamer@theme@ciad@definesectionframenumber{\thepart}{\thesection}{%
+		\thebeamer@theme@ciad@nav@tmp}}}}%
+}
+%
+\def\beamer@theme@ciad@nav@advancepart{%
+	\setcounter{beamer@theme@ciad@nav@tmp}{\c@framenumber}%
+	\addtocounter{beamer@theme@ciad@nav@tmp}{-\c@beamer@theme@ciad@nav@previouspart}%
+	\setcounter{beamer@theme@ciad@nav@previouspart}{\c@framenumber}%
+	%
+	\immediate\write\@auxout{\string\@writefile{nav}{%
+		\string\headcommand{\string\beamer@theme@ciad@definepartframenumber{\thepart}{%
+		\thebeamer@theme@ciad@nav@tmp}}}}%
+}
+
+% Write data in the aux file
+\AtEndDocument{%
+	\beamer@theme@ciad@nav@advancesection%
+	\addtocounter{section}{1}% To be sure that the 'thank' slide is not in the same section as the previous slide.
+	\immediate\write\@auxout{\string\@writefile{nav}%
+        {\noexpand\headcommand{\noexpand\def\noexpand\inserttotalcoreframenumber
+		{\beamer@theme@ciad@totalcoreframenumber}}}}
+}
+
+%-----------------------------------------
+% Parts
+
+\pgfdeclareimage[width=\paperwidth]{partbackground}{ciad-part-background}
+
+\let\beamer@theme@ciad@part@oldpart\part
+\let\beamer@theme@ciad@part@oldbeamerpart\beamer@part
+
+\newif\ifbeamer@theme@ciad@part@hasoptionparam
+\newif\ifbeamer@theme@ciad@part@hasauthor
+\newif\ifbeamer@theme@ciad@part@addintoc
+
+\gdef\beamer@part[#1]#2{%
+	\beamer@theme@ciad@part@oldbeamerpart[#1]{#2}%
+	\protected@edef\psecname{\beamer@partname}%
+	\protected@edef\lastpart{\beamer@partnameshort}%
+	\ifbeamer@inlecture\else%
+		\beamer@atbeginpart%
+	\fi%
+	\setbeamertemplate{footline}{}%
+	%\useheaderempty%
+	\usebackgroundtemplate{\beamer@theme@ciad@outer@background}%
+	\frame{%
+		\ifthenelse{\equal{a\beamer@theme@ciad@part@partlabel}{a}}{}{% Issue #19
+			\protected@xdef\@currentlabel{\the\c@part}%
+			\expandafter\NR@gettitle\expandafter{\psecname}% For \nameref
+			\protected@edef\beamer@theme@ciad@tmp{\protect\label{\beamer@theme@ciad@part@partlabel}}%
+			\gdef\beamer@theme@ciad@part@partlabel{}%
+			\beamer@theme@ciad@tmp%
+		}%
+		\partpage%
+	}%
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@ciad@outer@background\fi}%
+	\setbeamertemplate{footline}{\beamer@theme@ciad@outer@footline}%
+	\ifbeamer@theme@ciad@part@addintoc%
+		\addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partname}{\the\c@page}}%
+	\fi%
+	%\useheaderdefault%
+	\protected@xdef\@currentlabel{\the\c@part}% Issue #19
+}
+
+\define@key{beamerthemeciadpart}{author}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@ciad@part@hasauthortrue%
+		\gdef\beamer@theme@ciad@part@theauthor{#1}%
+	}
+}
+\define@key{beamerthemeciadpart}{title}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@ciad@part@hasoptionparamtrue%
+		\gdef\beamer@theme@ciad@part@shorttitle{#1}%
+	}%
+}
+\define@key{beamerthemeciadpart}{label}{%
+	\gdef\beamer@theme@ciad@part@partlabel{#1}%
+}
+
+\newcommand{\beamer@theme@ciad@part@partmacro}[2][]{%
+	\beamer@theme@ciad@optlist{#1}%
+	\global\beamer@theme@ciad@part@hasoptionparamfalse%
+	\global\beamer@theme@ciad@part@hasauthorfalse%
+	\gdef\beamer@theme@ciad@part@partlabel{}%
+	\ifbeamer@theme@ciad@optlist@needdefault%
+		\setkeys{beamerthemeciadpart}{title=#1}%
+	\else%
+		\setkeys{beamerthemeciadpart}{#1}%
+	\fi%
+	\beamer@theme@ciad@nav@advancepart%
+	\beamer@theme@ciad@nav@advancesection%
+	\ifbeamer@theme@ciad@part@hasoptionparam%
+		\def\@tmp{\expandafter\beamer@theme@ciad@part@oldpart[\beamer@theme@ciad@part@shorttitle]}%
+	\else%
+		\let\@tmp\beamer@theme@ciad@part@oldpart%
+	\fi%
+	% Reset sections's numbers when a part is started
+	\c@section=0% From TeX background
+	\beamer@tocsectionnumber=0% From Beamer background
+	% Run the TeX \part macro
+	\@tmp{#2}%
+}
+
+\def\beamer@theme@ciad@part@part{%
+	\beamer@theme@ciad@part@addintoctrue%
+	\beamer@theme@ciad@part@partmacro%
+}
+
+\def\beamer@theme@ciad@part@partstar{%
+	\beamer@theme@ciad@part@addintocfalse%
+	\beamer@theme@ciad@part@partmacro%
+}
+
+\gdef\part{\@ifstar\beamer@theme@ciad@part@partstar\beamer@theme@ciad@part@part}
+
+% Part prefix in the slide
+\let\insertpartprefix\relax
+\newcommand{\partprefix}[2][\protect\Alph{part}]{%
+	\gdef\insertpartprefix{#2~#1\protect\\}%
+}
+\newcommand{\resetpartprefix}{%
+	\global\let\insertpartprefix\relax%
+}
+
+% Parts in the TOC
+\define@key{beamertoc}{onlyparts}[]{%
+	\beamer@toc@sectionstyle{hide}%
+	\beamer@toc@subsectionstyle{hide}%
+	\c@tocdepth=-1%
+}
+
+\newcount\beamer@partadjust
+\beamer@partadjust=-2
+
+\newcommand{\beamer@partintoc}[3]{%
+	\ifnum\c@tocdepth=-1%
+		\beamer@tempcount=#1%
+		\edef\inserttocpartnumber{\expandafter\@Alph\beamer@tempcount}%
+		\beamer@tempcount=#3%
+		\advance\beamer@tempcount by\beamer@partadjust%
+		\protected@edef\inserttocpart{\protect\hyperlink{Navigation\the\beamer@tempcount}{#2}}%
+		\ifx\beamer@toc@ooss\beamer@hidetext%
+			\vskip1.5em%
+		\else%
+			\vfill%
+		\fi%
+		{%
+			\hbox{\vbox{%
+				\leavevmode\normalsize\usebeamerfont*{section number projected}\usebeamercolor[bg]{section number projected}%
+				\vrule width2.25ex height1.85ex depth.4ex%
+				\hskip-2.25ex%
+				\hbox to2.25ex{\hfil\color{fg}\inserttocpartnumber\hfil}%
+				\kern1.25ex%
+				\inserttocpart\par%
+			}}%
+			\par%
+		}%
+	\fi%
+}
+
+%-----------------------------------------
+% Sections
+
+\let\beamer@theme@ciad@nav@oldsection\section
+\gdef\section{%
+	\beamer@theme@ciad@nav@advancesection%
+	\beamer@theme@ciad@nav@oldsection%
+}
+
+%-----------------------------------------
+% Institute
+\gdef\beamer@theme@ciad@instituteurl{www.ciad-lab.fr}
+\newcommand{\instituteurl}[1]{%
+	\gdef\beamer@theme@ciad@instituteurl{#1}
+}
+\newcommand{\insertinstituteurl}{%
+	\expandafter\url{\beamer@theme@ciad@instituteurl}%
+}
+\institute[CIAD]{
+	\textbf{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees} \\[0cm]
+	Univ. Bourgogne Franche-Comt\'e, France - \insertinstituteurl
+}
+\let\beamer@theme@ciad@old@insertshortinstitute\insertshortinstitute
+\gdef\insertshortinstitute{%
+	\@ifnextchar*\beamer@theme@ciad@insertshortinstitutestar\beamer@theme@ciad@old@insertshortinstitute%
+}
+\newcommand{\beamer@theme@ciad@insertshortinstitutestar}[1]{%
+	\beamer@shortinstitute%
+}
+
+%-----------------------------------------
+% Search graphical resource in "graphics" paths
+\gdef\beamer@theme@ciad@resolvepicturename@search#1{%
+	\IfFileExists{#1}{%
+            \xdef\resolvedfilename{#1}%
+    }{%
+            \@for\beamer@theme@ciad@resolvepicturename@pathtmp:=\Ginput@path\do{%
+                    \ifx\resolvedfilename\relax%
+                            \expandafter\IfFileExists{\beamer@theme@ciad@resolvepicturename@pathtmp#1}{%
+                                    \xdef\resolvedfilename{\beamer@theme@ciad@resolvepicturename@pathtmp#1}%
+                            }{}%
+                    \fi%
+            }%
+    }%
+}
+\newcommand{\resolvepicturename}[1]{%
+    \global\let\resolvedfilename\relax%
+	\bgroup%
+    \filename@parse{#1}%
+    \ifx\filename@ext\relax%
+        \@for\beamer@theme@ciad@resolvepicturename@exttmp:=\Gin@extensions\do{%
+                \expandafter\beamer@theme@ciad@resolvepicturename@search{#1\beamer@theme@ciad@resolvepicturename@exttmp}%
+        }%
+    \else%
+        \beamer@theme@ciad@resolvepicturename@search{#1}%
+    \fi%
+    %
+    \ifx\resolvedfilename\relax%
+		% File not found in the local directory nor in the Graphic's input paths.
+		\errmessage{Package Beamer/CIAD: File not found '#1' with the extensions: \Gin@extensions; and in the paths: \Ginput@path}%
+    \fi%
+	\egroup%
+}
+
+%-----------------------------------------
+% Partner Logo
+\newlength{\beamer@theme@ciad@partnerlogo@margin}
+\setlength{\beamer@theme@ciad@partnerlogo@margin}{.1cm}
+\gdef\beamer@theme@ciad@partnerlogo{}
+\newcommand{\partnerlogo}[2][height=.35cm]{%
+	\ifcsname pgf@image@CIADpartnerlogo@#2!\endcsname%
+	\else%
+		\resolvepicturename{#2}%
+		\expandafter\pgfdeclareimage[#1]{CIADpartnerlogo@#2}{\resolvedfilename}%
+		\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-\beamer@theme@ciad@partnerlogo@margin}%
+		\settowidth{\beamer@theme@ciad@tmplength}{\pgfuseimage{CIADpartnerlogo@#2}}%
+		\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-\beamer@theme@ciad@tmplength}%
+	\fi%
+	\g@addto@macro\beamer@theme@ciad@partnerlogo{\hspace{\beamer@theme@ciad@partnerlogo@margin}\pgfuseimage{CIADpartnerlogo@#2}}%
+	
+}
+
+\newcommand{\nopartnerlogo}{%
+	\gdef\beamer@theme@ciad@partnerlogo{}%
+}
+
+
+%-----------------------------------------
+% Slide Environment with only a figure
+\newsavebox{\beamer@theme@ciad@figureslide@box}
+\newsavebox{\beamer@theme@ciad@figureslide@boxb}
+\newlength{\beamer@theme@ciad@figureslide@fx}
+\newlength{\beamer@theme@ciad@figureslide@fy}
+\newlength{\beamer@theme@ciad@figureslide@fw}
+\newlength{\beamer@theme@ciad@figureslide@fh}
+\newlength{\beamer@theme@ciad@figureslide@ow}
+\newlength{\beamer@theme@ciad@figureslide@oh}
+\newlength{\beamer@theme@ciad@figureslide@textwidth}
+\newlength{\beamer@theme@ciad@figureslide@textheight}
+\newif\ifbeamer@theme@ciad@figureslide@dynamic@width
+\newif\ifbeamer@theme@ciad@figureslide@dynamic@height
+\newif\ifbeamer@theme@ciad@figureslide@haslabel
+\define@key{beamerthemeciadfigureslide}{width}{%
+	\def\beamer@theme@ciad@figureslide@widtht{#1}%
+	\beamer@theme@ciad@figureslide@dynamic@widthfalse%
+}
+\define@key{beamerthemeciadfigureslide}{height}{%
+	\def\beamer@theme@ciad@figureslide@heightt{#1}%
+	\beamer@theme@ciad@figureslide@dynamic@heightfalse%
+}
+\define@key{beamerthemeciadfigureslide}{scale}{%
+	\edef\beamer@theme@ciad@figureslide@scale{#1}%
+}
+\define@key{beamerthemeciadfigureslide}{valign}{%
+	\edef\beamer@theme@ciad@figureslide@valign{#1}%
+}
+\define@key{beamerthemeciadfigureslide}{halign}{%
+	\edef\beamer@theme@ciad@figureslide@halign{#1}%
+}
+\define@key{beamerthemeciadfigureslide}{label}{%
+	\edef\beamer@theme@ciad@figureslide@label{#1}%
+	\beamer@theme@ciad@figureslide@haslabeltrue%
+}
+\define@key{beamerthemeciadfigureslide}{subtitle}{%
+	\edef\beamer@theme@ciad@figureslide@subtitle{#1}%
+}
+
+\newcommand{\beamer@theme@ciad@figureslide@frame@dynamic@wh}[2]{%
+	% Get size of the picture
+	\settowidth{\beamer@theme@ciad@figureslide@ow}{\usebox{\beamer@theme@ciad@figureslide@box}}%
+	\settoheight{\beamer@theme@ciad@figureslide@oh}{\usebox{\beamer@theme@ciad@figureslide@box}}%
+	%
+	% Determine the new dimensions of the picture after scaling
+	\pgfmathtruncatemacro{\beamer@theme@ciad@figureslide@ratio}{\strip@pt\beamer@theme@ciad@figureslide@ow / \strip@pt\beamer@theme@ciad@figureslide@oh}%
+	\ifnum0<\beamer@theme@ciad@figureslide@ratio%
+%						% wider image (width > height)
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@ratio}{\strip@pt\beamer@theme@ciad@figureslide@textwidth / \strip@pt\beamer@theme@ciad@figureslide@ow}%
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sw}{\strip@pt\beamer@theme@ciad@figureslide@ow * \beamer@theme@ciad@figureslide@ratio}%
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sh}{\strip@pt\beamer@theme@ciad@figureslide@oh * \beamer@theme@ciad@figureslide@ratio}%
+		\pgfmathtruncatemacro{\beamer@theme@ciad@tmp}{\beamer@theme@ciad@figureslide@sh > \strip@pt\beamer@theme@ciad@figureslide@textheight}%
+		\ifnum1=\beamer@theme@ciad@tmp%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@ratio}{\strip@pt\beamer@theme@ciad@figureslide@textheight / \beamer@theme@ciad@figureslide@sh}%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sw}{\beamer@theme@ciad@figureslide@sw * \beamer@theme@ciad@figureslide@ratio}%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sh}{\beamer@theme@ciad@figureslide@sh * \beamer@theme@ciad@figureslide@ratio}%
+		\fi%
+	\else%
+%						% taller image (height > width)
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@ratio}{\strip@pt\beamer@theme@ciad@figureslide@textheight / \strip@pt\beamer@theme@ciad@figureslide@oh}%
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sh}{\strip@pt\beamer@theme@ciad@figureslide@oh * \beamer@theme@ciad@figureslide@ratio}%
+		\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sw}{\strip@pt\beamer@theme@ciad@figureslide@ow * \beamer@theme@ciad@figureslide@ratio}%
+		\pgfmathtruncatemacro{\beamer@theme@ciad@tmp}{\beamer@theme@ciad@figureslide@sw > \strip@pt\beamer@theme@ciad@figureslide@textwidth}%
+		\ifnum1=\beamer@theme@ciad@tmp%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@ratio}{\strip@pt\beamer@theme@ciad@figureslide@textwidth / \beamer@theme@ciad@figureslide@sw}%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sh}{\beamer@theme@ciad@figureslide@sh * \beamer@theme@ciad@figureslide@ratio}%
+			\pgfmathsetmacro{\beamer@theme@ciad@figureslide@sw}{\beamer@theme@ciad@figureslide@sw * \beamer@theme@ciad@figureslide@ratio}%
+		\fi%
+	\fi%
+	% Resize the picture
+	\setlength{\beamer@theme@ciad@figureslide@ow}{\beamer@theme@ciad@figureslide@sw pt}%
+	\setlength{\beamer@theme@ciad@figureslide@ow}{#1\beamer@theme@ciad@figureslide@ow}%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{\beamer@theme@ciad@figureslide@sh pt}%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{#1\beamer@theme@ciad@figureslide@oh}%
+	\resizebox{\beamer@theme@ciad@figureslide@ow}{\beamer@theme@ciad@figureslide@oh}{#2}%
+}
+
+\newcommand{\beamer@theme@ciad@figureslide@frame@dynamic@h}[3]{%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{#1}%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{#2\beamer@theme@ciad@figureslide@oh}%
+	\resizebox{!}{\beamer@theme@ciad@figureslide@oh}{#3}%
+}
+
+\newcommand{\beamer@theme@ciad@figureslide@frame@dynamic@w}[3]{%
+	\setlength{\beamer@theme@ciad@figureslide@ow}{#1}%
+	\setlength{\beamer@theme@ciad@figureslide@ow}{#2\beamer@theme@ciad@figureslide@ow}%
+	\resizebox{\beamer@theme@ciad@figureslide@ow}{!}{#3}%
+}
+
+\newcommand{\beamer@theme@ciad@figureslide@frame@dynamic@none}[4]{%
+	\setlength{\beamer@theme@ciad@figureslide@ow}{#1}%
+	\setlength{\beamer@theme@ciad@figureslide@ow}{#3\beamer@theme@ciad@figureslide@ow}%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{#2}%
+	\setlength{\beamer@theme@ciad@figureslide@oh}{#3\beamer@theme@ciad@figureslide@oh}%
+	\resizebox{\beamer@theme@ciad@figureslide@ow}{\beamer@theme@ciad@figureslide@oh}{#4}%
+}
+
+% #1 = frame spec (included the enclosing symbols)
+% #2 = title
+% #3 = vertical alignment
+% #4 = horizontal alignment
+% #5 = label
+% #6 = subtitle
+% #7 = macros in the content
+% #8 = macros before content and content's alignment
+\newcommand{\beamer@theme@ciad@figureslide@@frame}[8]{%
+	\bgroup%
+	% Preamble
+	#8%
+	\savebox{\beamer@theme@ciad@figureslide@boxb}{#7}%
+	% Get the size of the final image
+	\settowidth{\beamer@theme@ciad@figureslide@fw}{\usebox{\beamer@theme@ciad@figureslide@boxb}}%
+	\settoheight{\beamer@theme@ciad@figureslide@fh}{\usebox{\beamer@theme@ciad@figureslide@boxb}}%
+	% Adjust the vertical alignment
+	%\setlength{\beamer@theme@ciad@outer@bottomalignmentspan}{0cm}%
+	%\setlength{\beamer@theme@ciad@outer@centeralignmentspan}{0cm}%
+	\setlength{\beamer@theme@ciad@figureslide@fy}{0pt}%
+	\ifthenelse{\equal{=#3}{=t}}{%
+		\addtolength{\beamer@theme@ciad@figureslide@fy}{-\beamer@theme@ciad@figureslide@fh}%
+		\addtolength{\beamer@theme@ciad@figureslide@fy}{.5\beamer@theme@ciad@figureslide@textheight}%
+		\addtolength{\beamer@theme@ciad@figureslide@fy}{-.43cm}%
+	}{%
+		\ifthenelse{\equal{=#3}{=b}}{%
+			\addtolength{\beamer@theme@ciad@figureslide@fy}{-.5\beamer@theme@ciad@figureslide@textheight}%
+			\addtolength{\beamer@theme@ciad@figureslide@fy}{-.43cm}%
+		}{%
+			\addtolength{\beamer@theme@ciad@figureslide@fy}{-.5\beamer@theme@ciad@figureslide@fh}%
+			\addtolength{\beamer@theme@ciad@figureslide@fy}{-.43cm}%
+		}%
+	}%
+	% Adjust the horizontal alignment
+	\setlength{\beamer@theme@ciad@figureslide@fx}{0pt}%
+	\addtolength{\beamer@theme@ciad@figureslide@fx}{.5\textwidth}%
+	\ifthenelse{\equal{=#4}{=l}}{%
+		\addtolength{\beamer@theme@ciad@figureslide@fx}{-.5\beamer@theme@ciad@figureslide@textwidth}%
+	}{%
+		\ifthenelse{\equal{=#4}{=r}}{%
+			\addtolength{\beamer@theme@ciad@figureslide@fx}{-\beamer@theme@ciad@figureslide@fw}%
+			\addtolength{\beamer@theme@ciad@figureslide@fx}{.5\beamer@theme@ciad@figureslide@textwidth}%
+			\addtolength{\beamer@theme@ciad@figureslide@fx}{-.05cm}%
+		}{%
+			\addtolength{\beamer@theme@ciad@figureslide@fx}{-.5\beamer@theme@ciad@figureslide@fw}%
+			\addtolength{\beamer@theme@ciad@figureslide@fx}{-.05cm}%
+		}%
+	}%
+	% Start the implicit frame
+	\begin{frame}#1[label=#5]{#2}%
+		% Subtitle
+		\ifthenelse{\equal{=#6}{=}}{}{%
+			\framesubtitle{#6}%
+		}%
+		% Initialization section
+		%\the\beamer@theme@ciad@figureslide@fh%
+		% Content
+		\putat(\strip@pt\beamer@theme@ciad@figureslide@fx,\strip@pt\beamer@theme@ciad@figureslide@fy){\usebox{\beamer@theme@ciad@figureslide@boxb}}%
+	\end{frame}%
+	\egroup%
+}
+
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = vertical alignment
+% #5 = horizontal alignment
+% #6 = label
+% #7 = subtitle
+% #8 = macros in the content
+% #9 = frame spec (with enclosing symbols)
+\newcommand{\beamer@theme@ciad@figureslide@frame}[9]{%
+	\beamer@theme@ciad@figureslide@@frame
+		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
+		{\savebox{\beamer@theme@ciad@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
+}
+
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = slide content
+% #5 = frame spec (with enclosing symbols)
+\newcommand{\beamer@theme@ciad@figureslide}[5][]{%
+	\bgroup%
+	\beamer@theme@ciad@figureslide@dynamic@widthtrue%
+	\beamer@theme@ciad@figureslide@dynamic@heighttrue%
+	\beamer@theme@ciad@figureslide@haslabelfalse%
+	\def\beamer@theme@ciad@figureslide@scale{1}%
+	\def\beamer@theme@ciad@figureslide@valign{c}%
+	\def\beamer@theme@ciad@figureslide@halign{c}%
+	\edef\beamer@theme@ciad@figureslide@label{frame\the\c@framenumber}%
+	\def\beamer@theme@ciad@figureslide@subtitle{}%
+	\gdef\beamer@theme@ciad@figureslide@internalframespec{}%
+	% Compute the width of the slide
+	\setlength{\beamer@theme@ciad@figureslide@textwidth}{\beamer@paperwidth}%
+	\addtolength{\beamer@theme@ciad@figureslide@textwidth}{-0.25cm}% left and right margins
+	% Compute the height of the slide
+	\setlength{\beamer@theme@ciad@figureslide@textheight}{\beamer@paperheight}%
+	\addtolength{\beamer@theme@ciad@figureslide@textheight}{-0.5cm}% Bottom line height
+	\addtolength{\beamer@theme@ciad@figureslide@textheight}{-1cm}% Top margin.
+	\addtolength{\beamer@theme@ciad@figureslide@textheight}{-0.3cm}% Head sep
+	%
+	\setkeys{beamerthemeciadfigureslide}{#1}%
+	%
+	\ifbeamer@theme@ciad@figureslide@dynamic@width%
+		\ifbeamer@theme@ciad@figureslide@dynamic@height%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@ciad@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@ciad@figureslide@valign}%
+						{\beamer@theme@ciad@figureslide@halign}%
+						{\beamer@theme@ciad@figureslide@label}%
+						{\beamer@theme@ciad@figureslide@subtitle}%
+						{\protect\beamer@theme@ciad@figureslide@frame@dynamic@wh%
+							{\beamer@theme@ciad@figureslide@scale}%
+							{#4}}%
+						{#5}%
+			}%
+		\else%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@ciad@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@ciad@figureslide@valign}%
+						{\beamer@theme@ciad@figureslide@halign}%
+						{\beamer@theme@ciad@figureslide@label}%
+						{\beamer@theme@ciad@figureslide@subtitle}%
+						{\protect\beamer@theme@ciad@figureslide@frame@dynamic@h%
+							{\beamer@theme@ciad@figureslide@heightt}%
+							{\beamer@theme@ciad@figureslide@scale}%
+							{#4}}%
+						{#5}%
+			}%
+		\fi%
+	\else%
+		\ifbeamer@theme@ciad@figureslide@dynamic@height%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@ciad@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@ciad@figureslide@valign}%
+						{\beamer@theme@ciad@figureslide@halign}%
+						{\beamer@theme@ciad@figureslide@label}%
+						{\beamer@theme@ciad@figureslide@subtitle}%
+						{\protect\beamer@theme@ciad@figureslide@frame@dynamic@w%
+							{\beamer@theme@ciad@figureslide@widtht}%
+							{\beamer@theme@ciad@figureslide@scale}%
+							{#4}}%
+						{#5}%
+			}%
+		\else%
+			\protected@edef\@tmp{%
+				\protect\beamer@theme@ciad@figureslide@frame%
+						{#1}%
+						{#2}%
+						{#3}%
+						{\beamer@theme@ciad@figureslide@valign}%
+						{\beamer@theme@ciad@figureslide@halign}%
+						{\beamer@theme@ciad@figureslide@label}%
+						{\beamer@theme@ciad@figureslide@subtitle}%
+						{\protect\beamer@theme@ciad@figureslide@frame@dynamic@none%
+							{\beamer@theme@ciad@figureslide@widtht}%
+							{\beamer@theme@ciad@figureslide@heightt}%
+							{\beamer@theme@ciad@figureslide@scale}%
+							{#4}}%
+						{#5}%
+			}%
+		\fi%
+	\fi%
+	%
+	\@tmp%
+	%
+	\egroup%
+}
+
+% #1 = options
+% #2 = title
+% #3 = filename
+\newcommand{\figureslide}[3][]{%
+	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{}%
+}
+
+%\animatedfigureslide<#1>[#2]{#3}{#4}
+% #1 = frame spec (optional)
+% #2 = options (optional)
+% #3 = title
+% #4 = filename
+\def\animatedfigureslide{%
+	\@ifnextchar<\beamer@theme@ciad@animatedfigureslide@framespec\beamer@theme@ciad@animatedfigureslide@noframespec%
+}
+
+\def\beamer@theme@ciad@animatedfigureslide@framespec<#1>{%
+	\providecommand{\beamer@theme@ciad@tmp}{}% For ensure redefinition below
+	\renewcommand{\beamer@theme@ciad@tmp}[3][width=\linewidth]{%
+		\beamer@theme@ciad@animatedfigureslide{##1}{##2}{##3}{<#1>}%
+	}%
+	\beamer@theme@ciad@tmp%
+}
+
+\newcommand{\beamer@theme@ciad@animatedfigureslide@noframespec}[3][width=\linewidth]{%
+	\beamer@theme@ciad@animatedfigureslide{#1}{#2}{#3}{}%
+}
+
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = frame spec
+\newcommand{\beamer@theme@ciad@animatedfigureslide}[4]{%
+	\begin{frame}#4{#2}%
+		\includeanimatedfigure[width=\linewidth]{#3}%
+	\end{frame}%
+}
+
+%% Redefine \includeanimatedfigure for supporting the slide specification: \includeanimatedfigure<X>
+\AtBeginDocument{
+%	\providecommand{\includeanimatedgraphics}[2][]{}%
+%	\ifcsname includeanimatedfigure\endcsname%
+%		\global\let\beamer@theme@ciad@includeanimatedfigure@old\includeanimatedfigure%
+%		\gdef\beamer@theme@ciad@includeanimatedfigure@framespec<#1>{%
+%			\bgroup%
+%			\newcommand{\beamer@theme@ciad@includeanimatedfigure@wrapper}[3][width=\linewidth]{%
+%				\only<#1>{\beamer@theme@ciad@includeanimatedfigure@old[##1]{##2}{##3}}%
+%				\egroup%
+%			}			
+%			\beamer@theme@ciad@includeanimatedfigure@wrapper%
+%		}
+%		\gdef\includeanimatedfigure{%
+%			\@ifnextchar<\beamer@theme@ciad@includeanimatedfigure@framespec\beamer@theme@ciad@includeanimatedfigure@old%
+%		}
+}
+
+
+%-----------------------------------------
+% Bibliography
+\newif\ifbeamer@theme@ciad@bibliographystyle
+\beamer@theme@ciad@bibliographystylefalse
+\global\let\beamer@theme@ciad@oldbibliographystyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{%
+	\beamer@theme@ciad@bibliographystyletrue%
+	\beamer@theme@ciad@oldbibliographystyle{#1}%
+}
+\global\let\beamer@theme@ciad@oldbibliography\bibliography
+\renewcommand{\bibliography}[1]{%
+	\AtEndDocument{%
+		\appendix%
+		\beamer@theme@ciad@bibliographyslide{#1}%
+	}%
+}
+\newcommand{\beamer@theme@ciad@bibliographyslide}[1]{%
+	\section{\bibname}%
+	\begin{frame}[t,allowframebreaks,fancyframetitle=false]{\bibname}%
+	\tiny%
+	\ifbeamer@theme@ciad@bibliographystyle\else%
+		\beamer@theme@ciad@oldbibliographystyle{ciad}%
+	\fi%
+	\beamer@theme@ciad@oldbibliography{#1}%
+	\end{frame}%
+}
+
+% Remove icons from the bibliography
+\setbeamertemplate{bibliography item}{}
+
+%-----------------------------------------
+% Appendix
+\global\let\beamer@theme@ciad@oldappendix\appendix
+\renewcommand{\appendix}{%
+	\usefootlinewithdocumentname%
+	\resetpartprefix%
+	\let\beamer@theme@ciad@oldpart\part%
+	\def\part{\beamer@theme@ciad@oldpart*}%
+	\beamer@theme@ciad@thanksslide%
+	\beamer@theme@ciad@oldappendix%
+	\global\let\beamer@theme@ciad@oldappendix\relax%
+	\let\part\beamer@theme@ciad@oldpart%
+	\global\let\appendix\relax%
+}
+
+%-----------------------------------------
+% Default Graphics Configuration
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.pdftex_t}
+
+%-----------------------------------------
+% Local definition of a graphics path.
+\newenvironment{graphicspathcontext}[1]{%
+	\bgroup%
+	\let\beamer@theme@ciad@graphicspathcontext@ginputpath\Ginput@path%
+	\def\old{\beamer@theme@ciad@graphicspathcontext@ginputpath}%
+	\protected@edef\beamer@theme@ciad@tmp{\protect\graphicspath{#1}}%
+	\beamer@theme@ciad@tmp%
+}{%
+	\egroup%
+}
+
+%-----------------------------------------
+% Symbols
+\renewcommand{\copyright}{\Pisymbol{psy}{227}\xspace}
+\newcommand{\trademark}{\Pisymbol{psy}{228}\xspace}
+\let\servicemark\textservicemark
+\newcommand{\regmark}{\Pisymbol{psy}{226}\xspace}
+\let\textcheckmark\checkmark
+\renewcommand{\checkmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+%-----------------------------------------
+% Alert box
+\def\beamer@theme@ciad@alertbox@noframed#1{%
+	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,center,vmode,shadow=true]{\beamer@theme@ciad@alertbox@style}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{\beamer@theme@ciad@alertbox@style@emph}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{\beamer@theme@ciad@alertbox@style@alert}##1}}%
+		\par\vspace{-\parskip}\nohyphens{#1}%
+	\end{beamercolorbox}%
+}
+\def\beamer@theme@ciad@alertbox@framed<#1>#2{%
+	\only<#1>{\beamer@theme@ciad@alertbox@noframed{#2}}%
+}
+\def\beamer@theme@ciad@alertbox@nostar{%
+	\gdef\beamer@theme@ciad@alertbox@style{block body alerted}%
+	\gdef\beamer@theme@ciad@alertbox@style@emph{block body alerted emphased text}%
+	\gdef\beamer@theme@ciad@alertbox@style@alert{block body alerted alerted text}%
+	\@ifnextchar<\beamer@theme@ciad@alertbox@framed\beamer@theme@ciad@alertbox@noframed%
+}
+\def\beamer@theme@ciad@alertbox@star{%
+	\gdef\beamer@theme@ciad@alertbox@style{block body remark}%
+	\gdef\beamer@theme@ciad@alertbox@style@emph{block body remark emphased text}%
+	\gdef\beamer@theme@ciad@alertbox@style@alert{block body remark alerted text}%
+	\@ifnextchar<\beamer@theme@ciad@alertbox@framed\beamer@theme@ciad@alertbox@noframed%
+}
+\def\alertbox{\@ifstar\beamer@theme@ciad@alertbox@star\beamer@theme@ciad@alertbox@nostar}
+
+%-----------------------------------------
+% Description environment with bullets
+\let\beamer@theme@ciad@olditem\item
+\def\beamer@theme@ciad@description@afterseparator{\translate{ColumnChar}}
+\newcommand{\beamer@theme@ciad@itemc}[1][]{\ifthenelse{\equal{a#1}{a}}{}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+	{\usebeamercolor[fg]{description item}#1\beamer@theme@ciad@description@afterseparator}\xspace}%
+}}
+\long\def\beamer@theme@ciad@itema<#1>{%
+	\beamer@theme@ciad@olditem<#1>\relax\beamer@theme@ciad@itemc%
+}
+\long\def\beamer@theme@ciad@itemb{%
+	\beamer@theme@ciad@olditem\relax\beamer@theme@ciad@itemc%
+}
+\renewenvironment{description}[1][]{%
+	\begingroup%
+	\itemize
+	\global\let\beamer@theme@ciad@olditem\item%
+	\renewcommand{\item}{\@ifnextchar<{\beamer@theme@ciad@itema}{\beamer@theme@ciad@itemb}}%
+}{%
+	\global\let\item\beamer@theme@ciad@olditem%
+	\enditemize%
+	\endgroup%
+}
+
+%-----------------------------------------
+% Joint Enumeration/Description environment
+\let\beamer@theme@ciad@oldenumerate\enumerate
+\let\endbeamer@theme@ciad@oldenumerate\endenumerate
+\renewenvironment{enumerate}[1][]{%
+	\begingroup%
+	\ifthenelse{\equal{a#1}{a}}{\def\@tmp{}}{\def\@tmp{[#1]}}%
+	\expandafter\beamer@theme@ciad@oldenumerate\@tmp%
+	\global\let\beamer@theme@ciad@olditem\item%
+	\renewcommand{\item}{\@ifnextchar<{\beamer@theme@ciad@itema}{\beamer@theme@ciad@itemb}}%
+}{%
+	\global\let\item\beamer@theme@ciad@olditem%
+	\endbeamer@theme@ciad@oldenumerate%
+	\endgroup%
+}
+
+%-----------------------------------------
+% Exponents and Indices
+\renewcommand{\textup}[1]{\textsuperscript{#1}\xspace}
+\def\@textsubscript#1{%
+  {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+\providecommand{\textsubscript}[1]{\@textsubscript{\selectfont#1}}
+\newcommand{\textdown}[1]{\textsubscript{#1}\xspace}
+
+%-----------------------------------------
+% Links to external resources
+\newsavebox{\beamer@theme@ciad@externalresource@box@a}
+\newsavebox{\beamer@theme@ciad@externalresource@box@b}
+\newlength{\beamer@theme@ciad@externalresource@height}
+\newlength{\beamer@theme@ciad@externalresource@width}
+\newcommand{\beamer@theme@ciad@makelink}[3]{%
+	\savebox{\beamer@theme@ciad@externalresource@box@a}{#1}%
+	\savebox{\beamer@theme@ciad@externalresource@box@b}{\beamergotobutton{\usebox{\beamer@theme@ciad@externalresource@box@a}}}%
+	\settoheight{\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
+	\settowidth{\beamer@theme@ciad@externalresource@width}{\usebox{\beamer@theme@ciad@externalresource@box@b}}%
+	\beamer@theme@ciad@makelink@do{#3#2}{%
+		\vbox to \the\beamer@theme@ciad@externalresource@height{%
+		\vfil \hbox to \the\beamer@theme@ciad@externalresource@width{%
+			\raisebox{-\beamer@theme@ciad@externalresource@height}{%
+				\usebox{\beamer@theme@ciad@externalresource@box@b}%
+			}%
+		}\vfil}%
+	}%
+}
+
+\newcommand{\videolink}[3][]{%
+	\global\let\beamer@theme@ciad@makelink@do\href%
+	\beamer@theme@ciad@makelink{\includegraphics[#1]{#3}}{#2}{run:}%
+	\global\let\beamer@theme@ciad@makelink@do\relax%
+}
+
+\newcommand{\picturegoto}[3][]{%
+	\global\let\beamer@theme@ciad@makelink@do\hyperlink%
+	\beamer@theme@ciad@makelink{\includegraphics[#1]{#3}}{#2}{}%
+	\global\let\beamer@theme@ciad@makelink@do\relax%
+}
+
+\newcommand{\textgoto}[2]{%
+	\savebox{\beamer@theme@ciad@externalresource@box@a}{\hyperlink{#1}{\beamergotobutton{#2}}}%
+	\settoheight{\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
+	\setlength{\beamer@theme@ciad@externalresource@height}{.3\beamer@theme@ciad@externalresource@height}%
+	\addtolength{\beamer@theme@ciad@externalresource@height}{0pt}%
+	\raisebox{-\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
+}
+
+%-----------------------------------------
+% Embedded video
+\define@key{beamerthemeciadembeddedvideo}{width}{%
+	\gdef\beamer@theme@ciad@embeddedvideo@width{#1}%
+}
+\define@key{beamerthemeciadembeddedvideo}{height}{%
+	\gdef\beamer@theme@ciad@embeddedvideo@height{#1}%
+}
+\define@key{beamerthemeciadembeddedvideo}{view}{%
+	\gdef\beamer@theme@ciad@embeddedvideo@view{#1}%
+}
+
+% [#1]: view options (default: view=autostart&loop).
+% {#2}: path to the video file.
+% {#3}: path to the image that serves as video snapshot.
+\newcommand{\embeddedvideo}[3][]{%
+	\gdef\beamer@theme@ciad@embeddedvideo@width{\linewidth}%
+	\gdef\beamer@theme@ciad@embeddedvideo@height{-1}%
+	\gdef\beamer@theme@ciad@embeddedvideo@view{autostart&loop}%
+	\setkeys{beamerthemeciadembeddedvideo}{#1}%
+	\href{run:#2?\beamer@theme@ciad@embeddedvideo@view}{%
+		\includegraphics[width=\beamer@theme@ciad@embeddedvideo@width]{#3}}%
+}
+
+%-----------------------------------------
+% Embedded video slide
+
+% #1 = options (default: view=autostart&loop).
+% #2 = title of the frame.
+% #3 = path to the video file.
+% #3 = path to the image that serves as video snapshot.
+\newcommand{\embeddedvideoslide}[4][]{%
+	\gdef\beamer@theme@ciad@embeddedvideo@view{autostart&loop}%
+	\setkeys{beamerthemeciadembeddedvideo}{#1}%
+	%\href{run:#2?\beamer@theme@ciad@embeddedvideo@view}{%
+	\beamer@theme@ciad@figureslide[#1]{#2}{#4}{%
+		\href{run:#3?\beamer@theme@ciad@embeddedvideo@view}{\usebox{\beamer@theme@ciad@figureslide@box}}%
+	}%
+}
+
+%-----------------------------------------
+% Label for the final slide
+\newcommand{\finalslidetext}[1]{%
+	\global\setcounter{@beamer@theme@ciad@finalslidelabel}{2}%
+	\gdef\beamer@theme@ciad@label@finalslidelabel{#1}%
+}
+
+%-----------------------------------------
+% Adjust Box
+%
+\newsavebox{\beamer@theme@ciad@adjustbox@content}
+\newlength{\beamer@theme@ciad@adjustbox@left}
+\newlength{\beamer@theme@ciad@adjustbox@right}
+\newlength{\beamer@theme@ciad@adjustbox@top}
+\newlength{\beamer@theme@ciad@adjustbox@bottom}
+\newlength{\beamer@theme@ciad@adjustbox@width}
+\newlength{\beamer@theme@ciad@adjustbox@height}
+\define@key{beamerthemeciadadjustbox}{left}{%
+	\setlength{\beamer@theme@ciad@adjustbox@left}{#1}%
+}
+\define@key{beamerthemeciadadjustbox}{right}{%
+	\setlength{\beamer@theme@ciad@adjustbox@right}{#1}%
+}
+\define@key{beamerthemeciadadjustbox}{top}{%
+	\setlength{\beamer@theme@ciad@adjustbox@top}{#1}%
+}
+\define@key{beamerthemeciadadjustbox}{bottom}{%
+	\setlength{\beamer@theme@ciad@adjustbox@bottom}{#1}%
+}
+\define@key{beamerthemeciadadjustbox}{size}{%
+	\setlength{\beamer@theme@ciad@adjustbox@left}{#1}%
+	\setlength{\beamer@theme@ciad@adjustbox@right}{#1}%
+	\setlength{\beamer@theme@ciad@adjustbox@top}{#1}%
+	\setlength{\beamer@theme@ciad@adjustbox@bottom}{#1}%
+}
+\DeclareRobustCommand{\adjustbox}[2][]{%
+	\setlength{\beamer@theme@ciad@adjustbox@left}{1em}%
+	\setlength{\beamer@theme@ciad@adjustbox@right}{1em}%
+	\setlength{\beamer@theme@ciad@adjustbox@top}{1em}%
+	\setlength{\beamer@theme@ciad@adjustbox@bottom}{1em}%
+	\setkeys{beamerthemeciadadjustbox}{#1}%
+	\sbox{\beamer@theme@ciad@adjustbox@content}{#2}%
+	\setlength{\beamer@theme@ciad@adjustbox@width}{\the\wd\beamer@theme@ciad@adjustbox@content}%
+	\addtolength{\beamer@theme@ciad@adjustbox@width}{\beamer@theme@ciad@adjustbox@left}%
+	\addtolength{\beamer@theme@ciad@adjustbox@width}{\beamer@theme@ciad@adjustbox@right}%
+	\setlength{\beamer@theme@ciad@adjustbox@height}{\the\ht\beamer@theme@ciad@adjustbox@content}%
+	\addtolength{\beamer@theme@ciad@adjustbox@height}{\beamer@theme@ciad@adjustbox@top}%
+	\addtolength{\beamer@theme@ciad@adjustbox@height}{\beamer@theme@ciad@adjustbox@bottom}%
+	\vbox to \beamer@theme@ciad@adjustbox@height {%
+		\vspace{\beamer@theme@ciad@adjustbox@top}%
+		\hbox to \beamer@theme@ciad@adjustbox@width {%
+			\hspace{\beamer@theme@ciad@adjustbox@left}%
+			\usebox{\beamer@theme@ciad@adjustbox@content}%
+		}%
+	}%
+}
+
+%-----------------------------------------
+% Zoomable Box
+%
+\newsavebox{\beamer@theme@ciad@zoombox@content}
+\newcounter{beamer@theme@ciad@zoombox@counter}
+\newlength{\beamer@theme@ciad@zoombox@borderlength}
+\gdef\beamer@theme@ciad@zoombox@borderwidth{0}
+\newlength{\beamer@theme@ciad@zoombox@left}
+\newlength{\beamer@theme@ciad@zoombox@right}
+\newlength{\beamer@theme@ciad@zoombox@top}
+\newlength{\beamer@theme@ciad@zoombox@bottom}
+\newlength{\beamer@theme@ciad@zoombox@zoomwidth}
+\newlength{\beamer@theme@ciad@zoombox@zoomheight}
+\define@key{beamerthemeciadzoombox}{border}{%
+	\ifthenelse{\equal{a#1}{atrue}}{%
+		\xdef\beamer@theme@ciad@zoombox@borderwidth{0.1}%
+	}{%
+		\ifthenelse{\equal{a#1}{afalse}}{%
+			\xdef\beamer@theme@ciad@zoombox@borderwidth{0}%
+		}{%
+			\setlength{\beamer@theme@ciad@zoombox@borderlength}{#1}%
+			\xdef\beamer@theme@ciad@zoombox@borderwidth{\strip@pt\beamer@theme@ciad@zoombox@borderlength}%
+		}
+	}%
+}
+\define@key{beamerthemeciadzoombox}{margin}{%
+	\ifthenelse{\equal{a#1}{atrue}}{%
+		\setlength{\beamer@theme@ciad@zoombox@left}{1em}%
+		\setlength{\beamer@theme@ciad@zoombox@right}{1em}%
+		\setlength{\beamer@theme@ciad@zoombox@top}{1em}%
+		\setlength{\beamer@theme@ciad@zoombox@bottom}{1em}%
+	}{%
+		\ifthenelse{\equal{a#1}{afalse}}{%
+			\setlength{\beamer@theme@ciad@zoombox@left}{0pt}%
+			\setlength{\beamer@theme@ciad@zoombox@right}{0pt}%
+			\setlength{\beamer@theme@ciad@zoombox@top}{0pt}%
+			\setlength{\beamer@theme@ciad@zoombox@bottom}{0pt}%
+		}{%
+			\setlength{\beamer@theme@ciad@zoombox@left}{#1}%
+			\setlength{\beamer@theme@ciad@zoombox@right}{#1}%
+			\setlength{\beamer@theme@ciad@zoombox@top}{#1}%
+			\setlength{\beamer@theme@ciad@zoombox@bottom}{#1}%
+		}
+	}%
+}
+\define@key{beamerthemeciadzoombox}{left}{%
+	\setlength{\beamer@theme@ciad@zoombox@left}{#1}%
+}
+\define@key{beamerthemeciadzoombox}{right}{%
+	\setlength{\beamer@theme@ciad@zoombox@right}{#1}%
+}
+\define@key{beamerthemeciadzoombox}{top}{%
+	\setlength{\beamer@theme@ciad@zoombox@top}{#1}%
+}
+\define@key{beamerthemeciadzoombox}{bottom}{%
+	\setlength{\beamer@theme@ciad@zoombox@bottom}{#1}%
+}
+% Parameters: [border=XXpt,left=XXpt,right=XXpt,top=XXpt,bottom=XXpt,margin=XXpt]{box content}
+\newcommand{\zoombox}[2][]{%
+	\setlength{\beamer@theme@ciad@zoombox@borderlength}{0pt}%
+	\setlength{\beamer@theme@ciad@zoombox@left}{1em}%
+	\setlength{\beamer@theme@ciad@zoombox@right}{1em}%
+	\setlength{\beamer@theme@ciad@zoombox@top}{1em}%
+	\setlength{\beamer@theme@ciad@zoombox@bottom}{1em}%
+	\setkeys{beamerthemeciadzoombox}{#1}%
+	\leavevmode%
+	\sbox\beamer@theme@ciad@zoombox@content{#2}%
+	\ifx\pdfdest\@undefined%
+		\PackageWarning{beamerciad}{The \zoombox is not supported by your TeX tool.}%
+	\else%
+		%Put an anchor in the PDF for the "standard" documentation (not zommed).
+		\pdfdest name {zb\thebeamer@theme@ciad@zoombox@counter.out} fit%
+		%
+		%Put an anchor in the PDF for the "zooming" documentation.
+		%Set the sizes of the zooming area.
+		\setlength{\beamer@theme@ciad@zoombox@zoomwidth}%
+				{\the\wd\beamer@theme@ciad@zoombox@content}%
+		\addtolength{\beamer@theme@ciad@zoombox@zoomwidth}{\beamer@theme@ciad@zoombox@left}%
+		\addtolength{\beamer@theme@ciad@zoombox@zoomwidth}{\beamer@theme@ciad@zoombox@right}%
+		\setlength{\beamer@theme@ciad@zoombox@zoomheight}%
+				{\the\ht\beamer@theme@ciad@zoombox@content}%
+		\addtolength{\beamer@theme@ciad@zoombox@zoomheight}{\beamer@theme@ciad@zoombox@top}%
+		\addtolength{\beamer@theme@ciad@zoombox@zoomheight}{\beamer@theme@ciad@zoombox@bottom}%
+		\vbox to \beamer@theme@ciad@zoombox@top {%
+			\hbox to \beamer@theme@ciad@zoombox@left {%
+				\pdfdest name {zb\thebeamer@theme@ciad@zoombox@counter.in} fitr%
+				width  \beamer@theme@ciad@zoombox@zoomwidth\space%
+				height \beamer@theme@ciad@zoombox@zoomheight\space%
+				depth  \the\dp\beamer@theme@ciad@zoombox@content\space%
+			}%
+		}
+		%
+		%Put the link that permits to zoom.
+		\immediate\pdfannot%
+		width  \the\wd\beamer@theme@ciad@zoombox@content\space%
+		height \the\ht\beamer@theme@ciad@zoombox@content\space%
+		depth  \the\dp\beamer@theme@ciad@zoombox@content\space%
+		{%
+			/Subtype/Link/H/N
+			/Border [0 0 \beamer@theme@ciad@zoombox@borderwidth [1 2]]
+			/A <<
+				/S/JavaScript
+				/JS (
+					if(typeof(zoomed\thebeamer@theme@ciad@zoombox@counter)=='undefined'){
+					  this.gotoNamedDest('zb\thebeamer@theme@ciad@zoombox@counter.out');
+					  var zoomed\thebeamer@theme@ciad@zoombox@counter=false;
+					}
+				)
+				/Next <<
+					/S/GoTo/D (zb\thebeamer@theme@ciad@zoombox@counter.in)
+					/Next <<
+					  /S/JavaScript
+					  /JS(
+						if(zoomed\thebeamer@theme@ciad@zoombox@counter){
+							this.gotoNamedDest('zb\thebeamer@theme@ciad@zoombox@counter.out');
+							zoomed\thebeamer@theme@ciad@zoombox@counter=false;
+						}else{
+							zoomed\thebeamer@theme@ciad@zoombox@counter=true;
+						}
+					  )
+					>>
+				>>
+			>>
+		}%
+	\fi%
+	\usebox{\beamer@theme@ciad@zoombox@content}%
+	\stepcounter{beamer@theme@ciad@zoombox@counter}%
+}
+
+%-----------------------------------------
+% Extended Author API
+%
+\let\beamer@theme@ciad@authors@short\relax
+\let\beamer@theme@ciad@authors@long\relax
+\newcommand{\beamer@theme@ciad@authors@format@long}[1]{\underline{#1}}
+\newcommand{\beamer@theme@ciad@authors@format@short}[1]{\textbf{#1}}
+\newcommand{\beamer@theme@ciad@authors@longprefix}[1]{#1}
+\newcommand{\beamer@theme@ciad@authors@shortprefix}[1]{#1}
+\newcommand{\beamer@theme@ciad@buildauthorlist}[2][]{%
+	% Build the long list of authors
+	\ifx\beamer@theme@ciad@authors@long\relax%
+		\protected@xdef\beamer@theme@ciad@authors@long{\beamer@theme@ciad@authors@longprefix{\protect{#2}}}%
+	\else%
+		\protected@xdef\beamer@theme@ciad@authors@long{\beamer@theme@ciad@authors@long \protect\and \beamer@theme@ciad@authors@longprefix{\protect{#2}}}%
+	\fi%
+	% Build the short list of authors
+	\ifx\beamer@theme@ciad@authors@short\relax%
+		\protected@xdef\beamer@theme@ciad@authors@short{\beamer@theme@ciad@authors@shortprefix{\protect{#1}}}%
+	\else%
+		\protected@xdef\beamer@theme@ciad@authors@short{\beamer@theme@ciad@authors@short \protect\and \beamer@theme@ciad@authors@shortprefix{\protect{#1}}}%
+	\fi%
+	% Give the two lists to Beamer
+	\expandafter\beamer@theme@ciad@old@author[\beamer@theme@ciad@authors@short]{\beamer@theme@ciad@authors@long}%
+}
+\newcommand{\beamer@theme@ciad@addauthorstar}{%
+	\renewcommand{\beamer@theme@ciad@authors@longprefix}[1]{\protect\beamer@theme@ciad@authors@format@long{##1}}
+	\renewcommand{\beamer@theme@ciad@authors@shortprefix}[1]{\protect\beamer@theme@ciad@authors@format@short{##1}}
+	\beamer@theme@ciad@buildauthorlist}
+\newcommand{\beamer@theme@ciad@addauthor}{
+	\renewcommand{\beamer@theme@ciad@authors@longprefix}[1]{##1}
+	\renewcommand{\beamer@theme@ciad@authors@shortprefix}[1]{##1}
+	\beamer@theme@ciad@buildauthorlist}
+\newcommand{\addauthor}{\@ifstar\beamer@theme@ciad@addauthorstar\beamer@theme@ciad@addauthor}
+\let\beamer@theme@ciad@old@author\author
+\global\let\author\addauthor
+
+\let\beamer@theme@ciad@old@insertshortauthor\insertshortauthor
+\gdef\insertshortauthor{%
+	\@ifnextchar*\beamer@theme@ciad@insertshortauthorstar\beamer@theme@ciad@old@insertshortauthor
+}
+\newcommand{\beamer@theme@ciad@insertshortauthorstar}[1]{%
+	\beamer@theme@ciad@authors@short%
+}
+
+%---------------------------------------------
+% LIBRARY
+
+\define@key{beamerthemeciadlibraryslide}{frametitle}{%
+	\gdef\beamer@theme@ciad@libraryslide@frametitle{#1}%
+}
+\define@key{beamerthemeciadlibraryslide}{subtitle}{%
+	\gdef\beamer@theme@ciad@libraryslide@subtitle{#1}%
+}
+% \libraryslide[frametitle=text,subtitle=text]{picture}{title}{authors}{How published}{ISBN}
+\newcommand{\libraryslide}[6][]{%
+	\beamer@theme@ciad@optlist{#1}%
+	\gdef\beamer@theme@ciad@libraryslide@frametitle{\subsecname}%
+	\gdef\beamer@theme@ciad@libraryslide@subtitle{}%
+	\ifbeamer@theme@ciad@optlist@needdefault%
+		\setkeys{beamerthemeciadlibraryslide}{subtitle=#1}%
+	\else%
+		\setkeys{beamerthemeciadlibraryslide}{#1}%
+	\fi%
+	\begin{frame}[c]{\beamer@theme@ciad@libraryslide@frametitle}%
+		\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
+		\begin{minipage}[t]{.65\linewidth}
+		\begin{raggedright}
+		\mbox{}\\%
+		\nohyphens{\textbf{#3}}
+		\ifthenelse{\equal{a\beamer@theme@ciad@libraryslide@subtitle}{a}}{}{%
+			\\ \nohyphens{\small\beamer@theme@ciad@libraryslide@subtitle}%
+		} \\[.5cm]%
+		\nohyphens{#4} \\[.5cm]%
+		\nohyphens{#5} \\[.25cm]%
+		\nohyphens{ISBN #6}%
+		\end{raggedright}
+		\end{minipage}%
+	\end{frame}%
+}
+
+%---------------------------------------------
+% Colorized tabulars
+
+\arrayrulecolor{table rules.fg}
+\def\chead#1{\textcolor{table header.fg}{#1}}%
+\def\tabularheading{\rowcolor{table header.bg}}%
+
+%---------------------------------------------
+% Continuation
+
+\def\beamer@theme@ciad@insertcontinuationwith#1{%
+	\global\beamer@autobreakcount=#1%
+	(\##1)%\usebeamertemplate****{}%
+}
+
+\newcommand{\insertcontinuationwith}[1]{%
+	\beamer@theme@ciad@insertcontinuationwith{#1}%
+}
+
+%---------------------------------------------
+% Graphic grid
+
+\newcommand{\graphicaxes}{%
+	\begin{tikzpicture}[scale=.35]%
+		\draw [<->,thick] (0,1) |- (1,0);
+	\end{tikzpicture}
+}
+
+\newcommand{\showgraphicaxes}{%
+	\putat(0,0){%
+		\graphicaxes%
+	}%
+}
+
+%---------------------------------------------
+% Wrap figure and list item.
+
+\def\wrapfigure{%
+	\@ifstar\beamer@theme@ciad@wrapfigurelength\beamer@theme@ciad@wrapfigure%
+}
+
+\newcommand{\beamer@theme@ciad@wrapfigure}[2][width=.25\linewidth]{%
+	\beamer@theme@ciad@wrapfigurelength[#1]{#2}{-1em}%
+}
+
+\newcommand{\beamer@theme@ciad@wrapfigurelength}[3][width=.25\linewidth]{%
+	\mbox{}\hfill\raisebox{-\height}[0pt][0pt]{%
+			\includegraphics[#1]{#2}}%
+	\vspace*{#3}%
+}
+
+\newcommand{\wrapitem}[2][.7\linewidth]{%
+	\item\parbox[t]{#1}{\strut #2\strut}%
+}
+
+%---------------------------------------------
+% Authors' description
+\gdef\beamer@theme@ciad@authordescription{}
+\newif\ifauthordescription
+\authordescriptionfalse
+\newcommand{\authordescription}[1]{%
+	\gdef\beamer@theme@ciad@authordescription{#1}%
+	\global\authordescriptiontrue%
+}
+\gdef\insertauthordescription{\beamer@theme@ciad@authordescription}
+
+%-----------------------------------------
+% Title page
+
+\gdef\beamer@theme@ciad@baselinefortitleimage#1{}
+
+% #1: x position
+% #2: y position
+% #3: PGF image name
+\newcommand{\setciadtitlebackground}[3]{%
+	\ifthenelse{\equal{=!}{=#2}}{%
+		\ifthenelse{\equal{=!}{=#1}}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(-28.5,-51.5){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(#1,-51.5){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}%
+	}{%
+		\ifthenelse{\equal{=!}{=#1}}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(-28.5,#2){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}{%
+			\gdef\beamer@theme@ciad@outer@titlebackground{%
+				\expandafter\put(#1,#2){%
+					\expandafter\pgfuseimage{#3}%
+				}%
+			}%
+		}%
+	}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground1}{ciad-bg1}
+\newcommand{\setciadtitlebackgrounda}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground1}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground2}{ciad-bg2}
+\newcommand{\setciadtitlebackgroundb}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground2}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground3}{ciad-bg3}
+\newcommand{\setciadtitlebackgroundc}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground3}%
+}
+
+\pgfdeclareimage[width=.4\paperwidth]{CIADtitlebackground4}{ciad-bg4}
+\newcommand{\setciadtitlebackgroundd}{%
+	\setciadtitlebackground{0}{!}{CIADtitlebackground4}%
+}
+
+\pgfdeclareimage[width=.8\paperwidth]{CIADtitlebackground5}{ciad-bg5}
+\newcommand{\setciadtitlebackgrounde}{%
+	\setciadtitlebackground{15}{-30}{CIADtitlebackground5}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground6}{ciad-bg6}
+\newcommand{\setciadtitlebackgroundf}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground6}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground7}{ciad-bg7}
+\newcommand{\setciadtitlebackgroundg}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground7}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground8}{ciad-bg8}
+\newcommand{\setciadtitlebackgroundh}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground8}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground9}{ciad-bg9}
+\newcommand{\setciadtitlebackgroundi}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground9}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground10}{ciad-bg10}
+\newcommand{\setciadtitlebackgroundj}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground10}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground11}{ciad-bg11}
+\newcommand{\setciadtitlebackgroundk}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground11}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground12}{ciad-bg12}
+\newcommand{\setciadtitlebackgroundl}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground12}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground13}{ciad-bg13}
+\newcommand{\setciadtitlebackgroundm}{%
+	\setciadtitlebackground{!}{-28}{CIADtitlebackground13}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground14}{ciad-bg14}
+\newcommand{\setciadtitlebackgroundn}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground14}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground15}{ciad-bg15}
+\newcommand{\setciadtitlebackgroundo}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground15}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground16}{ciad-bg16}
+\newcommand{\setciadtitlebackgroundp}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground16}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground17}{ciad-bg17}
+\newcommand{\setciadtitlebackgroundq}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground17}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground18}{ciad-bg18}
+\newcommand{\setciadtitlebackgroundr}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground18}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground19}{ciad-bg19}
+\newcommand{\setciadtitlebackgrounds}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground19}%
+}
+
+\pgfdeclareimage[width=\paperwidth]{CIADtitlebackground20}{ciad-bg20}
+\newcommand{\setciadtitlebackgroundt}{%
+	\setciadtitlebackground{!}{!}{CIADtitlebackground20}%
+}
+
+% Default image
+\setciadtitlebackgroundt
+
+
+%-----------------------------------------
+% Colorize the first letters of the words
+
+\def\beamer@theme@ciad@firsttailletters#1#2\@nil#3{%
+	\testuppercase{#1}%
+	\ifuppercase%
+		{\usebeamercolor[fg]{#3}#1}#2%
+	\else%
+		#1#2%
+	\fi%
+}
+
+% #1: name of the color of the first letters
+% #2: the text to colorize
+\newcommand{\colorizedfirstletters}[2]{%
+	\beamer@theme@ciad@foreach{ }\in#2 \do%
+		{\expandafter\beamer@theme@ciad@firsttailletters\beamer@theme@ciad@foreach@term\@nil{#1}\xspace}\and%
+		{}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionalfirsttailletters}[2][maintitle fancy letter]{%
+	\ifthenelse{\boolean{beamer@theme@ciad@titlefancyletters}}{%
+		\protected@edef\beamer@theme@ciad@firsttailletters@tmp{\protect\colorizedfirstletters{#1}{#2}}%
+	}{%
+		\def\beamer@theme@ciad@firsttailletters@tmp{#2}%
+	}%
+	\beamer@theme@ciad@firsttailletters@tmp%
+}
+
+%-----------------------------------------
+% Colorize the second and next words
+
+\def\beamer@theme@ciad@tailwords#1 #2\@nil#3#4{%
+	{#4{#1} {\usebeamercolor[fg]{#3}#4{#2}}}%
+}
+
+% #1: name of the color of the second and next words
+% #2: the text to colorize
+\newcommand{\colorizedtailwords}[2]{%
+	\beamer@theme@ciad@tailwords#2 \@nil{#1}{}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionaltailwords@colorize}[2]{%
+	\beamer@theme@ciad@tailwords#2 \@nil{#1}{\beamer@theme@ciad@makeuppercase}%
+}
+
+\newcommand{\beamer@theme@ciad@conditionaltailwords}[2][frametitle fancy words]{%
+	\ifthenelse{\boolean{beamer@theme@ciad@fancyframetitle}}{%
+		\protected@edef\beamer@theme@ciad@tailwords@tmp{\protect\beamer@theme@ciad@conditionaltailwords@colorize{#1}{#2}}%
+	}{%
+		\def\beamer@theme@ciad@tailwords@tmp{#2}%
+	}%
+	\beamer@theme@ciad@tailwords@tmp%
+}
+
+\newcommand{\insertformattedframetitle}{%
+	\expandafter\beamer@theme@ciad@conditionaltailwords\insertframetitle%
+}
+
+%-----------------------------------------
+% Internal implementation of the upper case macro.
+
+\newcommand{\beamer@theme@ciad@makeuppercase}[1]{%
+	\MakeTextUppercase{#1}%
+}
+
+%-----------------------------------------
+% Sectioning macros with "limited" view on the sections into the TOC.
+
+\gdef\beamer@theme@ciad@rsection@limits{}
+
+\let\beamer@theme@ciad@rsection@original@section\section
+
+\def\beamer@theme@ciad@rsection@section@sro<#1>{%
+	\xdef\beamer@theme@ciad@rsection@limits{,sections={#1}}\beamer@theme@ciad@rsection@original@section*%
+}
+
+\def\beamer@theme@ciad@rsection@section@so{%
+	\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@section*%
+}
+
+\def\beamer@theme@ciad@rsection@section@ro<#1>{%
+	\xdef\beamer@theme@ciad@rsection@limits{,sections={#1}}\beamer@theme@ciad@rsection@original@section%
+}
+
+\def\beamer@theme@ciad@rsection@section@o{%
+	\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@section%
+}
+
+\def\beamer@theme@ciad@rsection@section@sc{%
+	\@ifnextchar<\beamer@theme@ciad@rsection@section@sro\beamer@theme@ciad@rsection@section@so%
+}
+
+\def\beamer@theme@ciad@rsection@section@c{%
+	\@ifnextchar<\beamer@theme@ciad@rsection@section@ro\beamer@theme@ciad@rsection@section@o%
+}
+
+% \section<range>[toc title]{title}
+% \section*<range>[toc title]{title}
+% \section<range>*[toc title]{title}
+% \section[toc title]{title}
+% \section*[toc title]{title}
+% \section{title}
+% \section*{title}
+\gdef\section{%
+	\@ifstar\beamer@theme@ciad@rsection@section@sc\beamer@theme@ciad@rsection@section@c
+}
+
+\let\beamer@theme@ciad@rsection@original@part\part
+\gdef\part{\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@part}
+
+%-----------------------------------------
+% Macros for showing TOC for sections, subsections.
+
+\newcommand{\sectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\newcommand{\subsectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\newcommand{\subsubsectiontableofcontentslide}{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={show/shaded/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+
+
+%-----------------------------------------
+% Table of content
+
+% Conditional that indicates if the current frame is the outline frame.
+\newif\ifbeamer@theme@ciad@tableofcontentslide@background
+\beamer@theme@ciad@tableofcontentslide@backgroundfalse
+\newif\ifbeamer@theme@ciad@tableofcontentslide@footline
+\beamer@theme@ciad@tableofcontentslide@footlinefalse
+
+% Number of the background for the outline
+\let\beamer@theme@ciad@tableofcontentslide@backgroundnumber\relax
+
+\define@key{beamerframe}{tableofcontentbackground}[true]{%
+	\global\beamer@theme@ciad@tableofcontentslide@backgroundtrue%
+	\global\beamer@theme@ciad@tableofcontentslide@footlinetrue%
+}
+
+\def\tableofcontentslide{%
+	\@ifnextchar[%
+	\beamer@theme@ciad@tableofcontentslide@a%
+	\beamer@theme@ciad@tableofcontentslide@b%
+}
+\def\beamer@theme@ciad@tableofcontentslide@a[#1]{%
+	\beamer@theme@ciad@tableofcontentslide@c{#1}%
+}
+\def\beamer@theme@ciad@tableofcontentslide@b{%
+	\beamer@theme@ciad@tableofcontentslide@c{hideallsubsections}%
+}
+\def\beamer@theme@ciad@tableofcontentslide@c#1{%
+	\@ifnextchar[%
+	{\beamer@theme@ciad@tableofcontentslide@d{#1}}%
+	{\beamer@theme@ciad@tableofcontentslide@e{#1}{}}%
+}
+\def\beamer@theme@ciad@tableofcontentslide@d#1[#2]{%
+	\beamer@theme@ciad@tableofcontentslide@e{#1}{,#2}%
+}
+\newcommand{\beamer@theme@ciad@tableofcontentslide@e}[2]{%
+	\begin{frame}[t,tableofcontentbackground#2]{\translate{Outline}}%
+		\vspace{-0.5cm}%
+		\small\tableofcontents[#1]%
+	\end{frame}%
+}
+
+
+%-----------------------------------------
+% Background picture
+
+\newcounter{slidebackgroundpicturecount}
+\setcounter{slidebackgroundpicturecount}{0}
+\def\beamer@theme@ciad@randombackground{}
+
+% Add the slide background with the given parameters.
+% If the macro is stared, the associated figure could be randomly selected.
+% #1 : picture position x
+% #2 : picture position y
+% #3 : picture width
+% #4 : picture filename
+\def\addslidebackgroundpicture{%
+	\@ifnextchar*\beamer@theme@ciad@addslidebackgroundpicturestar\beamer@theme@ciad@addslidebackgroundpicture%
+}
+\newcommand{\beamer@theme@ciad@addslidebackgroundpicturestar}[5]{%
+	\beamer@theme@ciad@addslidebackgroundpicture{#2}{#3}{#4}{#5}%
+	\xdef\beamer@theme@ciad@randombackground{\beamer@theme@ciad@randombackground{\theslidebackgroundpicturecount}}
+	\expandafter\pgfmathdeclarerandomlist{beamer@theme@ciad@randombackground@array}{\beamer@theme@ciad@randombackground}
+}
+\newcommand{\beamer@theme@ciad@addslidebackgroundpicture}[4]{%
+	\global\addtocounter{slidebackgroundpicturecount}{1}%
+	\global\@namedef{beamer@theme@ciad@backgroundpicture@x@\theslidebackgroundpicturecount}{#1}%
+	\global\@namedef{beamer@theme@ciad@backgroundpicture@y@\theslidebackgroundpicturecount}{#2}%
+	\expandafter\pgfdeclareimage[width=#3]{beamer@theme@ciad@backgroundpicture@pgf@\theslidebackgroundpicturecount}{#4}%
+}
+
+% Add the slide background and register it as the outline background.
+% #1 : picture position x
+% #2 : picture position y
+% #3 : picture width
+% #4 : picture filename
+\newcommand{\addslidebackgroundpictureO}[4]{%
+	\beamer@theme@ciad@addslidebackgroundpicture{#1}{#2}{#3}{#4}%
+	\xdef\beamer@theme@ciad@tableofcontentslide@backgroundnumber{\theslidebackgroundpicturecount}%
+}
+
+% Replies the picture for the slide background picture.
+% #1 : the number of the background picture
+\newcommand{\insertslidebackgroundpicture}[1]{%
+	\expandafter\pgfuseimage{beamer@theme@ciad@backgroundpicture@pgf@#1}%
+}
+
+% Put the picture for the slide background picture at the expected position.
+% #2 : the number of the background picture
+\newcommand{\putslidebackgroundpicture}[1]{%
+	\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{0}{#1}%
+}
+
+% Put the picture for the slide background picture at the expected position.
+% #2 : the number of the background picture
+\newcommand{\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture}[3]{%
+	\xdef\@tmp{\@nameuse{beamer@theme@ciad@backgroundpicture@x@#3}}%
+	\pgfmathsetmacro{\beamer@theme@ciad@tmp@x}{(#1) + \@tmp}%
+	\xdef\@tmp{\@nameuse{beamer@theme@ciad@backgroundpicture@y@#3}}%
+	\pgfmathsetmacro{\beamer@theme@ciad@tmp@y}{(#2) + \@tmp}%
+	\expandafter\put(\beamer@theme@ciad@tmp@x,\beamer@theme@ciad@tmp@y){%
+		\insertslidebackgroundpicture{#3}%
+	};%
+}
+
+% Insert the background picture of a slide
+\newcommand{\insertcurrentslidebackgroundpicture}{%
+	\beamer@theme@ciad@backgroundpicture@insertcurrentslidebackgroundpicture{0}{0}%
+}
+
+\newcommand{\beamer@theme@ciad@backgroundpicture@insertcurrentslidebackgroundpicture}[2]{%
+	\ifx\beamer@theme@ciad@backgroundpicture@current\relax%
+		\ifthenelse{\boolean{beamer@theme@ciad@randombackground}}{%
+			% Random selection of the background
+			\pgfmathrandomitem\@tmp{beamer@theme@ciad@randombackground@array}
+			\xdef\@tmp{\@tmp}%
+			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{#1}{#2}{\@tmp}%
+		}{}%
+	\else%
+		\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{#1}{#2}{\beamer@theme@ciad@backgroundpicture@current}%
+	\fi%
+	% Reset the local background
+	\global\let\beamer@theme@ciad@backgroundpicture@current\beamer@theme@ciad@backgroundpicture@current@global%
+}
+
+% Intern variable for local definition of the background
+\global\let\beamer@theme@ciad@backgroundpicture@current\beamer@theme@ciad@backgroundpicture@current@global
+
+% Define a frame option for forcing the background picture
+\define@key{beamerframe}{background}{%
+	\gdef\beamer@theme@ciad@backgroundpicture@current{#1}%
+}
+\define@key{beamerframe}{nobackground}[true]{%
+	\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+}
+
+% Predefined backgrounds
+\addslidebackgroundpicture*{228}{-230}{8cm}{ciad-background1.pdf}
+\addslidebackgroundpicture{210}{-205}{8cm}{ciad-background2.pdf}
+\addslidebackgroundpicture{210}{-260}{8cm}{ciad-background3.pdf}
+\addslidebackgroundpictureO{0}{-222}{\paperwidth}{ciad-background4.jpg}
+\addslidebackgroundpicture{0}{-222}{\paperwidth}{ciad-background5.jpg}
+\addslidebackgroundpicture*{0}{-222}{\paperwidth}{ciad-background6.png}
+\addslidebackgroundpicture*{0}{-222}{\paperwidth}{ciad-background7.png}
+\addslidebackgroundpicture{0}{-222}{3.3cm}{ciad-background8.png}
+\addslidebackgroundpicture*{0}{-222}{5.5cm}{ciad-background9.png}
+\addslidebackgroundpicture*{270}{-205}{6cm}{ciad-background10.png}
+
+%-----------------------------------------
+% Frame with right title
+
+\gdef\beamer@theme@ciad@rightitleframe@text{}
+
+% Frame with right title
+\NewEnviron{righttitleframe}[3][c]{%
+	\begin{frame}[#1]{#2}%
+		% Save the right title
+		\gdef\beamer@theme@ciad@rightitleframe@text{#3}%
+		% Force the background picture
+		\gdef\beamer@theme@ciad@backgroundpicture@current{4}%
+		% Add the right title
+		\usebeamertemplate{framerighttitle}%
+		% Restore normal font and color
+		\usebeamerfont{normal text}\usebeamercolor[fg]{normal text in righttitle}%
+		%
+		\begin{minipage}{8.5cm}%
+		\raggedright\BODY%
+		\end{minipage}%
+	\end{frame}%
+}
+
+%-----------------------------------------
+% Frame with a left green area (left/right lawn)
+
+\gdef\beamer@theme@ciad@leftlawnframe@picture{}
+
+% Declare a lawn picture.
+% #1 the PGF id
+% #2 the filename
+\newcommand{\addlawnpicture}[2]{%
+	\pgfdeclareimage[height=7.8cm]{beamer@theme@ciad@lawn@#1}{#2}%
+}
+
+\NewEnviron{leftlawnframe}[3][c]{%
+	\begin{frame}[#1]{#2}%
+		% Save the right picture
+		\gdef\beamer@theme@ciad@lawnframe@picture{beamer@theme@ciad@lawn@#3}%
+		% Force the background picture
+		\gdef\beamer@theme@ciad@backgroundpicture@current{8}%
+		% Add the left lawn
+		\usebeamertemplate{frameleftlawn}%
+		% Restore normal font and color
+		\usebeamerfont{normal text}\usebeamercolor[fg]{lawn}%
+		%
+		\hspace{2.55cm}%
+		\begin{minipage}{4.7cm}%
+			\raggedright\BODY%
+		\end{minipage}%
+	\end{frame}%
+}
+
+\NewEnviron{rightlawnframe}[3][c]{%
+	\begin{frame}[#1]{#2}%
+		% Save the right picture
+		\gdef\beamer@theme@ciad@lawnframe@picture{beamer@theme@ciad@lawn@#3}%
+		% Force the background picture
+		\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+		% Add the left lawn
+		\usebeamertemplate{framerightlawn}%
+		% Restore normal font and color
+		\usebeamerfont{normal text}\usebeamercolor[fg]{lawn}%
+		%
+		\hspace{7cm}%
+		\begin{minipage}{4.7cm}%
+			\raggedright\BODY%
+		\end{minipage}%
+	\end{frame}%
+}
+
+%-----------------------------------------
+% Grid frame
+
+% Declare a grid picture.
+% #1 the PGF id
+% #2 the filename
+\newcommand{\addgridpicture}[2]{%
+	\pgfdeclareimage[width=1.8cm]{beamer@theme@ciad@grid@#1}{#2}%
+}
+
+\newcommand{\beamer@theme@ciad@gridframe@cellstar}[4]{%
+	\beamer@theme@ciad@gridframe@addcell{#2}{\includegraphics[width=1.8cm]{#3}}{#4}%
+}
+\newcommand{\beamer@theme@ciad@gridframe@cell}[3]{%
+	\beamer@theme@ciad@gridframe@addcell{#1}{\pgfuseimage{beamer@theme@ciad@grid@#2}}{#3}%
+}
+\newcommand{\beamer@theme@ciad@gridframe@addcell}[3]{%
+	\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img#1}{#2}%
+	\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text#1}{#3}%
+}
+
+\NewEnviron{gridframe}[2][c]{%
+	\begin{frame}[background=5,#1]{#2}%
+		% Force the background picture
+		%\gdef\beamer@theme@ciad@backgroundpicture@current{5}%
+		% Provide a command for building the grid
+		\newcommand{\cell}{\@ifnextchar*\beamer@theme@ciad@gridframe@cellstar\beamer@theme@ciad@gridframe@cell}%
+		% Build the grid
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img1}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img2}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img3}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img4}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img5}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img6}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img7}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img8}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img9}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@img10}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text1}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text2}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text3}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text4}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text5}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text6}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text7}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text8}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text9}{\mbox{}}%
+		\global\@namedef{beamer@theme@ciad@gridframe@cell@cnt@text10}{\mbox{}}%
+		\BODY
+		% Draw the grid
+		\putat(-29,62){%
+			\begin{tabularx}{\paperwidth}{>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img1}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img2}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img3}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img4}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img5}}%
+			\end{tabularx}
+		}
+		\putat(-29,27){%
+			\begin{tabularx}{\paperwidth}{>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text1}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text2}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text3}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text4}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text5}}%
+			\end{tabularx}
+		}
+		\putat(-29,-43){%
+			\begin{tabularx}{\paperwidth}{>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img6}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img7}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img8}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img9}} &%
+				{\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@img10}}%
+			\end{tabularx}
+		}
+		\putat(-29,-78){%
+			\begin{tabularx}{\paperwidth}{>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text6}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text7}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text8}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text9}} &%
+				{\usebeamerfont{icon grid}\usebeamercolor[fg]{icon grid}\@nameuse{beamer@theme@ciad@gridframe@cell@cnt@text10}}%
+			\end{tabularx}
+		}
+	\end{frame}%
+}
+
+%-----------------------------------------
+% Anchor blocks
+
+\newlength{\beamer@theme@ciad@anchorblock@width}
+\newlength{\beamer@theme@ciad@anchorblock@titlewidth}
+\newlength{\beamer@theme@ciad@anchorblock@contentwidth}
+
+% [#1] is width of the block (by default \linewidth)
+% #2 is the title
+% #3 is the text in the circle
+\NewEnviron{leftanchorblock}[3][\linewidth]{%
+	\setlength{\beamer@theme@ciad@anchorblock@width}{#1}%
+	\setlength{\beamer@theme@ciad@anchorblock@titlewidth}{#1}%
+	\addtolength{\beamer@theme@ciad@anchorblock@titlewidth}{-3cm}%
+	\setlength{\beamer@theme@ciad@anchorblock@contentwidth}{#1}%
+	\addtolength{\beamer@theme@ciad@anchorblock@contentwidth}{-2.5cm}%
+	\begin{tikzpicture}%
+		\draw[draw=line in left anchor block.fg,fill=line in left anchor block.fg] (0.05,0) circle (0.05cm);%
+		\draw[draw=line in left anchor block.fg] (0.05,0) -- (0.6,0.8) -- (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8);%
+		\draw[draw=line in left anchor block.fg, fill=line in left anchor block.bg] (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8) circle (0.8cm);%
+		\draw (\beamer@theme@ciad@anchorblock@width*0.5-0.5cm,0.8) node[anchor=south] {%
+			\parbox[b]{\beamer@theme@ciad@anchorblock@titlewidth}{\centering%
+				\usebeamerfont{title in left anchor block}\usebeamercolor[fg]{title in left anchor block}#2}};%
+		\draw (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8) node[anchor=center] {\usebeamerfont{circled text in left anchor block}\usebeamercolor[fg]{circled text in left anchor block}#3};%
+		\draw (\beamer@theme@ciad@anchorblock@width*0.5-0.5cm,0.8) node[anchor=north] {%
+			\parbox[t]{\beamer@theme@ciad@anchorblock@contentwidth}{\raggedright%
+				\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}\BODY}};%
+	\end{tikzpicture}%
+}
+
+% [#1] is width of the block (by default \linewidth)
+% #2 is the title
+% #3 is the text in the circle
+\NewEnviron{rightanchorblock}[3][\linewidth]{%
+	\setlength{\beamer@theme@ciad@anchorblock@width}{#1}%
+	\setlength{\beamer@theme@ciad@anchorblock@titlewidth}{#1}%
+	\addtolength{\beamer@theme@ciad@anchorblock@titlewidth}{-3cm}%
+	\setlength{\beamer@theme@ciad@anchorblock@contentwidth}{#1}%
+	\addtolength{\beamer@theme@ciad@anchorblock@contentwidth}{-2.5cm}%
+	\par\noindent\begin{tikzpicture}%
+	\draw[draw=line in right anchor block.fg,fill=line in right anchor block.fg] (\beamer@theme@ciad@anchorblock@width-0.05cm,0) circle (0.05cm);%
+	\draw[draw=line in right anchor block.fg] (\beamer@theme@ciad@anchorblock@width-0.05cm,0) -- (\beamer@theme@ciad@anchorblock@width-0.65cm,-0.8) -- (0.8,-0.8);%
+	\draw[draw=line in right anchor block.fg, fill=line in right anchor block.bg] (0.8,-0.8) circle (0.8cm);%
+	\draw (\beamer@theme@ciad@anchorblock@width*0.5+0.5cm,-0.8) node[anchor=north] {%
+		\parbox[t]{\beamer@theme@ciad@anchorblock@titlewidth}{\centering%
+			\usebeamerfont{title in right anchor block}\usebeamercolor[fg]{title in right anchor block}#2}};%
+	\draw (0.8,-0.8) node[anchor=center] {\usebeamerfont{circled text in right anchor block}\usebeamercolor[fg]{circled text in right anchor block}#3};%
+	\draw (\beamer@theme@ciad@anchorblock@width*0.5+0.5cm,-0.8) node[anchor=south] {%
+		\parbox[b]{\beamer@theme@ciad@anchorblock@contentwidth}{\raggedright%
+			\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}\BODY}};%
+	\end{tikzpicture}%
+}
+
+\endinput
