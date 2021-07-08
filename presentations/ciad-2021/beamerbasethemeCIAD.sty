@@ -2134,6 +2134,11 @@
 % \libraryslide[frametitle=text,subtitle=text]{picture}{title}{authors}{How published}{ISBN}
 \newcommand{\libraryslide}[6][]{%
 	\beamer@theme@ciad@optlist{#1}%
+	\gdef\beamer@theme@ciad@libraryslide@picture{#2}%
+	\gdef\beamer@theme@ciad@libraryslide@title{#3}%
+	\gdef\beamer@theme@ciad@libraryslide@authors{#4}%
+	\gdef\beamer@theme@ciad@libraryslide@how{#5}%
+	\gdef\beamer@theme@ciad@libraryslide@isbn{#6}%
 	\gdef\beamer@theme@ciad@libraryslide@frametitle{\subsecname}%
 	\gdef\beamer@theme@ciad@libraryslide@subtitle{}%
 	\ifbeamer@theme@ciad@optlist@needdefault%
@@ -2142,19 +2147,7 @@
 		\setkeys{beamerthemeciadlibraryslide}{#1}%
 	\fi%
 	\begin{frame}[c]{\beamer@theme@ciad@libraryslide@frametitle}%
-		\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
-		\begin{minipage}[t]{.65\linewidth}
-		\begin{raggedright}
-		\mbox{}\\%
-		\nohyphens{\textbf{#3}}
-		\ifthenelse{\equal{a\beamer@theme@ciad@libraryslide@subtitle}{a}}{}{%
-			\\ \nohyphens{\small\beamer@theme@ciad@libraryslide@subtitle}%
-		} \\[.5cm]%
-		\nohyphens{#4} \\[.5cm]%
-		\nohyphens{#5} \\[.25cm]%
-		\nohyphens{ISBN #6}%
-		\end{raggedright}
-		\end{minipage}%
+		\usebeamertemplate*{library slide content}%
 	\end{frame}%
 }
 

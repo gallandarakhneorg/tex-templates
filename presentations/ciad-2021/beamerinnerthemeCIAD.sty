@@ -104,5 +104,32 @@
 
 \setbeamertemplate{footnote}[default]
 
+\defbeamertemplate*{library slide content}{default}{%
+	\begin{picture}(0,0)(0,0)%
+		\put(-28.5,-72){%
+			\begin{tikzpicture}%
+			\path[fill=lawn.bg](0,0) rectangle (5,5);%
+			\path[fill=library slide.bg](5,0) rectangle (16,5);%
+			\end{tikzpicture}%
+		}%
+		\put(0,0){\raisebox{-.5\height}{\includegraphics[height=4cm]{\beamer@theme@ciad@libraryslide@picture}}}%
+		\put(120,0){%
+			\begin{minipage}[c]{.65\linewidth}%
+				\usebeamerfont{library slide}\usebeamercolor[fg]{library slide}%
+				\begin{raggedright}%
+					\nohyphens{\textbf{\beamer@theme@ciad@libraryslide@title}}%
+					\ifthenelse{\equal{a\beamer@theme@ciad@libraryslide@subtitle}{a}}{}{%
+						\\ \nohyphens{\small\beamer@theme@ciad@libraryslide@subtitle}%
+					} \\[.5cm]%
+					\nohyphens{\beamer@theme@ciad@libraryslide@authors} \\[.5cm]%
+					\nohyphens{\beamer@theme@ciad@libraryslide@how} \\[.25cm]%
+					\nohyphens{ISBN \beamer@theme@ciad@libraryslide@isbn}%
+				\end{raggedright}%
+			\end{minipage}%
+		}
+	\end{picture}%
+%	\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
+}
+
 \mode
 <all>
