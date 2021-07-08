@@ -1104,6 +1104,9 @@
 
 \pgfdeclareimage[width=\paperwidth]{partbackground}{ciad-part-background}
 
+\newif\ifbeamer@theme@ciad@part@inslide
+\beamer@theme@ciad@part@inslidefalse
+
 \let\beamer@theme@ciad@part@oldpart\part
 \let\beamer@theme@ciad@part@oldbeamerpart\beamer@part
 
@@ -1112,6 +1115,7 @@
 \newif\ifbeamer@theme@ciad@part@addintoc
 
 \gdef\beamer@part[#1]#2{%
+	\global\beamer@theme@ciad@part@inslidetrue%
 	\beamer@theme@ciad@part@oldbeamerpart[#1]{#2}%
 	\protected@edef\psecname{\beamer@partname}%
 	\protected@edef\lastpart{\beamer@partnameshort}%
@@ -1138,6 +1142,7 @@
 	\fi%
 	%\useheaderdefault%
 	\protected@xdef\@currentlabel{\the\c@part}% Issue #19
+	\global\beamer@theme@ciad@part@inslidefalse%
 }
 
 \define@key{beamerthemeciadpart}{author}{%
@@ -2833,7 +2838,7 @@
 		\draw (\beamer@theme@ciad@anchorblock@width*0.5-0.5cm,0.8) node[anchor=north] {%
 			\parbox[t]{\beamer@theme@ciad@anchorblock@contentwidth}{\raggedright%
 				\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}\BODY}};%
-	\end{tikzpicture}%
+	\end{tikzpicture}
 }
 
 % [#1] is width of the block (by default \linewidth)
