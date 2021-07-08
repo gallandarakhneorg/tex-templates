@@ -290,7 +290,7 @@
 	\smaller For changing the picture on the left background \textcircled{3}, use the macro: \\[.25cm]
 	\texttt{{\textbackslash}settitlepageuserbackground\{pgf-id\}} \\[.25cm]
 	\begin{itemize}
-		\item \texttt{pgf-id} is the identifier of the picture that is declared with the macro \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the macro \texttt{{\textbackslash}settitlepageleftfigure}.
+		\item \texttt{pgf-id} is the identifier of the picture that is declared with the macro \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the macro \texttt{{\textbackslash}settitlepageuserbackground}.
 	\end{itemize}
 	\alertbox{The left picture is automatically removed when the macro above is invoked}
 	\begin{example}
@@ -555,10 +555,10 @@
 	\begin{itemize}
 	\item \texttt{{\textbackslash}useheaderlinewithuserlogo[options]\{filename\}}: the default headline contains the given image.
 	\item Options may be: \begin{itemize}
-			\item \texttt{width=<length>} - the width of the image (default: 0.7cm);
+			\item \texttt{width=<length>} - the width of the image (default: $1$cm);
 			\item \texttt{height=<length>} - the height of the image (no default);
-			\item \texttt{x=<float>} - the position of the image along x axis (default: 2);
-			\item \texttt{y=<float>} - the position of the image along y axis (default: -22).
+			\item \texttt{x=<float>} - the position of the image along x axis (default: $415$);
+			\item \texttt{y=<float>} - the position of the image along y axis (default: $-16$).
 			\end{itemize}
 	\end{itemize}
 	\begin{center}
@@ -1294,7 +1294,7 @@
 			\begin{leftanchorblock}{Title 1}{1}
 				Text 1
 			\end{leftanchorblock} \\[.5cm]
-			\begin{leftanchorblock}{Title 2}{1}
+			\begin{leftanchorblock}{Title 2}{2}
 				Text 2
 			\end{leftanchorblock}
 		\end{column}
