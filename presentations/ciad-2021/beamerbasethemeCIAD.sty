@@ -2675,7 +2675,13 @@
 % Declare a lawn picture.
 % #1 the PGF id
 % #2 the filename
-\newcommand{\addlawnpicture}[2]{%
+\newcommand{\addlawnpicture}{%
+	\@ifnextchar*\beamer@theme@ciad@addlawnpicturestar\beamer@theme@ciad@addlawnpicture%
+}
+\newcommand{\beamer@theme@ciad@addlawnpicturestar}[3]{%
+	\pgfdeclareimage[width=7.8cm]{beamer@theme@ciad@lawn@#2}{#3}%
+}
+\newcommand{\beamer@theme@ciad@addlawnpicture}[2]{%
 	\pgfdeclareimage[height=7.8cm]{beamer@theme@ciad@lawn@#1}{#2}%
 }
 
