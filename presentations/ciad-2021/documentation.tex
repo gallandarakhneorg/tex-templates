@@ -1329,6 +1329,42 @@
 	\end{itemize}
 \end{frame}
 
+\resolvepicturename{example1}
+\addfancyboxpicture{example1}{\resolvedfilename}
+\begin{frame}{Fancy Boxes}
+	The CIAD theme defines a box with fancy rendering of informations alerts: \\
+	\begin{itemize}
+	\item \texttt{{\textbackslash}fancybox\ensuremath{<}frame\_spec\ensuremath{>}[options]\{Title\}\{text\}\{pgf-id\}\{mark\}} \\[.5cm]
+	\end{itemize}
+	\begin{columns}
+		\begin{column}{.3\linewidth}
+			\fancybox{Title}{text}{example1}{mark}
+		\end{column}
+		\begin{column}{.7\linewidth}
+			\begin{itemize}
+			\item \texttt{\ensuremath{<}frame\_spec\ensuremath{>}} is optional. It permits to specify the Beamer frame in which the box is displayed.
+			\item \texttt{options} is a list of options that are described on the following slide.
+			\item \texttt{pgf-id} is the identifier of a picture that is declared with: \\
+				\texttt{{\textbackslash}addfancyboxpicture[picture-height]\{pgf-id\}} \\
+				\texttt{\{picture-filename\}}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{{Fancy Box} Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the box (default: 4cm)
+	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the box (default: 5.5cm)
+	\item \texttt{corner=\ensuremath{<}length\ensuremath{>}}: size of the corner triangle (default: 1cm)
+	\item \texttt{cornersep=\ensuremath{<}length\ensuremath{>}}: size of the space between the corner triangle and the rest of the box (default: 0.2cm)
+	\item \texttt{iconheight=\ensuremath{<}length\ensuremath{>}}: height of the picture (default: 1.8cm)
+	\item \texttt{topsep=\ensuremath{<}length\ensuremath{>}}: size of the space between the top of the box and the picture (default: \the\bigskipamount)
+	\item \texttt{iconsep=\ensuremath{<}length\ensuremath{>}}: size of the space between the picture and the title (default: \the\medskipamount)
+	\item \texttt{titlesep=\ensuremath{<}length\ensuremath{>}}: size of the space between the title and the text (default: 1.2cm)
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Inline Example Boxes}
 	\begin{small}
 	The CIAD theme defines the the following macros to put examples in the text (not in a block, as predefined in Beamer):

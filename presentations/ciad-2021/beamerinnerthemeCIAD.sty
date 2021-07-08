@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerinnerthemeCIAD}
-   [2021/07/08 Beamer Inner 'CIAD' Theme]
+   [2021/07/09 Beamer Inner 'CIAD' Theme]
 
 \DeclareOptionBeamer{language}{\gdef\beamer@innertheme@ciad@lang{#1}}
 %\ExecuteOptionsBeamer{left}
@@ -33,14 +33,29 @@
 
 \mode<presentation>
 
+%------------------------------------
+% General configuration
+
 \useinnertheme{rectangles}
 
+%------------------------------------
+% Footnotes
 \global\let\footnoterule\relax % no rule for footnotes
+\setbeamertemplate{footnote}[default]
 
-\setbeamertemplate{blocks}[rounded][shadow=true]
+%------------------------------------
+% Standard Blocks
+\setbeamertemplate{blocks}[default,shadow=false]
 
 % Issue #16: The size of the block title must follow the size of the enclosing context.
 \setbeamerfont{block title}{size={}}
+
+% Remove space before the block
+\addtobeamertemplate{block begin}{\vskip -\medskipamount}{}
+%\addtobeamertemplate{block end}{\vskip \smallskipamount}{}
+
+%------------------------------------
+% Code
 
 % Create the style for the pseudo-code or programs
 \defbeamertemplate*{code basic style}{default}{%
@@ -56,53 +71,57 @@
 	\bfseries%
 }
 
+%------------------------------------
+% Definition Block
 
 % Redefine the style for definition blocks
+\BeforeBeginEnvironment{definition}{%
+	\setbeamercolorXXX{block title saved}{fg=block title.fg,bg=block title.bg}%
+	\setbeamercolorXXX{block body saved}{fg=block body.fg,bg=block body.bg}%
+	\setbeamercolorXXX{block title}{fg=block title definition.fg, bg=block title definition.bg}%
+	\setbeamercolorXXX{block body}{fg=block body definition.fg, bg=block body definition.bg}%
+}
+\AfterEndEnvironment{definition}{
+	\setbeamercolorXXX{block title}{fg=block title saved.fg, bg=block title saved.bg}%
+	\setbeamercolorXXX{block body}{fg=block body saved.fg, bg=block body saved.bg}%
+}
+
+% Define new bloc kfor definitions
 \newenvironment<>{definitionblock}[1]{%
 	\begin{actionenv}#2%
-		\def\insertblocktitle{#1}%
-		\par%
-		\usebeamertemplate{block begin definition}%
+	\setbeamercolorXXX{block title saved}{fg=block title.fg,bg=block title.bg}%
+	\setbeamercolorXXX{block body saved}{fg=block body.fg,bg=block body.bg}%
+	\setbeamercolorXXX{block title}{fg=block title definition.fg, bg=block title definition.bg}%
+	\setbeamercolorXXX{block body}{fg=block body definition.fg, bg=block body definition.bg}%
+	\begin{block}{#1}%
 }{%
-	\par%
-	\usebeamertemplate{block end definition}%
-	\end{actionenv}
+	\end{block}%
+	\end{actionenv}%
+	\setbeamercolorXXX{block title}{fg=block title saved.fg, bg=block title saved.bg}%
+	\setbeamercolorXXX{block body}{fg=block body saved.fg, bg=block body saved.bg}%
 }
 
-\gdef\th@definition{%
-	\normalfont % body font
-	\def\inserttheoremblockenv{definitionblock}
-}
+%------------------------------------
+% Theorem Block
 
 \setbeamertemplate{theorem begin}{%
-  \begin{\inserttheoremblockenv}%
-    {%
-		\ifthenelse{\equal{\inserttheoremblockenv}{definitionblock}}{%
-			\ifx\inserttheoremaddition\@empty%
+	\begin{\inserttheoremblockenv}%
+		{%
+			\ifthenelse{\equal{\inserttheoremblockenv}{definitionblock}}{%
+				\ifx\inserttheoremaddition\@empty%
 				\inserttheoremname%
-			\else%
+				\else%
 				\inserttheoremaddition%
-			\fi%
-		}{%
-			\inserttheoremname%
-			\ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+				\fi%
+			}{%
+				\inserttheoremname%
+				\ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+			}%
 		}%
-    }%
-}
+	}
 
-\defbeamertemplate*{block begin definition}{default}{%
-  \par\vskip\medskipamount%
-  \begin{beamerboxesrounded}[upper=block title definition,lower=block body definition,shadow=true]%
-    {\raggedright\usebeamerfont*{block title definition}\insertblocktitle}%
-    \raggedright%
-    \usebeamerfont{block body definition}%
-}
-
-\defbeamertemplate*{block end definition}{default}{%
-	\end{beamerboxesrounded}\vskip\smallskipamount%
-}
-
-\setbeamertemplate{footnote}[default]
+%------------------------------------
+% Content of the library slide
 
 \defbeamertemplate*{library slide content}{default}{%
 	\begin{picture}(0,0)(0,0)%
@@ -128,8 +147,9 @@
 			\end{minipage}%
 		}
 	\end{picture}%
-%	\raisebox{-\height}{\fbox{\includegraphics[width=3cm]{#2}}}\hfill%
 }
 
 \mode
 <all>
+
+\endinput
