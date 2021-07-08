@@ -91,6 +91,7 @@
 % Output the slide background and the title background
 \newcommand{\beamer@theme@ciad@outer@background}{%
 	\ifbeamer@theme@ciad@tableofcontentslide@background%
+		% On a TOC slide
 		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
 		\begin{tikzpicture}%
 			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{224}{\beamer@theme@ciad@tableofcontentslide@backgroundnumber}%
@@ -101,7 +102,7 @@
 		\insertcurrentslidebackgroundpicture%
 		\path[fill=frametitle.bg](0,0) rectangle (16,0.60);%
 		\end{tikzpicture}%
-	\fi
+	\fi%
 }
 
 \setbeamertemplate{title page}{%
