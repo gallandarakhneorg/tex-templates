@@ -2454,6 +2454,16 @@
 	\@ifnextchar<\beamer@theme@ciad@rsection@section@ro\beamer@theme@ciad@rsection@section@o%
 }
 
+% Force the sections to be displayed in the TOC
+\newcommand{\sectionsintoc}[1]{%
+	\xdef\beamer@theme@ciad@rsection@limits{,sections={#1}}%
+}
+
+% Reset the sections to be displayed in the TOC
+\newcommand{\resetsectionsintoc}{%
+	\gdef\beamer@theme@ciad@rsection@limits{}%
+}
+
 % \section<range>[toc title]{title}
 % \section*<range>[toc title]{title}
 % \section<range>*[toc title]{title}
@@ -2471,19 +2481,48 @@
 %-----------------------------------------
 % Macros for showing TOC for sections, subsections.
 
-\newcommand{\sectiontableofcontentslide}{
+\newcommand{\sectiontableofcontentslide}{%
+	\@ifnextchar*\beamer@theme@ciad@toc@sectiontableofcontentslidestar\beamer@theme@ciad@toc@sectiontableofcontentslide%
+}
+\def\beamer@theme@ciad@toc@sectiontableofcontentslidestar#1{
 	\ifx\appendix\relax\else%
 	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
 	\@tmp%
 	\fi%
 }
-\newcommand{\subsectiontableofcontentslide}{
+\def\beamer@theme@ciad@toc@sectiontableofcontentslide{
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+
+\newcommand{\subsectiontableofcontentslide}{%
+	\@ifnextchar*\beamer@theme@ciad@toc@subsectiontableofcontentslidestar\beamer@theme@ciad@toc@subsectiontableofcontentslide%
+}
+\def\beamer@theme@ciad@toc@subsectiontableofcontentslidestar#1{%
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\def\beamer@theme@ciad@toc@subsectiontableofcontentslide{%
 	\ifx\appendix\relax\else%
 	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide}\beamer@theme@ciad@rsection@limits]}%
 	\@tmp%
 	\fi%
 }
-\newcommand{\subsubsectiontableofcontentslide}{
+
+\newcommand{\subsubsectiontableofcontentslide}{%
+	\@ifnextchar*\beamer@theme@ciad@toc@subsubsectiontableofcontentslidestar\beamer@theme@ciad@toc@subsubsectiontableofcontentslide%
+}
+\def\beamer@theme@ciad@toc@subsubsectiontableofcontentslidestar#1{%
+	\ifx\appendix\relax\else%
+	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={show/show/hide/hide}\beamer@theme@ciad@rsection@limits]}%
+	\@tmp%
+	\fi%
+}
+\def\beamer@theme@ciad@toc@subsubsectiontableofcontentslide{%
 	\ifx\appendix\relax\else%
 	\protected@edef\@tmp{\protect\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={show/shaded/hide/hide}\beamer@theme@ciad@rsection@limits]}%
 	\@tmp%

@@ -90,7 +90,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Predefined Values}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}]
+\sectiontableofcontentslide
 
 \subsection{Colors}
 
@@ -154,7 +154,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Class Options and Document Declaration}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={1-6}]
+\sectiontableofcontentslide
 
 \subsection{Class Options}
 
@@ -491,7 +491,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Header and Footer Tuning}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={1-6}]
+\sectiontableofcontentslide
 
 \subsection{Headline}
 
@@ -684,7 +684,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background Picture}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={1-6}]
+\sectiontableofcontentslide
 
 \begin{frame}{Changing the Background Picture}
 	The CIAD Beamer style is able to add a picture on the background of the slides (below your text). \\[.5cm]
@@ -819,7 +819,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sectionning}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={1-6}]
+\sectiontableofcontentslide
 
 \subsection{Table of Contents}
 
@@ -845,6 +845,10 @@
 		\texttt{{\textbackslash}subsectiontableofcontentslide} \\
 		\texttt{{\textbackslash}subsubsectiontableofcontentslide}
 	\item They provide standard show/hide configurations for each section type.
+	\item You could control the list of the sections that are shown in the TOC by specifying a range of section numbers with: \\
+		\texttt{{\textbackslash}sectionsintoc\{section\_range\}}
+	\item The \texttt{{\textbackslash}sectionsintoc} macro is active until it is evaluated again or the following resetting macro is used: \\
+		\texttt{{\textbackslash}resetsectionsintoc}
 	\end{itemize}
 \end{frame}
 
@@ -940,7 +944,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special Slides}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide}]
+\sectiontableofcontentslide
 
 \subsection{Slide with a Right Title}
 
@@ -1212,10 +1216,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Slide Content}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\sectiontableofcontentslide
 
 \subsection{{\textbackslash}includegraphics}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{{\textbackslash}includegraphics}
 	\alertbox{The macro \textbf{{\textbackslash}includegraphics} is overridden by the theme.}
@@ -1227,7 +1231,7 @@
 \end{frame}
 
 \subsection{Drawing}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Put at an Absolute Position}
 	\begin{itemize}
@@ -1244,7 +1248,7 @@
 \end{frame}
 
 \subsection{Blocks}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Left-Anchor Block}
 	\begin{itemize}
@@ -1315,7 +1319,7 @@
 
 
 \subsection{Boxes}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Alert Boxes}
 	The CIAD theme defines the a box for alerts: \\
@@ -1431,7 +1435,7 @@
 \end{frame}
 
 \subsection{Tables, Descriptions and Lists}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Tables with Colors}
 	\begin{itemize}
@@ -1532,7 +1536,7 @@
 \end{frame}
 
 \subsection{Text}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Additional Symbols}
 	\begin{itemize}
@@ -1655,7 +1659,7 @@
 \end{frame}
 
 \subsection{Notes}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}{Footnotes}
 	\begin{itemize}
@@ -1693,7 +1697,7 @@
 \end{frame}
 
 \subsection{Links}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/shaded/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\subsectiontableofcontentslide
 
 \begin{frame}[t]{Link to a Video}
 	\begin{itemize}
@@ -1757,7 +1761,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Slide Transitions}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\sectiontableofcontentslide
 
 \pgfdeclareimage[width=.5\linewidth]{transitionalciadlogo}{ciadlogo}
 \pgfdeclareimage[width=.5\linewidth]{transitionalutbmlogo}{utbmlogo}
@@ -1874,7 +1878,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Low-level Macros}
-\tableofcontentslide[sectionstyle={show/shaded},subsectionstyle={show/show/hide},subsubsectionstyle={hide/hide/hide/hide},sections={3-}]
+\sectiontableofcontentslide
 
 \subsection{Handlers on Frames}
 
