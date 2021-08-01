@@ -208,6 +208,7 @@
 	\setboolean{beamer@theme@ciad@fancyframetitle}{false}%
 }
 
+
 %\ExecuteOptionsBeamer{framebackground=1}
 \ProcessOptionsBeamer
 
@@ -2475,8 +2476,14 @@
 	\@ifstar\beamer@theme@ciad@rsection@section@sc\beamer@theme@ciad@rsection@section@c
 }
 
+\def\beamer@theme@ciad@rsection@insertpartprefix{%
+	\insertpartprefix%
+}
+
 \let\beamer@theme@ciad@rsection@original@part\part
-\gdef\part{\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@part}
+\gdef\part{%
+	\gdef\beamer@theme@ciad@rsection@limits{}\beamer@theme@ciad@rsection@original@part%
+}
 
 %-----------------------------------------
 % Macros for showing TOC for sections, subsections.
