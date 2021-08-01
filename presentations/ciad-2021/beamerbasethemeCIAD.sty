@@ -2880,7 +2880,7 @@
 	\addtolength{\beamer@theme@ciad@anchorblock@titlewidth}{-3cm}%
 	\setlength{\beamer@theme@ciad@anchorblock@contentwidth}{#1}%
 	\addtolength{\beamer@theme@ciad@anchorblock@contentwidth}{-2.5cm}%
-	\begin{tikzpicture}%
+	\par\noindent\begin{tikzpicture}%
 		\draw[draw=line in left anchor block.fg,fill=line in left anchor block.fg] (0.05,0) circle (0.05cm);%
 		\draw[draw=line in left anchor block.fg] (0.05,0) -- (0.6,0.8) -- (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8);%
 		\draw[draw=line in left anchor block.fg, fill=line in left anchor block.bg] (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8) circle (0.8cm);%
@@ -2891,7 +2891,8 @@
 		\draw (\beamer@theme@ciad@anchorblock@width*0.5-0.5cm,0.8) node[anchor=north] {%
 			\parbox[t]{\beamer@theme@ciad@anchorblock@contentwidth}{\raggedright%
 				\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}\BODY}};%
-	\end{tikzpicture}
+	\end{tikzpicture}%
+	\par%
 }
 
 % [#1] is width of the block (by default \linewidth)
@@ -2915,6 +2916,7 @@
 		\parbox[b]{\beamer@theme@ciad@anchorblock@contentwidth}{\raggedright%
 			\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}\BODY}};%
 	\end{tikzpicture}%
+	\par%
 }
 
 %------------------------------------
