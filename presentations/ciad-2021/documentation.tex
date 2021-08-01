@@ -1321,6 +1321,18 @@
 \subsection{Boxes}
 \subsectiontableofcontentslide
 
+\begin{frame}{Simple Boxes}
+	You could draw a simple box as:
+		\simplebox{This is the text into the simple box}
+	The macro is:	
+	\begin{itemize}
+	\item \texttt{{\textbackslash}simplebox[width]\{text\}} \\
+		\texttt{{\textbackslash}simplebox*[width]\{text\}} \\[.5cm]
+	\item \texttt{{\textbackslash}simplebox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
+	\item \texttt{{\textbackslash}simplebox*} is a hmode box, i.e., it accept elements on its side
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Alert Boxes}
 	The CIAD theme defines the a box for alerts: \\
 	\begin{itemize}

@@ -3066,6 +3066,41 @@
 		\end{tikzpicture}}%
 }
 
+%------------------------------------
+% Simple black box with text only
+
+\def\beamer@theme@ciad@simplebox@internal#1#2{%
+	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
+		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\par\vspace{-\parskip}\nohyphens{#2}%
+	\end{beamercolorbox}%
+}
+
+\newcommand{\beamer@theme@ciad@simplebox@vmode}[2][\linewidth]{%
+	\beamer@theme@ciad@simplebox@internal{#1}{#2}%
+}
+
+\newcommand{\beamer@theme@ciad@simplebox@hmode}[2][\linewidth]{%
+	\begin{minipage}{#1}%
+		\beamer@theme@ciad@simplebox@internal{\linewidth}{#2}%
+	\end{minipage}%
+}
+
+\def\beamer@theme@ciad@simpleboxstar#1{%
+	\beamer@theme@ciad@simplebox@hmode%
+}
+
+% Declare a simple box.
+% Stared version is hmode, Not-stared version is vmode.
+% [#1] width of the box
+% #2 the text
+\def\simplebox{%
+	\@ifnextchar*\beamer@theme@ciad@simpleboxstar\beamer@theme@ciad@simplebox@vmode%
+}
+
 }
 
 \endinput
