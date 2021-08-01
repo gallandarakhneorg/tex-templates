@@ -2942,6 +2942,8 @@
 \newlength{\beamer@theme@ciad@fancyboxyb}
 \newlength{\beamer@theme@ciad@fancyboxyc}
 \newlength{\beamer@theme@ciad@fancyboxiconheight}
+\newlength{\beamer@theme@ciad@fancyboxinnersep}
+\newlength{\beamer@theme@ciad@fancyboxinnerwidth}
 
 \define@key{beamerthemeciadfancybox}{width}{%
 	\global\setlength{\beamer@theme@ciad@fancyboxwidth}{#1}%
@@ -2967,8 +2969,34 @@
 \define@key{beamerthemeciadfancybox}{titlesep}{%
 	\global\setlength{\beamer@theme@ciad@fancyboxtitlesep}{#1}%
 }
+\define@key{beamerthemeciadfancybox}{innersep}{%
+	\global\setlength{\beamer@theme@ciad@fancyboxinnersep}{#1}%
+}
+\define@key{beamerthemeciadfancybox}{vpos}{%
+	\ifthenelse{\equal{a#1}{at}}{%
+		\gdef\beamer@theme@ciad@fancyboxposition{1}%
+	}{%
+		\ifthenelse{\equal{a#1}{ac}}{%
+			\gdef\beamer@theme@ciad@fancyboxposition{.5}%
+		}{%
+			\gdef\beamer@theme@ciad@fancyboxposition{0}%
+		}%
+	}%
+}
+\define@key{beamerthemeciadfancybox}{bg}{%
+	\gdef\beamer@theme@ciad@fancyboxbg{#1}%
+}
+\define@key{beamerthemeciadfancybox}{cornerbg}{%
+	\gdef\beamer@theme@ciad@fancyboxcornerbg{#1}%
+}
+\define@key{beamerthemeciadfancybox}{fg}{%
+	\gdef\beamer@theme@ciad@fancyboxfg{#1}%
+}
+\define@key{beamerthemeciadfancybox}{titlefg}{%
+	\gdef\beamer@theme@ciad@fancyboxtitlefg{#1}%
+}
 
-% [#1] : width
+% [#1] : options
 % #2 : title
 % #3 : text
 % #4 : pgf icon
@@ -2982,6 +3010,12 @@
 	\global\setlength{\beamer@theme@ciad@fancyboxcorn}{1cm}%
 	\global\setlength{\beamer@theme@ciad@fancyboxcornsep}{0.2cm}%
 	\global\setlength{\beamer@theme@ciad@fancyboxiconheight}{1.8cm}%
+	\global\setlength{\beamer@theme@ciad@fancyboxinnersep}{0.1cm}%
+	\gdef\beamer@theme@ciad@fancyboxbg{fancy box.bg}%
+	\gdef\beamer@theme@ciad@fancyboxcornerbg{corner in fancy box.bg}%
+	\gdef\beamer@theme@ciad@fancyboxposition{0}%
+	\gdef\beamer@theme@ciad@fancyboxfg{fancy box.fg}%
+	\gdef\beamer@theme@ciad@fancyboxtitlefg{title in fancy box.fg}%
 	%
 	\setkeys{beamerthemeciadfancybox}{#1}%	
 	%
@@ -2996,29 +3030,42 @@
 	%
 	\global\setlength{\beamer@theme@ciad@fancyboxyc}{\beamer@theme@ciad@fancyboxyb}%
 	\global\addtolength{\beamer@theme@ciad@fancyboxyc}{-\beamer@theme@ciad@fancyboxtitlesep}%
-	%	
-	\def\insertblocktitle{#2}%
-	\def\insertblockmarktext{#5}%
-	\def\insertblockpicture{\pgfuseimage{beamer@theme@ciad@fancybox@#4}}%
 	%
-		\begin{tikzpicture}%
-		\fill[corner in fancy box.bg](0,0) -- (0,\beamer@theme@ciad@fancyboxcorn) -- (\beamer@theme@ciad@fancyboxcorn,0);%
+	\global\setlength{\beamer@theme@ciad@fancyboxinnerwidth}{\beamer@theme@ciad@fancyboxwidth}%
+	\global\addtolength{\beamer@theme@ciad@fancyboxinnerwidth}{-2\beamer@theme@ciad@fancyboxinnersep}%
+	%	
+	\global\def\insertblocktitle{#2}%
+	\global\def\insertblockmarktext{#5}%
+	\ifthenelse{\equal{a#4}{a}}{%
+		\global\def\insertblockpicture{}%
+	}{%
+		\global\def\insertblockpicture{\pgfuseimage{beamer@theme@ciad@fancybox@#4}}%
+	}%
+	%
+		\expandafter\raisebox{-\beamer@theme@ciad@fancyboxposition\height}{\begin{tikzpicture}%
 		%
-		\fill[fancy box.bg](0,\beamer@theme@ciad@fancyboxcorni) -- (0,\beamer@theme@ciad@fancyboxheight) -- (\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxheight) -- (\beamer@theme@ciad@fancyboxwidth,0) -- (\beamer@theme@ciad@fancyboxcorni,0);%
+		\renewcommand{\emph}[1]{{\usebeamerfont{emphased text in fancy box}\usebeamercolor[fg]{emphased text in fancy box}##1}}
+		\renewcommand{\Emph}[1]{{\usebeamerfont{emphased emphased text in fancy box}\usebeamercolor[fg]{emphased emphased text in fancy box}##1}}
+		%
+		\fill[\beamer@theme@ciad@fancyboxcornerbg](0,0) -- (0,\beamer@theme@ciad@fancyboxcorn) -- (\beamer@theme@ciad@fancyboxcorn,0);%
+		%
+		\fill[\beamer@theme@ciad@fancyboxbg](0,\beamer@theme@ciad@fancyboxcorni) -- (0,\beamer@theme@ciad@fancyboxheight) -- (\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxheight) -- (\beamer@theme@ciad@fancyboxwidth,0) -- (\beamer@theme@ciad@fancyboxcorni,0);%
 		%
 		\draw(0,0) node[anchor=south west] {\usebeamercolor[fg]{corner in fancy box}\usebeamerfont{corner in fancy box}\insertblockmarktext};%
 		%
 		\draw(.5\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxya) node[anchor=north] {\insertblockpicture};%
 		%
-		\draw(.5\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxyb) node[anchor=north] {\usebeamercolor[fg]{title in fancy box}\parbox[t]{\beamer@theme@ciad@fancyboxwidth}{\centering\usebeamerfont{title in fancy box}\insertblocktitle}};%
+		\draw(.5\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxyb) node[anchor=north] {\parbox[t]{\beamer@theme@ciad@fancyboxinnerwidth}{\centering\usebeamerfont{title in fancy box}\textcolor{\beamer@theme@ciad@fancyboxtitlefg}{\insertblocktitle}}};%
 		%
 		\draw(.5\beamer@theme@ciad@fancyboxwidth,\beamer@theme@ciad@fancyboxyc) node[anchor=north] {
-		\usebeamercolor[fg]{fancy box}\parbox[t]{\beamer@theme@ciad@fancyboxwidth}{
+		\parbox[t]{\beamer@theme@ciad@fancyboxinnerwidth}{
 			\centering%
 			\usebeamerfont{fancy box}%
-			#3%
+			\textcolor{\beamer@theme@ciad@fancyboxfg}{#3}%
 		}};%
-		\end{tikzpicture}%
+		\end{tikzpicture}}%
+}
+
 }
 
 \endinput
