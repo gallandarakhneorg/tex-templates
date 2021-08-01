@@ -1255,7 +1255,8 @@
 		\item The CIAD Beamer theme provides an environment named ``left-anchor block'' that provides a fancy display for a block of information: \\[.25cm]
 			\begin{leftanchorblock}{The title}{XX}
 				This is a content
-			\end{leftanchorblock} \\[.5cm]
+			\end{leftanchorblock}
+		\vspace{.5cm}
 		\item This type of block has a title, a text to write in the circle (e.g., \texttt{XX}), and a content
 		\item The environment for rendering a left-anchor block is: \\[.25cm]
 			\texttt{{\textbackslash}begin\{leftanchorblock\}[width]\{title\}\{text in the circle\}} \\
@@ -1269,7 +1270,8 @@
 		\item The CIAD Beamer theme provides an environment named ``right-anchor block'' that provides a fancy display for a block of information: \\[.25cm]
 		\begin{rightanchorblock}{The title}{XX}
 			This is a content
-		\end{rightanchorblock} \\[.5cm]
+		\end{rightanchorblock}
+		\vspace{.5cm}
 		\item This type of block has a title, a text to write in the circle (e.g., \texttt{XX}), and a content
 		\item The environment for rendering a right-anchor block is: \\[.25cm]
 		\texttt{{\textbackslash}begin\{rightanchorblock\}[width]\{title\}\{text in the circle\}} \\
@@ -1281,7 +1283,8 @@
 \begin{frame}{Mixing Anchor Blocks}
 	\begin{leftanchorblock}[.5\linewidth]{The title}{1}
 		This is a box with half width
-	\end{leftanchorblock} \\[.5cm]
+	\end{leftanchorblock}
+	\vspace{.5cm}
 	\begin{rightanchorblock}{The title}{2}
 		This is a content with total width
 	\end{rightanchorblock}
@@ -1290,7 +1293,8 @@
 \begin{frame}{Mixing Anchor Blocks \insertcontinuationtext}
 	\begin{leftanchorblock}{The title}{1}
 		This is a box with total width
-	\end{leftanchorblock} \\[.5cm]
+	\end{leftanchorblock}
+	\vspace{.5cm}
 	\begin{rightanchorblock}[.5\linewidth]{The title}{2}
 		This is a content with half width
 	\end{rightanchorblock}
@@ -1301,7 +1305,8 @@
 		\begin{column}{.5\linewidth}
 			\begin{leftanchorblock}{Title 1}{1}
 				Text 1
-			\end{leftanchorblock} \\[.5cm]
+			\end{leftanchorblock}
+			\vspace{.5cm}
 			\begin{leftanchorblock}{Title 2}{2}
 				Text 2
 			\end{leftanchorblock}
@@ -1309,7 +1314,8 @@
 		\begin{column}{.5\linewidth}
 			\begin{rightanchorblock}{Title 3}{3}
 				Text 3
-			\end{rightanchorblock} \\[.5cm]
+			\end{rightanchorblock}
+			\vspace{.5cm}
 			\begin{rightanchorblock}{Title 4}{4}
 				Text 4
 			\end{rightanchorblock}
@@ -1452,6 +1458,26 @@
 	\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
 	\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
 	\end{itemize}
+\end{frame}
+
+\resolvepicturename{example1}
+\pgfdeclareimage[width=2cm]{arrow-decoration-example1}{\resolvedfilename}
+\begin{frame}{Arrow Decorations}
+	\smaller
+	Each arrow could have a decoration, as illustrated by:
+	\begin{rightarrowsequence}
+		\arrow[decoration={arrow-decoration-example1}]{Arrow 1}
+		\arrow[bg=blue]{Arrow 2}
+		\arrow{Arrow 3}
+		\arrow[bg=red,fg=blue,decoration={arrow-decoration-example1}]{Arrow 4}
+	\end{rightarrowsequence} \\[.5cm]
+	This sequence is obtained by: \\
+	\texttt{{\textbackslash}begin\{rightarrowsequence\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[decoration=\{image\}]\{Arrow 1\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=blue]\{Arrow 2\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow\{Arrow 3\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=red,fg=blue,decoration=\{image\}]\{Arrow 4\}} \\
+	\texttt{{\textbackslash}end\{rightarrowsequence\}}
 \end{frame}
 
 \begin{frame}{{Right-Arrow-Sequence} Global Options}
