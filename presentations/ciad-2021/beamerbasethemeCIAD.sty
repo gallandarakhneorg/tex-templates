@@ -75,8 +75,6 @@
 \newboolean{beamer@theme@ciad@randombackground}
 \setboolean{beamer@theme@ciad@randombackground}{false}
 
-\newlength{\beamer@theme@ciad@tmplength}
-
 \gdef\beamer@theme@ciad@outer@titleverticalalignment{c}
 \gdef\beamer@theme@ciad@outer@titleverticalposition{-96}
 
@@ -898,9 +896,8 @@
 %-----------------------------------------
 % Emphasing
 \let\beamer@theme@ciad@oldemph\emph
-\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphased text}#1}}
-
-\newcommand{\Emph}[1]{\emph{\textbf{#1}}}
+\renewcommand{\emph}[1]{{\usebeamerfont{emphased text}\usebeamercolor[fg]{emphased text}#1}}
+\newcommand{\Emph}[1]{{\usebeamerfont{emphased emphased text}\usebeamercolor[fg]{emphased emphased text}#1}}
 
 %-----------------------------------------
 % Footnote
