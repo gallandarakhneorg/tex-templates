@@ -1733,7 +1733,7 @@
 %-----------------------------------------
 % Alert box
 \def\beamer@theme@ciad@alertbox@noframed#1{%
-	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=true,center,vmode,shadow=true]{\beamer@theme@ciad@alertbox@style}%
+	\expandafter\begin{beamercolorbox}[wd=\linewidth,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{\beamer@theme@ciad@alertbox@style}%
 		% Redefine locally the emphazing functions
 		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{\beamer@theme@ciad@alertbox@style@emph}##1}}%
 		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{\beamer@theme@ciad@alertbox@style@alert}##1}}%
