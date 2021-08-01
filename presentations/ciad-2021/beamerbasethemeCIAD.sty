@@ -3101,6 +3101,43 @@
 	\@ifnextchar*\beamer@theme@ciad@simpleboxstar\beamer@theme@ciad@simplebox@vmode%
 }
 
+%------------------------------------
+% Simple black box with text and title
+
+\def\beamer@theme@ciad@titlebox@internal#1#2#3{%
+	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
+		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\par\vspace{-\parskip}\emph{\nohyphens{#2}} \\ \nohyphens{#3}%
+	\end{beamercolorbox}%
+}
+
+\newcommand{\beamer@theme@ciad@titlebox@vmode}[3][\linewidth]{%
+	\beamer@theme@ciad@titlebox@internal{#1}{#2}{#3}%
+}
+
+\newcommand{\beamer@theme@ciad@titlebox@hmode}[3][\linewidth]{%
+	\begin{minipage}{#1}%
+		\beamer@theme@ciad@titlebox@internal{\linewidth}{#2}{#3}%
+	\end{minipage}%
+}
+
+\def\beamer@theme@ciad@titleboxstar#1{%
+	\beamer@theme@ciad@titlebox@hmode%
+}
+
+% Declare a titled box.
+% Stared version is hmode, Not-stared version is vmode.
+% [#1] width of the box
+% #2 the title
+% #3 the text
+\def\titlebox{%
+	\@ifnextchar*\beamer@theme@ciad@titleboxstar\beamer@theme@ciad@titlebox@vmode%
+}
+
+
 }
 
 \endinput

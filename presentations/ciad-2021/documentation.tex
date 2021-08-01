@@ -1345,6 +1345,18 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Title Boxes}
+	You could draw a box with a title as:
+		\titlebox{The Title}{This is the text into the simple box}
+	The macro is:	
+	\begin{itemize}
+	\item \texttt{{\textbackslash}titlebox[width]\{title\}\{text\}} \\
+		\texttt{{\textbackslash}titlebox*[width]\{title\}\{text\}} \\[.5cm]
+	\item \texttt{{\textbackslash}titlebox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
+	\item \texttt{{\textbackslash}titlebox*} is a hmode box, i.e., it accept elements on its side
+	\end{itemize}
+\end{frame}
+
 \resolvepicturename{example1}
 \addfancyboxpicture{example1}{\resolvedfilename}
 \begin{frame}{Fancy Boxes}
