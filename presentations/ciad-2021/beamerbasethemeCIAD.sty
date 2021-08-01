@@ -3253,6 +3253,236 @@
 }
 
 
+%------------------------------------
+% Horizontal sequence of arrow
+
+\newlength{\beamer@theme@ciad@arrowsequencewidth}
+\newlength{\beamer@theme@ciad@arrowsequenceheight}
+\newlength{\beamer@theme@ciad@arrowsequencearrowwidth}
+\newlength{\beamer@theme@ciad@arrowsequencesep}
+\newlength{\beamer@theme@ciad@arrowsequencetopsep}
+\newlength{\beamer@theme@ciad@arrowsequencedecorationsep}
+\newlength{\beamer@theme@ciad@arrowsequencebottomsep}
+\newlength{\beamer@theme@ciad@arrowsequence@x}
+\newlength{\beamer@theme@ciad@arrowsequence@x@a}
+\newlength{\beamer@theme@ciad@arrowsequence@x@b}
+\newlength{\beamer@theme@ciad@arrowsequence@x@c}
+\newlength{\beamer@theme@ciad@arrowsequence@x@d}
+\newlength{\beamer@theme@ciad@arrowsequence@y@a}
+\newlength{\beamer@theme@ciad@arrowsequence@colw}
+\newlength{\beamer@theme@ciad@arrowsequence@textw}
+\newlength{\beamer@theme@ciad@arrowsequence@texth}
+\newlength{\beamer@theme@ciad@arrowsequence@w}
+\newcounter{beamer@theme@ciad@arrowsequence@nbarrows}
+\newsavebox{\beamer@theme@ciad@arrowsequence@box}
+
+\define@key{beamerthemeciadarrowsequence}{width}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencewidth}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{height}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequenceheight}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{arrowwidth}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencearrowwidth}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{sep}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencesep}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{topsep}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencetopsep}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{decorationsep}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencedecorationsep}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{bottomsep}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequencebottomsep}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{bg}{%
+	\gdef\beamer@theme@ciad@arrowsequence@allbg{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequence}{fg}{%
+	\gdef\beamer@theme@ciad@arrowsequence@allfg{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequenceinnerarrow}{decoration}{%
+	\gdef\beamer@theme@ciad@arrowsequence@decoration{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequenceinnerarrow}{width}{%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@colw}{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequenceinnerarrow}{bg}{%
+	\gdef\beamer@theme@ciad@arrowsequence@bg{#1}%
+}
+
+\define@key{beamerthemeciadarrowsequenceinnerarrow}{fg}{%
+	\gdef\beamer@theme@ciad@arrowsequence@fg{#1}%
+}
+
+\newcommand{\beamer@theme@ciad@arrowsequence@insertarrowcontent}[2]{%
+	\parbox[c]{#1}{%
+		\ifx\beamer@theme@ciad@arrowsequence@decoration\relax\else%
+		\centering\pgfuseimage{\beamer@theme@ciad@arrowsequence@decoration} \\[\beamer@theme@ciad@arrowsequencedecorationsep]%
+		\fi%
+		\raggedright%
+		\normalsize\usebeamerfont{left arrow sequence}\textcolor{\beamer@theme@ciad@arrowsequence@fg}{#2}}%
+}%
+
+\newcommand{\beamer@theme@ciad@arrowsequence@arrowfct@a}[2][]{%
+	%
+	% Parse arguments
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@colw}{0cm}%
+	\setkeys{beamerthemeciadarrowsequenceinnerarrow}{#1}%	
+	%
+	% Compute the number of arrows to have a dynamic width and the width that is reserved for that
+	%
+	\ifnum\beamer@theme@ciad@arrowsequence@colw>0%
+		\global\addtolength{\beamer@theme@ciad@arrowsequence@w}{-\beamer@theme@ciad@arrowsequence@colw}%
+	\else%
+		\global\addtocounter{beamer@theme@ciad@arrowsequence@nbarrows}{1}%
+	\fi%
+}
+
+\newcommand{\beamer@theme@ciad@arrowsequence@arrowfct@b}[2][]{%
+	%
+	% Parse arguments
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@colw}{\beamer@theme@ciad@arrowsequence@@colw}%
+	\gdef\beamer@theme@ciad@arrowsequence@bg{\beamer@theme@ciad@arrowsequence@allbg}%
+	\gdef\beamer@theme@ciad@arrowsequence@fg{\beamer@theme@ciad@arrowsequence@allfg}%
+	\global\let\beamer@theme@ciad@arrowsequence@decoration\relax%
+	\setkeys{beamerthemeciadarrowsequenceinnerarrow}{#1}%	
+	%
+	% Compute the expected width of the text
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@textw}{\beamer@theme@ciad@arrowsequence@colw}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@textw}{-2\beamer@theme@ciad@arrowsequencearrowwidth}%
+	%
+	\savebox{\beamer@theme@ciad@arrowsequence@box}{\beamer@theme@ciad@arrowsequence@insertarrowcontent{\beamer@theme@ciad@arrowsequence@textw}{#2}}%
+	\global\settoheight{\beamer@theme@ciad@arrowsequence@texth}{\usebox{\beamer@theme@ciad@arrowsequence@box}}%
+	\ifnum\beamer@theme@ciad@arrowsequence@texth>\beamer@theme@ciad@arrowsequenceheight%
+		\global\setlength{\beamer@theme@ciad@arrowsequenceheight}{\beamer@theme@ciad@arrowsequence@texth}%
+	\else\fi%
+}
+
+\newcommand{\beamer@theme@ciad@arrowsequence@arrowfct@c}[2][]{%
+	%
+	% Parse arguments
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@colw}{\beamer@theme@ciad@arrowsequence@@colw}%
+	\gdef\beamer@theme@ciad@arrowsequence@bg{\beamer@theme@ciad@arrowsequence@allbg}%
+	\gdef\beamer@theme@ciad@arrowsequence@fg{\beamer@theme@ciad@arrowsequence@allfg}%
+	\global\let\beamer@theme@ciad@arrowsequence@decoration\relax%
+	\setkeys{beamerthemeciadarrowsequenceinnerarrow}{#1}%	
+	%
+	% Compute the positions that are used for drawing the arrow and its content
+	%
+	% bottom-right x
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x@a}{\beamer@theme@ciad@arrowsequence@x}	\addtolength{\beamer@theme@ciad@arrowsequence@x@a}{\beamer@theme@ciad@arrowsequence@colw}%
+	% extreme arrow x
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x@b}{\beamer@theme@ciad@arrowsequence@x@a}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@x@b}{\beamer@theme@ciad@arrowsequencearrowwidth}%
+	% arrow back x
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x@c}{\beamer@theme@ciad@arrowsequence@x}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@x@c}{\beamer@theme@ciad@arrowsequencearrowwidth}%
+	% text anchor x
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x@d}{\beamer@theme@ciad@arrowsequence@x}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@x@d}{\beamer@theme@ciad@arrowsequencearrowwidth}%
+	% middle y
+	\global\setlength{\beamer@theme@ciad@arrowsequence@y@a}{.5\beamer@theme@ciad@arrowsequenceheight}%
+	% width of the text
+	\global\setlength{\beamer@theme@ciad@arrowsequence@textw}{\beamer@theme@ciad@arrowsequence@colw}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@textw}{-2\beamer@theme@ciad@arrowsequencearrowwidth}%
+	%
+	% Build the graphical components
+	%
+	\protected@xdef\beamer@theme@ciad@arrowsequence@tikzcontent{%
+		\beamer@theme@ciad@arrowsequence@tikzcontent%
+		% Add the arrow background
+		\protect\fill[\beamer@theme@ciad@arrowsequence@bg](\the\beamer@theme@ciad@arrowsequence@x,0) -- (\the\beamer@theme@ciad@arrowsequence@x@a,0) -- (\the\beamer@theme@ciad@arrowsequence@x@b,\the\beamer@theme@ciad@arrowsequence@y@a) -- (\the\beamer@theme@ciad@arrowsequence@x@a,\the\beamer@theme@ciad@arrowsequenceheight) -- (\the\beamer@theme@ciad@arrowsequence@x,\the\beamer@theme@ciad@arrowsequenceheight) -- (\the\beamer@theme@ciad@arrowsequence@x@c,\the\beamer@theme@ciad@arrowsequence@y@a);%
+		% Add text on arrow
+		\protect\draw (\the\beamer@theme@ciad@arrowsequence@x@d,\the\beamer@theme@ciad@arrowsequence@y@a) node[anchor=west] {%
+			\beamer@theme@ciad@arrowsequence@insertarrowcontent{\beamer@theme@ciad@arrowsequence@textw}{#2}%
+		};%
+	}%
+	%
+	% Prepare the variables for the following arrow
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x}{\beamer@theme@ciad@arrowsequence@x@a}%
+	\global\addtolength{\beamer@theme@ciad@arrowsequence@x}{\beamer@theme@ciad@arrowsequencesep}%
+}
+
+% Declare an horizontal sequence of arrows
+% [#1] options
+\NewEnviron{rightarrowsequence}[1][]{%
+	%
+	% Parse argument values
+	%
+	\global\setlength{\beamer@theme@ciad@arrowsequencewidth}{\linewidth}%
+	\global\setlength{\beamer@theme@ciad@arrowsequenceheight}{0cm}%
+	\global\setlength{\beamer@theme@ciad@arrowsequencearrowwidth}{0.5cm}%
+	\global\setlength{\beamer@theme@ciad@arrowsequencesep}{0.1cm}%
+	\global\setlength{\beamer@theme@ciad@arrowsequencetopsep}{0.1cm}%
+	\global\setlength{\beamer@theme@ciad@arrowsequencedecorationsep}{0.1cm}%
+	\global\setlength{\beamer@theme@ciad@arrowsequencebottomsep}{0.1cm}%
+	\gdef\beamer@theme@ciad@arrowsequence@allbg{left arrow sequence.bg}%
+	\gdef\beamer@theme@ciad@arrowsequence@allfg{left arrow sequence.fg}%
+	\global\let\beamer@theme@ciad@arrowsequence@allbg@end\relax%
+	\global\let\beamer@theme@ciad@arrowsequence@allfg@end\relax%
+	\setkeys{beamerthemeciadarrowsequence}{#1}%	
+	%
+	% Init variables
+	%
+	\global\setcounter{beamer@theme@ciad@arrowsequence@nbarrows}{0}%
+	\global\setlength{\beamer@theme@ciad@arrowsequence@w}{\beamer@theme@ciad@arrowsequencewidth}%
+	%
+	% First loop: extract the width information
+	%
+	\let\arrow\beamer@theme@ciad@arrowsequence@arrowfct@a%
+	\BODY%
+	%
+	% Compute the width value that must be used for dynamic width arrows
+	%
+	\ifnum\thebeamer@theme@ciad@arrowsequence@nbarrows>0%
+		\pgfmathsetmacro{\beamer@theme@ciad@arrowsequence@@colw}{(\strip@pt\beamer@theme@ciad@arrowsequence@w)/(\thebeamer@theme@ciad@arrowsequence@nbarrows)}%
+		\xdef\beamer@theme@ciad@arrowsequence@@colw{\beamer@theme@ciad@arrowsequence@@colw pt}
+	\else%
+		\gdef\beamer@theme@ciad@arrowsequence@@colw{3cm}%
+	\fi%
+	%
+	% Second loop: compute the max height for the arrows
+	%
+	\ifnum\beamer@theme@ciad@arrowsequenceheight>0{}\else%
+		\let\arrow\beamer@theme@ciad@arrowsequence@arrowfct@b%
+		\BODY%
+		% Adapt the height
+		\global\setlength{\beamer@theme@ciad@arrowsequenceheight}{2\beamer@theme@ciad@arrowsequenceheight}%
+		\global\addtolength{\beamer@theme@ciad@arrowsequenceheight}{\beamer@theme@ciad@arrowsequencetopsep}%
+		\global\addtolength{\beamer@theme@ciad@arrowsequenceheight}{\beamer@theme@ciad@arrowsequencebottomsep}%
+	\fi%
+	% Reset the variables
+	\global\setlength{\beamer@theme@ciad@arrowsequence@x}{0cm}%
+	%
+	% Third loop: draw the arrows and the content
+	%
+	\gdef\beamer@theme@ciad@arrowsequence@tikzcontent{}%
+	\let\arrow\beamer@theme@ciad@arrowsequence@arrowfct@c%
+	\BODY%
+	%
+	%\show\beamer@theme@ciad@arrowsequence@tikzcontent%
+	\begin{tikzpicture}%
+		\beamer@theme@ciad@arrowsequence@tikzcontent%
+	\end{tikzpicture}%
 }
 
 \endinput

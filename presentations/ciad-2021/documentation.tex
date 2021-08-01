@@ -1434,6 +1434,54 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Sequence of Right Arrows}
+	The CIAD theme defines a sequence of right arrows as:
+	\begin{rightarrowsequence}
+		\arrow{Arrow 1}
+		\arrow[bg=blue]{Arrow 2}
+		\arrow{Arrow 3}
+		\arrow[bg=red]{Arrow 4}
+	\end{rightarrowsequence} \\[.5cm]
+	This sequence is obtained by using the following environment: \\
+	\texttt{{\textbackslash}begin\{rightarrowsequence\}[g\_options]} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
+	\texttt{{\textbackslash}end\{rightarrowsequence\}}
+	
+	\begin{itemize}
+	\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
+	\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
+	\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Global Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the sequence (default: \the\linewidth)
+	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the sequence (default: max height of the internal arrows)
+	\item \texttt{arrowwidth=\ensuremath{<}length\ensuremath{>}}: default width for the arrows (default: adjusted width depending on the width of the sequence)
+	\item \texttt{sep=\ensuremath{<}length\ensuremath{>}}: distance between the arrows
+	\item \texttt{topsep=\ensuremath{<}length\ensuremath{>}}: margin at the top of the sequence
+	\item \texttt{bottomsep=\ensuremath{<}length\ensuremath{>}}: margin at the bottom of the sequence
+	\item \texttt{decorationsep=\ensuremath{<}length\ensuremath{>}}: distance between the decoration (usually an icon) and the text inside an arrow
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Global Options \insertcontinuationtext}
+	\begin{itemize}
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: default background color for all the arrow (default: black)
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: default text color for all the arrow (default: white)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Arrow Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the arrow, override the global option
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: background color, override the global option
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: text color, override the global option
+	\item \texttt{decoration=\ensuremath{<}\TeX\ macros\ensuremath{>}}: \TeX\ macros that compose the decoration of the arrow
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Inline Example Boxes}
 	\begin{small}
 	The CIAD theme defines the the following macros to put examples in the text (not in a block, as predefined in Beamer):
