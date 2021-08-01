@@ -1347,7 +1347,7 @@
 
 \begin{frame}{Title Boxes}
 	You could draw a box with a title as:
-		\titlebox{The Title}{This is the text into the simple box}
+		\titlebox{The Title}{This is the text into the title box}
 	The macro is:	
 	\begin{itemize}
 	\item \texttt{{\textbackslash}titlebox[width]\{title\}\{text\}} \\
@@ -1401,6 +1401,36 @@
 	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: foreground color of the text
 	\item \texttt{titlefg=\ensuremath{<}color\ensuremath{>}}: foreground color of title
 	\item \texttt{cornerfg=\ensuremath{<}color\ensuremath{>}}: color of the corner's background
+	\end{itemize}
+\end{frame}
+
+\resolvepicturename{example1}
+\addiconboxpicture{example1}{\resolvedfilename}
+\begin{frame}{Vertical Icon Boxes}
+	You could draw a box with an title and a text, vertical layout, as:
+		\viconbox{This is the text into the box}{example1}
+	The macro is:	
+	\begin{itemize}
+	\item \texttt{{\textbackslash}viconbox[width]\{text\}\{pgf\_id\}} \\
+		\texttt{{\textbackslash}viconbox*[width]\{text\}\{pgf\_id\}} \\[.5cm]
+	\item \texttt{{\textbackslash}viconbox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
+	\item \texttt{{\textbackslash}viconbox*} is a hmode box, i.e., it accept elements on its side
+	\item \alert{The icon must be loaded by using the macro:} \\
+		\texttt{{\textbackslash}addiconboxpicture[options]\{pgf\_id\}\{filename\}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Horizontal Icon Boxes}
+	You could draw a box with an title and a text, horizontal layout, as:
+		\hiconbox{This is the text into the box}{example1}
+	The macro is:	
+	\begin{itemize}
+	\item \texttt{{\textbackslash}hiconbox[width]\{text\}\{pgf\_id\}} \\
+		\texttt{{\textbackslash}hiconbox*[width]\{text\}\{pgf\_id\}} \\[.5cm]
+	\item \texttt{{\textbackslash}hiconbox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
+	\item \texttt{{\textbackslash}hiconbox*} is a hmode box, i.e., it accept elements on its side
+	\item \alert{The icon must be loaded by using the macro:} \\
+		\texttt{{\textbackslash}addiconboxpicture[options]\{pgf\_id\}\{filename\}}
 	\end{itemize}
 \end{frame}
 

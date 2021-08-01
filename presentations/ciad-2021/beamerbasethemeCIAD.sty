@@ -3138,6 +3138,121 @@
 }
 
 
+%------------------------------------
+% Simple black box with vertical icon and text
+
+% Declare an icon-box picture.
+% [#1] height of the icon
+% #2 the PGF id
+% #3 the filename
+\newcommand{\addiconboxpicture}[3][1cm]{%
+	\pgfdeclareimage[height=#1]{beamer@theme@ciad@iconbox@#2}{#3}%
+}
+
+\def\beamer@theme@ciad@iconbox@viconbox@allmodes#1#2#3{%
+	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
+		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\par\vspace{-\parskip}%
+		\ifthenelse{\equal{a#3}{a}}{}{%
+			\pgfuseimage{beamer@theme@ciad@iconbox@#3} \\%
+		}%
+		\nohyphens{#2}%
+	\end{beamercolorbox}%
+}
+
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\beamer@theme@ciad@iconbox@viconbox@vmode}[3][\linewidth]{%
+	\beamer@theme@ciad@iconbox@viconbox@allmodes{#1}{#2}{#3}%
+}
+
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\beamer@theme@ciad@iconbox@viconbox@hmode}[3][\linewidth]{%
+	\begin{minipage}{#1}%
+		\beamer@theme@ciad@iconbox@viconbox@allmodes{\linewidth}{#2}{#3}%
+	\end{minipage}%
+}
+
+\def\beamer@theme@ciad@iconbox@viconboxstar#1{%
+	\beamer@theme@ciad@iconbox@viconbox@hmode%
+}
+
+% Declare a vertical simple box with icon and text.
+% Stared macro is vmode, not-stared macro is hmode
+%
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\viconbox}{%
+	\@ifnextchar*\beamer@theme@ciad@iconbox@viconboxstar\beamer@theme@ciad@iconbox@viconbox@vmode%
+}
+
+
+%------------------------------------
+% Simple black box with horizontal icon and text
+
+\newlength{\beamer@theme@ciad@hiconbox@textwidth}
+\newlength{\beamer@theme@ciad@hiconbox@iconwidth}
+
+\def\beamer@theme@ciad@iconbox@hiconbox@allmodes#1#2#3{%
+	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
+		% Redefine locally the emphazing functions
+		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
+		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
+		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\par\raggedright\vspace{-\parskip}%
+		\ifthenelse{\equal{a#3}{a}}{%
+			\nohyphens{#2}%
+		}{%
+			\settowidth{\beamer@theme@ciad@hiconbox@iconwidth}{\pgfuseimage{beamer@theme@ciad@iconbox@#3}}%
+			\setlength{\beamer@theme@ciad@hiconbox@textwidth}{\linewidth}%
+			\addtolength{\beamer@theme@ciad@hiconbox@textwidth}{-\beamer@theme@ciad@hiconbox@iconwidth}%
+			\addtolength{\beamer@theme@ciad@hiconbox@textwidth}{-4\tabcolsep}%
+			\begin{tabular}{m{\beamer@theme@ciad@hiconbox@iconwidth}m{\beamer@theme@ciad@hiconbox@textwidth}}%
+				\pgfuseimage{beamer@theme@ciad@iconbox@#3} &%
+				\nohyphens{#2} \\%
+			\end{tabular}%
+		}%
+	\end{beamercolorbox}%
+}
+
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\beamer@theme@ciad@iconbox@hiconbox@vmode}[3][\linewidth]{%
+	\beamer@theme@ciad@iconbox@hiconbox@allmodes{#1}{#2}{#3}%
+}
+
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\beamer@theme@ciad@iconbox@hiconbox@hmode}[3][\linewidth]{%
+	\begin{minipage}{#1}%
+		\beamer@theme@ciad@iconbox@hiconbox@allmodes{\linewidth}{#2}{#3}%
+	\end{minipage}%
+}
+
+\def\beamer@theme@ciad@iconbox@hiconboxstar#1{%
+	\beamer@theme@ciad@iconbox@hiconbox@hmode%
+}
+
+% Declare a vertical simple box with icon and text.
+% Stared macro is vmode, not-stared macro is hmode
+%
+% [#1] width of the box
+% #2 the text
+% #3 the PGF identifier
+\newcommand{\hiconbox}{%
+	\@ifnextchar*\beamer@theme@ciad@iconbox@hiconboxstar\beamer@theme@ciad@iconbox@hiconbox@vmode%
+}
+
+
 }
 
 \endinput
