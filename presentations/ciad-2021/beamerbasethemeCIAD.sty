@@ -2727,8 +2727,8 @@
 	\pgfdeclareimage[height=7.8cm]{beamer@theme@ciad@lawn@#1}{#2}%
 }
 
-\NewEnviron{leftlawnframe}[3][c]{%
-	\begin{frame}[#1]{#2}%
+\NewEnviron{beamer@theme@ciad@lawnframe@env@leftlawnframe}[4]{%
+	\begin{frame}#4[#1]{#2}%
 		% Save the right picture
 		\gdef\beamer@theme@ciad@lawnframe@picture{beamer@theme@ciad@lawn@#3}%
 		% Force the background picture
@@ -2739,14 +2739,20 @@
 		\usebeamerfont{normal text}\usebeamercolor[fg]{lawn}%
 		%
 		\hspace{2.55cm}%
-		\begin{minipage}{4.7cm}%
+		\begin{minipage}{4.6cm}%
 			\raggedright\BODY%
 		\end{minipage}%
 	\end{frame}%
 }
 
-\NewEnviron{rightlawnframe}[3][c]{%
-	\begin{frame}[#1]{#2}%
+\newenvironment<>{leftlawnframe}[3][c]{%
+	\beamer@theme@ciad@lawnframe@env@leftlawnframe{#1}{#2}{#3}{#4}%
+}{%
+	\endbeamer@theme@ciad@lawnframe@env@leftlawnframe%
+}
+
+\NewEnviron{beamer@theme@ciad@lawnframe@env@rightlawnframe}[4]{%
+	\begin{frame}#4[#1]{#2}%
 		% Save the right picture
 		\gdef\beamer@theme@ciad@lawnframe@picture{beamer@theme@ciad@lawn@#3}%
 		% Force the background picture
@@ -2757,10 +2763,16 @@
 		\usebeamerfont{normal text}\usebeamercolor[fg]{lawn}%
 		%
 		\hspace{7cm}%
-		\begin{minipage}{4.7cm}%
+		\begin{minipage}{4.6cm}%
 			\raggedright\BODY%
 		\end{minipage}%
 	\end{frame}%
+}
+
+\newenvironment<>{rightlawnframe}[3][c]{%
+	\beamer@theme@ciad@lawnframe@env@rightlawnframe{#1}{#2}{#3}{#4}%
+}{%
+	\endbeamer@theme@ciad@lawnframe@env@rightlawnframe%
 }
 
 %-----------------------------------------
