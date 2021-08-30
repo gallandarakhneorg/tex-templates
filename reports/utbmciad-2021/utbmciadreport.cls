@@ -87,7 +87,7 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2021/08/30}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20210830}\@eha}
+\@ifclasslater{UPMVERSION}{2021/07/01}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20210701}\@eha}
 
 %%--------------------
 %% Use the style dedicated to the report of the multiagent group
