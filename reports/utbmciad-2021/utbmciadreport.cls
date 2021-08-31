@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{utbmciadreport}[2021/08/30]
+\ProvidesClass{utbmciadreport}[2021/08/31]
 
 %%--------------------
 %% Global conditions
