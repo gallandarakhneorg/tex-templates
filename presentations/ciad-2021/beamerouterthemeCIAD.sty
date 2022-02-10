@@ -1,13 +1,16 @@
-% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
-% "Universite de Technology of Belfort-Montbeliard".
+% "Universite de Technologie de Belfort-Montbeliard".
 %
 % UB logo and name are registered and owned by the
 % "Universite de Bourgogne".
-
+%
+% UBFC logo and name are registered and owned by the
+% "Universite Bourgogne-Franche-Comte".
+%
 % CIAD logo and name are registered and owned by the
-% "Universite de Bourgogne Franche-Comté".
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -25,11 +28,13 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2021/08/01 Beamer Outer 'CIAD' Theme]
+   [2022/02/10 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
 \useoutertheme{default}
+
+\pgfdeclareimage[width=.5cm]{FrenchRepublicLogo}{frenchrepublic}
 
 \gdef\beamer@theme@ciad@outer@offsety{0}
 
@@ -95,12 +100,16 @@
 		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
 		\begin{tikzpicture}%
 			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{224}{\beamer@theme@ciad@tableofcontentslide@backgroundnumber}%
-			\path[fill=frametitle.bg] (0,8.5) rectangle (16,7.9);%
+			\path[fill=white](0,8.5) rectangle (0.6,7.9);%
+			\path[fill=frametitle.bg] (0.6,8.5) rectangle (16,7.9);%
+			\put(1.5,227.25){\pgfuseimage{FrenchRepublicLogo}}%
 		\end{tikzpicture}%
 	\else%
 		\begin{tikzpicture}%
 		\insertcurrentslidebackgroundpicture%
-		\path[fill=frametitle.bg](0,0) rectangle (16,0.60);%
+		\path[fill=white](0,0) rectangle (0.6,0.60);%
+		\path[fill=frametitle.bg](0.6,0) rectangle (16,0.60);%
+		\put(1.5,2.5){\pgfuseimage{FrenchRepublicLogo}}%
 		\end{tikzpicture}%
 	\fi%
 }
@@ -179,10 +188,10 @@
 			\ifbeamer@theme@ciad@headline@empty%
 				\setlength{\beamer@theme@ciad@outer@tmplength}{\beamer@theme@ciad@outer@titlewidth}%
 				\addtolength{\beamer@theme@ciad@outer@tmplength}{1cm}%
-				\def\@tmp{-23}%
+				\def\@tmp{-9}%
 			\else%
 				\setlength{\beamer@theme@ciad@outer@tmplength}{\beamer@theme@ciad@outer@titlewidth}%
-				\def\@tmp{-23}%
+				\def\@tmp{-9}%
 			\fi%
 			\expandafter\put(\@tmp,29){\usebeamercolor[fg]{frametitle}%
 				\parbox[c]{\beamer@theme@ciad@outer@tmplength}{%

@@ -1,16 +1,16 @@
-% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
-%
-% BibTeX style for CIAD presentations, copied and adapted from
-% the APALIKE BibTeX style.
+% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
-% "Universite de Technology of Belfort-Montbeliard".
+% "Universite de Technologie de Belfort-Montbeliard".
 %
 % UB logo and name are registered and owned by the
 % "Universite de Bourgogne".
-
+%
+% UBFC logo and name are registered and owned by the
+% "Universite Bourgogne-Franche-Comte".
+%
 % CIAD logo and name are registered and owned by the
-% "Universite de Bourgogne Franche-Comté".
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as

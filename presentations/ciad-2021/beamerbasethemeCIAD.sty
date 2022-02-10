@@ -1,13 +1,16 @@
-% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
-% "Universite de Technology of Belfort-Montbeliard".
+% "Universite de Technologie de Belfort-Montbeliard".
 %
 % UB logo and name are registered and owned by the
 % "Universite de Bourgogne".
-
+%
+% UBFC logo and name are registered and owned by the
+% "Universite Bourgogne-Franche-Comte".
+%
 % CIAD logo and name are registered and owned by the
-% "Universite de Bourgogne Franche-Comté".
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -25,7 +28,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2021/08/01}
+\gdef\insertciadbeamerthemeversion{2022/02/10}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -55,7 +58,10 @@
 \setboolean{beamer@theme@ciad@ublogo}{true}
 
 \newboolean{beamer@theme@ciad@ubfclogo}
-\setboolean{beamer@theme@ciad@ubfclogo}{true}
+\setboolean{beamer@theme@ciad@ubfclogo}{false}
+
+\newboolean{beamer@theme@ciad@ubfcmemberlogo}
+\setboolean{beamer@theme@ciad@ubfcmemberlogo}{true}
 
 \newboolean{beamer@theme@ciad@carnotlogo}
 \setboolean{beamer@theme@ciad@carnotlogo}{true}
@@ -173,6 +179,12 @@
 }
 \DeclareOptionBeamer{noubfclogo}{%
 	\setboolean{beamer@theme@ciad@ubfclogo}{false}%
+}
+\DeclareOptionBeamer{ubfcmemberlogo}{%
+	\setboolean{beamer@theme@ciad@ubfcmemberlogo}{true}%
+}
+\DeclareOptionBeamer{noubfcmemberlogo}{%
+	\setboolean{beamer@theme@ciad@ubfcmemberlogo}{false}%
 }
 \DeclareOptionBeamer{carnotlogo}{%
 	\setboolean{beamer@theme@ciad@carnotlogo}{true}%
@@ -802,6 +814,7 @@
 \pgfdeclareimage[height=.35cm]{utbmgraylogoinpartners}{utbmgraylogo}
 \pgfdeclareimage[height=.35cm]{ubgraylogoinpartners}{ubgraylogo}
 \pgfdeclareimage[height=.35cm]{ubfcgraylogoinpartners}{ubfcgraylogo}
+\pgfdeclareimage[height=.35cm]{ubfcmembergraylogoinpartners}{ubfcmembergraylogo}
 \pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{carnotgraylogo}
 
 \newcommand{\insertinstitutelogosinfootline}[1]{%
@@ -813,6 +826,9 @@
 	}{}%
 	\ifthenelse{\boolean{beamer@theme@ciad@ubfclogo}}{%
 		\pgfuseimage{ubfcgraylogoinpartners}#1%
+	}{}%
+	\ifthenelse{\boolean{beamer@theme@ciad@ubfcmemberlogo}}{%
+		\pgfuseimage{ubfcmembergraylogoinpartners}#1%
 	}{}%
 	\ifthenelse{\boolean{beamer@theme@ciad@carnotlogo}}{%
 		\pgfuseimage{carnotgraylogoinpartners}#1%
@@ -1259,7 +1275,7 @@
 }
 \institute[CIAD]{
 	\textbf{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees} \\[0cm]
-	Univ. Bourgogne Franche-Comt\'e, France - \insertinstituteurl
+	Univ. Bourgogne-Franche-Comt\'e, France - \insertinstituteurl
 }
 \let\beamer@theme@ciad@old@insertshortinstitute\insertshortinstitute
 \gdef\insertshortinstitute{%
@@ -1284,7 +1300,22 @@
             }%
     }%
 }
-\newcommand{\resolvepicturename}[1]{%
+\newcommand{\resolvepicturename}{
+	\@ifstar\beamer@theme@ciad@resolvepicturenamestar\beamer@theme@ciad@resolvepicturename%
+}
+\newcommand{\checkresolvepicturename}[1]{
+    \ifx\resolvedfilename\relax%
+		% File not found in the local directory nor in the Graphic's input paths.
+		\errmessage{Package Beamer/CIAD: File not found '#1' with the extensions: \Gin@extensions; and in the paths: \Ginput@path}%
+    \fi%
+}
+\def\beamer@theme@ciad@resolvepicturenamestar#1{%
+	\beamer@theme@ciad@resolvepicturename@core{#1}{}%
+}
+\def\beamer@theme@ciad@resolvepicturename#1{%
+	\beamer@theme@ciad@resolvepicturename@core{#1}{\checkresolvepicturename{#1}}%
+}
+\newcommand{\beamer@theme@ciad@resolvepicturename@core}[2]{%
     \global\let\resolvedfilename\relax%
 	\bgroup%
     \filename@parse{#1}%
@@ -1296,10 +1327,7 @@
         \beamer@theme@ciad@resolvepicturename@search{#1}%
     \fi%
     %
-    \ifx\resolvedfilename\relax%
-		% File not found in the local directory nor in the Graphic's input paths.
-		\errmessage{Package Beamer/CIAD: File not found '#1' with the extensions: \Gin@extensions; and in the paths: \Ginput@path}%
-    \fi%
+    #2%
 	\egroup%
 }
 
@@ -1495,11 +1523,15 @@
 % #7 = subtitle
 % #8 = macros in the content
 % #9 = frame spec (with enclosing symbols)
-\newcommand{\beamer@theme@ciad@figureslide@frame}[9]{%
+\newcommand{\beamer@theme@ciad@figureslide@frame@standardinclude}[9]{%
 	\beamer@theme@ciad@figureslide@@frame
 		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
-		{\savebox{\beamer@theme@ciad@figureslide@box}{\includegraphics[width=\paperwidth]{#3}}}%
+		{\savebox{\beamer@theme@ciad@figureslide@box}{%
+			\includegraphics[width=\paperwidth]{#3}%
+		}}%
 }
+
+\global\let\beamer@theme@ciad@figureslide@frame\beamer@theme@ciad@figureslide@frame@standardinclude%
 
 % #1 = options
 % #2 = title
@@ -1607,6 +1639,7 @@
 % #2 = title
 % #3 = filename
 \newcommand{\figureslide}[3][]{%
+	\global\let\beamer@theme@ciad@figureslide@frame\beamer@theme@ciad@figureslide@frame@standardinclude%
 	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{}%
 }
 
@@ -1636,28 +1669,47 @@
 % #3 = filename
 % #4 = frame spec
 \newcommand{\beamer@theme@ciad@animatedfigureslide}[4]{%
-	\begin{frame}#4{#2}%
-		\includeanimatedfigure[width=\linewidth]{#3}%
-	\end{frame}%
+	\global\let\beamer@theme@ciad@figureslide@frame\beamer@theme@ciad@figureslide@frame@texinclude%
+	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{#4}%
 }
 
-%% Redefine \includeanimatedfigure for supporting the slide specification: \includeanimatedfigure<X>
-\AtBeginDocument{
-%	\providecommand{\includeanimatedgraphics}[2][]{}%
-%	\ifcsname includeanimatedfigure\endcsname%
-%		\global\let\beamer@theme@ciad@includeanimatedfigure@old\includeanimatedfigure%
-%		\gdef\beamer@theme@ciad@includeanimatedfigure@framespec<#1>{%
-%			\bgroup%
-%			\newcommand{\beamer@theme@ciad@includeanimatedfigure@wrapper}[3][width=\linewidth]{%
-%				\only<#1>{\beamer@theme@ciad@includeanimatedfigure@old[##1]{##2}{##3}}%
-%				\egroup%
-%			}			
-%			\beamer@theme@ciad@includeanimatedfigure@wrapper%
-%		}
-%		\gdef\includeanimatedfigure{%
-%			\@ifnextchar<\beamer@theme@ciad@includeanimatedfigure@framespec\beamer@theme@ciad@includeanimatedfigure@old%
-%		}
+% #1 = filename
+\newcommand{\beamer@theme@ciad@figureslide@loadtexfigure}[1]{%
+	\global\let\beamer@theme@ciad@wtfig@tmp\relax%
+	\filename@parse{#1}%
+	\ifx\filename@ext\relax%
+		\global\let\resolvedfilename\relax%
+		\@for\beamer@theme@ciad@wtfig@exttmp:=\@@wtfig@extensions\do{%
+			\expandafter\beamer@theme@ciad@resolvepicturename@search{#1\beamer@theme@ciad@wtfig@exttmp}%
+		}%
+	\else%
+		\global\let\resolvedfilename\relax%
+		\expandafter\beamer@theme@ciad@resolvepicturename@search{#1}%
+	\fi%
+	\expandafter\checkresolvepicturename{#1}%
+	\expandafter\input{\resolvedfilename}%
 }
+
+% #1 = options
+% #2 = title
+% #3 = filename
+% #4 = vertical alignment
+% #5 = horizontal alignment
+% #6 = label
+% #7 = subtitle
+% #8 = macros in the content
+% #9 = frame spec (with enclosing symbols)
+\newcommand{\beamer@theme@ciad@figureslide@frame@texinclude}[9]{%
+	\beamer@theme@ciad@figureslide@@frame
+		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
+		{\savebox{\beamer@theme@ciad@figureslide@box}{\beamer@theme@ciad@figureslide@loadtexfigure{#3}}}%
+}
+
+%\DeclareGraphicsExtensionsWtex{coma separated extensions}
+\newcommand{\DeclareGraphicsExtensionsWtex}[1]{%
+	\xdef\@@wtfig@extensions{\zap@space#1 \@empty}%
+}
+\DeclareGraphicsExtensionsWtex{.pdftex_t,.pstex_t,.pdf_tex,.ps_tex}
 
 
 %-----------------------------------------
@@ -1883,6 +1935,7 @@
 	\gdef\beamer@theme@ciad@embeddedvideo@view{autostart&loop}%
 	\setkeys{beamerthemeciadembeddedvideo}{#1}%
 	%\href{run:#2?\beamer@theme@ciad@embeddedvideo@view}{%
+	\global\let\beamer@theme@ciad@figureslide@frame\beamer@theme@ciad@figureslide@frame@standardinclude%
 	\beamer@theme@ciad@figureslide[#1]{#2}{#4}{%
 		\href{run:#3?\beamer@theme@ciad@embeddedvideo@view}{\usebox{\beamer@theme@ciad@figureslide@box}}%
 	}%

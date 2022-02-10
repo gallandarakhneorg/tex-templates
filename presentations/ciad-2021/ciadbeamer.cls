@@ -1,13 +1,16 @@
-% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
-% "Universite de Technology of Belfort-Montbeliard".
+% "Universite de Technologie de Belfort-Montbeliard".
 %
 % UB logo and name are registered and owned by the
 % "Universite de Bourgogne".
-
+%
+% UBFC logo and name are registered and owned by the
+% "Universite Bourgogne-Franche-Comte".
+%
 % CIAD logo and name are registered and owned by the
-% "Universite de Bourgogne Franche-Comté".
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
 %
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -28,7 +31,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{ciadbeamer}
-   [2021/08/01 Class for CIAD slides]
+   [2022/02/10 Class for CIAD slides]
 
 % 1) Add the option "aspectratio=169" at the beginning of the options
 % 2) Save the full list of the options into \@classoptionslist@full
