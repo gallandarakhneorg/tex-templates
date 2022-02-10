@@ -1,6 +1,6 @@
-%% DINAT.BST   Version 2.6   2020-04-24 
-%% (c) Helge Baumann      email:Helge.Baumann@gmx.de
-%% (c) Stephane Galland   email:galland@arakhne.org
+%% DINAT.BST   Version 2.6   2022-02-10 
+%% (c) 2000      Helge Baumann      email:Helge.Baumann@gmx.de
+%% (c) 2020-2022 Stephane Galland   email:galland@arakhne.org
 %%------------------------------------------------------------------------------
 %% For use with BibTeX version 0.99a or later.
 %%------------------------------------------------------------------------------
