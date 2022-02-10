@@ -1,6 +1,6 @@
 % Document class for the reports of the Multiagent Group
 %
-% Copyright (c) 2013-21 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{utbmciadreport}[2021/08/31]
+\ProvidesClass{utbmciadreport}[2022/02/10]
 
 %%--------------------
 %% Global conditions
@@ -28,7 +28,8 @@
 \newif\ifshowICARTSlogo\showICARTSlogotrue
 \newif\ifshowSayenslogo\showSayenslogotrue
 \newif\ifshowUTBMlogo\showUTBMlogotrue
-\newif\ifshowUBFClogo\showUBFClogotrue
+\newif\ifshowUBFClogo\showUBFClogofalse
+\newif\ifshowUBFCmemberlogo\showUBFCmemberlogotrue
 \newif\ifshowUTlogo\showUTlogotrue
 \newif\ifshowDocRefOnFront\showDocRefOnFronttrue
 \newif\ifshowDocRefOnBack\showDocRefOnBacktrue
@@ -63,6 +64,9 @@
 
 \DeclareOption{ubfclogo}{\global\showUBFClogotrue}
 \DeclareOption{noubfclogo}{\global\showUBFClogofalse}
+
+\DeclareOption{ubfcmemberlogo}{\global\showUBFCmemberlogotrue}
+\DeclareOption{noubfcmemberlogo}{\global\showUBFCmemberlogofalse}
 
 \DeclareOption{utlogo}{\global\showUTlogotrue}
 \DeclareOption{noutlogo}{\global\showUTlogofalse}
