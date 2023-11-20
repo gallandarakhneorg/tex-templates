@@ -1,4 +1,4 @@
-% Copyright (c) 2013-22 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-23 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technologie de Belfort-Montbeliard".
@@ -1335,6 +1335,7 @@
 % Partner Logo
 \newlength{\beamer@theme@ciad@partnerlogo@margin}
 \setlength{\beamer@theme@ciad@partnerlogo@margin}{.1cm}
+\newlength{\beamer@theme@ciad@partnerlogo@tmpvalue}
 \gdef\beamer@theme@ciad@partnerlogo{}
 \newcommand{\partnerlogo}[2][height=.35cm]{%
 	\ifcsname pgf@image@CIADpartnerlogo@#2!\endcsname%
@@ -1342,8 +1343,8 @@
 		\resolvepicturename{#2}%
 		\expandafter\pgfdeclareimage[#1]{CIADpartnerlogo@#2}{\resolvedfilename}%
 		\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-\beamer@theme@ciad@partnerlogo@margin}%
-		\settowidth{\beamer@theme@ciad@tmplength}{\pgfuseimage{CIADpartnerlogo@#2}}%
-		\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-\beamer@theme@ciad@tmplength}%
+		\settowidth{\beamer@theme@ciad@partnerlogo@tmpvalue}{\pgfuseimage{CIADpartnerlogo@#2}}%
+		\addtolength{\beamer@theme@ciad@outer@footlinewidth}{-\beamer@theme@ciad@partnerlogo@tmpvalue}%
 	\fi%
 	\g@addto@macro\beamer@theme@ciad@partnerlogo{\hspace{\beamer@theme@ciad@partnerlogo@margin}\pgfuseimage{CIADpartnerlogo@#2}}%
 	
