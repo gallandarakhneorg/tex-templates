@@ -1,6 +1,6 @@
 % Document class for the PhD thesis of the SPIM doctoral school (UTBM variante)
 %
-% Copyright (c) 2012-20 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2012-24 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimutbmphdthesis}[2020/04/24]
+\ProvidesClass{spimutbmphdthesis}[2024/10/04]
 
 %%--------------------
 %% Class options
