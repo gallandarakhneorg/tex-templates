@@ -1,6 +1,6 @@
 % Document class for the PhD thesis of the SPIM doctoral school (UB variante)
 %
-% Copyright (c) 2012-22 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2012-24 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
