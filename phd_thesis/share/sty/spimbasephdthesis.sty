@@ -558,4 +558,40 @@
 	\end{upm@phdthesis@researchquestion}%
 }
 
+%%--------------------
+%% Environment for showing up an objective of the PhD thesis.
+%% The star version does not add the contribution's counter in the title
+%\begin{objective}[title] description \end{objective}
+%\begin{objective*}[title] description \end{objective*}
+\ifupmlang{french}{%
+	\gdef\upm@phdthesis@objective@label{Objectif}%
+}{%
+	\gdef\upm@phdthesis@objective@label{Objective}%
+}
+\gdef\upm@phdthesis@objective@slabel{O}%
+\gdef\upm@phdthesis@objective@format@title#1{\textbf{#1}}%
+
+\newcounter{upm@phdthesis@objective@count}
+\setcounter{upm@phdthesis@objective@count}{0}
+
+\newenvironment{upm@phdthesis@objective}[2]{%
+	\global\addtocounter{upm@phdthesis@objective@count}{1}%
+	\begin{tcolorbox}[coltitle=objectivetitle, colback=objectivebackground!10, colframe=objectivebackground!40, title=\upm@phdthesis@objective@format@title{\upm@phdthesis@objective@label#1\Ifnotempty{#2}{ -- #2}}]%
+	\renewcommand{\@currentlabel}{\upm@phdthesis@objective@slabel\theupm@phdthesis@objective@count}%
+
+}{%
+	\end{tcolorbox}%
+}
+
+\newenvironment{objective}[1][\@empty]{%
+	\begin{upm@phdthesis@objective}{\xspace\theupm@phdthesis@objective@count\xspace(\upm@phdthesis@objective@slabel\theupm@phdthesis@objective@count)}{#1}%
+}{%
+	\end{upm@phdthesis@objective}%
+}
+\newenvironment{objective*}[1][\@empty]{%
+	\begin{upm@phdthesis@objective}{}{#1}%
+}{%
+	\end{upm@phdthesis@objective}%
+}
+
 \endinput
