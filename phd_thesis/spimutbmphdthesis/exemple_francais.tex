@@ -168,11 +168,12 @@
 
 %%--------------------
 %% Clear the list of the laboratories
-\resetlaboratories
+%\resetlaboratories
 
 %%--------------------
 %% Add the laboratory where the thesis was made
-\addlaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees}
+%\addlaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees}
+%\setlaboratorylogo{bigciadlogo}
 
 %%--------------------
 %% The name of the university that is jointly delivering the Doctoral degree with UBFC
@@ -210,7 +211,7 @@
  
 %%--------------------
 % Declare several theorems
-\declareupmtheorem{mytheorem}{My Theorem}{List of my Theorems}
+\declareupmtheorem{mytheorem}{My Theorem}{List of my Theorems}{mythm}{mytheorem}{\textbf}
 
 %%--------------------
 %% Change the message on the backcover.
@@ -227,9 +228,9 @@
   make-links = true,
 }
 % Declare an acronym
-\DeclareAcronym{id}{
-  short = shortlabel,
-  long = {long label},
+\DeclareAcronym{MAS}{
+  short = MAS,
+  long = {Multi-Agent System},
 }
 
 \begin{document}
@@ -262,7 +263,8 @@
 
 \chapter{Introduction}
  
-Ceci est un acronyme : \ac{id}.
+Ceci est un acronyme : \ac{MAS}.
+Ceci est le même acronyme : \ac{MAS}.
 
 \begin{researchquestion}[un nom]
    Description de la question de recherche.
@@ -342,7 +344,7 @@ dans le sommaire.
 
 La définition~\ref{def:unethese} illustre la proposition d'une définition.
 
-\begin{definition}[Une thèse] \label{def:unethese}
+\begin{definition}{Une thèse}{unethese}
 Ouvrage présenté devant un jury universitaire pour l'obtention d'un doctorat.
 \end{definition}
 
@@ -516,8 +518,8 @@ Ce type d'environnement doit être déclaré dans le préambule de votre documen
 macro \texttt{{\textbackslash}declareupmtheorem} (voir l'exemple dans le préambule de
 ce squelette).
 
-\begin{mytheorem}[Theorem of Everything]
-This is the theorem of Evereything.
+\begin{mytheorem}{Théorème quelconque}{thelabel}[Ceci est ma source optionelle]
+	Ceci est la description de ce théorème.
 \end{mytheorem}
 
 \`A la fin de votre document, vous pourrez alors ajouter un chapitre listant les théorèmes présents dans votre document: \texttt{{\textbackslash}listofmytheorems}

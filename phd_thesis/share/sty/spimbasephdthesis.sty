@@ -23,6 +23,7 @@
 \ProvidesPackage{spimbasephdthesis}[2025/03/14]
 
 \RequirePackage{lettrine}
+\RequirePackage[export]{adjustbox}
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
@@ -114,12 +115,24 @@
 	\fi%
 }
 %%--------------------
+% Set affiliation logo (only one logo is possible)
+%\setlaboratorylogo{lab logo image}
+\newif\iflaboratorylogo
+\laboratorylogofalse
+\let\thethesislaboratorylogo\relax
+\newcommand{\setlaboratorylogo}[2][]{%
+	\global\laboratorylogotrue%
+	\gdef\thethesislaboratorylogo{\includegraphics[max width=6.5cm,max height=2cm,keepaspectratio,#1]{#2}}%
+}
+%%--------------------
 % Reset affiliation
 %\resetlaboratories
 \newcommand{\resetlaboratories}{%
 	\global\phdthesishaslaboratoryfalse%
 	\global\phdthesishaslaboratorymultifalse%
 	\gdef\thethesislaboratories{}%
+	\global\laboratorylogofalse%
+	\global\let\thethesislaboratorylogo\relax%
 }
 
 %%--------------------
@@ -128,12 +141,12 @@
 \newif\ifpartnerlist
 \global\partnerlistfalse
 \gdef\thepartnerlist{}
-\newcommand{\addpartner}[2][height=2cm]{%
+\newcommand{\addpartner}[2][]{%
 	\ifpartnerlist%
-		\protected@xdef\thepartnerlist{\thepartnerlist\\[.5cm]\protect\includegraphics[#1]{#2}}%
+		\protected@xdef\thepartnerlist{\thepartnerlist\\[.5cm]\protect\includegraphics[max width=6.5cm,max height=2cm,keepaspectratio,#1]{#2}}%
 	\else%
 		\global\partnerlisttrue%
-		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[#1]{#2}}%
+		\protected@xdef\thepartnerlist{\thepartnerlist\protect\includegraphics[max width=6.5cm,max height=2cm,keepaspectratio,#1]{#2}}%
 	\fi%
 }
 
