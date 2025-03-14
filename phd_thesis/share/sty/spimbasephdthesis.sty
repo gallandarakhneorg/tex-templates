@@ -521,4 +521,41 @@
 	}{d'#1}{de #1}%
 }
 
+%%--------------------
+%% Environment for showing up a research question of the PhD thesis.
+%% The star version does not add the research question's counter in the title
+%\begin{researchquestion}[title] description \end{researchdirection}
+%\begin{researchquestion*}[title] description \end{researchdirection*}
+\ifupmlang{french}{%
+	\gdef\upm@phdthesis@researchquestion@label{Question de recherche}%
+	\gdef\upm@phdthesis@researchquestion@slabel{QR}%
+}{%
+	\gdef\upm@phdthesis@researchquestion@label{Research Question}%
+	\gdef\upm@phdthesis@researchquestion@slabel{RQ}%
+}
+\gdef\upm@phdthesis@researchquestion@format@title#1{\textbf{#1}}%
+
+\newcounter{upm@phdthesis@researchquestion@count}
+\setcounter{upm@phdthesis@researchquestion@count}{0}
+
+\newenvironment{upm@phdthesis@researchquestion}[2]{%
+	\global\addtocounter{upm@phdthesis@researchquestion@count}{1}%
+	\begin{tcolorbox}[coltitle=researchquestiontitle, colback=researchquestionbackground!10, colframe=researchquestionbackground!40, title=\upm@phdthesis@researchquestion@format@title{\upm@phdthesis@researchquestion@label#1\Ifnotempty{#2}{ -- #2}}]%
+	\renewcommand{\@currentlabel}{\upm@phdthesis@researchquestion@slabel\theupm@phdthesis@researchquestion@count}%
+
+}{%
+	\end{tcolorbox}%
+}
+
+\newenvironment{researchquestion}[1][\@empty]{%
+	\begin{upm@phdthesis@researchquestion}{\xspace\theupm@phdthesis@researchquestion@count\xspace(\upm@phdthesis@researchquestion@slabel\theupm@phdthesis@researchquestion@count)}{#1}%
+}{%
+	\end{upm@phdthesis@researchquestion}%
+}
+\newenvironment{researchquestion*}[1][\@empty]{%
+	\begin{upm@phdthesis@researchquestion}{}{#1}%
+}{%
+	\end{upm@phdthesis@researchquestion}%
+}
+
 \endinput

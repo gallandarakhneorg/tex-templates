@@ -218,12 +218,26 @@
 %	Some text
 %}
 
+%%--------------------
+%% Configure the acronyms' definitions
+%% See the acro package documentation for details on the command
+\usepackage{acro}
+\acsetup{
+  single = true,
+  make-links = true,
+}
+% Declare an acronym
+\DeclareAcronym{id}{
+  short = shortlabel,
+  long = {long label},
+}
+
 \begin{document}
  
 %%--------------------
 %% The following line does nothing until
 %% the class option 'nofrontmatter' is given.
-%\frontmatter
+\frontmatter
 
 %%--------------------
 %% The following line permits to add a chapter for "acknowledgements"
@@ -237,6 +251,10 @@
 \tableofcontents
 
 %%--------------------
+%% Show acronyms
+\printacronyms
+
+%%--------------------
 %% The content of the PhD thesis
 \mainmatter
  
@@ -244,6 +262,12 @@
 
 \chapter{Introduction}
  
+Ceci est un acronyme : \ac{id}.
+
+\begin{researchquestion}[un nom]
+   Description de la question de recherche.
+\end{researchquestion}
+
 \section{Contexte}
 
 Ce squelette décrit quelques éléments pouvant vous aider pour écrire votre ouvrage de thèse.
@@ -580,6 +604,10 @@ This is the theorem of Evereything.
 %%--------------------
 %% Include a list of definitions
 \listofdefinitions
+
+%%--------------------
+%% Include a list of algorithms
+%\listofalgorithms
 
 %%--------------------
 %% Appendixes
