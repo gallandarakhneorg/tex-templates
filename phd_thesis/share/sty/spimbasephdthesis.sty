@@ -594,4 +594,40 @@
 	\end{upm@phdthesis@objective}%
 }
 
+%%--------------------
+%% Environment for showing up a contribution of the PhD thesis.
+%% The star version does not add the contribution's counter in the title
+%\begin{objective}[title] description \end{objective}
+%\begin{objective*}[title] description \end{objective*}
+\ifupmlang{french}{%
+	\gdef\upm@phdthesis@contribution@label{Contribition}%
+}{%
+	\gdef\upm@phdthesis@contribution@label{Contribution}%
+}
+\gdef\upm@phdthesis@contribution@slabel{C}%
+\gdef\upm@phdthesis@contribution@format@title#1{\textbf{#1}}%
+
+\newcounter{upm@phdthesis@contribution@count}
+\setcounter{upm@phdthesis@contribution@count}{0}
+
+\newenvironment{upm@phdthesis@contribution}[2]{%
+	\global\addtocounter{upm@phdthesis@contribution@count}{1}%
+	\begin{tcolorbox}[coltitle=contributiontitle, colback=contributionbackground!10, colframe=contributionbackground!40, title=\upm@phdthesis@contribution@format@title{\upm@phdthesis@contribution@label#1\Ifnotempty{#2}{ -- #2}}]%
+	\renewcommand{\@currentlabel}{\upm@phdthesis@contribution@slabel\theupm@phdthesis@contribution@count}%
+
+}{%
+	\end{tcolorbox}%
+}
+
+\newenvironment{contribution}[1][\@empty]{%
+	\begin{upm@phdthesis@contribution}{\xspace\theupm@phdthesis@contribution@count\xspace(\upm@phdthesis@contribution@slabel\theupm@phdthesis@contribution@count)}{#1}%
+}{%
+	\end{upm@phdthesis@contribution}%
+}
+\newenvironment{contribution*}[1][\@empty]{%
+	\begin{upm@phdthesis@contribution}{}{#1}%
+}{%
+	\end{upm@phdthesis@contribution}%
+}
+
 \endinput
