@@ -410,7 +410,6 @@ Le référencement de la table peut être réalisé à l'aide des macros:
 
 La table \tabref{exampletable1} est un exemple de table avec 4 colonnes, et dans laquelle un titre à été ajouté en sommet.
 \begin{mtable}[ht]{.9\linewidth}{4}{|l|X|l|X|}{Titre de la table}{exampletable1}
-	\tabulartitle{Un titre en sommet}
 	\tabularheader{Col1}{Col2}{Col3}{Col4}
 	a & b & c & d \\
 	\hline
@@ -421,7 +420,7 @@ La table \tabref{exampletable1} est un exemple de table avec 4 colonnes, et dans
 
 La table \tabref{exampletable2} est un exemple de table avec 5 colonnes, et dans laquelle le titre de la table a été également ajouté en sommet.
 \begin{mtable}[ht]{.9\linewidth}{5}{|l|X|l|X|X|}{Titre de la table}{exampletable2}
-	\captionastitle % Affiche le titre de la figure en sommet de table
+	\addsource{Ceci est une source}
 	\tabularheader{Col1}{Col2}{Col3}{Col4}{Col5}
 	a & b & c & d & x \\
 	\hline

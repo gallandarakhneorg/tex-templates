@@ -417,7 +417,6 @@ Referencing the table can be done using the macros:
 
 Table \tabref{exampletable1} is an example of a table with 4 columns, with a title added at the top.
 \begin{mtable}[ht]{.9\linewidth}{4}{|l|X|l|X|}{Table Title}{exampletable1}
-	\tabulartitle{A title at the top}
 	\tabularheader{Col1}{Col2}{Col3}{Col4}
 	a & b & c & d \\
 	\hline
@@ -428,7 +427,7 @@ Table \tabref{exampletable1} is an example of a table with 4 columns, with a tit
 
 Table \tabref{exampletable2} is an example of a table with 5 columns, with the table title also added at the top.
 \begin{mtable}[ht]{.9\linewidth}{5}{|l|X|l|X|X|}{Table Title}{exampletable2}
-	\captionastitle % Display the figure title at the top of the table
+	\addsource{This is a source}
 	\tabularheader{Col1}{Col2}{Col3}{Col4}{Col5}
 	a & b & c & d & x \\
 	\hline
