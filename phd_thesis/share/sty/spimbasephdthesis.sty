@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2025/03/14]
+\ProvidesPackage{spimbasephdthesis}[2025/03/16]
 
 \RequirePackage{lettrine}
 \RequirePackage[export]{adjustbox}
@@ -38,6 +38,10 @@
 \newcommand{\underlineifauthor}[2]{%
 	\ifdocumentauthor{#1}{\underline{#2}}{#2}%
 }
+
+%%--------------------
+%% Colors dedicated to the PhD style
+\colorlet{standardphdcolor}{black}
 
 %%--------------------
 %% Utility functions
@@ -386,10 +390,13 @@
 %%--------------------
 % Lettrine
 
+% Color of the lettine
+\colorlet{lettrinecolor}{standardphdcolor}
+
 % The following macro put its parameter into a lettrine with the
 % proper layout
 \gdef\upm@phdthesis@MakeLettrine@lettrine#1{%
-	\lettrine[findent=.5mm,nindent=0pt]{\uppercase{#1}}{}%
+	\lettrine[findent=.5mm,nindent=0pt,lines=3,loversize=0.1]{\rmfamily\textcolor{lettrinecolor}{\uppercase{#1}}}{}%
 }
 
 % Macro that contains the string "the letter"
@@ -644,3 +651,4 @@
 }
 
 \endinput
+
