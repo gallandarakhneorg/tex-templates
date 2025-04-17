@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/01/09}
+\gdef\insertciadbeamerthemeversion{2025/04/17}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -2784,6 +2784,47 @@
 	\beamer@theme@ciad@lawnframe@env@rightlawnframe{#1}{#2}{#3}{#4}%
 }{%
 	\endbeamer@theme@ciad@lawnframe@env@rightlawnframe%
+}
+
+%-----------------------------------------
+% Frame with left text, right picture and green area behing the picture
+
+\gdef\beamer@theme@ciad@leftlawnframe@picture{}
+
+% Declare a lawn picture.
+% #1 the PGF id
+% #2 the filename
+\newcommand{\addtextpicturepicture}{%
+	\@ifnextchar*\beamer@theme@ciad@addtextpicturepicturestar\beamer@theme@ciad@addtextpicturepicture%
+}
+\newcommand{\beamer@theme@ciad@addtextpicturepicturestar}[3]{%
+	\pgfdeclareimage[width=3.8cm]{beamer@theme@ciad@textpicture@picture@#2}{#3}%
+}
+\newcommand{\beamer@theme@ciad@addtextpicturepicture}[2]{%
+	\pgfdeclareimage[height=3.8cm]{beamer@theme@ciad@textpicture@picture@#1}{#2}%
+}
+
+\NewEnviron{beamer@theme@ciad@textpictureframe}[4]{%
+	\begin{frame}#4[#1]{#2}%
+		% Save the right picture
+		\gdef\beamer@theme@ciad@textpictureframe@picture{beamer@theme@ciad@textpicture@picture@#3}%
+		% Force the background picture
+		\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+		% Add the left lawn
+		\usebeamertemplate{frametextpicture}%
+		% Restore normal font and color
+		\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}%
+		%
+		\begin{minipage}{10cm}%
+			\raggedright\BODY%
+		\end{minipage}%
+	\end{frame}%
+}
+
+\newenvironment<>{textpictureframe}[3][c]{%
+	\beamer@theme@ciad@textpictureframe{#1}{#2}{#3}{#4}%
+}{%
+	\endbeamer@theme@ciad@textpictureframe%
 }
 
 %-----------------------------------------

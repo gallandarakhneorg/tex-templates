@@ -953,6 +953,33 @@
 	This is the standard frame content. See the previous slide for an explanation.
 \end{righttitleframe}
 
+\subsection{Slide with Text and Picture}
+
+\begin{frame}{Slide with Text and Picture}
+	\begin{itemize}
+		\item Slide with a regular text area on the left and a picture inside a big green area on the right.
+		\item Definition with the following environment: \\
+		\texttt{{\textbackslash}begin\{textpictureframe\}[options]\{main title\}\{pgf-id\}} \\
+		\texttt{Content of the Slide} \\
+		\texttt{{\textbackslash}end\{textpictureframe\}}
+		\item \texttt{options} are options to pass to the frame
+		\item \texttt{main title} is the title to be rendered at the top of the frame
+		\item \texttt{pgf-id} is identifier of an image that was declared with the \texttt{{\textbackslash}addtextpicturepicture}: \\
+		\texttt{{\textbackslash}addtextpicturepicture\{pgf-id\}\{picture filename\}} \\
+		\texttt{{\textbackslash}addtextpicturepicture*\{pgf-id\}\{picture filename\}}
+		no-star version forces the width size of the picture; star version forces the height size of the picture
+	\end{itemize}
+\end{frame}
+
+\addtextpicturepicture{tpexample1}{ciad-title-background-left9}
+\begin{textpictureframe}{{Example of frame} with left text and right picture}{tpexample1}
+	This is the standard frame content. See the previous slide for an explanation. \\[.5cm]
+	\smaller
+	\texttt{{\textbackslash}addtextpicturepicture\{tpexample1\} \{ciad-title-background-left9\}} \\
+	\texttt{{\textbackslash}begin\{textpictureframe\} \{Example of frame with left text and right picture\}\{tpexample1\}} \\
+	\texttt{{\textbackslash}end\{textpictureframe\}}
+\end{textpictureframe}
+
 \subsection{Slide with Lawn}
 
 \begin{frame}{Slide with a lawn on the left}
@@ -1006,7 +1033,7 @@
 
 \subsection{Slide with a Grid of Icons}
 
-\begin{frame}[t]{Slide with a lawn on the right}
+\begin{frame}[t]{Slide with a Grid of Icons}
 	\begin{itemize}
 		\item Slide has a grid structure with 10 cells
 		\item Each cell contains an icon and a text

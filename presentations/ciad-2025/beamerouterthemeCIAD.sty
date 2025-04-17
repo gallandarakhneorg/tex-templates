@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2022/02/10 Beamer Outer 'CIAD' Theme]
+   [2025/04/17 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -260,7 +260,7 @@
 \setbeamertemplate{part page}{%
 		\begin{picture}(0,0)(0,0)%
 		% Page background
-		\put(-28.6,-161.5){\pgfuseimage{partbackground}}%
+		\put(-28.6,-150){\pgfuseimage{partbackground}}%
 		% Title
 		\put(-20,-25){\usebeamercolor[fg]{maintitle}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
 			\nohyphens{\begin{raggedright}\usebeamerfont{part title}{\@beamer@theme@ciad@wraptextformats{{\beamer@theme@ciad@rsection@insertpartprefix}\beamer@partname}}%
@@ -298,7 +298,7 @@
 			\fi%
 			\begin{picture}(0,0)(0,0)%
 				% Page background
-				\put(-28.6,-161.5){\pgfuseimage{partbackground}}%
+				\put(-28.6,-150){\pgfuseimage{partbackground}}%
 				% Title
 				\put(-20,-25){\usebeamercolor[fg]{part title}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
 					\nohyphens{\begin{raggedright}\usebeamerfont{part title}{\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@outer@thanks@tmp}}%
@@ -360,6 +360,19 @@
 		\putat*(-29,-198){%
 			\pgfuseimage{\beamer@theme@ciad@lawnframe@picture}%
 		}
+	}%
+}
+
+\setbeamertemplate{frametextpicture}{%
+	\ifthenelse{\equal{a\beamer@theme@ciad@textpictureframe@picture}{a}}{}{%
+		\putat*(310,-140){%
+			\usebeamercolor[fg]{textpicture}\expandafter\pgfuseimage{\beamer@theme@ciad@textpictureframe@picture}%
+		}
+	}%
+	\putat*(300,-198){%
+		\begin{tikzpicture}%
+		\path[fill=textpicture.bg] (0,0) rectangle (5,7.8);%
+		\end{tikzpicture}%
 	}%
 }
 
