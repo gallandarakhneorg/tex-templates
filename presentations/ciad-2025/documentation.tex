@@ -1342,6 +1342,39 @@
 \subsection{Boxes}
 \subsectiontableofcontentslide
 
+\begin{frame}{Definition and DefinitionBlock}
+	Two environments are available for definitions:
+	\begin{enumerate}
+	\item Standard \LaTeX\ environment:
+		\begin{columns}
+			\begin{column}{.5\linewidth}
+				\begin{definition}[Name]
+					Explanation
+				\end{definition}
+			\end{column}
+			\begin{column}{.5\linewidth}
+				\texttt{{\textbackslash}begin\{definition\}[Name]} \\
+				\texttt{Explanation} \\
+				\texttt{{\textbackslash}end\{definition\}}
+			\end{column}
+		\end{columns}
+		\vspace{1cm}
+	\item Extended environment:
+		\begin{columns}
+			\begin{column}{.5\linewidth}
+				\begin{definitionblock}{Name}
+					Explanation
+				\end{definitionblock}
+			\end{column}
+			\begin{column}{.5\linewidth}
+				\texttt{{\textbackslash}begin\{definitionblock\}\{Name\}} \\
+				\texttt{Explanation} \\
+				\texttt{{\textbackslash}end\{definitionblock\}}
+			\end{column}
+		\end{columns}
+	\end{enumerate}
+\end{frame}
+
 \begin{frame}{Simple Boxes}
 	You could draw a simple box as:
 		\simplebox{This is the text into the simple box}
