@@ -88,6 +88,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Predefined Values}
+\sectionsintoc{1-7}
 \sectiontableofcontentslide
 
 \subsection{Colors}
@@ -152,6 +153,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Class Options and Document Declaration}
+\sectionsintoc{1-6}
 \sectiontableofcontentslide
 
 \subsection{Class Options}
@@ -488,6 +490,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Header and Footer Tuning}
+\sectionsintoc{2-7}
 \sectiontableofcontentslide
 
 \subsection{Headline}
@@ -672,6 +675,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background Picture}
+\sectionsintoc{3-8}
 \sectiontableofcontentslide
 
 \begin{frame}{Changing the Background Picture}
@@ -770,12 +774,13 @@
 
 \begin{frame}{\subsecname}
 	Two functions ar provided for adding our own background picture: \\[.25cm]
-	\texttt{{\textbackslash}addslidebackgroundpicture\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
-	\texttt{{\textbackslash}addslidebackgroundpicture*\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
+	\texttt{{\textbackslash}addslidebackgroundpicture[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
+	\texttt{{\textbackslash}addslidebackgroundpicture*[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
 	\begin{itemize}
 		\item (\texttt{x},\texttt{y}) is the position of the background on the slide
 		\item \texttt{width} is the width of the picture
 		\item \texttt{filename} is the filename of the picture
+		\item \texttt{alternatecolor} is a boolean flag that indicates if the alternate colors should be preferred to regular colors when used with this background. Alternate colors are usually considered to be suitable with dark brackground pictures
 		\item \emph{The stared version of the macro has the effect to register the picture as a candidate for the random selection of the background}
 	\end{itemize}
 \end{frame}
@@ -803,10 +808,24 @@
 	\texttt{{\textbackslash}documentclass[randombackground]\{ciadbeamer\}}
 \end{frame}
 
+\subsection{Background Picture for Outline Slides}
+
+\begin{frame}{\subsecname}
+	The following function is provided for changing the background picture for the outline slides: \\[.25cm]
+	\texttt{{\textbackslash}addslidebackgroundpictureO[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
+	\begin{itemize}
+		\item (\texttt{x},\texttt{y}) is the position of the background on the slide
+		\item \texttt{width} is the width of the picture
+		\item \texttt{filename} is the filename of the picture
+		\item \texttt{alternatecolor} is a boolean flag that indicates if the alternate colors should be preferred to regular colors when used with this background. Alternate colors are usually considered to be suitable with dark brackground pictures
+	\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sectionning}
+\sectionsintoc{4-}
 \sectiontableofcontentslide
 
 \subsection{Table of Contents}
@@ -828,13 +847,14 @@
 
 \begin{frame}{Table of Contents for Sections}
 	\begin{itemize}
-	\item The CIAD theme provides convenient macros for showing the TOC for sections: to insert a table of contents into a slide: \\
+	\item The CIAD theme provides convenient macros for showing the TOC for sections into a slide: \\
 		\texttt{{\textbackslash}sectiontableofcontentslide} \\
 		\texttt{{\textbackslash}subsectiontableofcontentslide} \\
 		\texttt{{\textbackslash}subsubsectiontableofcontentslide}
 	\item They provide standard show/hide configurations for each section type.
 	\item You could control the list of the sections that are shown in the TOC by specifying a range of section numbers with: \\
-		\texttt{{\textbackslash}sectionsintoc\{section\_range\}}
+		\texttt{{\textbackslash}sectionsintoc\{section\_range\}} \\
+		It is equivalent to passing option \texttt{sections={section\_range}} to the \texttt{{\textbackslash}tableofcontent} command
 	\item The \texttt{{\textbackslash}sectionsintoc} macro is active until it is evaluated again or the following resetting macro is used: \\
 		\texttt{{\textbackslash}resetsectionsintoc}
 	\end{itemize}
@@ -884,7 +904,7 @@
 	\item Sometimes the number of sections into the TOC is too high for enabling to show all the sections' titles on the slide.
 	\item It is possible to specifiy a range of section numbers that should appear on the TOC slide. The new optional argument \texttt{<>} of \texttt{{\textbackslash}section}: \\
 		\texttt{{\textbackslash}section<range>[title in toc]\{title\}} \\
-		\texttt{{\textbackslash}section*<range>[title in toc]\{title\}}
+		\texttt{{\textbackslash}section*<range>[title in toc]\{title\}} \\
 		\texttt{{\textbackslash}section<range>*[title in toc]\{title\}}
 	\vfill
 	\item Arguments are: \begin{itemize}
@@ -932,6 +952,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special Slides}
+\sectionsintoc{5-}
 \sectiontableofcontentslide
 
 \subsection{Slide with a Right Title}
@@ -1231,6 +1252,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Slide Content}
+\sectionsintoc{6-}
 \sectiontableofcontentslide
 
 \subsection{{\textbackslash}includegraphics}
@@ -1947,6 +1969,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Slide Transitions}
+\sectionsintoc{7-}
 \sectiontableofcontentslide
 
 \pgfdeclareimage[width=.5\linewidth]{transitionalciadlogo}{ciadlogo}
@@ -2063,6 +2086,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Low-level Macros}
+\sectionsintoc{7-}
 \sectiontableofcontentslide
 
 \subsection{Handlers on Frames}
