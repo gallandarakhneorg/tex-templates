@@ -51,7 +51,7 @@
 
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Introduction}
 	\begin{itemize}
 	\item This document explains the {\LaTeX} macros that are provided by the CIAD theme for beamer.
@@ -1360,6 +1360,197 @@
 	\end{columns}
 \end{frame}
 
+\begin{frame}{Sequence of Right Arrows}
+	The CIAD theme defines a sequence of right arrows as:
+	\begin{rightarrowsequence}
+		\arrow{Arrow 1}
+		\arrow[bg=blue]{Arrow 2}
+		\arrow{Arrow 3}
+		\arrow[bg=red]{Arrow 4}
+	\end{rightarrowsequence} \\[.5cm]
+	This sequence is obtained by using the following environment: \\
+	\texttt{{\textbackslash}begin\{rightarrowsequence\}[g\_options]} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
+	\texttt{{\textbackslash}end\{rightarrowsequence\}}
+	
+	\begin{itemize}
+	\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
+	\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
+	\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
+	\end{itemize}
+\end{frame}
+
+\resolvepicturename{example1}
+\pgfdeclareimage[width=2cm]{arrow-decoration-example1}{\resolvedfilename}
+\begin{frame}{Decorations for Right Arrows}
+	\smaller
+	Each arrow could have a decoration, as illustrated by:
+	\begin{rightarrowsequence}
+		\arrow[decoration={arrow-decoration-example1}]{Arrow 1}
+		\arrow[bg=blue]{Arrow 2}
+		\arrow{Arrow 3}
+		\arrow[bg=red,fg=blue,decoration={arrow-decoration-example1}]{Arrow 4}
+	\end{rightarrowsequence} \\[.5cm]
+	This sequence is obtained by: \\
+	\texttt{{\textbackslash}begin\{rightarrowsequence\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[decoration=\{image\}]\{Arrow 1\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=blue]\{Arrow 2\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow\{Arrow 3\}} \\
+	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=red,fg=blue,decoration=\{image\}]\{Arrow 4\}} \\
+	\texttt{{\textbackslash}end\{rightarrowsequence\}}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Global Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the sequence (default: \the\linewidth)
+	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the sequence (default: max height of the internal arrows)
+	\item \texttt{arrowwidth=\ensuremath{<}length\ensuremath{>}}: default width for the arrows (default: adjusted width depending on the width of the sequence)
+	\item \texttt{sep=\ensuremath{<}length\ensuremath{>}}: distance between the arrows
+	\item \texttt{topsep=\ensuremath{<}length\ensuremath{>}}: margin at the top of the sequence
+	\item \texttt{bottomsep=\ensuremath{<}length\ensuremath{>}}: margin at the bottom of the sequence
+	\item \texttt{decorationsep=\ensuremath{<}length\ensuremath{>}}: distance between the decoration (usually an icon) and the text inside an arrow
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Global Options \insertcontinuationtext}
+	\begin{itemize}
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: default background color for all the arrow (default: black)
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: default text color for all the arrow (default: white)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Right-Arrow-Sequence} Arrow Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the arrow, override the global option
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: background color, override the global option
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: text color, override the global option
+	\item \texttt{decoration=\ensuremath{<}id\ensuremath{>}}: identifier if the picture loadable with \texttt{{\textbackslash}pgfuseimage}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Sequence of Bottom Arrows}
+	\begin{columns}
+		\begin{column}{.2\linewidth}
+			\begin{bottomarrowsequence}
+				\arrow{Arrow 1}
+				\arrow[bg=blue]{Arrow 2}
+				\arrow{Arrow 3}
+				\arrow[bg=red]{Arrow 4}
+			\end{bottomarrowsequence} \\[.5cm]
+		\end{column}
+		\begin{column}{.8\linewidth}
+			The CIAD theme defines a sequence of bottom arrows as:
+			\vspace{.5cm}
+			This sequence is obtained by using the following environment: \\
+			\texttt{{\textbackslash}begin\{bottomarrowsequence\}[g\_options]} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
+			\texttt{{\textbackslash}end\{bottomarrowsequence\}}
+			
+			\begin{itemize}
+			\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
+			\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
+			\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\resolvepicturename{example1}
+\pgfdeclareimage[width=0.5cm]{bottomarrowexample1}{\resolvedfilename}
+\begin{frame}[t]{Decorations for Bottom Arrows}
+	\begin{columns}
+		\begin{column}{.2\linewidth}
+			\begin{bottomarrowsequence}
+				\arrow[decoration={bottomarrowexample1}]{Arrow 1}
+				\arrow[bg=blue]{Arrow 2}
+				\arrow{Arrow 3}
+				\arrow[bg=red,fg=blue,decoration={bottomarrowexample1}]{Arrow 4}
+			\end{bottomarrowsequence}
+		\end{column}
+		\begin{column}{.8\linewidth}
+			Each arrow could have a decoration, as illustrated by:
+			\vspace{.5cm}
+			This sequence is obtained by: \\
+			\texttt{{\textbackslash}begin\{bottomarrowsequence\}} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[decoration=\{image\}]\{Arrow 1\}} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=blue]\{Arrow 2\}} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow\{Arrow 3\}} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=red,fg=blue,decoration=\{image\}]\{Arrow 4\}} \\
+			\texttt{{\textbackslash}end\{bottomarrowsequence\}}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{{Bottom-Arrow-Sequence} Global Options}
+	\begin{itemize}
+	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the sequence (default: max width of the internal arrows)
+	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the sequence (default: \the\linewidth)
+	\item \texttt{arrowheight=\ensuremath{<}length\ensuremath{>}}: default height for the arrows
+	\item \texttt{sep=\ensuremath{<}length\ensuremath{>}}: distance between the arrows
+	\item \texttt{leftsep=\ensuremath{<}length\ensuremath{>}}: margin at the left of the sequence
+	\item \texttt{rightsep=\ensuremath{<}length\ensuremath{>}}: margin at the right of the sequence
+	\item \texttt{decorationsep=\ensuremath{<}length\ensuremath{>}}: distance between the decoration (usually an icon) and the text inside an arrow
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Bottom-Arrow-Sequence} Global Options \insertcontinuationtext}
+	\begin{itemize}
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: default background color for all the arrow (default: black)
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: default text color for all the arrow (default: white)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Bottom-Arrow-Sequence} Arrow Options}
+	\begin{itemize}
+	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the arrow, override the global option
+	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: background color, override the global option
+	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: text color, override the global option
+	\item \texttt{decoration=\ensuremath{<}id\ensuremath{>}}: identifier if the picture loadable with \texttt{{\textbackslash}pgfuseimage}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{{Proportional Height} for Sequence of Bottom Arrows}
+	The height of the sequence of bottom arrows may be proportional in case that the total height is not available:
+	\vspace{.5cm}
+	\begin{columns}
+		\begin{column}{.2\linewidth}
+			\begin{bottomarrowsequence}[height=.8\height]
+				\arrow{Arrow 1}
+				\arrow[bg=blue]{Arrow 2}
+				\arrow{Arrow 3}
+				\arrow[bg=red]{Arrow 4}
+			\end{bottomarrowsequence} \\[.5cm]
+		\end{column}
+		\begin{column}{.8\linewidth}
+			This sequence is obtained by using the following environment: \\
+			\texttt{{\textbackslash}begin\{bottomarrowsequence\}[height=.8{\textbackslash}height]} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
+			\texttt{{\textbackslash}end\{bottomarrowsequence\}} \\[.5cm]
+			The macro \texttt{{\textbackslash}height} corresponds to the total height of the frame
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t]{{Manual Height} for Sequence of Bottom Arrows}
+	The height of the sequence of bottom arrows could be manually provided:
+	\vspace{.5cm}
+	\begin{columns}
+		\begin{column}{.2\linewidth}
+			\begin{bottomarrowsequence}[height=5cm]
+				\arrow{Arrow 1}
+				\arrow[bg=blue]{Arrow 2}
+				\arrow{Arrow 3}
+				\arrow[bg=red]{Arrow 4}
+			\end{bottomarrowsequence} \\[.5cm]
+		\end{column}
+		\begin{column}{.8\linewidth}
+			This sequence is obtained by using the following environment: \\
+			\texttt{{\textbackslash}begin\{bottomarrowsequence\}[height=5cm]} \\
+			\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
+			\texttt{{\textbackslash}end\{bottomarrowsequence\}}
+		\end{column}
+	\end{columns}
+\end{frame}
 
 \subsection{Boxes}
 \subsectiontableofcontentslide
@@ -1507,74 +1698,6 @@
 	\item \texttt{{\textbackslash}hiconbox*} is a hmode box, i.e., it accept elements on its side
 	\item \alert{The icon must be loaded by using the macro:} \\
 		\texttt{{\textbackslash}addiconboxpicture[options]\{pgf\_id\}\{filename\}}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Sequence of Right Arrows}
-	The CIAD theme defines a sequence of right arrows as:
-	\begin{rightarrowsequence}
-		\arrow{Arrow 1}
-		\arrow[bg=blue]{Arrow 2}
-		\arrow{Arrow 3}
-		\arrow[bg=red]{Arrow 4}
-	\end{rightarrowsequence} \\[.5cm]
-	This sequence is obtained by using the following environment: \\
-	\texttt{{\textbackslash}begin\{rightarrowsequence\}[g\_options]} \\
-	\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
-	\texttt{{\textbackslash}end\{rightarrowsequence\}}
-	
-	\begin{itemize}
-	\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
-	\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
-	\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
-	\end{itemize}
-\end{frame}
-
-\resolvepicturename{example1}
-\pgfdeclareimage[width=2cm]{arrow-decoration-example1}{\resolvedfilename}
-\begin{frame}{Arrow Decorations}
-	\smaller
-	Each arrow could have a decoration, as illustrated by:
-	\begin{rightarrowsequence}
-		\arrow[decoration={arrow-decoration-example1}]{Arrow 1}
-		\arrow[bg=blue]{Arrow 2}
-		\arrow{Arrow 3}
-		\arrow[bg=red,fg=blue,decoration={arrow-decoration-example1}]{Arrow 4}
-	\end{rightarrowsequence} \\[.5cm]
-	This sequence is obtained by: \\
-	\texttt{{\textbackslash}begin\{rightarrowsequence\}} \\
-	\hspace{.5cm}\texttt{{\textbackslash}arrow[decoration=\{image\}]\{Arrow 1\}} \\
-	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=blue]\{Arrow 2\}} \\
-	\hspace{.5cm}\texttt{{\textbackslash}arrow\{Arrow 3\}} \\
-	\hspace{.5cm}\texttt{{\textbackslash}arrow[bg=red,fg=blue,decoration=\{image\}]\{Arrow 4\}} \\
-	\texttt{{\textbackslash}end\{rightarrowsequence\}}
-\end{frame}
-
-\begin{frame}{{Right-Arrow-Sequence} Global Options}
-	\begin{itemize}
-	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the sequence (default: \the\linewidth)
-	\item \texttt{height=\ensuremath{<}length\ensuremath{>}}: height of the sequence (default: max height of the internal arrows)
-	\item \texttt{arrowwidth=\ensuremath{<}length\ensuremath{>}}: default width for the arrows (default: adjusted width depending on the width of the sequence)
-	\item \texttt{sep=\ensuremath{<}length\ensuremath{>}}: distance between the arrows
-	\item \texttt{topsep=\ensuremath{<}length\ensuremath{>}}: margin at the top of the sequence
-	\item \texttt{bottomsep=\ensuremath{<}length\ensuremath{>}}: margin at the bottom of the sequence
-	\item \texttt{decorationsep=\ensuremath{<}length\ensuremath{>}}: distance between the decoration (usually an icon) and the text inside an arrow
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{{Right-Arrow-Sequence} Global Options \insertcontinuationtext}
-	\begin{itemize}
-	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: default background color for all the arrow (default: black)
-	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: default text color for all the arrow (default: white)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{{Right-Arrow-Sequence} Arrow Options}
-	\begin{itemize}
-	\item \texttt{width=\ensuremath{<}length\ensuremath{>}}: width of the arrow, override the global option
-	\item \texttt{bg=\ensuremath{<}color\ensuremath{>}}: background color, override the global option
-	\item \texttt{fg=\ensuremath{<}color\ensuremath{>}}: text color, override the global option
-	\item \texttt{decoration=\ensuremath{<}\TeX\ macros\ensuremath{>}}: \TeX\ macros that compose the decoration of the arrow
 	\end{itemize}
 \end{frame}
 
