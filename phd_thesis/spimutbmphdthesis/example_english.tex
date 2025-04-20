@@ -73,7 +73,12 @@
 % % The third mandatory parameter is the location/city of the PhD defense.
 % % The fourth mandatory parameter is the reference number given by
 % % the University Library after the PhD defense.
-\declarethesis[Subtitle]{Title}{September 17, 2012}{Belfort}{XXX}
+\declarethesis
+	[Subtitle]
+	{Title in English}
+	{\ifenglish{April 20, 2025}{20 avril 2025}}
+	{Belfort}
+	{XXX}
 
 % %--------------------
 % % Set the title in the secondary language
@@ -99,13 +104,55 @@
 % %            President, Reviewer(s), Examiner(s), Director(s),
 % %            Other supervisor(s), Invited person(s).
 % % \addjury{Firstname}{Lastname}{Role in the jury}{Position}
-\addjury{Incredible}{Hulk}{President}{Professor at Gotham City University \\ Secondary comment}
-\addjury{Captain}{America}{Reviewer}{Professor at USA University}
-\addjury{Super}{Man}{Examiner}{Professor at Gotham City University}
 % % \addjuryex{Civility}{Firstname}{Lastname}{Role in the jury}{Position}
-\addjuryex{Mr.}{Bat}{Man}{Thesis Director}{Professor at Gotham City University}
-\addjuryex{Mr.}{The}{Wolverine}{Co-Director}{Professor at Gotham City University}
-\addjuryex{Ms.}{Pac}{Man}{Invited}{Professor somewhere}
+
+
+%% Roles of the committee members are:
+%% - \rolePresidentM for male President of the committee (French: President)
+%% - \rolePresidentF for female President of the committee (French: Presidente)
+%% - \roleReviewerM for male Reviewer in the committee (French: Rapporteur)
+%% - \roleReviewerF for female Reviewer in the committee (French: Rapporteure)
+%% - \roleExaminerM for male Examiner in the committee (French: Examinateur)
+%% - \roleExaminerF for female Examiner in the committee (French: Examinatrice)
+%% - \roleInviteeM for male Invitee in the committee (French: Invite)
+%% - \roleInviteeF for female Invitee in the committee (French: Invitee)
+%% - \roleDirectorM for male Director in the committee (French: Directeur)
+%% - \roleDirectorF for female Director in the committee (French: Directrice)
+%% - \roleCodirectorM for male Co-Director in the committee (French: Co-Directeur)
+%% - \roleCodirectorF for female Co-Director in the committee (French: Co-Directrice)
+%% - \roleSupervisorM for male Supervisor in the committee (French: Encadrant)
+%% - \roleSupervisorF for female Supervisor in the committee (French: Encadrante)
+%% - \roleCosupervisorM for male Co-Supervisor in the committee (French: Co-Encadrant)
+%% - \roleCosupervisorF for female Co-Supervisor in the committee (French: Co-Encadrante)
+
+\addjury{Incroyable}{Hulk}
+	{\rolePresidentM}
+	{\ifenglish
+		{Professor at Gotham City University \\ Additional comment}
+		{Professeur à l'Université de Gotham City \\ Commentaire secondaire}}
+\addjury{Captain}{America}
+	{\roleReviewerM}
+	{\ifenglish
+		{Professor at USA University}
+		{Professeur à l'Université USA}}
+\addjury{Super}{Man}
+	{\roleExaminerM}
+	{\ifenglish
+		{Professor at Gotham City University}
+		{Professeur à l'Université de Gotham City}}
+\addjuryex{M.}{Bat}{Man}
+	{\roleDirectorM}
+	{\ifenglish
+		{Professor at Gotham City University}
+		{Professeur à l'Université de Gotham City}}
+\addjuryex{M.}{The}{Volwerine}
+	{\roleCodirectorM}
+	{Professeur à l'Université de Gotham City}
+\addjuryex{Mme}{Pac}{Man}
+	{\roleInviteeM}
+	{\ifenglish
+		{Professor somewhere}
+		{Professeure quelque part}}
 
 % %--------------------
 % % Change style of the table of the jury
@@ -154,17 +201,15 @@
 % % otherwise they are in French.
 %\Set{secondarykeywordstyle}{\tiny}
 
-% %--------------------
-% % Change the specialty of the PhD thesis. Specialty must be selected from the official list of specialties from the doctoral school
-%\Set{speciality}{Informatique}
-%\Set{speciality}{Intelligence Artificielle}
-%\Set{speciality}{Informatique de l'image}
-%\Set{speciality}{Automatique}
-
-% %--------------------
-% % Change the institution
+%%--------------------
+%% Change the speciality of the PhD thesis. Speciality must be selected from the official list of specialities from the doctoral school
+%\SetLangDefault{english}{speciality}{Computer Science}
+%\SetLangDefault{french}{speciality}{Informatique}
+ 
+%%--------------------
+%% Change the institution
 %\Set{universityname}{Universit\'e de Technologie de Belfort-Montb\'eliard}
-
+ 
 % %--------------------
 % % Select the major research laboratory
 \ciadlaboratory

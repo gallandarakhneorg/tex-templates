@@ -27,7 +27,7 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2025/03/13}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 2025-03-14}\@eha}
+\@ifclasslater{UPMVERSION}{2025/04/20}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 2025-03-14}\@eha}
 
 %%--------------------
 %% Change the default baseline
@@ -658,6 +658,198 @@
 	\begin{upm@phdthesis@contribution}{}{#1}%
 }{%
 	\end{upm@phdthesis@contribution}%
+}
+
+%%--------------------
+%% Default roles for the jury
+\let\ifenglish\relax%
+\newcommand{\rolePresidentM}{\ifenglish{President}{Pr\'esident}}%
+\newcommand{\rolePresidentF}{\ifenglish{President}{Pr\'esidente}}%
+\newcommand{\roleReviewerM}{\ifenglish{Reviewer}{Rapporteur}}%
+\newcommand{\roleReviewerF}{\ifenglish{Reviewer}{Rapporteure}}%
+\newcommand{\roleExaminerM}{\ifenglish{Examiner}{Examinateur}}%
+\newcommand{\roleExaminerF}{\ifenglish{Examiner}{Examinatrice}}%
+\newcommand{\roleDirectorM}{\ifenglish{Director}{Directeur}}%
+\newcommand{\roleDirectorF}{\ifenglish{Director}{Directrice}}%
+\newcommand{\roleCodirectorM}{\ifenglish{Codirector}{Co-Directeur}}%
+\newcommand{\roleCodirectorF}{\ifenglish{Codirector}{Co-Directrice}}%
+\newcommand{\roleSupervisorM}{\ifenglish{Supervisor}{Encadrant}}%
+\newcommand{\roleSupervisorF}{\ifenglish{Supervisor}{Encadrante}}%
+\newcommand{\roleCosupervisorM}{\ifenglish{Co-Supervisor}{Co-Encadrant}}%
+\newcommand{\roleCosupervisorF}{\ifenglish{Co-Supervisor}{Co-Encadrante}}%
+\newcommand{\roleInviteeM}{\ifenglish{Invitee}{Invit\'e}}%
+\newcommand{\roleInviteeF}{\ifenglish{Invitee}{Invit\'ee}}%
+
+%%--------------------
+% Labels for the front page
+\SetLangDefault{english}{frontpagephdthesis}{DOCTORAL THESIS}
+\SetLangDefault{french}{frontpagephdthesis}{TH\`ESE DE DOCTORAT}
+\SetLangDefault{english}{frontpagejointphdthesis}{JOINT DOCTORAL THESIS}
+\SetLangDefault{french}{frontpagejointphdthesis}{TH\`ESE DE DOCTORAT EN CO-TUTELLE}
+\SetLangDefault{english}{frontpageuniversity}{OF}
+\SetLangDefault{french}{frontpageuniversity}{DE L'\'ETABLISSEMENT}
+\SetLangDefault{english}{frontpageuniversity2}{AND OF}
+\SetLangDefault{french}{frontpageuniversity2}{ET DE L'\'ETABLISSEMENT}
+\SetLangDefault{english}{frontpagedoctoralschool}{Doctoral School \#}
+\SetLangDefault{french}{frontpagedoctoralschool}{\'Ecole doctorale n\textdegree}
+\SetLangDefault{english}{frontpagedoctorof}{Doctor in\ }
+\SetLangDefault{french}{frontpagedoctorof}{Doctorat \De}
+\SetLangDefault{english}{frontpageby}{by}
+\SetLangDefault{french}{frontpageby}{par}
+
+%%--------------------
+%% Default front page for the SPIM doctoral thesis
+% #1: the language
+% #2: university logo
+\newcommand{\upmspimthesisstandardfrontpage}[2]{
+	\ifthenelse{\equal{#1}{english}}{%
+		\gdef\ifenglish##1##2{##1}%
+	}{%
+		\gdef\ifenglish##1##2{##2}%
+	}%
+	\pagestyle{empty}%
+	\begin{picture}(0,0)%
+	\put(-40,30){\parbox[t]{16.75cm}{%
+		\raggedright\raisebox{-.5\height}{\includegraphics[max width=5cm,max height=2cm,keepaspectratio]{#2}}%
+		\iflaboratorylogo%
+			\hfill\thethesislaboratorylogo%
+		\fi%
+		\hfill\raisebox{-.5\height}{\includegraphics[max width=4cm,max height=1.5cm,keepaspectratio]{spimsimple}}%
+	}}
+	\put(-40,-30){\parbox[t]{16.75cm}{%
+		\ifpartnerlist%
+			\raggedleft\thepartnerlist%
+		\fi%
+	}}
+	\Ifelseundefined{jointuniversity}{%
+		\put(-45,-70){\parbox[t][12cm][t]{17cm}{%
+			% Reset the baseline
+			\renewcommand{\baselinestretch}{1} 
+			\begin{center}%
+				{\bfseries\GetLang{#1}{frontpagephdthesis}} \\[.5cm]
+				{\bfseries\GetLang{#1}{frontpageuniversity} \MakeUppercase{\GetLang{#1}{universityname}}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpagedoctoralschool}\Get{doctoralschoolnumber}} \\[.25cm]
+				{\large\GetLang{#1}{doctoralschoolname}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpagedoctorof}{\GetLang{#1}{speciality}}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpageby}} \\[.5cm]
+
+				{\Large\theauthorlist} \\[1.5cm]%
+
+				\parbox{\linewidth}{\centering\Large%
+					\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+						\nohyphens{\theupmproject}%
+					}{%
+						\nohyphens{\Get{minorlanguagethesistitle}}%
+					}%
+				}%
+				\Ifnotempty\theupmdocname{\\[.25cm]\parbox{\linewidth}{\centering\large\nohyphens{\theupmdocname}}}%
+			\end{center}%
+		}}%
+	}{%
+		\put(-45,-60){\parbox[t][12cm][t]{17cm}{%
+			% Reset the baseline
+			\renewcommand{\baselinestretch}{1} 
+			\begin{center}%
+				{\bfseries\GetLang{#1}{frontpagejointphdthesis}} \\[.5cm]
+				{\bfseries\GetLang{#1}{frontpageuniversity} \MakeUppercase{\GetLang{#1}{universityname}}} \\[.5cm]
+				{\bfseries\GetLang{#1}{frontpageuniversity2} \MakeUppercase{\Get{jointuniversity}}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpagedoctoralschool}\Get{doctoralschoolnumber}} \\[.25cm]
+				{\large\GetLang{#1}{doctoralschoolname}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpagedoctorof}{\GetLang{#1}{speciality}}} \\[1cm]
+
+				{\large\GetLang{#1}{frontpageby}} \\[.5cm]
+
+				{\Large\theauthorlist} \\[1.5cm]%
+
+				\parbox{\linewidth}{\centering\Large%
+					\ifthenelse{\equal{\upmcurrentlang}{#1}}{%
+						\nohyphens{\theupmproject}%
+					}{%
+						\nohyphens{\Get{minorlanguagethesistitle}}%
+					}%
+				}%
+				\Ifnotempty\theupmdocname{\\[.25cm]\parbox{\linewidth}{\centering\large\nohyphens{\theupmdocname}}}%
+			\end{center}%
+		}}%
+	}
+	\put(-45,-520){\mbox{\parbox[t]{17cm}{%
+		% Reset the baseline
+		\renewcommand{\baselinestretch}{2}%
+		{\Get{defensemessagestyle}\GetLang{#1}{defensemessage}}\\%
+		\thejurytab%
+	}}}
+	\put(-60,-710){%
+		\mbox{\parbox[t]{17cm}{%
+			\ifthenelse{\equal{\theupmdocref}{}}{}{%
+				\thespimthesisdocrefcard%\hfill\mbox{}%
+			}%
+		}}%
+	}
+	\end{picture}%
+	\ifthenelse{\equal{\upmcurrentlang}{english}}{%
+		\gdef\ifenglish##1##2{##1}%
+	}{%
+		\gdef\ifenglish##1##2{##2}%
+	}%
+}
+
+%%--------------------
+%% Default back page for the SPIM doctoral thesis
+% #1: university logo
+% #2: id of the value of the university address
+% #3: the shifting of the university logo
+\newcommand{\upmspimthesisstandardbackpage}[3]{
+	\pagestyle{empty}%
+	\begin{picture}(0,0)%
+	\put(-50,30){\includegraphics[width=170\unitlength]{\Get{doctoralschoollogo}}}%
+	\put(-50,-710){%
+		\begin{tabular}{@{}ll@{}}%
+			\raisebox{-#3\height}{\includegraphics[height=1.1cm]{#1}} & \parbox[c]{10cm}{\scriptsize\Get{#2}}%
+		\end{tabular}%
+	}%
+	\put(-45,-325){\parbox[c][23cm][t]{17cm}{%
+		% Reset the baseline
+		\renewcommand{\baselinestretch}{1} 
+		\ifphdthesismainabstract%
+			\begin{tabularx}{\linewidth}{|X|}%
+			\hline%
+			\normalsize\small\Get{primarytitlestyle}\textbf{\phdthesismaindocumenttitle} \nohyphens{\ignorespaces\theupmproject} \\
+			\ifphdthesismainkeywords%
+				\normalsize\small\Get{primarykeywordstyle}\textbf{\phdthesismainkeywordstitle} \nohyphens{\ignorespaces\phdthesismainkeywords} \\%
+			\fi%
+			\normalsize\small\Get{primaryabstractstyle}\textbf{\phdthesismainabstracttitle} \\%
+			\vspace{-.8cm}%
+			\begin{multicols}{2}%
+				\normalsize\small\Get{primaryabstractstyle}\nohyphens{\ignorespaces\phdthesismainabstract}%
+			\end{multicols}\\%
+			\hline%
+			\end{tabularx}%
+			\ifphdthesisminorabstract%
+				\par\vspace{1cm}%
+			\fi%
+		\fi%
+		\ifphdthesisminorabstract%
+			\begin{tabularx}{\linewidth}{|X|}%
+			\hline
+			\normalsize\small\Get{secondarytitlestyle}\textbf{\phdthesisminordocumenttitle} \nohyphens{\ignorespaces\Get{minorlanguagethesistitle}} \\
+			\ifphdthesismainkeywords%
+				\normalsize\small\Get{secondarykeywordstyle}\textbf{\phdthesisminorkeywordstitle} \nohyphens{\ignorespaces\phdthesisminorkeywords} \\%
+			\fi%
+			\normalsize\small\Get{secondaryabstractstyle}\textbf{\phdthesisminorabstracttitle} \\
+			\vspace{-.8cm}%
+			\begin{multicols}{2}%
+				\normalsize\small\Get{secondaryabstractstyle}\nohyphens{\ignorespaces\phdthesisminorabstract}%
+			\end{multicols}\\
+			\hline
+			\end{tabularx}%
+		\fi%
+	}}%
+	\end{picture}%
 }
 
 \endinput

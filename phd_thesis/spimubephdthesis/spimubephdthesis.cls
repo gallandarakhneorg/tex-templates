@@ -20,10 +20,11 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimubephdthesis}[2025/03/11]
+\ProvidesClass{spimubephdthesis}[2025/04/20]
 
 %%--------------------
 %% Class options
+\newif\ifspimphdthesisnatbib\spimphdthesisnatbibtrue
 \gdef\edspimphdthesisclasslanguage{french}
 \gdef\edspim@phdthesis@class@options{book,nopubpage,nodocumentinfo,frontmatter}
 
@@ -32,6 +33,12 @@
 }
 \DeclareOption{french}{%
 	\gdef\edspimphdthesisclasslanguage{french}%
+}
+\DeclareOption{natbib}{%
+	\global\spimphdthesisnatbibtrue%
+}
+\DeclareOption{nonatbib}{%
+	\global\spimphdthesisnatbibfalse%
 }
 
 \DeclareOption*{%
@@ -47,8 +54,20 @@
 %% Load the base package
 \RequirePackage{spimbasephdthesis}
 
+\ifspimphdthesisnatbib
+	\RequirePackage{natbib}
+\fi
+
 %%--------------------
 %% Use the style dedicated to PhD thesis from SPIM-UBE
 \UseExtension{spimubephdthesis}
+
+%%--------------------
+%% Force the definition for the CIAD laboratory
+\newcommand{\ciadlaboratory}{%
+	\resetlaboratories%
+	\addlaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees (CIAD)}%
+	\setlaboratorylogo{bigciadlogo}%
+}
 
 \endinput

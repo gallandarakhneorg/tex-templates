@@ -73,7 +73,12 @@
 %% The third mandatory parameter is the location/city of the PhD defense.
 %% The forth mandatory parameter is the reference number given by
 %% the University Library after the PhD defense.
-\declarethesis[Sous-titre]{Titre}{17 septembre 2012}{Belfort}{XXX}
+\declarethesis
+	[Sous-titre]
+	{Titre}
+	{17 septembre 2012}
+	{Belfort}
+	{XXX}
  
 %%--------------------
 %% Set the title in the secondary language
@@ -99,13 +104,44 @@
 %%            President, Reviewer(s), Examiner(s), Director(s),
 %%            Other supervisor(s), Invited person(s).
 %% \addjury{Firstname}{Lastname}{Role in the jury}{Position}
-\addjury{Incroyable}{Hulk}{Pr\'esident}{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
-\addjury{Captain}{America}{Rapporteur}{Professeur à l'Université USA}
-\addjury{Super}{Man}{Examinateur}{Professeur à l'Université de Gotham City}
 %% \addjuryex{Civility}{Firstname}{Lastname}{Role in the jury}{Position}
-\addjuryex{M.}{Bat}{Man}{Directeur de thèse}{Professeur à l'Université de Gotham City}
-\addjuryex{M.}{The}{Volwerine}{Codirecteur de thèse}{Professeur à l'Université de Gotham City}
-\addjuryex{Mme}{Pac}{Man}{Invité}{Professeur quelque part}
+
+%% Roles of the committee members are:
+%% - \rolePresidentM for male President of the committee (French: President)
+%% - \rolePresidentF for female President of the committee (French: Presidente)
+%% - \roleReviewerM for male Reviewer in the committee (French: Rapporteur)
+%% - \roleReviewerF for female Reviewer in the committee (French: Rapporteure)
+%% - \roleExaminerM for male Examiner in the committee (French: Examinateur)
+%% - \roleExaminerF for female Examiner in the committee (French: Examinatrice)
+%% - \roleInviteeM for male Invitee in the committee (French: Invite)
+%% - \roleInviteeF for female Invitee in the committee (French: Invitee)
+%% - \roleDirectorM for male Director in the committee (French: Directeur)
+%% - \roleDirectorF for female Director in the committee (French: Directrice)
+%% - \roleCodirectorM for male Co-Director in the committee (French: Co-Directeur)
+%% - \roleCodirectorF for female Co-Director in the committee (French: Co-Directrice)
+%% - \roleSupervisorM for male Supervisor in the committee (French: Encadrant)
+%% - \roleSupervisorF for female Supervisor in the committee (French: Encadrante)
+%% - \roleCosupervisorM for male Co-Supervisor in the committee (French: Co-Encadrant)
+%% - \roleCosupervisorF for female Co-Supervisor in the committee (French: Co-Encadrante)
+
+\addjury{Incroyable}{Hulk}
+	{\rolePresidentM}
+	{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+\addjury{Captain}{America}
+	{\roleReviewerM}
+	{Professeur à l'Université USA}
+\addjury{Super}{Man}
+	{\roleExaminerM}
+	{Professeur à l'Université de Gotham City}
+\addjuryex{M.}{Bat}{Man}
+	{\roleDirectorM}
+	{Professeur à l'Université de Gotham City}
+\addjuryex{M.}{The}{Volwerine}
+	{\roleCodirectorM}
+	{Professeur à l'Université de Gotham City}
+\addjuryex{Mme}{Pac}{Man}
+	{\roleInviteeM}
+	{Professeure quelque part}
  
 %%--------------------
 %% Change style of the table of the jury
@@ -156,10 +192,8 @@
  
 %%--------------------
 %% Change the speciality of the PhD thesis. Speciality must be selected from the official list of specialities from the doctoral school
-%\Set{speciality}{Informatique}
-%\Set{speciality}{Intelligence Artificielle}
-%\Set{speciality}{Informatique de l'image}
-%\Set{speciality}{Automatique}
+%\SetLangDefault{english}{speciality}{Computer Science}
+%\SetLangDefault{french}{speciality}{Informatique}
  
 %%--------------------
 %% Change the institution
@@ -196,23 +230,6 @@
 
 %\addpartner{utbm}
 
-%%--------------------
-%% Change the header and the foot of the pages.
-%% You must include the package "fancyhdr" to
-%% have access to these macros.
-%% Left header
-%\lhead{}
-%% Center header
-%\chead{}
-%% Right header
-%\rhead{}
-%% Left footer
-%\lfoot{}
-%% Center footer
-%\cfoot{}
-%% Right footer
-%\rfoot{}
- 
 %%--------------------
 % Declare several theorems
 \declareupmtheorem{mytheorem}{My Theorem}{List of my Theorems}{mythm}{mytheorem}{\textbf}
