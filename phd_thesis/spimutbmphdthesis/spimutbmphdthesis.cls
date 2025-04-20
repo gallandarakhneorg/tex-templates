@@ -62,4 +62,20 @@
 %% Use the style dedicated to PhD thesis from SPIM-UTBM
 \UseExtension{spimutbmphdthesis}
 
+%%--------------------
+%% Force the definition for the CIAD laboratory
+\newcommand{\ciadlaboratory}{%
+	\resetlaboratories%
+	\addlaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribu\'ees (CIAD)}%
+	\setlaboratorylogo{bigciadlogo}%
+}
+
+%%--------------------
+%% Force the definition for the FEMTO-ST laboratory
+\newcommand{\femtostlaboratory}{%
+	\resetlaboratories%
+	\addlaboratory{Institut FEMTO-ST}%
+	\setlaboratorylogo{femtost}%
+}
+
 \endinput
