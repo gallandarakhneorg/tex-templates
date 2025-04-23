@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2025/04/19 Beamer Outer 'CIAD' Theme]
+   [2025/04/23 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -97,16 +97,24 @@
 		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
 		\begin{tikzpicture}%
 			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{224}{\beamer@theme@ciad@tableofcontentslide@backgroundnumber}%
-			\path[fill=white](0,8.5) rectangle (0.6,7.9);%
-			\path[fill=frametitle.bg] (0.6,8.5) rectangle (16,7.9);%
-			\put(1.5,227.25){\pgfuseimage{FrenchRepublicLogo}}%
+			\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
+				\path[fill=white](0,8.5) rectangle (0.6,7.9);%
+			}{}%
+			\path[fill=frametitle.bg] (0.6,8.5) rectangle (16.6,7.9);%
+			\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
+				\put(1.5,227.25){\pgfuseimage{FrenchRepublicLogo}}%
+			}{}%
 		\end{tikzpicture}%
 	\else%
 		\begin{tikzpicture}%
 		\insertcurrentslidebackgroundpicture%
-		\path[fill=white](0,0) rectangle (0.6,0.60);%
-		\path[fill=frametitle.bg](0.6,0) rectangle (16,0.60);%
-		\put(1.5,2.5){\pgfuseimage{FrenchRepublicLogo}}%
+		\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
+			\path[fill=white](0,0) rectangle (0.6,0.60);%
+		}{}%
+		\path[fill=frametitle.bg](0.6,0) rectangle (16.6,0.60);%
+		\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
+			\put(1.5,2.5){\pgfuseimage{FrenchRepublicLogo}}%
+		}{}%
 		\end{tikzpicture}%
 	\fi%
 }

@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/04/19}
+\gdef\insertciadbeamerthemeversion{2025/04/23}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -74,6 +74,9 @@
 
 \newboolean{beamer@theme@ciad@alternatebgcolor}
 \setboolean{beamer@theme@ciad@alternatebgcolor}{false}
+
+\newboolean{beamer@theme@ciad@frenchrepublic}
+\setboolean{beamer@theme@ciad@frenchrepublic}{true}
 
 \gdef\beamer@theme@ciad@outer@titleverticalalignment{c}
 \gdef\beamer@theme@ciad@outer@titleverticalposition{-96}
@@ -173,6 +176,12 @@
 }
 \DeclareOptionBeamer{nocarnotlogo}{%
 	\setboolean{beamer@theme@ciad@carnotlogo}{false}%
+}
+\DeclareOptionBeamer{frenchrepublic}{%
+	\setboolean{beamer@theme@ciad@frenchrepublic}{true}%
+}
+\DeclareOptionBeamer{nofrenchrepublic}{%
+	\setboolean{beamer@theme@ciad@frenchrepublic}{false}%
 }
 \DeclareOptionBeamer{handout}{%
 	\setboolean{beamer@theme@ciad@handout}{true}%
