@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/04/23}
+\gdef\insertciadbeamerthemeversion{2025/04/25}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -1107,6 +1107,21 @@
 \newif\ifbeamer@theme@ciad@part@hasoptionparam
 \newif\ifbeamer@theme@ciad@part@hasauthor
 \newif\ifbeamer@theme@ciad@part@addintoc
+
+% Command for showing the part frame only. This command does not add sectionning elements
+\newcommand{\partframeonly}[2][]{%
+	\setbeamertemplate{footline}{}%
+	%\useheaderempty%
+	\usebackgroundtemplate{\beamer@theme@ciad@outer@background}%
+	\let\beamer@theme@ciad@part@old@partname\beamer@partname%
+	\def\beamer@partname{#2}
+	\frame{%
+		\partpage
+	}%
+	\let\beamer@partname\beamer@theme@ciad@part@old@partname%
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@ciad@outer@background\fi}%
+	\setbeamertemplate{footline}{\beamer@theme@ciad@outer@footline}%
+}
 
 \gdef\beamer@part[#1]#2{%
 	\global\beamer@theme@ciad@part@inslidetrue%

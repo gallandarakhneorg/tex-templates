@@ -956,6 +956,22 @@
 \sectionsintoc{5-}
 \sectiontableofcontentslide
 
+\subsection{Slide for titles}
+
+\begin{frame}{\subsecname}
+	\begin{itemize}
+	\item Slide that is drawn as a ``part'' frame but \emph{without adding a part section in the document}. This command is usually used for showing the frame outside the context of a \texttt{{\textbackslash}part} command.
+	\item \LaTeX\ Command:\\
+		\texttt{{\textbackslash}partframeonly\{title\}}
+	\item \texttt{title} is the title that must be shown on the frame
+	\end{itemize}
+	\vspace{1cm}
+	Example sohwn on next slide: \\
+	\texttt{{\textbackslash}partframeonly\{This is an example of partframeonly\}}
+\end{frame}
+
+\partframeonly{This is an example of partframeonly}
+
 \subsection{Slide with a Right Title}
 
 \begin{frame}{\subsecname}
