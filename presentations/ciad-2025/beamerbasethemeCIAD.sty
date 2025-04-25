@@ -3560,7 +3560,13 @@
 	\protected@xdef\beamer@theme@ciad@arrowsequence@tikzcontent{%
 		\beamer@theme@ciad@arrowsequence@tikzcontent%
 		% Add the arrow background
-		\protect\fill[\beamer@theme@ciad@arrowsequence@bg](\the\beamer@theme@ciad@arrowsequence@x,0) -- (\the\beamer@theme@ciad@arrowsequence@x@a,0) -- (\the\beamer@theme@ciad@arrowsequence@x@b,\the\beamer@theme@ciad@arrowsequence@y@a) -- (\the\beamer@theme@ciad@arrowsequence@x@a,\the\beamer@theme@ciad@arrowsequenceheight) -- (\the\beamer@theme@ciad@arrowsequence@x,\the\beamer@theme@ciad@arrowsequenceheight) -- (\the\beamer@theme@ciad@arrowsequence@x@c,\the\beamer@theme@ciad@arrowsequence@y@a);%
+		\protect\fill[\beamer@theme@ciad@arrowsequence@bg]%
+			(\the\beamer@theme@ciad@arrowsequence@x,0) --%
+			(\the\beamer@theme@ciad@arrowsequence@x@a,0) --%
+			(\the\beamer@theme@ciad@arrowsequence@x@b,\the\beamer@theme@ciad@arrowsequence@y@a) --%
+			(\the\beamer@theme@ciad@arrowsequence@x@a,\the\beamer@theme@ciad@arrowsequenceheight) --%
+			(\the\beamer@theme@ciad@arrowsequence@x,\the\beamer@theme@ciad@arrowsequenceheight) --%
+			(\the\beamer@theme@ciad@arrowsequence@x@c,\the\beamer@theme@ciad@arrowsequence@y@a);%
 		% Add text on arrow
 		\protect\draw (\the\beamer@theme@ciad@arrowsequence@x@d,\the\beamer@theme@ciad@arrowsequence@y@a) node[anchor=west] {%
 			\beamer@theme@ciad@arrowsequence@insertarrowcontent{\beamer@theme@ciad@arrowsequence@textw}{#2}%
@@ -3648,6 +3654,7 @@
 \newlength{\beamer@theme@ciad@varrowsequence@y@a}
 \newlength{\beamer@theme@ciad@varrowsequence@y@b}
 \newlength{\beamer@theme@ciad@varrowsequence@y@c}
+\newlength{\beamer@theme@ciad@varrowsequence@y@d}
 \newlength{\beamer@theme@ciad@varrowsequence@x@a}
 \newlength{\beamer@theme@ciad@varrowsequence@rowh}
 \newlength{\beamer@theme@ciad@varrowsequence@textw}
@@ -3796,15 +3803,19 @@
 	%
 	% Compute the positions that are used for drawing the arrow and its content
 	%
-	\global\setlength{\beamer@theme@ciad@varrowsequence@y@a}{\beamer@theme@ciad@varrowsequence@y}
+	\global\setlength{\beamer@theme@ciad@varrowsequence@y@a}{\beamer@theme@ciad@varrowsequence@y}%
 	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@a}{\beamer@theme@ciad@varrowsequence@rowh}%
 	%
-	\global\setlength{\beamer@theme@ciad@varrowsequence@y@b}{\beamer@theme@ciad@varrowsequence@y}
-	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@b}{\beamer@theme@ciad@varrowsequencearrowheight}%
+	\global\setlength{\beamer@theme@ciad@varrowsequence@y@b}{\beamer@theme@ciad@varrowsequence@y}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@b}{-\beamer@theme@ciad@varrowsequencearrowheight}%
 	%
-	\global\setlength{\beamer@theme@ciad@varrowsequence@y@c}{\beamer@theme@ciad@varrowsequence@y}
-	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@c}{.5\beamer@theme@ciad@varrowsequence@rowh}%
-	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@c}{.5\beamer@theme@ciad@varrowsequencearrowheight}%
+	\global\setlength{\beamer@theme@ciad@varrowsequence@y@c}{\beamer@theme@ciad@varrowsequence@y}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@c}{\beamer@theme@ciad@varrowsequence@rowh}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@c}{-\beamer@theme@ciad@varrowsequencearrowheight}%
+	%
+	\global\setlength{\beamer@theme@ciad@varrowsequence@y@d}{\beamer@theme@ciad@varrowsequence@y}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@d}{.5\beamer@theme@ciad@varrowsequence@rowh}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@y@d}{-.5\beamer@theme@ciad@varrowsequencearrowheight}%
 	%
 	\global\setlength{\beamer@theme@ciad@varrowsequence@x@a}{.5\beamer@theme@ciad@varrowsequencewidth}%
 	%
@@ -3812,6 +3823,11 @@
 	\global\addtolength{\beamer@theme@ciad@varrowsequence@textw}{-\beamer@theme@ciad@varrowsequenceleftsep}%
 	\global\addtolength{\beamer@theme@ciad@varrowsequence@textw}{-\beamer@theme@ciad@varrowsequencerightsep}%
 	%
+	%	(0,ya)					(w,ya)
+	%				(xa,yc)
+	%
+	%	(0,y)					(w,y)
+	%				(xa,yb)
 	% Build the graphical components
 	%
 	\setlength{\fboxsep}{0pt}%
@@ -3820,12 +3836,13 @@
 		% Add the arrow background
 		\protect\fill[\beamer@theme@ciad@varrowsequence@bg]%
 			(0,\the\beamer@theme@ciad@varrowsequence@y@a) --%
-			(0,\the\beamer@theme@ciad@varrowsequence@y@b) --%
-			(\the\beamer@theme@ciad@varrowsequence@x@a,\the\beamer@theme@ciad@varrowsequence@y) --%
-			(\the\beamer@theme@ciad@varrowsequencewidth,\the\beamer@theme@ciad@varrowsequence@y@b) --%
-			(\the\beamer@theme@ciad@varrowsequencewidth,\the\beamer@theme@ciad@varrowsequence@y@a);%
+			(0,\the\beamer@theme@ciad@varrowsequence@y) --%
+			(\the\beamer@theme@ciad@varrowsequence@x@a,\the\beamer@theme@ciad@varrowsequence@y@b) --%
+			(\the\beamer@theme@ciad@varrowsequencewidth,\the\beamer@theme@ciad@varrowsequence@y) --%
+			(\the\beamer@theme@ciad@varrowsequencewidth,\the\beamer@theme@ciad@varrowsequence@y@a) --%
+			(\the\beamer@theme@ciad@varrowsequence@x@a,\the\beamer@theme@ciad@varrowsequence@y@c);%
 		% Add text on arrow
-		\protect\draw (\the\beamer@theme@ciad@varrowsequence@x@a,\the\beamer@theme@ciad@varrowsequence@y@c) node[anchor=center] {%
+		\protect\draw (\the\beamer@theme@ciad@varrowsequence@x@a,\the\beamer@theme@ciad@varrowsequence@y@d) node[anchor=center] {%
 			\parbox[c]{\beamer@theme@ciad@varrowsequence@textw}{%
 				\centering%
 				\beamer@theme@ciad@varrowsequence@insertarrowcontent@decoration%
@@ -3866,6 +3883,7 @@
 	%
 	\global\setcounter{beamer@theme@ciad@varrowsequence@nbarrows}{0}%
 	\global\setlength{\beamer@theme@ciad@varrowsequence@h}{\beamer@theme@ciad@varrowsequenceheight}%
+	\global\addtolength{\beamer@theme@ciad@varrowsequence@h}{-\beamer@theme@ciad@varrowsequencearrowheight}%
 	\let\arrow\beamer@theme@ciad@varrowsequence@arrowfct@a%
 	\BODY%
 	%
