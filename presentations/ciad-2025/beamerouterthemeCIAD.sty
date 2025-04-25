@@ -99,8 +99,10 @@
 			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{224}{\beamer@theme@ciad@tableofcontentslide@backgroundnumber}%
 			\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
 				\path[fill=white](0,8.5) rectangle (0.6,7.9);%
-			}{}%
-			\path[fill=frametitle.bg] (0.6,8.5) rectangle (16.6,7.9);%
+				\path[fill=frametitle.bg] (0.6,8.5) rectangle (16,7.9);%
+			}{%
+				\path[fill=frametitle.bg](0,8.5) rectangle (16.6,7.9);%
+			}%
 			\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
 				\put(1.5,227.25){\pgfuseimage{FrenchRepublicLogo}}%
 			}{}%
@@ -110,8 +112,10 @@
 		\insertcurrentslidebackgroundpicture%
 		\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
 			\path[fill=white](0,0) rectangle (0.6,0.60);%
-		}{}%
-		\path[fill=frametitle.bg](0.6,0) rectangle (16.6,0.60);%
+			\path[fill=frametitle.bg](0.6,0) rectangle (16,0.60);%
+		}{%
+			\path[fill=frametitle.bg](0,0) rectangle (16.6,0.60);%
+		}%
 		\ifthenelse{\boolean{beamer@theme@ciad@frenchrepublic}}{%
 			\put(1.5,2.5){\pgfuseimage{FrenchRepublicLogo}}%
 		}{}%
