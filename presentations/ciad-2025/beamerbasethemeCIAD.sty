@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/04/25}
+\gdef\insertciadbeamerthemeversion{2025/04/26}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -106,6 +106,8 @@
 \RequirePackage{translator} % Should be provided by Beamer, be sometime missed
 \RequirePackage{stringstrings} % provides lot of functions for manipulating strings
 \RequirePackage{textcase} % for making upper case the text
+\RequirePackage{tabularx}
+\RequirePackage{tcolorbox}
 
 % Bug fix: force the theme to parse the key-value options
 % (See also the patch into the ciadbeamer.cls)
@@ -2214,6 +2216,51 @@
 \def\chead#1{\textcolor{table header.fg}{#1}}%
 \def\tabularheading{\rowcolor{table header.bg}}%
 
+\newcount\beamer@theme@ciad@tabularhead@cols%
+
+\long\def\beamer@theme@ciad@tabularhead@rec#1{
+	\ifx#1\@nil%
+		\let\beamer@theme@ciad@tabularhead@next\relax%
+	\else%
+		\beamer@theme@ciad@tabularhead@separator%
+		\chead{#1}%
+		\global\advance\beamer@theme@ciad@tabularhead@cols by 1\relax%
+		\def\beamer@theme@ciad@tabularhead@separator{&}%
+		\let\beamer@theme@ciad@tabularhead@next\beamer@theme@ciad@tabularhead@rec%
+	\fi%
+	\beamer@theme@ciad@tabularhead@next%
+}
+
+\long\def\beamer@theme@ciad@tabularhead#1\\{%
+	\global\beamer@theme@ciad@tabularhead@cols=0%
+	\let\beamer@theme@ciad@tabularhead@separator\relax%
+	\beamer@theme@ciad@tabularhead@rec#1\@nil \\%
+} 
+
+\def\tabularhead{%
+	\tabularheading \beamer@theme@ciad@tabularhead%
+}
+
+% Style for tcolorbox tabular
+\tcbset{
+	stabularx/.style={%
+		colbacktitle=table header.bg,%
+		coltitle=table header.fg,%
+		colback=table content.bg,%
+		colframe=table rules.fg,%
+		coltext=table content.fg,%
+		sharpish corners,%
+		fonttitle=\bfseries,%
+		halign title=center,
+	},%
+}
+
+\NewEnviron{stabularx}[2][]{%
+	\begin{tcolorbox}[stabularx, tabularx={#2}, #1]%
+		\BODY%
+	\end{tcolorbox}%
+}
+
 %---------------------------------------------
 % Continuation
 
@@ -3823,11 +3870,6 @@
 	\global\addtolength{\beamer@theme@ciad@varrowsequence@textw}{-\beamer@theme@ciad@varrowsequenceleftsep}%
 	\global\addtolength{\beamer@theme@ciad@varrowsequence@textw}{-\beamer@theme@ciad@varrowsequencerightsep}%
 	%
-	%	(0,ya)					(w,ya)
-	%				(xa,yc)
-	%
-	%	(0,y)					(w,y)
-	%				(xa,yb)
 	% Build the graphical components
 	%
 	\setlength{\fboxsep}{0pt}%
