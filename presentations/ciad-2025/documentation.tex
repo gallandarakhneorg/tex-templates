@@ -5,7 +5,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{algpseudocode}
 \usepackage{multicol}
-\usepackage{tabularx}
 
 \graphicspath{{./docfigs/}}
 
@@ -637,17 +636,14 @@
 		\item The \texttt{type number} is the identifier of the progress bar to be used:
 		\end{itemize}
 	\end{itemize}
-	\begin{tabularx}{\linewidth}{|c|c|X|}
-	\hline
-	\tabularheading\chead{Type number} & \chead{Output} & \chead{Explanation} \\
-	\hline
+	\begin{stabularx}{|c|c|X|}
+	\tabularhead{Type number}{Output}{Explanation} \\
 	\texttt{1} & \insertframenumbering[1] & Show the current frame and its position (in green) in the total number of frames. \\
 	\hline
 	\texttt{2} & \colorbox{footline.bg}{\tiny\insertframenumbering[2]} & Show the current frame and the total number of frames. \\
 	\hline
 	\texttt{3} & \insertframenumbering[3] & Same as the type \texttt{1} with a progression bar for the current section (in magenta). \\
-	\hline
-	\end{tabularx}
+	\end{stabularx}
 \end{frame}
 
 \subsection{Continuation Text}
@@ -1785,20 +1781,21 @@
 \subsection{Tables, Descriptions and Lists}
 \subsectiontableofcontentslide
 
-\begin{frame}{Tables with Colors}
+\begin{frame}[t]{{Regular Tables} with Colors}
 	\begin{itemize}
 	\item The CIAD theme puts colorized borders around tables.
 	\item In addition, you could create a table heading with specific colors:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}tabularheading} to use the heading background.
 		\item \texttt{{\textbackslash}chead\{text\}} to define the text of a column heading.
+		\item Command \texttt{{\textbackslash}tabularhead} is a helper that is equivalent to the two commands above. This command must be followed by \texttt{{\textbackslash}{\textbackslash}}
 		\end{itemize}
 	\end{itemize}
 	\begin{example}
 		\begin{columns}
 			\begin{column}{.6\linewidth}
-				\footnotesize
-				\texttt{{\textbackslash}begin\{tabular\}\{{\textbar}l{\textbar}l{\textbar}\}{\textbackslash}{\textbackslash}} \\
+				\scriptsize
+				\texttt{{\textbackslash}begin\{tabular\}\{{\textbar}l{\textbar}l{\textbar}\}} \\
 				\texttt{{\textbackslash}hline} \\
 				\texttt{{\textbackslash}tabularheading{\textbackslash}chead\{A\}\&{\textbackslash}chead\{B\}{\textbackslash}{\textbackslash}} \\
 				\texttt{{\textbackslash}hline} \\
@@ -1816,6 +1813,70 @@
 			\end{column}
 		\end{columns}
 	\end{example}
+		\begin{columns}
+			\begin{column}{.6\linewidth}
+				\scriptsize
+				\texttt{{\textbackslash}begin\{tabular\}\{{\textbar}l{\textbar}l{\textbar}\}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}tabularhead\{A\}\{B\}{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}hline} \\
+				\texttt{{\textbackslash}C\&D{\textbackslash}{\textbackslash}} \\
+				\texttt{{\textbackslash}end\{tabular\}}
+			\end{column}
+			\begin{column}{.3\linewidth}
+				\begin{tabular}{|l|l|}
+					\hline
+					\tabularhead{A}{B} \\
+					\hline
+					C & D \\
+					\hline
+				\end{tabular}	
+			\end{column}
+		\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Colorized Tables}
+	\alertbox{%
+		The CIAD theme includes the package \texttt{tcolorbox}. \\%
+		The \emph{style \texttt{stabularx}} provides a configuration that is compatible with the CIAD Beamer theme.
+	}
+	\begin{columns}
+		\smaller
+		\begin{column}{.5\linewidth}
+			\texttt{{\textbackslash}begin\{tcolorbox\}[stabularx,} \\
+			\texttt{~~~tabularx=\{ccX\},} \\
+			\texttt{~~~title=\{This is the title\}]} \\
+			\texttt{~~{\textbackslash}tabularhead\{A\}\{B\}\{C\} {\textbackslash}{\textbackslash}} \\
+			\texttt{~~D \& E \& F {\textbackslash}{\textbackslash}} \\
+			\texttt{{\textbackslash}end\{tcolorbox\}}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{tcolorbox}[stabularx,tabularx={ccX},title={This is the title}]
+				\tabularhead{A}{B}{C} \\
+				D & E & F \\
+			\end{tcolorbox}
+		\end{column}
+	\end{columns}
+	\vspace{.5cm}
+	\alertbox*{%
+		Environment \texttt{stabularx} is provided to help you to obtain colorized tables
+	}
+	\begin{columns}
+		\smaller
+		\begin{column}{.5\linewidth}
+			\texttt{{\textbackslash}begin\{stabularx\}} \\
+			\texttt{~~~[title=\{This is the title\}]\{ccX\}} \\
+			\texttt{~~{\textbackslash}tabularhead\{A\}\{B\}\{C\} {\textbackslash}{\textbackslash}} \\
+			\texttt{~~D \& E \& F {\textbackslash}{\textbackslash}} \\
+			\texttt{{\textbackslash}end\{stabularx\}}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{stabularx}[title={This is the title}]{ccX}
+				\tabularhead{A}{B}{C} \\
+				D & E & F \\
+			\end{stabularx}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Enhanced Description}
@@ -1890,10 +1951,8 @@
 	\begin{itemize}
 	\item The CIAD theme (re)defines the macros for several symbols:
 	\end{itemize}
-	\begin{tabularx}{\linewidth}{|l|X|l|X|}
-	\hline
+	\begin{stabularx}{|l|X|l|X|}
 	\tabularheading\multicolumn{2}{|c|}{\chead{From CIAD theme}} & \multicolumn{2}{c|}{\chead{From \TeX}} \\
-	\hline
 	\texttt{{\textbackslash}copyright} & \copyright & \texttt{{\textbackslash}copyright} & \textcopyright \\
 	\hline
 	\texttt{{\textbackslash}trademark} & \trademark & \texttt{{\textbackslash}texttrademark} & \texttrademark \\
@@ -1905,8 +1964,7 @@
 	\texttt{{\textbackslash}checkmark} & \checkmark & \texttt{{\textbackslash}textcheckmark} & \textcheckmark \\
 	\hline
 	\texttt{{\textbackslash}xmark} & \xmark & & \\
-	\hline
-	\end{tabularx}
+	\end{stabularx}
 \end{frame}
 
 \begin{frame}{Sizes of the Text}
@@ -1947,15 +2005,12 @@
 	\item The macros \texttt{{\textbackslash}textup} and \texttt{{\textbackslash}textdown} try to add a space after the text, when it is allowed by the typographic rules (it uses the macro \texttt{{\textbackslash}xspace}).
 	\end{itemize}
 	\smaller
-	\begin{tabularx}{\linewidth}{|l|X|l|X|}
-	\hline
+	\begin{stabularx}{|l|X|l|X|}
 	\tabularheading\multicolumn{2}{|c|}{\chead{From CIAD theme}} & \multicolumn{2}{c|}{\chead{From \TeX}} \\
-	\hline
 	\texttt{{\textbackslash}textup} & ABC\textup{ABC}D & \texttt{{\textbackslash}textsuperscript} & ABC\textsuperscript{ABC}D \\
 	\hline
 	\texttt{{\textbackslash}textdown} & ABC\textdown{ABC}D & \texttt{{\textbackslash}textsubscript} & ABC\textsubscript{ABC}D \\
-	\hline
-	\end{tabularx}
+	\end{stabularx}
 \end{frame}
 
 \begin{frame}{{Making fancy} the first letters of the words}
