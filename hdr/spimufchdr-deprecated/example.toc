@@ -1,9 +1,0 @@
-\babel@toc {french}{}\relax 
-\contentsline {part}{I\hspace {1em}Introduction}{1}{part.1}%
-\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
-\contentsline {part}{II\hspace {1em}Première partie}{5}{part.2}%
-\contentsline {chapter}{\numberline {2}Premier chapitre}{7}{chapter.2}%
-\contentsline {part}{III\hspace {1em}Seconde partie}{9}{part.3}%
-\contentsline {chapter}{\numberline {3}Second chapitre}{11}{chapter.3}%
-\contentsline {part}{IV\hspace {1em}Conclusion et Perspectives}{13}{part.4}%
-\contentsline {chapter}{\numberline {4}Conclusion}{15}{chapter.4}%
