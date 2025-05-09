@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2025/04/28]
+\ProvidesPackage{spimbasephdthesis}[2025/05/09]
 
 \RequirePackage{lettrine}
 \RequirePackage[export]{adjustbox}
@@ -697,6 +697,11 @@
 \SetLangDefault{english}{frontpageby}{by}
 \SetLangDefault{french}{frontpageby}{par}
 
+\Set{doctoralschoolnumber}{37}
+\SetLangDefault{english}{doctoralschoolname}{Physical Sciences for Engineering and Microtechnologies}
+\SetLangDefault{french}{doctoralschoolname}{Sciences Physiques pour l'Ing\'enieur et Microtechniques}
+
+
 %%--------------------
 %% Default front page for the SPIM doctoral thesis
 % #1: the language
@@ -806,7 +811,7 @@
 \newcommand{\upmspimthesisstandardbackpage}[3]{
 	\pagestyle{empty}%
 	\begin{picture}(0,0)%
-	\put(-50,30){\includegraphics[width=170\unitlength]{\Get{doctoralschoollogo}}}%
+	\put(-50,30){\includegraphics[width=100\unitlength]{\Get{doctoralschoollogo}}}%
 	\put(-50,-710){%
 		\begin{tabular}{@{}ll@{}}%
 			\raisebox{-#3\height}{\includegraphics[height=1.1cm]{#1}} & \parbox[c]{10cm}{\scriptsize\Get{#2}}%
