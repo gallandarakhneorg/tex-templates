@@ -5,31 +5,27 @@ h1. Presentation
 h2. Slides
 
 @tex-templates@ provides styles for creating slides with the Beamer tool.
-- LE2I Laboratory located at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
-- The IRTES Research Institute of the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr (DEPRECATED).
+- "CIAD Laboratory":https://ciad-lab.fr located at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr and the "Université Bourgogne Europe":http://www.u-bourgogne.fr
 
 h2. PhD Theses
 
 @tex-templates@ provides the official styles for writing a PhD thesis in the following Universities:
 - "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
-- "Université de Franche-Comté":http://www.univ-fcomte.fr
-- "Université de Bourgogne":http://www.u-bourgogne.fr
+- "Université Marie et Louis Pasteur":http://www.univ-fcomte.fr
+- "Université Bourgogne Europe":http://www.u-bourgogne.fr
 
 Examples for these PhD thesis styles may be found at: http://www.multiagent.fr/ThesisStyle
 
 h2. French Research Supervision Accreditation
 
 @tex-templates@ provides the unofficial styles for preparing a French Research Supervision Accredidation (In French: Habilitation à diriger des rerchers - HDR):
-- Application document for "Université de Franche-Comté":http://www.univ-fcomte.fr
-- HDR report for "Université de Franche-Comté":http://www.univ-fcomte.fr
+- Application document for "Université Bourgogne Europe":http://www.u-bourgogne.fr
+- HDR report for "Université Bourgogne Europe":http://www.u-bourgogne.fr
 
-h2. Masters
-
-@tex-templates@ provides the unofficial styles for writing the Masters reports.
 
 h2. Technical Reports
 
-@tex-templates@ provides the styles for writing the technical reports of the Multiagent Group at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr.
+@tex-templates@ provides the styles for writing the technical reports of the "CIAD Laboratory":https://ciad-lab.fr at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr and the "Université Bourgogne Europe":http://www.u-bourgogne.fr
 
 - Presentation styles (for Beamer)
 
