@@ -350,30 +350,62 @@
 % #1: x coordinate of the figure
 % #2: y coordinate of the figure
 % #3: the id of the image defined with PGF
-\newcommand{\settitlepagerightfigure}[3]{%
+\newcommand{\@beamer@theme@ciad@settitlepagerightfigure}[3]{%
 	\gdef\beamer@theme@ciad@titleslide@rightlogo@x{#1}%
 	\gdef\beamer@theme@ciad@titleslide@rightlogo@y{#2}%
 	\gdef\beamer@theme@ciad@titleslide@rightlogo@pgf{#3}%
 }
 
+% Change the right icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\def\@beamer@theme@ciad@settitlepagerightfigure@proto(#1,#2)#3{%
+	\@beamer@theme@ciad@settitlepagerightfigure{#1}{#2}{#3}%
+}
+
+% Change the right icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\def\settitlepagerightfigure{%
+	\@ifnextchar(\@beamer@theme@ciad@settitlepagerightfigure@proto\@beamer@theme@ciad@settitlepagerightfigure%
+}
+
 \pgfdeclareimage[width=5cm]{ciadlogoontitleslide}{ciad-logoontitleslide}
-\settitlepagerightfigure{245}{-50}{ciadlogoontitleslide}
+\settitlepagerightfigure(245,-50){ciadlogoontitleslide}
 
 % Change the left icon
 % #1: x coordinate of the figure
 % #2: y coordinate of the figure
 % #3: the id of the image defined with PGF
-\newcommand{\settitlepageleftfigure}[3]{%
+\newcommand{\@beamer@theme@ciad@settitlepageleftfigure}[3]{%
 	\gdef\beamer@theme@ciad@titleslide@leftlogo@x{#1}%
 	\gdef\beamer@theme@ciad@titleslide@leftlogo@y{#2}%
 	\gdef\beamer@theme@ciad@titleslide@leftlogo@pgf{#3}%
+}
+
+% Change the left icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\def\@beamer@theme@ciad@settitlepageleftfigure@proto(#1,#2)#3{%
+	\@beamer@theme@ciad@settitlepageleftfigure{#1}{#2}{#3}%
+}
+
+% Change the left icon
+% #1: x coordinate of the figure
+% #2: y coordinate of the figure
+% #3: the id of the image defined with PGF
+\def\settitlepageleftfigure{%
+	\@ifnextchar(\@beamer@theme@ciad@settitlepageleftfigure@proto\@beamer@theme@ciad@settitlepageleftfigure%
 }
 
 \pgfdeclareimage[width=12.5cm]{ciadpictureontitleslide}{ciad-title-hands}
 
 % Set the left icon to the default CIAD
 \newcommand{\setdefaulttitlepageleftfigure}{%
-	\settitlepageleftfigure{-118}{-120}{ciadpictureontitleslide}
+	\settitlepageleftfigure(-118,-120){ciadpictureontitleslide}
 }
 
 % Remove the left icon
@@ -2709,31 +2741,72 @@
 \setcounter{slidebackgroundpicturecount}{0}
 \def\beamer@theme@ciad@randombackground{}
 
+\newboolean{beamer@theme@ciad@slidebackgroundpicture@outlinebackground}
 \newboolean{beamer@theme@ciad@slidebackgroundpicture@alternatecolor}
+\newlength\beamer@theme@ciad@slidebackgroundpicture@width
+
+\define@key{beamerthemeciadslidebackgroundpicture}{outline}[true]{%
+	\setboolean{beamer@theme@ciad@slidebackgroundpicture@outlinebackground}{#1}%
+}
 
 \define@key{beamerthemeciadslidebackgroundpicture}{alternatecolor}[true]{%
 	\setboolean{beamer@theme@ciad@slidebackgroundpicture@alternatecolor}{#1}%
 }
 
+\define@key{beamerthemeciadslidebackgroundpicture}{width}{%
+	\setlength\beamer@theme@ciad@slidebackgroundpicture@width{#1}%
+}
+
 % Add the slide background with the given parameters.
 % If the macro is stared, the associated figure could be randomly selected.
+% \addslidebackgroundpicture[#1](#2,#3){#4}
 % [#1] : options
 % #2 : picture position x
 % #3 : picture position y
-% #4 : picture width
-% #5 : picture filename
-\def\addslidebackgroundpicture{%
-	\@ifnextchar*\beamer@theme@ciad@addslidebackgroundpicturestar\beamer@theme@ciad@addslidebackgroundpicture%
+% #4 : picture filename
+\gdef\addslidebackgroundpicture{%
+	\@ifstar\beamer@theme@ciad@addslidebackgroundpicturestar\beamer@theme@ciad@addslidebackgroundpicturenostar%
 }
-\newcommand{\beamer@theme@ciad@addslidebackgroundpicturestar}[6][]{%
-	\setboolean{beamer@theme@ciad@slidebackgroundpicture@alternatecolor}{false}%
-	\setkeys{beamerthemeciadslidebackgroundpicture}{#1}%
-	\beamer@theme@ciad@addslidebackgroundpicture{#3}{#4}{#5}{#6}%
+
+\def\beamer@theme@ciad@addslidebackgroundpicturestar{%
+	\@ifnextchar[\beamer@theme@ciad@addslidebackgroundpicturestaropt\beamer@theme@ciad@addslidebackgroundpicturestarnoopt%
+}
+\def\beamer@theme@ciad@addslidebackgroundpicturestaropt[#1](#2,#3)#4{%
+	\beamer@theme@ciad@addslidebackgroundpicturestar@impl[#1]{#2}{#3}{#4}%
+}
+\def\beamer@theme@ciad@addslidebackgroundpicturestarnoopt(#1,#2)#3{%
+	\beamer@theme@ciad@addslidebackgroundpicturestar@impl{#1}{#2}{#3}%
+}
+
+\def\beamer@theme@ciad@addslidebackgroundpicturenostar{%
+	\@ifnextchar[\beamer@theme@ciad@addslidebackgroundpicturenostaropt\beamer@theme@ciad@addslidebackgroundpicturenostarnoopt%
+}
+\def\beamer@theme@ciad@addslidebackgroundpicturenostaropt[#1](#2,#3)#4{%
+	\beamer@theme@ciad@addslidebackgroundpicture[#1]{#2}{#3}{#4}%
+}
+\def\beamer@theme@ciad@addslidebackgroundpicturenostarnoopt(#1,#2)#3{%
+	\beamer@theme@ciad@addslidebackgroundpicture{#1}{#2}{#3}%
+}
+
+% [#1] : options
+% #2 : picture position x
+% #3 : picture position y
+% #4 : picture filename
+\newcommand{\beamer@theme@ciad@addslidebackgroundpicturestar@impl}[4][]{%
+	\beamer@theme@ciad@addslidebackgroundpicture[#1,outline=false,alternatecolor=false]{#2}{#3}{#4}%
 	\xdef\beamer@theme@ciad@randombackground{\beamer@theme@ciad@randombackground{\theslidebackgroundpicturecount}}
 	\expandafter\pgfmathdeclarerandomlist{beamer@theme@ciad@randombackground@array}{\beamer@theme@ciad@randombackground}
 }
-\newcommand{\beamer@theme@ciad@addslidebackgroundpicture}[5][]{%
+
+%% Add the slide background with the given parameters.
+%% [#1] : options
+%% #2 : picture position x
+%% #3 : picture position y
+%% #4 : picture filename
+\newcommand{\beamer@theme@ciad@addslidebackgroundpicture}[4][]{%
+	\setboolean{beamer@theme@ciad@slidebackgroundpicture@outlinebackground}{false}%
 	\setboolean{beamer@theme@ciad@slidebackgroundpicture@alternatecolor}{false}%
+	\setlength\beamer@theme@ciad@slidebackgroundpicture@width{\paperwidth}%
 	\setkeys{beamerthemeciadslidebackgroundpicture}{#1}%
 	\global\addtocounter{slidebackgroundpicturecount}{1}%
 	\global\@namedef{beamer@theme@ciad@backgroundpicture@x@\theslidebackgroundpicturecount}{#2}%
@@ -2743,18 +2816,10 @@
 	}{%
 		\global\@namedef{beamer@theme@ciad@backgroundpicture@alt@\theslidebackgroundpicturecount}{false}%
 	}%
-	\expandafter\pgfdeclareimage[width=#4]{beamer@theme@ciad@backgroundpicture@pgf@\theslidebackgroundpicturecount}{#5}%
-}
-
-% Add the slide background and register it as the outline background.
-% [#1] : options (see above)
-% #2 : picture position x
-% #3 : picture position y
-% #4 : picture width
-% #5 : picture filename
-\newcommand{\addslidebackgroundpictureO}[5][]{%
-	\beamer@theme@ciad@addslidebackgroundpicture[#1]{#2}{#3}{#4}{#5}%
-	\xdef\beamer@theme@ciad@tableofcontentslide@backgroundnumber{\theslidebackgroundpicturecount}%
+	\expandafter\pgfdeclareimage[width=\beamer@theme@ciad@slidebackgroundpicture@width]{beamer@theme@ciad@backgroundpicture@pgf@\theslidebackgroundpicturecount}{#4}%
+	\ifthenelse{\boolean{beamer@theme@ciad@slidebackgroundpicture@outlinebackground}}{%
+		\xdef\beamer@theme@ciad@tableofcontentslide@backgroundnumber{\theslidebackgroundpicturecount}%
+	}{}%
 }
 
 % Replies the picture for the slide background picture.
@@ -2848,16 +2913,16 @@
 }
 
 % Predefined backgrounds
-\addslidebackgroundpicture*{228}{-230}{8cm}{ciad-background1.pdf}
-\addslidebackgroundpicture{210}{-205}{8cm}{ciad-background2.pdf}
-\addslidebackgroundpicture{210}{-260}{8cm}{ciad-background3.pdf}
-\addslidebackgroundpictureO[alternatecolor]{0}{-222}{\paperwidth}{ciad-background4.jpg}
-\addslidebackgroundpicture[alternatecolor]{0}{-222}{\paperwidth}{ciad-background5.jpg}
-\addslidebackgroundpicture*{0}{-222}{\paperwidth}{ciad-background6.png}
-\addslidebackgroundpicture*{0}{-222}{\paperwidth}{ciad-background7.png}
-\addslidebackgroundpicture{0}{-222}{3.3cm}{ciad-background8.png}
-\addslidebackgroundpicture*{0}{-222}{5.5cm}{ciad-background9.png}
-\addslidebackgroundpicture*{270}{-205}{6cm}{ciad-background10.png}
+\addslidebackgroundpicture*[width=8cm](228,-230){ciad-background1.pdf}
+\addslidebackgroundpicture[width=8cm](210,-205){ciad-background2.pdf}
+\addslidebackgroundpicture[width=8cm](210,-260){ciad-background3.pdf}
+\addslidebackgroundpicture[outline=true,alternatecolor](0,-222){ciad-background4.jpg}
+\addslidebackgroundpicture[alternatecolor](0,-222){ciad-background5.jpg}
+\addslidebackgroundpicture*(0,-222){ciad-background6.png}
+\addslidebackgroundpicture*(0,-222){ciad-background7.png}
+\addslidebackgroundpicture*[width=3.3cm](0,-222){ciad-background8.png}
+\addslidebackgroundpicture*[width=5.5cm](0,-222){ciad-background9.png}
+\addslidebackgroundpicture*[width=6cm](270,-205){ciad-background10.png}
 
 %-----------------------------------------
 % Frame with right title
