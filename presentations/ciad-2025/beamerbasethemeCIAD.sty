@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/04/26}
+\gdef\insertciadbeamerthemeversion{2025/05/18}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -72,8 +72,8 @@
 \newboolean{beamer@theme@ciad@randombackground}
 \setboolean{beamer@theme@ciad@randombackground}{false}
 
-\newboolean{beamer@theme@ciad@alternatebgcolor}
-\setboolean{beamer@theme@ciad@alternatebgcolor}{false}
+\newif\ifbeamerthemeciadalternatebgcolor
+\beamerthemeciadalternatebgcolorfalse
 
 \newboolean{beamer@theme@ciad@frenchrepublic}
 \setboolean{beamer@theme@ciad@frenchrepublic}{true}
@@ -259,11 +259,26 @@
 % Fixing a strange bug: the default color of the
 % text is not the "normal text" color.
 % Also reset the font in case of a bug! ;-)
-\let\beamer@theme@ciad@old@frame\frame
-\gdef\frame{
-	\message{################ FRAME \the\c@page}
-	\normalcolor\normalfont\beamer@theme@ciad@old@frame%
+\global\let\beamer@theme@ciad@old@frame\frame
+\gdef\frame{%
+	\message{################ FRAME \the\c@page}%
+	% Reset the flag for the alternate background color
+	\global\beamerthemeciadalternatebgcolorfalse%
+	% Reset the style
+	\normalcolor\normalfont%
+	\beamer@theme@ciad@old@frame%
 }
+\let\beamer@theme@ciad@frameslide\beamer@frameslide
+\gdef\beamer@frameslide{%
+	\ifbeamerthemeciadalternatebgcolor%
+		\gdef\beamer@theme@ciad@frameslide@init{\usebeamercolor[fg]{alternate normal text}}%
+	\else%
+		\gdef\beamer@theme@ciad@frameslide@init{\usebeamercolor[fg]{normal text}}%
+	\fi%
+	\beamer@theme@ciad@frameslide@init%
+	\beamer@theme@ciad@frameslide%
+}
+
 
 %-----------------------------------------
 % Hooks for begin and end of slides
@@ -885,18 +900,18 @@
 % Emphasing
 \let\beamer@theme@ciad@oldemph\emph
 \renewcommand{\emph}[1]{%
-	\ifthenelse{\boolean{beamer@theme@ciad@alternatebgcolor}}{%
+	\ifbeamerthemeciadalternatebgcolor%
 		{\usebeamerfont{alternate emphased text}\usebeamercolor[fg]{alternate emphased text}#1}%
-	}{%
+	\else%
 		{\usebeamerfont{emphased text}\usebeamercolor[fg]{emphased text}#1}%
-	}%
+	\fi%
 }
 \newcommand{\Emph}[1]{%
-	\ifthenelse{\boolean{beamer@theme@ciad@alternatebgcolor}}{%
+	\ifbeamerthemeciadalternatebgcolor%
 		{\usebeamerfont{alternate emphased emphased text}\usebeamercolor[fg]{alternate emphased emphased text}#1}%
-	}{%
+	\else%
 		{\usebeamerfont{emphased emphased text}\usebeamercolor[fg]{emphased emphased text}#1}%
-	}%
+	\fi%
 }
 
 %-----------------------------------------
@@ -1820,11 +1835,11 @@
 \def\beamer@theme@ciad@description@afterseparator{\translate{ColumnChar}}
 \newcommand{\beamer@theme@ciad@itemc}[1][]{%
 	\ifthenelse{\equal{a#1}{a}}{}{%
-		\ifthenelse{\boolean{beamer@theme@ciad@alternatebgcolor}}{%
+		\ifbeamerthemeciadalternatebgcolor%
 			{\usebeamercolor[fg]{alternate description item}#1\beamer@theme@ciad@description@afterseparator}%
-		}{%
+		\else%
 			{\usebeamercolor[fg]{description item}#1\beamer@theme@ciad@description@afterseparator}%
-		}\xspace%
+		\fi\xspace%
 }}
 \long\def\beamer@theme@ciad@itema<#1>{%
 	\beamer@theme@ciad@olditem<#1>\relax\beamer@theme@ciad@itemc%
@@ -2754,24 +2769,20 @@
 	\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{0}{#1}%
 }
 
-\AtBeginFrame{%
-	\setboolean{beamer@theme@ciad@alternatebgcolor}{false}%
-	\ifthenelse{\boolean{beamer@theme@ciad@alternatebgcolor}}{%
-		\message{[ALTERNATE COLOR:=true]}%
-	}{%
-		\message{[ALTERNATE COLOR:=false]}%
-	}%
-}
-
 % Change the flag that indicates if alternate colors must be used
 % #1: id of the background picture
 \newcommand{\beamer@theme@ciad@backgroundpicture@updatealternatecolorflag}[1]{%
-	\setboolean{beamer@theme@ciad@alternatebgcolor}{\@nameuse{beamer@theme@ciad@backgroundpicture@alt@#1}}%
-	\ifthenelse{\boolean{beamer@theme@ciad@alternatebgcolor}}{%
-		\message{[ALTERNATE COLOR(#1):=true]}%
+	\expandafter\message{ALTERNATE BG COLOR(#1): \@nameuse{beamer@theme@ciad@backgroundpicture@alt@#1}}%
+	\ifthenelse{\boolean{\@nameuse{beamer@theme@ciad@backgroundpicture@alt@#1}}}{%
+		\global\beamerthemeciadalternatebgcolortrue%
 	}{%
-		\message{[ALTERNATE COLOR(#1):=false]}%
+		\global\beamerthemeciadalternatebgcolorfalse%
 	}%
+	\ifbeamerthemeciadalternatebgcolor%
+		\message{[ALTERNATE COLOR(#1):=true]}%
+	\else%
+		\message{[ALTERNATE COLOR(#1):=false]}%
+	\fi%
 }
 
 % Force the usage of the given bakcground picture as the current background picture
@@ -2779,6 +2790,12 @@
 \newcommand{\beamer@theme@ciad@backgroundpicture@forceuse}[1]{%
 	\gdef\beamer@theme@ciad@backgroundpicture@current{#1}%
 	\beamer@theme@ciad@backgroundpicture@updatealternatecolorflag{#1}%
+}
+
+% Force the use of no background
+\newcommand{\beamer@theme@ciad@backgroundpicture@removeuse}{%
+	\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+	\global\beamerthemeciadalternatebgcolorfalse%
 }
 
 % Put the picture for the slide background picture at the expected position.
@@ -2824,10 +2841,10 @@
 
 % Define a frame option for forcing the background picture
 \define@key{beamerframe}{background}{%
-	\gdef\beamer@theme@ciad@backgroundpicture@current{#1}%
+	\beamer@theme@ciad@backgroundpicture@forceuse{#1}%
 }
 \define@key{beamerframe}{nobackground}[true]{%
-	\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+	\beamer@theme@ciad@backgroundpicture@removeuse%
 }
 
 % Predefined backgrounds
@@ -2912,7 +2929,7 @@
 		% Save the right picture
 		\gdef\beamer@theme@ciad@lawnframe@picture{beamer@theme@ciad@lawn@#3}%
 		% Force the background picture
-		\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+		\beamer@theme@ciad@backgroundpicture@removeuse%
 		% Add the left lawn
 		\usebeamertemplate{framerightlawn}%
 		% Restore normal font and color
@@ -2954,7 +2971,7 @@
 		% Save the right picture
 		\gdef\beamer@theme@ciad@textpictureframe@picture{beamer@theme@ciad@textpicture@picture@#3}%
 		% Force the background picture
-		\global\let\beamer@theme@ciad@backgroundpicture@current\relax%
+		\beamer@theme@ciad@backgroundpicture@removeuse%
 		% Add the left lawn
 		\usebeamertemplate{frametextpicture}%
 		% Restore normal font and color

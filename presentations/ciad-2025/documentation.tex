@@ -53,7 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Introduction}
 	\begin{itemize}
-	\item This document explains the {\LaTeX} macros that are provided by the CIAD theme for beamer.
+	\item This document explains the {\LaTeX} commands that are provided by the CIAD theme for beamer.
 	\vfill
 	\item To use the CIAD theme for beamer, you must:
 		\begin{enumerate}
@@ -71,13 +71,13 @@
 	\vfill
 	\item Add a final slide at the end of the presentation to avoid ``black'' screen at the end of the presentation.
 	\vfill
-	\item Provide high level macros for building the slides.
+	\item Provide high level commands for building the slides.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Read the Beamer Documentation}
 	\huge
-	\alertbox{It is recommended to read the user guide of Beamer for obtain a view of the available macros.}
+	\alertbox{It is recommended to read the user guide of Beamer for obtain a view of the available commands.}
 	\vspace{2em}
 	\alertbox*{\url{http://texdoc.net/texmf-dist/doc/latex/beamer/doc/beameruserguide.pdf}}
 \end{frame}
@@ -94,7 +94,7 @@
 
 \begin{frame}{{\LaTeX}\ Colors}
 	\begin{itemize}
-	\item The CIAD theme defines the colors for the macros provided by the \texttt{xcolor} package:
+	\item The CIAD theme defines the colors for the commands provided by the \texttt{xcolor} package:
 		\begin{itemize}
 		\item \texttt{CIADblue} : \fbox{\textcolor{CIADblue}{Example}} \colorbox{CIADblue}{\textcolor{white}{Example}}
 		\item \texttt{CIADmagenta} : \fbox{\textcolor{CIADmagenta}{Example}} \colorbox{CIADmagenta}{\textcolor{white}{Example}}
@@ -111,7 +111,7 @@
 
 \begin{frame}{{\LaTeX}\ Colors \insertcontinuationtext}
 	\begin{itemize}
-	\item The CIAD theme defines the colors for the macros provided by the \texttt{xcolor} package:
+	\item The CIAD theme defines the colors for the commands provided by the \texttt{xcolor} package:
 		\begin{itemize}
 		\item \texttt{CIADdarkgray} : \fbox{\textcolor{CIADdarkgray}{Example}} \colorbox{CIADdarkgray}{\textcolor{white}{Example}}
 		\item \texttt{CIADlightgray} : \fbox{\textcolor{CIADlightgray}{Example}} \colorbox{CIADlightgray}{\textcolor{black}{Example}}
@@ -122,7 +122,7 @@
 
 \begin{frame}{Beamer Colors}
 	\begin{itemize}
-	\item The CIAD theme defines color for beamer, that may be used with the macro \texttt{{\textbackslash}usebeamercolor\{color\_name\}}:
+	\item The CIAD theme defines color for beamer, that may be used with the command \texttt{{\textbackslash}usebeamercolor\{color\_name\}}:
 		\begin{itemize}
 		\item \texttt{code keyword} : \fbox{\usebeamercolor[fg]{code keyword}Example}
 		\vfill
@@ -234,14 +234,14 @@
 
 \begin{frame}{Title and Subtitle}
 	\begin{block}{Title}
-		Use the macro: \texttt{{\textbackslash}title\{title of the document\}}
+		Use the command: \texttt{{\textbackslash}title\{title of the document\}}
 	\end{block}
 	\vfill
 	\begin{block}{Subtitle}
-		Use the macro: \texttt{{\textbackslash}subtitle\{subtitle of the document\}}
+		Use the command: \texttt{{\textbackslash}subtitle\{subtitle of the document\}}
 	\end{block}
 	\vfill
-	\alertbox{These macros must be put in the preamble of your document.}
+	\alertbox{These commands must be put in the preamble of your document.}
 \end{frame}
 
 \begin{frame}[t]{{Change the Figures} on the Title Slide}
@@ -258,40 +258,40 @@
 \end{frame}
 
 \begin{frame}[t]{Change the Right Picture \textcircled{2}}
-	For changing the picture on the right \textcircled{2}, use the macro: \\[.25cm]
-	\texttt{{\textbackslash}settitlepagerightfigure\{x\}\{y\}\{pgf-id\}} \\[.25cm]
+	For changing the picture on the right \textcircled{2}, use the command: \\[.25cm]
+	\texttt{{\textbackslash}settitlepagerightfigure(x,y)\{pgf-id\}} \\[.25cm]
 	\begin{itemize}
 		\item (\texttt{x}, \texttt{y}) is the coordinate where to put the picture.
-		\item \texttt{pgf-id} is the identifier of the picture that is declared with the macro \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the macro \texttt{{\textbackslash}settitlepagerightfigure}.
+		\item \texttt{pgf-id} is the identifier of the picture that is declared with the command \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id\}\{filename\}} before calling the command \texttt{{\textbackslash}settitlepagerightfigure}.
 	\end{itemize}
 	\begin{example}
 		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{utbmlogo\}} \\
-		\texttt{{\textbackslash}settitlepagerightfigure\{250\}\{-30\}\{mypicture\}} \\
+		\texttt{{\textbackslash}settitlepagerightfigure(250,-30)\{mypicture\}} \\
 		\centering\includegraphics[width=.25\linewidth]{frontpage2}
 	\end{example}
 \end{frame}
 
 \begin{frame}[t]{Change the Left Picture \textcircled{4}}
-	For changing the picture on the left \textcircled{4}, use the macro: \\[.25cm]
-	\texttt{{\textbackslash}settitlepageleftfigure\{x\}\{y\}\{pgf-id\}} \\[.25cm]
+	For changing the picture on the left \textcircled{4}, use the command: \\[.25cm]
+	\texttt{{\textbackslash}settitlepageleftfigure(x,y)\{pgf-id\}} \\[.25cm]
 	\begin{itemize}
 		\item (\texttt{x}, \texttt{y}) is the coordinate where to put the picture.
-		\item \texttt{pgf-id} is the identifier of the picture that is declared with the macro \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the macro \texttt{{\textbackslash}settitlepageleftfigure}.
+		\item \texttt{pgf-id} is the identifier of the picture that is declared with the command \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id\}\{filename\}} before calling the command \texttt{{\textbackslash}settitlepageleftfigure}.
 	\end{itemize}
 	\begin{example}
 		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{utbmlogo\}} \\
-		\texttt{{\textbackslash}settitlepageleftfigure\{0\}\{-30\}\{mypicture\}} \\
+		\texttt{{\textbackslash}settitlepageleftfigure(0,-30)\{mypicture\}} \\
 		\centering\includegraphics[width=.25\linewidth]{frontpage4}
 	\end{example}
 \end{frame}
 
 \begin{frame}[t]{Change the Left Background \textcircled{3}}
-	\smaller For changing the picture on the left background \textcircled{3}, use the macro: \\[.25cm]
+	\smaller For changing the picture on the left background \textcircled{3}, use the command: \\[.25cm]
 	\texttt{{\textbackslash}settitlepageuserbackground\{pgf-id\}} \\[.25cm]
 	\begin{itemize}
-		\item \texttt{pgf-id} is the identifier of the picture that is declared with the macro \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the macro \texttt{{\textbackslash}settitlepageuserbackground}.
+		\item \texttt{pgf-id} is the identifier of the picture that is declared with the command \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id)\}\{filename\}} before calling the command \texttt{{\textbackslash}settitlepageuserbackground}.
 	\end{itemize}
-	\alertbox{The left picture is automatically removed when the macro above is invoked}
+	\alertbox{The left picture is automatically removed when the command above is invoked}
 	\begin{example}
 		\texttt{{\textbackslash}pgfdeclareimage[height={\textbackslash}paperheight]\{mypicture\}\{mybackground\}} \\
 		\texttt{{\textbackslash}settitlepageuserbackground\{mypicture\}} \\
@@ -300,7 +300,7 @@
 \end{frame}
 
 \begin{frame}{{Predefined Backgrounds} for the Title Page State}
-	Several background pictures are provided into the CIAD Beamer theme for the position \textcircled{3}. In order to select one of these background, the macro below must be used. The list of predefined background is provided in the following slides. \\[.5cm]
+	Several background pictures are provided into the CIAD Beamer theme for the position \textcircled{3}. In order to select one of these background, the command below must be used. The list of predefined background is provided in the following slides. \\[.5cm]
 	\texttt{{\textbackslash}setpredefinedtitlepagebackground{\#}} \\[.5cm]
 	\begin{itemize}
 		\item \texttt{\#} is the number of the predefined background, e.g., "\texttt{1}"
@@ -352,8 +352,8 @@
 	\fbox{\scalebox{0.5}{\insertpredefinedtitlepagebackground9}}
 \end{frame}
 
-\begin{frame}{{Other Macros} for Changing the Title Page State}
-	For restoring the title page to its default state, the following macros are available: \\[.25cm]
+\begin{frame}{{Other commands} for Changing the Title Page State}
+	For restoring the title page to its default state, the following commands are available: \\[.25cm]
 	\begin{itemize}
 		\item \texttt{{\textbackslash}setdefaulttitlepageleftfigure}: restore the left picture \textcircled{2} to the default CIAD logo
 		\item \texttt{{\textbackslash}removetitlepageleftfigure}: remove any picture at position \textcircled{2}
@@ -365,14 +365,14 @@
 
 \begin{frame}{Authors}
 	\begin{itemize}
-	\item Authors are defined with the macro: \\
+	\item Authors are defined with the command: \\
 		\texttt{{\textbackslash}author[short]\{long\}}
 		\begin{itemize}
-		\item the \texttt{long} list of author is displayed on the front page. You should separate the names with the macro \texttt{{\textbackslash}and}.
-		\item the \texttt{short} list of author is displayed inside the foot line of the slides. You \alert{must not separate} the names with the macro \texttt{{\textbackslash}and}.
+		\item the \texttt{long} list of author is displayed on the front page. You should separate the names with the command \texttt{{\textbackslash}and}.
+		\item the \texttt{short} list of author is displayed inside the foot line of the slides. You \alert{must not separate} the names with the command \texttt{{\textbackslash}and}.
 		\end{itemize}
 	\vfill
-	\item \alert{Alternatively}, you could define the authors with the macros: \\
+	\item \alert{Alternatively}, you could define the authors with the commands: \\
 		\texttt{{\textbackslash}addauthor[short]\{long\}} \\
 		\texttt{{\textbackslash}addauthor*[short]\{long\}}
 		\begin{itemize}
@@ -381,7 +381,7 @@
 		\end{itemize}
 	\end{itemize}
 	\vfill
-	\alertbox{These macros must be put in the preamble of your document.}
+	\alertbox{These commands must be put in the preamble of your document.}
 \end{frame}
 
 \begin{frame}{Author Description}
@@ -390,7 +390,7 @@
 		\texttt{{\textbackslash}authordescription\{description\}}
 	\end{itemize}
 	\vfill
-	\alertbox{This macro must be put in the preamble of your document.}
+	\alertbox{This command must be put in the preamble of your document.}
 \end{frame}
 
 \subsection{Keywords, Subject and Abstract}
@@ -402,7 +402,7 @@
 	\vspace{1em}
 	\item These keywords are automatically put in the properties of the generated PDF file.
 	\vspace{1em}
-	\item To insert the keywords into your slides, you could use the macro: \\
+	\item To insert the keywords into your slides, you could use the command: \\
 			\texttt{{\textbackslash}insertkeywords}
 	\end{itemize}
 	\begin{example}
@@ -417,7 +417,7 @@
 	\vspace{1em}
 	\item This subject is automatically put in the properties of the generated PDF file.
 	\vspace{1em}
-	\item To insert the subject into your slides, you could use the macro: \\
+	\item To insert the subject into your slides, you could use the command: \\
 			\texttt{{\textbackslash}insertsubject}
 	\end{itemize}
 	\begin{example}
@@ -448,7 +448,7 @@
 			\texttt{{\textbackslash}event[short]\{full\}}
 		\item the \texttt{full} name is displayed on the front page.
 		\item the \texttt{short} name is displayed inside the foot line of the slides.
-		\item Put these macros into the document preamble.
+		\item Put these commands into the document preamble.
 		\end{itemize}
 	\end{block}
 	\begin{block}{Insert the event name in your slides}
@@ -465,7 +465,7 @@
 
 \begin{frame}{Institute Name}
 	\begin{itemize}
-	\item You could change the name of the institute with the following macro in the document preamble: \\
+	\item You could change the name of the institute with the following command in the document preamble: \\
 		\texttt{{\textbackslash}institute[short]\{full\}}
 	\item the \texttt{full} name is displayed on the front page.
 	\item the \texttt{short} name is displayed inside the foot line of the slides.
@@ -483,7 +483,7 @@
 	\vspace{1em}
 	\item The default url is: \insertinstituteurl
 	\vspace{1em}
-	\item To insert the institute's URL, you could use the macro: \\
+	\item To insert the institute's URL, you could use the command: \\
 			\texttt{{\textbackslash}insertinstituteurl}
 	\end{itemize}
 \end{frame}
@@ -501,7 +501,7 @@
 	\vfill
 	\item You could change this headline with: \begin{itemize}\footnotesize
 		\item \texttt{{\textbackslash}useheaderempty}: the headline is empty (no icon).
-		\item \texttt{{\textbackslash}useheaderdefault}: the headline is filled with the default value (may be changed with one of the macros on the following slide).
+		\item \texttt{{\textbackslash}useheaderdefault}: the headline is filled with the default value (may be changed with one of the commands on the following slide).
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -592,11 +592,11 @@
 		\item \texttt{{\textbackslash}usefootlinewithsections}: the footline contains the list of the sections of the presentation.
 		\end{itemize}
 	\vspace{1em}
-	\item The following macro is used for inserting the official laboratory logos at the bottom right corner of the slides: \\
-		\texttt{{\textbackslash}insertinstitutelogosinfootline\{macros\}}
+	\item The following command is used for inserting the official laboratory logos at the bottom right corner of the slides: \\
+		\texttt{{\textbackslash}insertinstitutelogosinfootline\{commands\}}
 		\begin{itemize}
-		\item The parameter is the set of macros to insert between the logos (basically a spacing macro).
-		\item You could redefine this macro for changing the logos.
+		\item The parameter is the set of commands to insert between the logos (basically a spacing command).
+		\item You could redefine this command for changing the logos.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -607,7 +607,7 @@
 	\begin{itemize}
 	\item You could add on all slides one or more logos for your partner(s): \\
 		\texttt{{\textbackslash}partnerlogo[options]\{filename\}}
-	\item You must call the previous macro for each partner logo.
+	\item You must call the previous command for each partner logo.
 	\item The \texttt{filename} is the name of the picture.
 	\vspace{1em}
 	\item This figure is declared with \texttt{{\textbackslash}pgfdeclareimage} with the key ``CIADpartnerlogo''.
@@ -630,7 +630,7 @@
 
 \begin{frame}[label=progressbartypes,t]{Style for the Frame Numbers}
 	\begin{itemize}
-	\item The following macro changes the style of the frame numbers:
+	\item The following command changes the style of the frame numbers:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}insertframenumbering[type number]}
 		\item The \texttt{type number} is the identifier of the progress bar to be used:
@@ -656,17 +656,17 @@
 		\texttt{{\textbackslash}insertcontinuationwith\{integer\}}
 	\item The parameter is the value of the continuation counter to display.
 	\vfill
-	\item \inlineexample{in the following frame, the macro is used in the title \texttt{{\textbackslash}insertcontinuationtext}.}
-	\item \inlineexample{in the second following frame, the macro is used in the title \texttt{{\textbackslash}insertcontinuationwith\{34\}}.}
+	\item \inlineexample{in the following frame, the command is used in the title \texttt{{\textbackslash}insertcontinuationtext}.}
+	\item \inlineexample{in the second following frame, the command is used in the title \texttt{{\textbackslash}insertcontinuationwith\{34\}}.}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Example of continuation \insertcontinuationtext}
-	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationtext}.
+	The continuation text in the title of this frame is given by the command \texttt{{\textbackslash}insertcontinuationtext}.
 \end{frame}
 
 \begin{frame}{Example of continuation \insertcontinuationwith{34}}
-	The continuation text in the title of this frame is given by the macro \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
+	The continuation text in the title of this frame is given by the command \texttt{{\textbackslash}insertcontinuationwith\{34\}}.
 \end{frame}
 
 
@@ -703,11 +703,31 @@
 	\alertbox*{This background picture is candidate for random background}
 \end{frame}
 
+\begin{frame}[background=1]{Example of Pre-defined Background Picture: 1}
+	This slide is an example of the use of the background picture number 1 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
+
 \begin{frame}[t]{{Changing the Background Picture:} 2}
 	\texttt{{\textbackslash}documentclass[background=2]\{ciadbeamer\}} \\[.25cm]
 	\texttt{{\textbackslash}begin\{frame\}[background=2]} \\[.25cm]
 	\centering\fbox{\scalebox{0.5}{\insertslidebackgroundpicture2}} \\[.25cm]
 	\alertbox*{This background picture is candidate for random background}
+\end{frame}
+
+\begin{frame}[background=2]{Example of Pre-defined Background Picture: 2}
+	This slide is an example of the use of the background picture number 2 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
 \end{frame}
 
 \begin{frame}[t]{{Changing the Background Picture:} 3}
@@ -717,11 +737,31 @@
 	\alertbox*{This background picture is candidate for random background}
 \end{frame}
 
+\begin{frame}[background=3]{Example of Pre-defined Background Picture: 3}
+	This slide is an example of the use of the background picture number 3 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
+
 \begin{frame}[t]{{Changing the Background Picture:} 4}
 	\texttt{{\textbackslash}documentclass[background=4]\{ciadbeamer\}} \\[.25cm]
 	\texttt{{\textbackslash}begin\{frame\}[background=4]} \\[.25cm]
 	\centering\fbox{\scalebox{0.5}{\insertslidebackgroundpicture4}} \\[.25cm]
 	\alertbox{This background picture cannot be candidate for random background}
+\end{frame}
+
+\begin{frame}[background=4]{Example of Pre-defined Background Picture: 4}
+	This slide is an example of the use of the background picture number 4 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
 \end{frame}
 
 \begin{frame}[t]{{Changing the Background Picture:} 5}
@@ -731,11 +771,31 @@
 	\alertbox{This background picture cannot be candidate for random background}
 \end{frame}
 
+\begin{frame}[background=5]{Example of Pre-defined Background Picture: 5}
+	This slide is an example of the use of the background picture number 5 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
+
 \begin{frame}[t]{{Changing the Background Picture:} 6}
 	\texttt{{\textbackslash}documentclass[background=6]\{ciadbeamer\}} \\[.25cm]
 	\texttt{{\textbackslash}begin\{frame\}[background=6]} \\[.25cm]
 	\centering\fbox{\scalebox{0.5}{\insertslidebackgroundpicture6}} \\[.25cm]
 	\alertbox*{This background picture is candidate for random background}
+\end{frame}
+
+\begin{frame}[background=6]{Example of Pre-defined Background Picture: 6}
+	This slide is an example of the use of the background picture number 6 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
 \end{frame}
 
 \begin{frame}[t]{{Changing the Background Picture:} 7}
@@ -745,11 +805,31 @@
 	\alertbox*{This background picture is candidate for random background}
 \end{frame}
 
+\begin{frame}[background=7]{Example of Pre-defined Background Picture: 7}
+	This slide is an example of the use of the background picture number 7 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
+
 \begin{frame}[t]{{Changing the Background Picture:} 8}
 	\texttt{{\textbackslash}documentclass[background=8]\{ciadbeamer\}} \\[.25cm]
 	\texttt{{\textbackslash}begin\{frame\}[background=8]} \\[.25cm]
 	\centering\fbox{\scalebox{0.5}{\insertslidebackgroundpicture8}} \\[.25cm]
 	\alertbox{This background picture cannot be candidate for random background}
+\end{frame}
+
+\begin{frame}[background=8]{Example of Pre-defined Background Picture: 8}
+	This slide is an example of the use of the background picture number 8 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
 \end{frame}
 
 \begin{frame}[t]{{Changing the Background Picture:} 9}
@@ -759,6 +839,16 @@
 	\alertbox*{This background picture is candidate for random background}
 \end{frame}
 
+\begin{frame}[background=9]{Example of Pre-defined Background Picture: 9}
+	This slide is an example of the use of the background picture number 9 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
+
 \begin{frame}[t]{{Changing the Background Picture:} 10}
 	\texttt{{\textbackslash}documentclass[background=10]\{ciadbeamer\}} \\[.25cm]
 	\texttt{{\textbackslash}begin\{frame\}[background=10]} \\[.25cm]
@@ -766,26 +856,39 @@
 	\alertbox*{This background picture is candidate for random background}
 \end{frame}
 
+\begin{frame}[background=10]{Example of Pre-defined Background Picture: 10}
+	This slide is an example of the use of the background picture number 10 \\[.5cm]
+	\ifbeamerthemeciadalternatebgcolor%
+		THIS IS ALTERNATE BACKGROUND COLOR%
+	\else%
+		THIS IS REGULAR BACKGROUND COLOR%
+	\fi\\[.5cm]%
+	Emphazed \Emph{text}
+\end{frame}
 
 \subsection{Add our Background Pictures}
 
-\begin{frame}{\subsecname}
+\begin{frame}[t]{\subsecname}
 	Two functions ar provided for adding our own background picture: \\[.25cm]
-	\texttt{{\textbackslash}addslidebackgroundpicture[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
-	\texttt{{\textbackslash}addslidebackgroundpicture*[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
+	\texttt{{\textbackslash}addslidebackgroundpicture[options](x,y)\{filename\}} \\[.25cm]
+	\texttt{{\textbackslash}addslidebackgroundpicture*[options](x,y)\{filename\}} \\[.25cm]
 	\begin{itemize}
 		\item (\texttt{x},\texttt{y}) is the position of the background on the slide
-		\item \texttt{width} is the width of the picture
 		\item \texttt{filename} is the filename of the picture
-		\item \texttt{alternatecolor} is a boolean flag that indicates if the alternate colors should be preferred to regular colors when used with this background. Alternate colors are usually considered to be suitable with dark brackground pictures
-		\item \emph{The stared version of the macro has the effect to register the picture as a candidate for the random selection of the background}
+		\item \texttt{options} is the list of optional parameters in:
+			\begin{itemize}
+			\item \texttt{width=<length>} is the width of the picture, by default \texttt{{\textbackslash}linewidth}
+			\item \texttt{alternatecolor[=<true|false>]} is a boolean flag that indicates if the alternate colors should be preferred to regular colors when used with this background. Alternate colors are usually considered to be suitable with dark brackground pictures
+			\item \texttt{outline[=<true|false>]} is a boolean flag that indicates if the background is for the outline slides
+			\end{itemize}
+		\item \emph{The stared version of the command has the effect to register the picture as a candidate for the random selection of the background}
 	\end{itemize}
 \end{frame}
 
 \subsection{Insert a Background Picture}
 
 \begin{frame}{\subsecname}
-	The following macros enable you to insert the background picture: \\[.25cm]
+	The following commands enable you to insert the background picture: \\[.25cm]
 	\texttt{{\textbackslash}insertslidebackgroundpicture\{num\}} \\[.25cm]
 	\texttt{{\textbackslash}putslidebackgroundpicture\{num\}} \\[.25cm]
 	\texttt{{\textbackslash}insertcurrentslidebackgroundpicture} \\[.25cm]
@@ -800,22 +903,9 @@
 \subsection{Random Background Picture}
 
 \begin{frame}{\subsecname}
-	It is possible to change the background picture random. The candidates are those added with the \texttt{{\textbackslash}addslidebackgroundpicture*} macro \\[.25cm]
+	It is possible to change the background picture random. The candidates are those added with the \texttt{{\textbackslash}addslidebackgroundpicture*} command \\[.25cm]
 	Turning on the random selection of the background is done by specifying the value "\texttt{randombackground}" as class option: \\[.25cm]
 	\texttt{{\textbackslash}documentclass[randombackground]\{ciadbeamer\}}
-\end{frame}
-
-\subsection{Background Picture for Outline Slides}
-
-\begin{frame}{\subsecname}
-	The following function is provided for changing the background picture for the outline slides: \\[.25cm]
-	\texttt{{\textbackslash}addslidebackgroundpictureO[alternatecolor]\{x\}\{y\}\{width\}\{filename\}} \\[.25cm]
-	\begin{itemize}
-		\item (\texttt{x},\texttt{y}) is the position of the background on the slide
-		\item \texttt{width} is the width of the picture
-		\item \texttt{filename} is the filename of the picture
-		\item \texttt{alternatecolor} is a boolean flag that indicates if the alternate colors should be preferred to regular colors when used with this background. Alternate colors are usually considered to be suitable with dark brackground pictures
-	\end{itemize}
 \end{frame}
 
 
@@ -829,7 +919,7 @@
 
 \begin{frame}{Table of Contents/Outline}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to insert a table of contents into a slide: \\
+	\item The CIAD theme provides a convenient command to insert a table of contents into a slide: \\
 		\texttt{{\textbackslash}tableofcontentsslide[toc options][frame options]}
 	\vspace{1em}
 	\item It is equivalent to: \\
@@ -844,7 +934,7 @@
 
 \begin{frame}{Table of Contents for Sections}
 	\begin{itemize}
-	\item The CIAD theme provides convenient macros for showing the TOC for sections into a slide: \\
+	\item The CIAD theme provides convenient commands for showing the TOC for sections into a slide: \\
 		\texttt{{\textbackslash}sectiontableofcontentslide} \\
 		\texttt{{\textbackslash}subsectiontableofcontentslide} \\
 		\texttt{{\textbackslash}subsubsectiontableofcontentslide}
@@ -852,7 +942,7 @@
 	\item You could control the list of the sections that are shown in the TOC by specifying a range of section numbers with: \\
 		\texttt{{\textbackslash}sectionsintoc\{section\_range\}} \\
 		It is equivalent to passing option \texttt{sections={section\_range}} to the \texttt{{\textbackslash}tableofcontent} command
-	\item The \texttt{{\textbackslash}sectionsintoc} macro is active until it is evaluated again or the following resetting macro is used: \\
+	\item The \texttt{{\textbackslash}sectionsintoc} command is active until it is evaluated again or the following resetting command is used: \\
 		\texttt{{\textbackslash}resetsectionsintoc}
 	\end{itemize}
 \end{frame}
@@ -861,7 +951,7 @@
 
 \begin{frame}{Part Sectioning}
 	\begin{itemize}
-	\item The CIAD theme provides specific implementations of the \texttt{{\textbackslash}part} macro: \\
+	\item The CIAD theme provides specific implementations of the \texttt{{\textbackslash}part} command: \\
 		\texttt{{\textbackslash}part[options]\{title\}} \\
 		\texttt{{\textbackslash}part*[options]\{title\}}
 	\vfill
@@ -880,7 +970,7 @@
 	\begin{itemize}
 	\item By default, each part starts with a slide with only the part's title on, without a prefix such as ``Chapter X''.
 	\vfill
-	\item The CIAD theme provides the following macros to change the part's prefix:
+	\item The CIAD theme provides the following commands to change the part's prefix:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}insertpartprefix} insert the current part prefix.
 		\item \texttt{{\textbackslash}partprefix[counter text]\{text\}} changes the prefix to ``text'' followed by ``counter text''.
@@ -909,7 +999,7 @@
 		\item \texttt{title in toc}: the title of the section into the TOC.
 		\item \texttt{title}: the standard title of the section.
 		\end{itemize}
-	\item The `'starred'' macros above ignore the \texttt{title in toc} argument and do not add the section into the TOC.
+	\item The `'starred'' commands above ignore the \texttt{title in toc} argument and do not add the section into the TOC.
 	\end{itemize}
 \end{frame}
 
@@ -921,8 +1011,8 @@
 	\vspace{1em}
 	\item To create the appendix, you must:
 		\begin{enumerate}
-		\item put the macro \texttt{{\textbackslash}appendix} in your {\TeX} file; or
-		\item put the macro \texttt{{\textbackslash}bibliography} in your {\TeX} file.
+		\item put the command \texttt{{\textbackslash}appendix} in your {\TeX} file; or
+		\item put the command \texttt{{\textbackslash}bibliography} in your {\TeX} file.
 		\end{enumerate}
 	\vspace{1em}
 	\item All the slides that are put after the creation of the appendix are assumed to be part of the appendix.
@@ -935,14 +1025,14 @@
 
 \begin{frame}{Bibliography}
 	\begin{itemize}
-	\item You are able to include a bibliography in your slides with the two standard {\LaTeX} macros: \\
+	\item You are able to include a bibliography in your slides with the two standard {\LaTeX} commands: \\
 		\texttt{{\textbackslash}bibliographystyle\{style\}} \\
 		\texttt{{\textbackslash}bibliography\{filename\}}
 	\vspace{1em}
 	\item If you do not call \texttt{{\textbackslash}bibliographystyle}, the default style is \texttt{apalike}.
 	\vspace{1em}
-	\item When the macro \texttt{{\textbackslash}bibliography} is used, the appendix section is started if it was not already done.
-	\item The bibliography slides are \alert{always at the end of the document}. Even if you put slides after the {\textbackslash}bibliography macro.
+	\item When the command \texttt{{\textbackslash}bibliography} is used, the appendix section is started if it was not already done.
+	\item The bibliography slides are \alert{always at the end of the document}. Even if you put slides after the {\textbackslash}bibliography command.
 	\item \emph{The first slide of the bibliography is marked with the label ``\texttt{bibliographyslide}'' for \texttt{{\textbackslash}hyperlink}.}
 	\end{itemize}
 \end{frame}
@@ -1117,7 +1207,7 @@
 
 \begin{frame}{Slide with a Single Figure}
 	\begin{itemize}
-	\item The CIAD theme provides a macro that permits to display a picture on the entire slide: \\
+	\item The CIAD theme provides a command that permits to display a picture on the entire slide: \\
 			\texttt{{\textbackslash}figureslide[options]\{Title of the slide\}\{file\}}
 	\item The size of the picture is adjusted to the slide drawing area.
 	\item Example: \texttt{{\textbackslash}figureslide\{XyZ\}\{ciadlogo\}} 
@@ -1157,9 +1247,9 @@
 	\begin{itemize}
 	\item The AutoLaTeX\footnote{\url{http://www.arakhne.org/autolatex}} tool provides a \LaTeX\ package that enables to include images with layers. Each layers may be displayed in a separate frame by Beamer.
 	\vfill
-	\item If you have included the AutoLaTeX package, the following macro enables you to display an animated figure on the entire space of a slide: \\
+	\item If you have included the AutoLaTeX package, the following command enables you to display an animated figure on the entire space of a slide: \\
 		\texttt{{\textbackslash}animatedfigureslide<framespec>[options]\{title\}\{file\}}
-	\item This macro is similar to \texttt{{\textbackslash}figureslide}, except that the given picture must be displayable by the macro \texttt{{\textbackslash}includeanimatedfigure}, provided by AutoLaTeX.
+	\item This command is similar to \texttt{{\textbackslash}figureslide}, except that the given picture must be displayable by the command \texttt{{\textbackslash}includeanimatedfigure}, provided by AutoLaTeX.
 	\end{itemize}
 \end{frame}
 
@@ -1195,7 +1285,7 @@
 
 \begin{frame}{Slide with a Single Embedded Video}
 	\begin{itemize}
-	\item The CIAD theme provides a macro that permits to display a \emph{embedded video} on the entire slide. This video could be displayed during the show with a viewer such as PDFPC: \\
+	\item The CIAD theme provides a command that permits to display a \emph{embedded video} on the entire slide. This video could be displayed during the show with a viewer such as PDFPC: \\
 		\texttt{{\textbackslash}embeddedvideoslide[options]\{Title of the slide\}\{video file\}\{image file\}}
 	\item The size of the picture is adjusted to the slide drawing area.
 	\item Example: \texttt{{\textbackslash}embeddedvideoslide\{XyZ\}\{myvideo\}\{ciadlogo\}} 
@@ -1236,7 +1326,7 @@
 	\vfill
 	\item The class options \texttt{thanksslide}, \texttt{questionslide} and \texttt{repeattitleslide} permit to select one of these possibilities.
 	\vfill
-	\item The macro \texttt{{\textbackslash}finalslidetext\{text\}} may be used to set the text by hand.
+	\item The command \texttt{{\textbackslash}finalslidetext\{text\}} may be used to set the text by hand.
 	\vfill
 	\item \emph{This slide is marked with the label \texttt{finalslide} for \texttt{{\textbackslash}hyperlink}.}
 	\vfill
@@ -1248,11 +1338,11 @@
 
 \begin{frame}{Book Description}
 	\begin{itemize}
-	\item You are able to include a description of a book in your presentation with the macro: \\
+	\item You are able to include a description of a book in your presentation with the command: \\
 		\texttt{{\textbackslash}libraryslide[options]\{picture\}} \\
 		\texttt{\{title\}\{authors\}\{How published\}\{ISBN\}}
 	\vspace{1em}
-	\item The macro creates a slide for a book.
+	\item The command creates a slide for a book.
 	\vspace{1em}
 	\item The \texttt{options} may be composed of pairs of name-value:
 		\begin{itemize}
@@ -1272,10 +1362,10 @@
 \subsectiontableofcontentslide
 
 \begin{frame}{{\textbackslash}includegraphics}
-	\alertbox{The macro \textbf{{\textbackslash}includegraphics} is overridden by the theme.}
+	\alertbox{The command \textbf{{\textbackslash}includegraphics} is overridden by the theme.}
 	\begin{itemize}
 	\vspace{2em}
-	\item If you don't specify any optional parameter related to the size of the picture in the document, the \textbf{{\textbackslash}includegraphics} macro will use by default: \\
+	\item If you don't specify any optional parameter related to the size of the picture in the document, the \textbf{{\textbackslash}includegraphics} command will use by default: \\
 		\textbf{width={\textbackslash}linewidth}
 	\end{itemize}
 \end{frame}
@@ -1387,7 +1477,7 @@
 	\texttt{{\textbackslash}end\{rightarrowsequence\}}
 	
 	\begin{itemize}
-	\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
+	\item Each arrow is drawn by the command \texttt{{\textbackslash}arrow}
 	\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
 	\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
 	\end{itemize}
@@ -1460,7 +1550,7 @@
 			\texttt{{\textbackslash}end\{bottomarrowsequence\}}
 			
 			\begin{itemize}
-			\item Each arrow is drawn by the macro \texttt{{\textbackslash}arrow}
+			\item Each arrow is drawn by the command \texttt{{\textbackslash}arrow}
 			\item \texttt{g\_options} are the options applied to all the arrows (explained on later slide)
 			\item \texttt{a\_options} are the options applied to a specific arrow (explained on later slide)
 			\end{itemize}
@@ -1539,7 +1629,7 @@
 			\texttt{{\textbackslash}begin\{bottomarrowsequence\}[height=.8{\textbackslash}height]} \\
 			\hspace{.5cm}\texttt{{\textbackslash}arrow[a\_options]\{text\}} \\
 			\texttt{{\textbackslash}end\{bottomarrowsequence\}} \\[.5cm]
-			The macro \texttt{{\textbackslash}height} corresponds to the total height of the frame
+			The command \texttt{{\textbackslash}height} corresponds to the total height of the frame
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -1604,7 +1694,7 @@
 \begin{frame}{Simple Boxes}
 	You could draw a simple box as:
 		\simplebox{This is the text into the simple box}
-	The macro is:	
+	The command is:	
 	\begin{itemize}
 	\item \texttt{{\textbackslash}simplebox[width]\{text\}} \\
 		\texttt{{\textbackslash}simplebox*[width]\{text\}} \\[.5cm]
@@ -1628,7 +1718,7 @@
 \begin{frame}{Title Boxes}
 	You could draw a box with a title as:
 		\titlebox{The Title}{This is the text into the title box}
-	The macro is:	
+	The command is:	
 	\begin{itemize}
 	\item \texttt{{\textbackslash}titlebox[width]\{title\}\{text\}} \\
 		\texttt{{\textbackslash}titlebox*[width]\{title\}\{text\}} \\[.5cm]
@@ -1689,13 +1779,13 @@
 \begin{frame}{Vertical Icon Boxes}
 	You could draw a box with an title and a text, vertical layout, as:
 		\viconbox{This is the text into the box}{example1}
-	The macro is:	
+	The command is:	
 	\begin{itemize}
 	\item \texttt{{\textbackslash}viconbox[width]\{text\}\{pgf\_id\}} \\
 		\texttt{{\textbackslash}viconbox*[width]\{text\}\{pgf\_id\}} \\[.5cm]
 	\item \texttt{{\textbackslash}viconbox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
 	\item \texttt{{\textbackslash}viconbox*} is a hmode box, i.e., it accept elements on its side
-	\item \alert{The icon must be loaded by using the macro:} \\
+	\item \alert{The icon must be loaded by using the command:} \\
 		\texttt{{\textbackslash}addiconboxpicture[options]\{pgf\_id\}\{filename\}}
 	\end{itemize}
 \end{frame}
@@ -1703,20 +1793,20 @@
 \begin{frame}{Horizontal Icon Boxes}
 	You could draw a box with an title and a text, horizontal layout, as:
 		\hiconbox{This is the text into the box}{example1}
-	The macro is:	
+	The command is:	
 	\begin{itemize}
 	\item \texttt{{\textbackslash}hiconbox[width]\{text\}\{pgf\_id\}} \\
 		\texttt{{\textbackslash}hiconbox*[width]\{text\}\{pgf\_id\}} \\[.5cm]
 	\item \texttt{{\textbackslash}hiconbox} is a vmode box, i.e., it is assumed that the box is rendered on the entire width of the line
 	\item \texttt{{\textbackslash}hiconbox*} is a hmode box, i.e., it accept elements on its side
-	\item \alert{The icon must be loaded by using the macro:} \\
+	\item \alert{The icon must be loaded by using the command:} \\
 		\texttt{{\textbackslash}addiconboxpicture[options]\{pgf\_id\}\{filename\}}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Inline Example Boxes}
 	\begin{small}
-	The CIAD theme defines the the following macros to put examples in the text (not in a block, as predefined in Beamer):
+	The CIAD theme defines the the following commands to put examples in the text (not in a block, as predefined in Beamer):
 	\begin{itemize}
 	\item \texttt{{\textbackslash}insertexamplelabel} insert the text ``example''.
 	\item \texttt{{\textbackslash}insertexampleslabel} insert the text ``examples''.
@@ -1733,8 +1823,8 @@
 
 \begin{frame}[t]{Zooming on a \TeX\ Box}
 	\begin{itemize}
-	\item Beamer provides the macro \texttt{{\textbackslash}framezoom} to zoom on a part of a frame. \emph{But, it create a new slide and it is difficult to return to the original slide with a single click}.	
-	\item The CIAD theme provides a new macro for zooming on click.
+	\item Beamer provides the command \texttt{{\textbackslash}framezoom} to zoom on a part of a frame. \emph{But, it create a new slide and it is difficult to return to the original slide with a single click}.	
+	\item The CIAD theme provides a new command for zooming on click.
 	\item \texttt{{\textbackslash}zoombox[options]\{box content\}}
 		\begin{itemize}
 		\item Display the content of the box. When clicked, display the box content after fitting it to the entire screen. When clicked again, the original slide is restore.
@@ -1753,7 +1843,7 @@
 
 \begin{frame}[t]{Zooming on a \TeX\ Box \insertcontinuationtext}
 	\begin{alertblock}{Caution}
-	The macro \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)
+	The command \texttt{{\textbackslash}zoombox} is working in viewers that are supporting JavaScript (Acrobat Reader...)
 	\end{alertblock}
 	\vspace{1em}
 	\begin{center}
@@ -1763,7 +1853,7 @@
 
 \begin{frame}{Adjusting a Box}
 	\begin{itemize}
-	\item The CIAD style provides the macro \texttt{{\textbackslash}adjustbox} to add margins to a box.
+	\item The CIAD style provides the command \texttt{{\textbackslash}adjustbox} to add margins to a box.
 	\vspace{1em}
 	\item \texttt{{\textbackslash}adjustbox[options]\{box content\}}
 	\vspace{1em}
@@ -1925,7 +2015,7 @@
 
 \begin{frame}{{Wrapped Figure} on Side of Itemizes}
 	\begin{itemize}
-	\item For putting a figure on the right side of an itemize environment, the following macros are provided for helping you.
+	\item For putting a figure on the right side of an itemize environment, the following commands are provided for helping you.
 	\item For putting the figure: \\
 			\texttt{{\textbackslash}wrapfigure[options]\{figure filename\}}
 	\item For putting items on the side of the figure: \\
@@ -1949,7 +2039,7 @@
 
 \begin{frame}{Additional Symbols}
 	\begin{itemize}
-	\item The CIAD theme (re)defines the macros for several symbols:
+	\item The CIAD theme (re)defines the commands for several symbols:
 	\end{itemize}
 	\begin{stabularx}{|l|X|l|X|}
 	\tabularheading\multicolumn{2}{|c|}{\chead{From CIAD theme}} & \multicolumn{2}{c|}{\chead{From \TeX}} \\
@@ -1969,10 +2059,10 @@
 
 \begin{frame}{Sizes of the Text}
 	\begin{itemize}
-	\item The standard Beamer macros for selected the text side are: \\
+	\item The standard Beamer commands for selected the text side are: \\
 		{\TINY\texttt{{\textbackslash}TINY}}, {\Tiny\texttt{{\textbackslash}Tiny}}, {\tiny\texttt{{\textbackslash}tiny}}, {\scriptsize\texttt{{\textbackslash}scriptsize}}, {\footnotesize\texttt{{\textbackslash}footnotesize}}, {\small\texttt{{\textbackslash}small}}, {\normalsize\texttt{{\textbackslash}normalsize}}, {\large\texttt{{\textbackslash}large}}, {\Large\texttt{{\textbackslash}Large}}, {\huge\texttt{{\textbackslash}huge}}, {\Huge\texttt{{\textbackslash}Huge}}
 	\vspace{1em}
-	\item The CIAD theme includes two additional macros:
+	\item The CIAD theme includes two additional commands:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}smaller} : to decrease the size of the text, and
 		\item \texttt{{\textbackslash}larger} : to increase the size of the text.
@@ -1982,17 +2072,17 @@
 
 \begin{frame}{Emphazing the Text}
 	\begin{itemize}
-	\item The CIAD theme redefines the macro \texttt{{\textbackslash}emph} to display the emphazed text with a color. \\
+	\item The CIAD theme redefines the command \texttt{{\textbackslash}emph} to display the emphazed text with a color. \\
 		Example: \emph{This is an emphazed text.}
 	\vspace{2em}
-	\item The CIAD theme defines the macro \texttt{{\textbackslash}Emph} to display the ``very emphazed'' text with a color. \\
+	\item The CIAD theme defines the command \texttt{{\textbackslash}Emph} to display the ``very emphazed'' text with a color. \\
 		Example: \Emph{This is a ``very emphazed'' text.}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Underlining the Text}
 	\begin{itemize}
-	\item The CIAD theme redefines the macro \texttt{{\textbackslash}underline} to move the line closer to the text.
+	\item The CIAD theme redefines the command \texttt{{\textbackslash}underline} to move the line closer to the text.
 	\vspace{2em}
 	\item Before: \fakeoldunderline{Example}
 	\item After: \underline{Example}
@@ -2001,8 +2091,8 @@
 
 \begin{frame}{Exponents and Indices}
 	\begin{itemize}
-	\item The CIAD theme (re)defines the macros to put text in exponent or in indice.
-	\item The macros \texttt{{\textbackslash}textup} and \texttt{{\textbackslash}textdown} try to add a space after the text, when it is allowed by the typographic rules (it uses the macro \texttt{{\textbackslash}xspace}).
+	\item The CIAD theme (re)defines the commands to put text in exponent or in indice.
+	\item The commands \texttt{{\textbackslash}textup} and \texttt{{\textbackslash}textdown} try to add a space after the text, when it is allowed by the typographic rules (it uses the command \texttt{{\textbackslash}xspace}).
 	\end{itemize}
 	\smaller
 	\begin{stabularx}{|l|X|l|X|}
@@ -2015,8 +2105,8 @@
 
 \begin{frame}{{Making fancy} the first letters of the words}
 	\begin{itemize}
-	\item The CIAD theme defines a macro for making fancy the first letters of the words within a given sentence.
-	\item Macro:\\
+	\item The CIAD theme defines a command for making fancy the first letters of the words within a given sentence.
+	\item command:\\
 		\texttt{{\textbackslash}colorizedfirstletters\{beamer style\}\{sentence\}}
 	\item \texttt{beamer style} is the name of the beamer style of the first letters. A beamer style could be defined with \texttt{{\textbackslash}setbeamercolor} or \texttt{{\textbackslash}setbeamercolorXXX}.
 	\item \texttt{sentence} is the text to make fancy.
@@ -2028,8 +2118,8 @@
 
 \begin{frame}{{Making fancy} the words of a sentence}
 	\begin{itemize}
-	\item The CIAD theme defines a macro for making fancy the words within a given sentence.
-	\item Macro:\\
+	\item The CIAD theme defines a command for making fancy the words within a given sentence.
+	\item command:\\
 		\texttt{{\textbackslash}colorizedtailwords\{beamer style\}\{sentence\}}
 	\item \texttt{beamer style} is the name of the Beamer style of the tail words. A beamer style could be defined with \texttt{{\textbackslash}setbeamercolor} or \texttt{{\textbackslash}setbeamercolorXXX}.
 	\item \texttt{sentence} is the text to make fancy.
@@ -2041,7 +2131,7 @@
 
 \begin{frame}{Quoting the Text}
 	\begin{itemize}
-	\item The CIAD theme provides macros to output localized quotes:
+	\item The CIAD theme provides commands to output localized quotes:
 		\begin{description}
 		\item[English] \texttt{{\textbackslash}ukquote\{text\}} \\
 			Example: \ukquote{text}
@@ -2051,7 +2141,7 @@
 			Example: \latquote{text}
 		\end{description}
 	\vspace{1em}
-	\item The following macros are used by the quote macros:
+	\item The following commands are used by the quote commands:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}textgravedbl} : \textgravedbl
 		\item \texttt{{\textbackslash}textacutedbl} : \textacutedbl
@@ -2066,7 +2156,7 @@
 
 \begin{frame}{Footnotes}
 	\begin{itemize}
-	\item The CIAD theme provides two versions of the footnote macro:
+	\item The CIAD theme provides two versions of the footnote command:
 		\begin{itemize}
 		\item \texttt{{\textbackslash}footnote\{text1\}} shows a footnote\footnote{text1} with a number, and
 		\item \texttt{{\textbackslash}footnote*\{text2\}} shows a footnote\footnote*{text2} without a number.
@@ -2081,7 +2171,7 @@
 
 \begin{frame}{Notes on the Side of the Frame}
 	\begin{itemize}
-	\item The CIAD theme provides a macro to put a text on the side of the frame: \\
+	\item The CIAD theme provides a command to put a text on the side of the frame: \\
 		\texttt{{\textbackslash}sidenode\{text\}}
 	\vspace{1em}
 	\item Example: \texttt{{\textbackslash}sidenote\{text on the side\}}
@@ -2091,7 +2181,7 @@
 
 \begin{frame}{Citations on the Side of the Frame}
 	\begin{itemize}
-	\item The CIAD theme provides a macro to put a citation on the side of the frame: \\
+	\item The CIAD theme provides a command to put a citation on the side of the frame: \\
 		\texttt{{\textbackslash}sidecite\{labels\}}
 	\vspace{1em}
 	\item It is equivalent to: \\
@@ -2104,7 +2194,7 @@
 
 \begin{frame}[t]{Link to a Video}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to include links to multimedia resources.
+	\item The CIAD theme provides a convenient command to include links to multimedia resources.
 	\item \texttt{{\textbackslash}videolink[options]\{resource\_path\}\{img\_path\}}
 		\begin{itemize}
 		\item Display a picture with a link button. When the user click on the picture, the resource is run (viewed).
@@ -2120,7 +2210,7 @@
 
 \begin{frame}[t]{Link to a Slide with an Picture}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to create links to other slides with a picture in the link.
+	\item The CIAD theme provides a convenient command to create links to other slides with a picture in the link.
 	\item \texttt{{\textbackslash}picturegoto[options]\{label\}\{img\_path\}}
 		\begin{itemize}
 		\item Display a picture with a link button. When the user click on the picture, the slide with the given label is displayed.
@@ -2136,7 +2226,7 @@
 
 \begin{frame}{Link to a Slide with an Text}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to create links to other slides with a text in the link.
+	\item The CIAD theme provides a convenient command to create links to other slides with a text in the link.
 	\item \texttt{{\textbackslash}textgoto\{label\}\{text\}}
 		\begin{itemize}
 		\item Display the given text with a link button. When the user click on the text, the slide with the given label is displayed.
@@ -2151,7 +2241,7 @@
 
 \begin{frame}{Embedded Video}
 	\begin{itemize}
-	\item The CIAD theme provides a convenient macro to include a video link into the PDF that could be displayed during the show with a viewer such as PDFPC.
+	\item The CIAD theme provides a convenient command to include a video link into the PDF that could be displayed during the show with a viewer such as PDFPC.
 	\item \texttt{{\textbackslash}embeddedvideo[options]\{video\_path\}\{img\_path\}}
 		\begin{itemize}
 		\item Display the image if the viewer cannot show up the video, or the video itself.
@@ -2280,7 +2370,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Low-level Macros}
+\section{Low-level commands}
 \sectionsintoc{7-}
 \sectiontableofcontentslide
 
@@ -2298,9 +2388,9 @@
 
 \begin{frame}{Graphic Axes}
 	\begin{itemize}
-	\item The following macro display the graphic axes that may be used for putting something somewhere on the slide: \\
+	\item The following command display the graphic axes that may be used for putting something somewhere on the slide: \\
 		\texttt{{\textbackslash}graphicaxes}
-	\item The following macro draw the axes at the coordinates $(0,0)$: \\
+	\item The following command draw the axes at the coordinates $(0,0)$: \\
 		\texttt{{\textbackslash}showgraphicaxes}
 	\item The size of the axes corresponds to 1 unit.
 	\end{itemize}
@@ -2314,10 +2404,10 @@
 
 \begin{frame}{Picture Filename Resolution}
 	\begin{itemize}
-	\item For searching a picture file into the search paths defined with \texttt{{\textbackslash}graphicspath}, you could use the two following macros.
+	\item For searching a picture file into the search paths defined with \texttt{{\textbackslash}graphicspath}, you could use the two following commands.
 	\item For searching the file: \\
 		\texttt{{\textbackslash}resolvepicturename\{partial filename\}}
-	\item The previous macro sets the global macro \texttt{{\textbackslash}resolvedfilename} to the full name of the file if it was found; or to \texttt{{\textbackslash}relax} if it was not found.
+	\item The previous command sets the global command \texttt{{\textbackslash}resolvedfilename} to the full name of the file if it was found; or to \texttt{{\textbackslash}relax} if it was not found.
 	\end{itemize}
 	\begin{example}
 		\texttt{{\textbackslash}graphicspath\{\{./imgs\}\}} \\
@@ -2334,7 +2424,7 @@
 			\texttt{{\textbackslash}begin\{graphicspathcontext\}\{paths\}} \\
 			\texttt{...} \\
 			\texttt{{\textbackslash}end\{graphicspathcontext\}}
-	\item The provided path must follow the same syntax as the parameter of the \texttt{{\textbackslash}graphicspath} macro.
+	\item The provided path must follow the same syntax as the parameter of the \texttt{{\textbackslash}graphicspath} command.
 	\item You could reuse the paths from the enclosing context by putting \texttt{{\textbackslash}old} in the environment's parameter. \\
 		\inlineexample{\texttt{\{./path/to/pictures/\}\{./other/path/\},{\textbackslash}old}}
 	\end{itemize}
