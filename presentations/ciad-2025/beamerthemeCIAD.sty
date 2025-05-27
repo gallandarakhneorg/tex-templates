@@ -25,17 +25,21 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerthemeCIAD}
-   [2025/05/18 Beamer 'CIAD' Theme]
+   [2025/05/27 Beamer 'CIAD' Theme]
 
 \RequirePackage{ifthen}
 
 \newboolean{beamer@theme@ciad@hascovers}
 \setboolean{beamer@theme@ciad@hascovers}{true}
 
+\newif\ifbeamer@theme@ciad@oraldefensetitlepage
+\beamer@theme@ciad@oraldefensetitlepagefalse
+
 \gdef\beamer@theme@ciad@lang{Java}
 
 \DeclareOptionBeamer{language}{\gdef\beamer@theme@ciad@lang{#1}}
 \DeclareOptionBeamer{nocover}{\setboolean{beamer@theme@ciad@hascovers}{false}}
+\DeclareOptionBeamer{oraldefense}{\global\beamer@theme@ciad@oraldefensetitlepagetrue}
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
 
@@ -48,6 +52,11 @@
 \useinnertheme[language=\beamer@theme@ciad@lang]{CIAD}
 \useinnertheme{default}
 \useoutertheme{CIAD}
+
+\ifbeamer@theme@ciad@oraldefensetitlepage%
+	\message{Loading the "Oral Defense" title page}
+	\RequirePackage{beamerodtpthemeCIAD}
+\fi
 
 \setbeamercovered{dynamic}
 

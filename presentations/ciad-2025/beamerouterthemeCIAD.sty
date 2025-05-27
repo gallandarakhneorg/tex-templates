@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamerouterthemeCIAD}
-   [2025/05/18 Beamer Outer 'CIAD' Theme]
+   [2025/05/27 Beamer Outer 'CIAD' Theme]
 
 \mode<presentation>
 
@@ -123,7 +123,8 @@
 	\fi%
 }
 
-\setbeamertemplate{title page}{%
+% Title page with the regular CIAD layout
+\newcommand{\insertstandardciadtitlepage}{%
 	\expandafter\begin{picture}(0,0)(0,\beamer@theme@ciad@outer@offsety)%
 		% User left background
 		\ifx\beamer@theme@ciad@titleslide@background@userpgf\relax\else%
@@ -176,6 +177,11 @@
 				}%
 				}}}}%
 	\end{picture}%
+}
+
+\setbeamertemplate{title page}{%
+	% By default, the regulat title page layout is used
+	\insertstandardciadtitlepage%
 }
 
 % Frame with title bar

@@ -167,6 +167,7 @@
 	\end{block}
 	\begin{block}{Automatic slides}
 		\begin{itemize}
+		\item \texttt{oraldefense}: Use the "Oral Defense" front page instead of the regular title page.
 		\item \texttt{nocover}: do not add a slide for the title and the ``thanks''.
 		\item \texttt{thanksslide}: add a slide with the word ``Thanks'' at the end (this is the default). 
 		\item \texttt{questionslide}: add a slide with the word ``Question'' at the end. 
@@ -358,6 +359,50 @@
 		\item \texttt{{\textbackslash}setdefaulttitlepageleftfigure}: restore the left picture \textcircled{2} to the default CIAD logo
 		\item \texttt{{\textbackslash}removetitlepageleftfigure}: remove any picture at position \textcircled{2}
 		\item \texttt{{\textbackslash}removetitlepageuserbackground} remove the user background \textcircled{3} and restore the default background
+	\end{itemize}
+\end{frame}
+
+\subsection{Title Page for PhD Oral Defense}
+
+\begin{frame}{{Title Page} for PhD Oral Defense}
+	\begin{itemize}
+	\item It is possible to change the regular title page by a title page dedicated to \Emph{PhD or Master oral defense}.
+	\item For enabling the page, use the class option "\texttt{oraldefense}".
+	\item The configuration of the content of this special front page is explained in the following slides
+	\end{itemize}
+	\vfill
+	\centering
+	\framebox{\includegraphics[width=.5\linewidth]{exampleodtp}}
+\end{frame}
+
+\begin{frame}{{Configuration} of the Title Page for PhD Oral Defense}
+	\begin{itemize}
+	\item Setting the title and the author is explained in the other sections
+	\item \texttt{{\textbackslash}date\{<text>\}} changes the defense date
+	\item \texttt{{\textbackslash}place\{<text>\}} changes the defense place/location
+	\item \texttt{{\textbackslash}adddefenselogo\{<image path>\}} adds a logo at the bottom of the page
+	\item \texttt{{\textbackslash}resetdefenselogo} removes all the logo from the front page
+	\item \texttt{{\textbackslash}resetdefenselogotodefault} removes all the logo from the front page but keep the CIAD laboratory logos
+	\item \texttt{{\textbackslash}setdefensebackground(<x>,<y>)\{<background index>\}} changes the background figure. Index is the number of the background image as defined for the regular slides. x and y are the coordinates of the images on the front page
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{{Committee Members} on the Title Page for PhD Oral Defense}
+	\alertbox*{The members of the oral defense committee could be set with the following command}
+	\begin{itemize}
+	\item \texttt{{\textbackslash}addcommittee[options]\{<name>\}\{<position>\}} adds a member in the committee with the given name and position
+	\item Options are:
+		\begin{itemize}
+		\item \texttt{female} specifies that the member is a woman
+		\item \texttt{male} specifies that the member is a man (default)
+		\item \texttt{president} specifies that the member is president of the committee
+		\item \texttt{reviewer} specifies that the member is reviewer of the work
+		\item \texttt{examiner} specifies the default role in the committee
+		\item \texttt{director} specifies that the member is the director of the candidate
+		\item \texttt{codirector} specifies that the member is the codirector of the candidate
+		\item \texttt{supervisor} specifies that the member is a supervisor of the candidate
+		\item \texttt{invitee} specifies that the member is invited in the committee
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 

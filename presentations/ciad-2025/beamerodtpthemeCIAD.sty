@@ -1,0 +1,264 @@
+% Copyright (c) 2013-25 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM logo and name are registered and owned by the
+% "Universite de Technologie de Belfort-Montbeliard".
+%
+% UBE logo and name are registered and owned by the
+% "Universite Bourgogne Europe".
+%
+% CIAD logo and name are registered and owned by the
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+\ProvidesPackage{beamerodtpthemeCIAD}
+   [2025/05/27 Beamer 'Oral Defense' title page for 'CIAD' Theme]
+
+% Insert the place of the oral defense
+\gdef\insertplace{}
+
+% Define the place of the oral defense
+% #1: the place name
+\newcommand{\place}[1]{\gdef\insertplace{#1}}
+
+% Insert the list of the committee members
+\gdef\insertcommitteemembers{}
+\newcommand{\@beamer@theme@ciad@odtp@addcommitteemember}[3]{%
+	\protected@xdef\insertcommitteemembers{\insertcommitteemembers \protect{\protect\usebeamerfont{name in oral defense committee area}#1} \protect& \protect{#2} \protect& \protect{#3} \protect\\}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{female}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@gender{Female}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{male}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@gender{Male}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{president}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefensePresident}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{reviewer}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseReviewer}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{examiner}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseExaminer}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{director}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseDirector}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{codirector}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseCodirector}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{supervisor}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseSupervisor}%
+}
+
+\define@key{beamer@theme@ciad@odtp@addcommitteemember}{invitee}[]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseInvitee}%
+}
+
+% Add a member to the committee
+% #1: options (see below)
+% #2: Full name of the member
+% #3: Position of the member
+%
+% Options:
+%    female     for setting to female gender
+%    male       for setting to male gender
+%    president  for setting the role to "president of the committee"
+%    reviewer   for setting the role to "reviewer of the work" in the committee
+%    examiner   for setting the role to "examiner of the work" in the committee
+%    director   for setting the role to "director of the candidate" in the committee
+%    codirector for setting the role to "codirector of the candidate" in the committee
+%    supervisor for setting the role to "supervisor of the candidate" in the committee
+%    invitee    for setting the role to "invitee in the committee"
+\newcommand{\addcommittee}[3][]{%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@gender{Male}%
+	\gdef\beamer@theme@ciad@odtp@addcommitteemember@role{OralDefenseExaminer}%
+	\setkeys{beamer@theme@ciad@odtp@addcommitteemember}{#1}%
+	\protected@edef\beamer@theme@ciad@odtp@addcommitteemember@label{%
+		\protect\translate{\beamer@theme@ciad@odtp@addcommitteemember@gender\beamer@theme@ciad@odtp@addcommitteemember@role}%
+	}%
+	\@beamer@theme@ciad@odtp@addcommitteemember{#2}{#3}{\beamer@theme@ciad@odtp@addcommitteemember@label}%
+}
+
+% Logos for the front page
+\pgfdeclareimage[height=.7cm]{ciadlogoonnodtppage}{ciadlogo}
+\pgfdeclareimage[height=.7cm]{utbmlogoonnodtppage}{utbmlogo}
+\pgfdeclareimage[height=.7cm]{ubelogoonnodtppage}{ubelogo}
+\pgfdeclareimage[height=.7cm]{carnotlogoonnodtppage}{carnotlogo}
+
+% Insert the list of the logos
+\gdef\insertdefenselogos{}
+
+% Reset the list of logos on the front page with no logo
+\newcommand{\resetdefenselogo}{%
+	\gdef\insertdefenselogos{}%
+}
+
+% Reset the list of logos on the front page with the standard logos
+\newcommand{\resetdefenselogotodefault}{%
+	\gdef\insertdefenselogos{%
+		\protect\pgfuseimage{ciadlogoonnodtppage}%
+		\protect\hspace{.1cm}\protect\pgfuseimage{utbmlogoonnodtppage}%
+		\protect\hspace{.1cm}\protect\pgfuseimage{ubelogoonnodtppage}%
+		\protect\hspace{.1cm}\protect\pgfuseimage{carnotlogoonnodtppage}%
+		\protect\hfill
+	}%
+}
+\resetdefenselogotodefault
+
+% Add a logo to the list of logos on the front page
+% #1: path to the image
+\newcommand{\adddefenselogo}[1]{%
+	\pgfdeclareimage[height=.7cm]{#1onnodtppage}{#1}%
+	\protected@xdef\insertdefenselogos{\insertdefenselogos%
+		\protect\hspace{.1cm}\protect\pgfuseimage{#1onnodtppage}%
+	}%	
+}
+
+% Insert the background picture of the front page with a TikZ \put
+\gdef\insertdefensebackground{}
+
+% Change the background picture on the front page
+% #1: x coordinate of the backgorund picture
+% #2: y coordinate of the backgorund picture
+% #3: the number of the registered background figure
+\def\setdefensebackground(#1,#2)#3{%
+	\gdef\insertdefensebackground{%
+		\put(#1,#2){\insertslidebackgroundpicture{#3}}%
+	}%
+}
+\setdefensebackground(199,-147){1}
+
+% Definition of the colors
+\setbeamercolor{text in oral defense title area}{fg=black}
+\setbeamercolor{text in oral defense author area}{fg=CIADdarkgreen}
+\setbeamercolor{text in oral date and place area}{fg=black}
+\setbeamercolor{text in oral committee area}{fg=black}
+
+% Definition of the fonts
+\setbeamerfont{text in oral defense title area}{size=\Large,series=\bfseries}
+\setbeamerfont{text in oral defense author area}{size=\Large,series=\bfseries}
+\setbeamerfont{text in oral defense date and place area}{size=\scriptsize,series=\normalfont}
+\setbeamerfont{text in oral defense committee area}{size=\tiny,series=\normalfont}
+\setbeamerfont{name in oral defense committee area}{series=\bfseries}
+
+% Translations
+\deftranslation[to=English]{OralDefenseDateAndPlace}{at}
+\deftranslation[to=French]{OralDefenseDateAndPlace}{\`a}
+\deftranslation[to=English]{OralDefenseJuryMembers}{Members of the Committee:}
+\deftranslation[to=French]{OralDefenseJuryMembers}{Membres du jury\;:}
+
+\deftranslation[to=English]{MaleOralDefenseReviewer}{Reviewer}
+\deftranslation[to=French]{MaleOralDefenseReviewer}{Rapporteur}
+\deftranslation[to=English]{FemaleOralDefenseReviewer}{Reviewer}
+\deftranslation[to=French]{FemaleOralDefenseReviewer}{Rapporteuse}
+
+\deftranslation[to=English]{MaleOralDefensePresident}{President}
+\deftranslation[to=French]{MaleOralDefensePresident}{Pr\'esident}
+\deftranslation[to=English]{FemaleOralDefensePresident}{President}
+\deftranslation[to=French]{FemaleOralDefensePresident}{Pr\'esidente}
+
+\deftranslation[to=English]{MaleOralDefenseExaminer}{Examiner}
+\deftranslation[to=French]{MaleOralDefenseExaminer}{Examinateur}
+\deftranslation[to=English]{FemaleOralDefenseExaminer}{Examiner}
+\deftranslation[to=French]{FemaleOralDefenseExaminer}{Examinatrice}
+
+\deftranslation[to=English]{MaleOralDefenseDirector}{Director}
+\deftranslation[to=French]{MaleOralDefenseDirector}{Directeur}
+\deftranslation[to=English]{FemaleOralDefenseDirector}{Director}
+\deftranslation[to=French]{FemaleOralDefenseDirector}{Directrice}
+
+\deftranslation[to=English]{MaleOralDefenseCodirector}{Codirector}
+\deftranslation[to=French]{MaleOralDefenseCodirector}{Co-directeur}
+\deftranslation[to=English]{FemaleOralDefenseCodirector}{Codirector}
+\deftranslation[to=French]{FemaleOralDefenseCodirector}{Co-directrice}
+
+\deftranslation[to=English]{MaleOralDefenseSupervisor}{Supervisor}
+\deftranslation[to=French]{MaleOralDefenseSupervisor}{Encadrant}
+\deftranslation[to=English]{FemaleOralDefenseSupervisor}{Supervisor}
+\deftranslation[to=French]{FemaleOralDefenseSupervisor}{Encadrante}
+
+\deftranslation[to=English]{MaleOralDefenseInvitee}{Invitee}
+\deftranslation[to=French]{MaleOralDefenseInvitee}{Invit\'e}
+\deftranslation[to=English]{FemaleOralDefenseInvitee}{Invitee}
+\deftranslation[to=French]{FemaleOralDefenseInvitee}{Invit\'ee}
+
+% Title page with the CIAD Oral Defense layout
+\newcommand{\insertciadoraldefensetitlepage}{%
+	\expandafter\begin{picture}(0,0)(0,\beamer@theme@ciad@outer@offsety)%
+		% Page background
+		\insertdefensebackground%
+		% Partners logos
+		\put(-20,-135){%
+			\parbox[c]{.95\paperwidth}{%
+				\centering\insertdefenselogos%
+			}%
+		}%
+		% Jury members
+		\put(-20,-80){%
+			\parbox[c]{.95\paperwidth}{%
+				\usebeamercolor[fg]{text in oral defense committee area}\usebeamerfont{text in oral defense committee area}%
+				\begin{tabularx}{\linewidth}{lXr}%
+				\translate{OralDefenseJuryMembers} & & \\%
+				\hline%
+				\insertcommitteemembers%
+				\hline%
+				\end{tabularx}%
+			}%
+		}%
+		% Title
+		\put(-20,90){%
+			\parbox[t]{.95\paperwidth}{\centering\nohyphens{%
+				\usebeamercolor[fg]{text in oral defense title area}%
+				{\usebeamerfont{text in oral defense title area}\@beamer@theme@ciad@wraptextformats{\inserttitle}}%
+			}}%
+		}%
+		% Talker
+		\put(-20,-10){%
+			\mbox{}\parbox[b]{.95\paperwidth}{\centering\nohyphens{%
+				{\usebeamercolor[fg]{text in oral defense author area}\usebeamerfont{text in oral defense author area}\@beamer@theme@ciad@wraptextformats{\insertauthor}}%
+				\ifthenelse{\equal{a}{a\insertdate}}{%
+					\ifthenelse{\equal{a}{a\insertplace}}{}{%
+						\\{\usebeamercolor[fg]{text in oral defense date and place area}\usebeamerfont{text in oral defense date and place area}\@beamer@theme@ciad@wraptextformats{\insertplace}}%
+					}%
+				}{%
+					\ifthenelse{\equal{a}{a\insertplace}}{%
+						\\{\usebeamercolor[fg]{text in oral defense date and place area}\usebeamerfont{text in oral defense date and place area}\@beamer@theme@ciad@wraptextformats{\insertdate}}%
+					}{%
+						\\{\usebeamercolor[fg]{text in oral defense date and place area}\usebeamerfont{text in oral defense date and place area}\@beamer@theme@ciad@wraptextformats{\insertdate\ \translate{OralDefenseDateAndPlace} \insertplace}}%
+					}%
+				}%
+			}}\mbox{}%
+		}%
+	\end{picture}%
+}
+
+\AtBeginDocument{
+	\ifthenelse{\boolean{beamer@theme@ciad@oraldefensetitlepage}}{%
+		\setbeamertemplate{title page}{\insertciadoraldefensetitlepage}%
+	}{}%
+}
+
+\mode
+<all>
