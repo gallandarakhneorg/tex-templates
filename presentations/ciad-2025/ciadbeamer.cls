@@ -28,7 +28,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{ciadbeamer}
-   [2025/05/27 Class for CIAD slides]
+   [2025/06/01 Class for CIAD slides]
 
 % 1) Add the option "aspectratio=169" at the beginning of the options
 % 2) Save the full list of the options into \@classoptionslist@full

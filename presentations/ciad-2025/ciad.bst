@@ -87,6 +87,7 @@ ENTRY
     type
     volume
     year
+    doi
   }
   {}
   { label extra.label sort.label }
@@ -906,7 +907,7 @@ FUNCTION {editor.key.label}
   if$
 }
 
-FUNCTION {calc.label}
+FUNCTION {calc.label.namesyear}
 { type$ "book" =
   type$ "inbook" =
   or
@@ -921,6 +922,24 @@ FUNCTION {calc.label}
   *							% for apalike, which
   year field.or.null purify$ #-1 #4 substring$		% uses all four digits
   *
+}
+
+FUNCTION {calc.label.doi}
+{ "\href{https://doi.org/" doi field.or.null *
+  "}{" *
+  doi field.or.null *
+  "}" *
+}
+
+FUNCTION {calc.label}
+{ doi empty$
+    { calc.label.namesyear }
+    { "\biblabelciad{" calc.label.namesyear *
+      "}{" *
+      calc.label.doi *
+      "}" *
+    }
+  if$
   'label :=
 }
 
