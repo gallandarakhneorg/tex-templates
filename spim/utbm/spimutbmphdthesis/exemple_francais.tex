@@ -64,6 +64,10 @@
 %\usepackage{eurosim}
 %\usepackage{amsmath}
  
+%--------------------
+% Enable the local TOC at the beginning of chapters
+\usepackage{etoc}
+
 %%--------------------
 %% Set the title, subtitle, defense date, and
 %% the registration number of the PhD thesis.
@@ -316,21 +320,21 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 
 \chapter{\'Etat de l'art}
 
-% Automatic Lettrine and Minitoc at the begining of the chapter.
+% Automatic Lettrine and local TOC at the begining of the chapter.
 %
 % The following macros are formatting the text at the begining of a chapter according to the
 % standard format.
 %
 % \chapterintro               See \chapterintrotosection.
 %
-% \chapterintro*              Similar to \chapterintro, except that the minitoc will be ignored.
+% \chapterintro*              Similar to \chapterintro, except that the local TOC will be ignored.
 %
 % \chapterintrotosection      transform to lettrine the first letter that is following this macro
 %                             until the next following \section macro.
 %                             YOU MUST type the \section macro
 %                             in the same file as the \chapterintrotosection macro.
 %                             AND
-%                             put a minitoc (if the minitoc package is included) just before
+%                             put a local TOC (if the etoc package is included) just before
 %                             the next following \section macro.
 %
 % \chapterintrotoinput        transform to lettrine the first letter that is following this macro
@@ -338,7 +342,7 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 %                             YOU MUST type the \input macro
 %                             in the same file as the \chapterintrotoinput macro.
 %                             AND
-%                             put a minitoc (if the minitoc package is included) just before
+%                             put a local TOC (if the etoc package is included) just before
 %                             the next following \input macro.
 %
 % \chapterintrotoinclude      transform to lettrine the first letter that is following this macro
@@ -346,7 +350,7 @@ L'objectif principal de votre thèse peut être mis en avant à l'aide de l'envi
 %                             YOU MUST type the \include macro
 %                             in the same file as the \chapterintrotoinclude macro.
 %                             AND
-%                             put a minitoc (if the minitoc package is included) just before
+%                             put a local TOC (if the etoc package is included) just before
 %                             the next following \include macro.
 
 %\chapterintro*

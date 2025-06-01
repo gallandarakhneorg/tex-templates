@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimbasephdthesis}[2025/05/13]
+\ProvidesPackage{spimbasephdthesis}[2025/06/01]
 
 \RequirePackage{lettrine}
 \RequirePackage[export]{adjustbox}
@@ -475,9 +475,15 @@
 	\upm@phdthesis@MakeLettrine@lettrine#1%
 }
 
-% Output a minitoc with the standard formatting
+% Output a local etoc or a minitoc with the standard formatting
 \newcommand{\chapterintrominitoc}{%
-	\@ifundefined{minitoc}{}{%
+	\@ifundefined{minitoc}{%
+		\@ifundefined{localtableofcontents}{%
+		}{%
+			\etocsettocstyle{\section*{\contentsname}}{}%
+			\localtableofcontents%
+		}%
+	}{%
 		\begin{figure}[bt]%
 		\minitoc%
 		\end{figure}%
