@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2025/06/01}
+\gdef\insertciadbeamerthemeversion{2026/02/20}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -1899,6 +1899,30 @@
 }
 
 %-----------------------------------------
+% Compact itemize
+\NewEnviron{compactitemize}[1][]{%
+	\setlength{\parskip}{0pt}%
+	\begin{itemize}[#1]%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parskip}{0pt}%
+		\setlength{\parsep}{0pt}%
+		\BODY%
+	\end{itemize}%
+}
+
+%-----------------------------------------
+% Compact description
+\NewEnviron{compactdescription}[1][]{%
+	\setlength{\parskip}{0pt}%
+	\begin{description}[#1]%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parskip}{0pt}%
+		\setlength{\parsep}{0pt}%
+		\BODY%
+	\end{description}%
+}
+
+%-----------------------------------------
 % Joint Enumeration/Description environment
 \let\beamer@theme@ciad@oldenumerate\enumerate
 \let\endbeamer@theme@ciad@oldenumerate\endenumerate
@@ -2306,7 +2330,7 @@
 		coltext=table content.fg,%
 		sharpish corners,%
 		fonttitle=\bfseries,%
-		halign title=center,
+		halign title=center,%
 	},%
 }
 
