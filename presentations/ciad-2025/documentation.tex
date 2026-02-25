@@ -1365,6 +1365,35 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Slide with Text, Video and Logos}
+
+\begin{frame}{Slide with Text, Video and Logos}
+	\begin{itemize}
+		\item Slide with a regular text area on the left, a video inside a big green area on the right and logos below the video.
+		\item Definition with the following environment: \\
+		\texttt{{\textbackslash}begin\{textvideoframe\}[options]\{main title\}\{video-path\}\{picture-path\}} \\
+		\texttt{Content of the Slide} \\
+		\texttt{{\textbackslash}end\{textvideoframe\}}
+		\item \texttt{options} are options to pass to the frame
+		\item \texttt{main title} is the title to be rendered at the top of the frame
+		\item \texttt{video-path} is the path to the video
+		\item \texttt{picture-path} is the path to the picture that is rendered in place of the video
+		\item \texttt{{\textbackslash}settextvideofooter\{text\}} permits to set the logo text below the video
+	\end{itemize}
+\end{frame}
+
+\settextvideofooter{XYZ}
+\begin{textvideoframe}{{Example of frame} with left text and right video}{fakevideo.mp4}{ciadlogo}
+	This is the standard frame content. See the previous slide for an explanation \\[.5cm]
+	\texttt{{\textbackslash}settextvideofooter\{XYZ\}} \\[.5cm]
+	\texttt{{\textbackslash}begin\{textvideoframe\}} \\
+	\texttt{~~\{Example of frame[...]\}} \\
+	\texttt{~~\{fakevideo.mp4\}\{ciadlogo\}} \\
+	\texttt{~~This is [...]} \\
+	\texttt{{\textbackslash}end\{textvideoframe\}}
+\end{textvideoframe}
+
+
 \subsection{Final Slide}
 
 \begin{frame}{{A Slide} at the End}
@@ -2064,6 +2093,66 @@
 	\end{enumerate}
 \end{frame}
 
+\begin{frame}{Compact Itemized List}
+	The CIAD theme provides a compact version of the itemized list environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{compactitemize\}[options]} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text2} \\
+	\texttt{{\textbackslash}end\{compactitemize\}}} \\[.5cm]
+	\begin{columns}
+		\begin{column}{.5\linewidth}
+			\begin{block}{Compact List}
+				\begin{compactitemize}
+				\item text1
+				\item<2> text2
+				\end{compactitemize}
+			\end{block}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{block}{Standard List}
+				\begin{itemize}
+				\item text1
+				\item<2> text2
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Compact Description}
+	The CIAD theme provides a compact version of the description environment. \\[.5cm]
+	{\smaller
+	\texttt{{\textbackslash}begin\{compactdescription\}} \\
+	\texttt{{\textbackslash}item text1} \\
+	\texttt{{\textbackslash}item[Item Name] text2} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$ text1} \\
+	\texttt{{\textbackslash}item$<$frame\_spec$>$[Item Name] text2} \\
+	\texttt{{\textbackslash}end\{compactdescription\}}} \\[.5cm]
+	\begin{columns}
+		\begin{column}{.5\linewidth}
+			\begin{block}{Compact Description}
+				\begin{compactdescription}
+				\item text1
+				\item[Item Name] text2
+				\item<2> text1
+				\item<2>[Item Name] text2
+				\end{compactdescription}
+			\end{block}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{block}{Standard Description}
+				\begin{description}
+				\item text1
+				\item[Item Name] text2
+				\item<2> text1
+				\item<2>[Item Name] text2
+				\end{description}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
 \begin{frame}{{Wrapped Figure} on Side of Itemizes}
 	\begin{itemize}
 	\item For putting a figure on the right side of an itemize environment, the following commands are provided for helping you.
@@ -2287,6 +2376,21 @@
 	\end{itemize}
 	\begin{center}
 		\textgoto{progressbartypes}{this is a link to another slide}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Link to a Web Page with an Text}
+	\begin{itemize}
+	\item The CIAD theme provides a convenient command to create links to Web pages with a text in the link.
+	\item \texttt{{\textbackslash}hrefbutton[text]\{url\}}
+		\begin{itemize}
+		\item Display the given text (default is \texttt{web}) with a link button
+		\item \texttt{url} is the URL of the target Web pge.
+		\item \texttt{text} is the text to display in the slide.
+		\end{itemize}
+	\end{itemize}
+	\begin{center}
+		\hrefbutton{https://www.ciad-lab.fr}
 	\end{center}
 \end{frame}
 

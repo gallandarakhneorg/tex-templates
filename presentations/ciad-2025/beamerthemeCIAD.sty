@@ -35,11 +35,15 @@
 \newif\ifbeamer@theme@ciad@oraldefensetitlepage
 \beamer@theme@ciad@oraldefensetitlepagefalse
 
+\newif\ifbeamer@theme@ciad@conferencepresentationtitlepage
+\beamer@theme@ciad@conferencepresentationtitlepagefalse
+
 \gdef\beamer@theme@ciad@lang{Java}
 
 \DeclareOptionBeamer{language}{\gdef\beamer@theme@ciad@lang{#1}}
 \DeclareOptionBeamer{nocover}{\setboolean{beamer@theme@ciad@hascovers}{false}}
 \DeclareOptionBeamer{oraldefense}{\global\beamer@theme@ciad@oraldefensetitlepagetrue}
+\DeclareOptionBeamer{conferencepresentation}{\global\beamer@theme@ciad@conferencepresentationtitlepagetrue}
 %\ExecuteOptionsBeamer{left}
 \ProcessOptionsBeamer
 
@@ -56,6 +60,11 @@
 \ifbeamer@theme@ciad@oraldefensetitlepage%
 	\message{Loading the "Oral Defense" title page}
 	\RequirePackage{beamerodtpthemeCIAD}
+\fi
+
+\ifbeamer@theme@ciad@conferencepresentationtitlepage%
+	\message{Loading the "Conference Presentation" title page}
+	\RequirePackage{beamercptpthemeCIAD}
 \fi
 
 \setbeamercovered{dynamic}
