@@ -1997,6 +1997,14 @@
 	\raisebox{-\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
 }
 
+\newcommand{\hrefbutton}[2][web]{%
+	\savebox{\beamer@theme@ciad@externalresource@box@a}{\beamergotobutton{\href{#2}{#1}}}%
+	\settoheight{\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
+	\setlength{\beamer@theme@ciad@externalresource@height}{.3\beamer@theme@ciad@externalresource@height}%
+	\addtolength{\beamer@theme@ciad@externalresource@height}{0pt}%
+	\raisebox{-\beamer@theme@ciad@externalresource@height}{\usebox{\beamer@theme@ciad@externalresource@box@a}}%
+}
+
 %-----------------------------------------
 % Embedded video
 \define@key{beamerthemeciadembeddedvideo}{width}{%
