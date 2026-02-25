@@ -3105,6 +3105,43 @@
 }
 
 %-----------------------------------------
+% Frame with left text, right video and green area behing the video
+
+\gdef\beamer@theme@ciad@leftvideoframe@picture{}
+\gdef\beamer@theme@ciad@leftvideoframe@video{}
+\gdef\beamer@theme@ciad@leftvideoframe@footer{}
+
+\NewEnviron{beamer@theme@ciad@textvideoframe}[5]{%
+	\begin{frame}#5[#1]{#2}%
+		% Save the right picture
+		\gdef\beamer@theme@ciad@textvideoframe@picture{#4}%
+		% Save the right video
+		\gdef\beamer@theme@ciad@textvideoframe@video{#3}%
+		% Force the background picture
+		\beamer@theme@ciad@backgroundpicture@removeuse%
+		% Add the left lawn
+		\usebeamertemplate{frametextvideo}%
+		% Restore normal font and color
+		\usebeamerfont{normal text}\usebeamercolor[fg]{normal text}%
+		%
+		\begin{minipage}{6.5cm}%
+			\raggedright\BODY%
+		\end{minipage}%
+	\end{frame}%
+}
+
+\newcommand{\settextvideofooter}[1]{%
+	\gdef\beamer@theme@ciad@leftvideoframe@footer{#1}%
+}
+
+\newenvironment<>{textvideoframe}[4][c]{%
+	\beamer@theme@ciad@textvideoframe{#1}{#2}{#3}{#4}{#5}%
+}{%
+	\endbeamer@theme@ciad@textvideoframe%
+	\gdef\beamer@theme@ciad@leftvideoframe@footer{}%
+}
+
+%-----------------------------------------
 % Grid frame
 
 % Declare a grid picture.

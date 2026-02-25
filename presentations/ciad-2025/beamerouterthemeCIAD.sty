@@ -394,5 +394,27 @@
 	}%
 }
 
+\gdef\beamer@theme@ciad@leftvideoframe@footer{}
+\setbeamertemplate{frametextvideo}{%
+	\ifthenelse{\equal{a\beamer@theme@ciad@textvideoframe@picture}{a}}{}{%
+		\putat*(201,-85){%
+			\usebeamercolor[fg]{textvideo}\raisebox{-.5\height}{%
+				\expandafter\embeddedvideo[width=7.6cm]{\beamer@theme@ciad@textvideoframe@video}{\beamer@theme@ciad@textvideoframe@picture}
+			}%
+		}%
+	}%
+	\putat*(203,-180){%
+		\begin{minipage}{7.5cm}%
+			\usebeamercolor[fg]{textvideo}\centering%
+			\beamer@theme@ciad@leftvideoframe@footer%
+		\end{minipage}%
+	}%
+	\putat*(200,-198){%
+		\begin{tikzpicture}%
+		\path[fill=textvideo.bg] (0,0) rectangle (8,7.8);%
+		\end{tikzpicture}%
+	}%
+}
+
 \mode
 <all>
