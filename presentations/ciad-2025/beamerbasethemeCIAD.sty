@@ -241,6 +241,15 @@
 % Set the random seed
 \pgfmathsetseed{\number\pdfrandomseed}
 
+%------------------------------------
+% Function for redefining the colors of the "emph" and "description" locally
+\gdef\beamer@theme@ciad@block@redefinecolors{%
+	\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
+	\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
+	\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+	\renewcommand{\beamer@theme@ciad@description@formatitem}[2]{{\usebeamercolor[fg]{emphazed emphazed simple block}##2}}
+}
+
 %-----------------------------------------
 % Provide a basic command for changing
 % interline space.
@@ -1873,12 +1882,13 @@
 % Description environment with bullets
 \let\beamer@theme@ciad@olditem\item
 \def\beamer@theme@ciad@description@afterseparator{\translate{ColumnChar}}
+\newcommand{\beamer@theme@ciad@description@formatitem}[2]{{\usebeamercolor[fg]{#1}#2}}
 \newcommand{\beamer@theme@ciad@itemc}[1][]{%
 	\ifthenelse{\equal{a#1}{a}}{}{%
 		\ifbeamerthemeciadalternatebgcolor%
-			{\usebeamercolor[fg]{alternate description item}#1\beamer@theme@ciad@description@afterseparator}%
+			{\beamer@theme@ciad@description@formatitem{alternate description item}{#1\beamer@theme@ciad@description@afterseparator}}%
 		\else%
-			{\usebeamercolor[fg]{description item}#1\beamer@theme@ciad@description@afterseparator}%
+			{\beamer@theme@ciad@description@formatitem{description item}{#1\beamer@theme@ciad@description@afterseparator}}%
 		\fi\xspace%
 }}
 \long\def\beamer@theme@ciad@itema<#1>{%
@@ -3463,9 +3473,7 @@
 \def\beamer@theme@ciad@iconbox@viconbox@allmodes#1#2#3{%
 	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
 		% Redefine locally the emphazing functions
-		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
-		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
-		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\beamer@theme@ciad@block@redefinecolors%
 		\par\vspace{-\parskip}%
 		\ifthenelse{\equal{a#3}{a}}{}{%
 			\pgfuseimage{beamer@theme@ciad@iconbox@#3} \\%
@@ -3514,9 +3522,7 @@
 \def\beamer@theme@ciad@iconbox@hiconbox@allmodes#1#2#3{%
 	\expandafter\begin{beamercolorbox}[wd=#1,rounded=false,center,vmode,shadow=false,sep=\medskipamount]{simple block}%
 		% Redefine locally the emphazing functions
-		\renewcommand{\emph}[1]{{\usebeamercolor[fg]{emphazed simple block}##1}}%
-		\renewcommand{\Emph}[1]{{\usebeamercolor[fg]{emphazed emphazed simple block}##1}}%
-		\renewcommand{\alert}[1]{{\usebeamercolor[fg]{alerted simple block}##1}}%
+		\beamer@theme@ciad@block@redefinecolors%
 		\par\raggedright\vspace{-\parskip}%
 		\ifthenelse{\equal{a#3}{a}}{%
 			\nohyphens{#2}%
