@@ -1,4 +1,4 @@
-% Copyright (c) 2013-25 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-26 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technologie de Belfort-Montbeliard".
@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\gdef\insertciadbeamerthemeversion{2026/02/20}
+\gdef\insertciadbeamerthemeversion{2026/03/24}
 
 \expandafter\ProvidesPackage{beamerbasethemeCIAD}
    [\insertciadbeamerthemeversion\ Beamer Base Defs 'CIAD' Theme]
@@ -110,6 +110,7 @@
 \RequirePackage{textcase} % for making upper case the text
 \RequirePackage{tabularx}
 \RequirePackage{tcolorbox}
+\RequirePackage{autolatex-beamer}
 
 % Bug fix: force the theme to parse the key-value options
 % (See also the patch into the ciadbeamer.cls)
@@ -1710,73 +1711,12 @@
 	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{}%
 }
 
-%\animatedfigureslide<#1>[#2]{#3}{#4}
-% #1 = frame spec (optional)
-% #2 = options (optional)
-% #3 = title
-% #4 = filename
-\def\animatedfigureslide{%
-	\@ifnextchar<\beamer@theme@ciad@animatedfigureslide@framespec\beamer@theme@ciad@animatedfigureslide@noframespec%
-}
 
-\def\beamer@theme@ciad@animatedfigureslide@framespec<#1>{%
-	\providecommand{\beamer@theme@ciad@tmp}{}% For ensure redefinition below
-	\renewcommand{\beamer@theme@ciad@tmp}[3][width=\linewidth]{%
-		\beamer@theme@ciad@animatedfigureslide{##1}{##2}{##3}{<#1>}%
-	}%
-	\beamer@theme@ciad@tmp%
-}
+%-----------------------------------------
+% Animated figure slide
 
-\newcommand{\beamer@theme@ciad@animatedfigureslide@noframespec}[3][width=\linewidth]{%
-	\beamer@theme@ciad@animatedfigureslide{#1}{#2}{#3}{}%
-}
-
-% #1 = options
-% #2 = title
-% #3 = filename
-% #4 = frame spec
-\newcommand{\beamer@theme@ciad@animatedfigureslide}[4]{%
-	\global\let\beamer@theme@ciad@figureslide@frame\beamer@theme@ciad@figureslide@frame@texinclude%
-	\beamer@theme@ciad@figureslide[#1]{#2}{#3}{\usebox{\beamer@theme@ciad@figureslide@box}}{#4}%
-}
-
-% #1 = filename
-\newcommand{\beamer@theme@ciad@figureslide@loadtexfigure}[1]{%
-	\global\let\beamer@theme@ciad@wtfig@tmp\relax%
-	\filename@parse{#1}%
-	\ifx\filename@ext\relax%
-		\global\let\resolvedfilename\relax%
-		\@for\beamer@theme@ciad@wtfig@exttmp:=\@@wtfig@extensions\do{%
-			\expandafter\beamer@theme@ciad@resolvepicturename@search{#1\beamer@theme@ciad@wtfig@exttmp}%
-		}%
-	\else%
-		\global\let\resolvedfilename\relax%
-		\expandafter\beamer@theme@ciad@resolvepicturename@search{#1}%
-	\fi%
-	\expandafter\checkresolvepicturename{#1}%
-	\expandafter\input{\resolvedfilename}%
-}
-
-% #1 = options
-% #2 = title
-% #3 = filename
-% #4 = vertical alignment
-% #5 = horizontal alignment
-% #6 = label
-% #7 = subtitle
-% #8 = macros in the content
-% #9 = frame spec (with enclosing symbols)
-\newcommand{\beamer@theme@ciad@figureslide@frame@texinclude}[9]{%
-	\beamer@theme@ciad@figureslide@@frame
-		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
-		{\savebox{\beamer@theme@ciad@figureslide@box}{\beamer@theme@ciad@figureslide@loadtexfigure{#3}}}%
-}
-
-%\DeclareGraphicsExtensionsWtex{coma separated extensions}
-\newcommand{\DeclareGraphicsExtensionsWtex}[1]{%
-	\xdef\@@wtfig@extensions{\zap@space#1 \@empty}%
-}
-\DeclareGraphicsExtensionsWtex{.pdftex_t,.pstex_t,.pdf_tex,.ps_tex}
+% Redefine the way how \animatedfigureslide compute the height of the slide's content
+\global\let\autolatexsettoslidecontentheight\beamer@theme@ciad@computeslidecenterpartheight
 
 
 %-----------------------------------------
