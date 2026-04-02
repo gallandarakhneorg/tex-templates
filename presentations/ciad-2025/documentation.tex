@@ -1074,7 +1074,9 @@
 
 \subsection{Bibliography}
 
-\begin{frame}{Bibliography}
+\subsubsection{Bibliography with regular \LaTeX\ macros}
+
+\begin{frame}{Regular \LaTeX\ Bibliography}
 	\begin{itemize}
 	\item You are able to include a bibliography in your slides with the two standard {\LaTeX} commands: \\
 		\texttt{{\textbackslash}bibliographystyle\{style\}} \\
@@ -1087,6 +1089,27 @@
 	\item \emph{The first slide of the bibliography is marked with the label ``\texttt{bibliographyslide}'' for \texttt{{\textbackslash}hyperlink}.}
 	\end{itemize}
 \end{frame}
+
+\subsubsection{Bibliography with Bibunits}
+
+\begin{frame}{Bibliography with Bibunits}
+	\begin{itemize}
+	\item \texttt{Bibunits} package allows to create separate, individual bibliographies for specific parts
+	\item To use \texttt{Bibunits}, you have to: \\
+		\texttt{{\textbackslash}usepackage\{bibunits\}}
+	\item The two following elements are automatically activated when you include \texttt{Bibunits}:
+		\begin{enumerate}
+		\item \texttt{{\textbackslash}bibliographyslide} create a frame with the bibliography in the current \texttt{Bibunits} section and using the regular \texttt{Bibunits} macro: \texttt{{\textbackslash}putbib[biblio]}. \\
+			Please note that the name of the Bib\TeX\ database is always \texttt{biblio.bib}.
+		\item The following environment permits to create a specific \texttt{Bibunits} block: \\
+			\texttt{{\textbackslash}begin\{bibliographysection\}} \\
+			... \\
+			\texttt{{\textbackslash}end\{bibliographysection\}} \\
+			This environment automatically expands to \texttt{{\textbackslash}bibliographyslide} at the end of the section block.
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Special Slides}

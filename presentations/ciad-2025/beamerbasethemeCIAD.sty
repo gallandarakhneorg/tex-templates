@@ -1721,7 +1721,7 @@
 
 
 %-----------------------------------------
-% Bibliography
+% Regular LaTeX Bibliography
 \newif\ifbeamer@theme@ciad@bibliographystyle
 \beamer@theme@ciad@bibliographystylefalse
 \global\let\beamer@theme@ciad@oldbibliographystyle\bibliographystyle
@@ -1738,6 +1738,9 @@
 }
 \newcommand{\beamer@theme@ciad@bibliographyslide}[1]{%
 	\section{\bibname}%
+	\beamer@theme@ciad@bibliographyslide@nosection{#1}%
+}
+\newcommand{\beamer@theme@ciad@bibliographyslide@nosection}[1]{%
 	\begin{frame}[t,allowframebreaks,fancyframetitle=false]{\bibname}%
 	\tiny%
 	\ifbeamer@theme@ciad@bibliographystyle\else%
@@ -1749,6 +1752,45 @@
 
 % Remove icons from the bibliography
 \setbeamertemplate{bibliography item}{}
+
+%-----------------------------------------
+% Bibliography slide
+\AtBeginDocument{%
+	\@ifpackageloaded{bibunits}{%
+		% Change the name of the auxiliary files when bibunits is used
+		\renewcommand{\@bibunitname}{\jobname.\the\@bibunitauxcnt}%
+
+		% Define a bibliography slide based on bibunits
+		\gdef\bibliographyslide{%
+			\begin{frame}[t,allowframebreaks,fancyframetitle=false]{\bibname}%
+				\tiny\putbib[biblio]%
+			\end{frame}%
+		}%
+
+		% Define a bibliography section based on bibunits
+		% #0: the BST name
+		\NewEnviron{bibliographysection}[1][apalike]{%
+			\begin{bibunit}[apalike]%
+			\BODY%
+			\bibliographyslide%
+			\end{bibunit}%
+		}%
+	}{%
+		% The bibliography slide is defined in the previous section
+		\gdef\bibliographyslide{%
+			\beamer@theme@ciad@bibliographyslide@nosection{biblio}%
+		}%
+
+
+		% Define a bibliography section without bibunit
+		% #0: the BST name
+		\NewEnviron{bibliographysection}[1][apalike]{%
+			\BODY%
+			\bibliographyslide%
+		}%
+
+	}
+}
 
 %-----------------------------------------
 % Appendix
