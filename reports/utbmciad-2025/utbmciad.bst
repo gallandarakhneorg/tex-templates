@@ -2,7 +2,7 @@
 % the `alpha' style, version 0.99a; for BibTeX version 0.99a.
 %
 % Copyright (C) 1988, 2010 Oren Patashnik.
-% Copyright (C) 2014-2025 Stephane Galland.
+% Copyright (C) 2014-20256 Stephane Galland.
 % Unlimited copying and redistribution of this file are permitted as long as
 % it is unmodified.  Modifications (and redistribution of modified versions)
 % are also permitted, but only if the resulting file is renamed.

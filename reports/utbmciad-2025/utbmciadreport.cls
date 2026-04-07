@@ -1,6 +1,6 @@
 % Document class for the reports of the Multiagent Group
 %
-% Copyright (c) 2013-25 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-26 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{utbmciadreport}[2022/02/10]
+\ProvidesClass{utbmciadreport}[2026/04/06]
 
 %%--------------------
 %% Global conditions
@@ -83,7 +83,8 @@
 
 %%--------------------
 %% Check for the correct version of tex-upmethodology
-\@ifclasslater{UPMVERSION}{2021/07/01}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 20210701}\@eha}
+\@ifclasslater{UPMVERSION}{2026/04/05}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 2026/04/06}\@eha}
+
 
 %%--------------------
 %% Use the style dedicated to the report of the multiagent group
