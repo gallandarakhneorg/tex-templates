@@ -1,0 +1,77 @@
+Presentation
+
+tex-templates is a collection of LaTeX styles for different usages.
+
+Slides
+
+tex-templates provides styles for creating slides with the Beamer tool.
+- CIAD Laboratory located at the Université de Technologie de
+Belfort-Montbéliard and the Université Bourgogne Europe
+“[download]”:./presentations/ciad-2025
+
+PhD Theses
+
+tex-templates provides the official styles for writing a PhD thesis in
+the following Universities:
+
+- Université de Technologie de Belfort-Montbéliard [download part 1]
+[download part 2] [download part 3]
+
+- Université Bourgogne Europe [download part 1] [download part 2]
+[download part 3]
+- Université Marie et Louis Pasteur [download part 1] [download part 2]
+[download part 3]
+
+Examples for these PhD thesis styles may be found at:
+http://www.ciad-lab.fr/
+
+French Research Supervision Accreditation
+
+tex-templates provides the unofficial styles for preparing a French
+Research Supervision Accredidation (In French: Habilitation à diriger
+des rerchers - HDR):
+
+- Application document for Université Bourgogne Europe [download part 1]
+[download part 2] [download part 3]
+- HDR report for Université Bourgogne Europe [download part 1] [download
+part 2] [download part 3]
+
+Technical Reports
+
+tex-templates provides the styles for writing the technical reports of
+the CIAD Laboratory at the Université de Technologie de
+Belfort-Montbéliard
+
+- Technical or Scientific report style
+“[download]”:./reports/utbmciad-2025
+
+Conference Papers
+
+tex-templates provides the styles for the following conferences:
+- IngéDoc at the Université de Technologie de Belfort-Montbéliard
+“[download]”:./papers/ingedoc
+
+Installation
+
+1.  For the reports, install the tex-upmethodology collection of
+    packages (also available on CTAN, and included in the major TeX
+    distributions)
+2.  Copy the content of the current directory inside one of your texmf
+    directory, usually /usr/share/texmf/tex/latex/tex-templates or
+    $HOME/.texmf on Unix operating systems.
+3.  Update the LaTeX databases from the command line:
+
+$> mktexlsr
+$> update-updmap —quiet
+
+Author
+
+Prof.Dr. Stéphane GALLAND
+
+http://www.arakhne.org/homes/galland.html
+http://www.ciad-lab.fr/galland_stephane
+
+License
+
+GNU LESSER GENERAL PUBLIC LICENSE for the source code.
+The logos are owned by the corresponding institutions.
