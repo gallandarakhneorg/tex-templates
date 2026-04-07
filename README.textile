@@ -5,38 +5,39 @@ h1. Presentation
 h2. Slides
 
 @tex-templates@ provides styles for creating slides with the Beamer tool.
-- "CIAD Laboratory":https://ciad-lab.fr located at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr and the "Université Bourgogne Europe":http://www.u-bourgogne.fr
+- "CIAD Laboratory":https://ciad-lab.fr located at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr and the "Université Bourgogne Europe":http://www.ube.fr "[download]":./presentations/ciad-2025
+
 
 h2. PhD Theses
 
 @tex-templates@ provides the official styles for writing a PhD thesis in the following Universities:
-- "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
-- "Université Marie et Louis Pasteur":http://www.univ-fcomte.fr
-- "Université Bourgogne Europe":http://www.u-bourgogne.fr
+- "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr "[download part 1]":./spim/shared/sty "[download part 2]":./spim/shared/bst "[download part 3]":./spim/utbm/spimutbmphdthesis
+- "Université Bourgogne Europe":http://www.ube.fr "[download part 1]":./spim/shared/sty "[download part 2]":./spim/shared/bst "[download part 3]":./spim/utbm/spimubephdthesis
+- "Université Marie et Louis Pasteur":http://www.umlp.fr "[download part 1]":./spim/shared/sty "[download part 2]":./spim/shared/bst "[download part 3]":./spim/utbm/spimumlpphdthesis
 
-Examples for these PhD thesis styles may be found at: http://www.multiagent.fr/ThesisStyle
+Examples for these PhD thesis styles may be found at: http://www.ciad-lab.fr/
 
 h2. French Research Supervision Accreditation
 
 @tex-templates@ provides the unofficial styles for preparing a French Research Supervision Accredidation (In French: Habilitation à diriger des rerchers - HDR):
-- Application document for "Université Bourgogne Europe":http://www.u-bourgogne.fr
-- HDR report for "Université Bourgogne Europe":http://www.u-bourgogne.fr
+- Application document for "Université Bourgogne Europe":http://www.ube.fr "[download part 1]":./spim/shared/sty "[download part 2]":./spim/shared/bst "[download part 3]":./spim/ube/spimubehdrapplication
+- HDR report for "Université Bourgogne Europe":http://www.ube.fr "[download part 1]":./spim/shared/sty "[download part 2]":./spim/shared/bst "[download part 3]":./spim/ube/spimubehdr
 
 
 h2. Technical Reports
 
-@tex-templates@ provides the styles for writing the technical reports of the "CIAD Laboratory":https://ciad-lab.fr at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr and the "Université Bourgogne Europe":http://www.u-bourgogne.fr
+@tex-templates@ provides the styles for writing the technical reports of the "CIAD Laboratory":https://ciad-lab.fr at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
 
-- Presentation styles (for Beamer)
+- Technical or Scientific report style "[download]":./reports/utbmciad-2025
 
 h2. Conference Papers
 
 @tex-templates@ provides the styles for the following conferences:
-- IngéDoc at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr
+- IngéDoc at the "Université de Technologie de Belfort-Montbéliard":http://www.utbm.fr "[download]":./papers/ingedoc
 
 h1. Installation
 
-# For the reports, install the "@tex-upmethodology@ collection of packages":http://www.arakhne.org/tex-upmethodology 
+# For the reports, install the "@tex-upmethodology@ collection of packages":http://www.arakhne.org/tex-upmethodology (also available on CTAN, and included in the major TeX distributions)
 # Copy the content of the current directory inside one of your @texmf@ directory, usually @/usr/share/texmf/tex/latex/tex-templates@ or @$HOME/.texmf@ on Unix operating systems.
 # Update the LaTeX databases from the command line:
 
@@ -45,10 +46,10 @@ h1. Installation
 
 h2. Author
 
-Dr.habil. Stéphane GALLAND
+Prof.Dr. Stéphane GALLAND
 
 http://www.arakhne.org/homes/galland.html
-http://www.multiagent.fr/People:Galland_stephane
+http://www.ciad-lab.fr/galland_stephane
 
 h2. License
 
