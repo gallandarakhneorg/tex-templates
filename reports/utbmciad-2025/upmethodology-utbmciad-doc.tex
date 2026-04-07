@@ -1,6 +1,6 @@
 \documentclass[article]{upmethodology-document}
 
-\declaredocument{utbmciad Style Extension for tex-upmethodology}{Official Documentation}{UTBMCIAD-2025-01}
+\declaredocument{utbmciad Style Extension for tex-upmethodology}{Official Documentation}{UTBMCIAD-2025-02}
 
 \addauthorvalidator[galland@arakhne.org]{St{\'e}phane}{Galland}
 
@@ -10,6 +10,7 @@
 
 \updateversion{1.0}{\makedate{05}{08}{2019}}{First version of the documentation.}{\upmpublic}
 \updateversion{2.0}{\makedate{09}{01}{2025}}{Remove UBFC.}{\upmpublic}
+\updateversion{3.0}{\makedate{06}{04}{2026}}{Add funding scheme features.}{\upmpublic}
 %\incversion{\makedate{dd}{mm}{yyyy}}{Description.}{\upmpublic}
 
 \makeatletter
@@ -115,20 +116,27 @@ Copy \texttt{tex-upmethdology-utbmciad} configuration file (\texttt{.cfg}) and a
 \item[nodocrefonback] Hide the document reference from the back page.
 \item[contactonback] Show up the contact information on the back page.
 \item[nocontactonback] Hide the contact information from the back page.
+\item[fundingschemelogo] Show up the logos of the funding schemes.
+\item[nofundingschemelogo] Hide the logos of the funding schemes.
 \end{description}
 
 The other class options are passed to \texttt{tex-upmethodology}.
 
 \section{Provided Macros}
 
-\texttt{tex-upmethdology-utbmciad} does not provide macros by itself. The packages of \texttt{tex-upmethodology} (a dependency of this style) provides plenty of additional macros. See the documentation of \texttt{tex-upmethodology} for details.
+\texttt{tex-upmethdology-utbmciad} provides the following macros:
+\begin{itemize}
+\item \texttt{{\textbackslash}addfundingschemelogo[height size]\{path to logo image\}}: Add a logo image in the list of the funding schemes' logos. The default height is $1.25cm$.
+\item \texttt{{\textbackslash}utbmciadfundingschemeslogos}: Show the list of all the funding schemes' logos.
+\end{itemize}
+
+The packages of \texttt{tex-upmethodology} (a dependency of this style) provides plenty of additional macros. See the documentation of \texttt{tex-upmethodology} for details.
 
 \section{Provided Colors}
 
 \texttt{tex-upmethdology-utbmciad} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
 
-\begin{mtabular}{4}{XccX}
-\tabulartitle{Provided Colors}
+\begin{mtabular}{4}{XccX}{Provided Colors}
 \tabularheader{Name}{Type}{Value}{Example}
 \upmextensiondoccolorlist
 \end{mtabular}
@@ -138,8 +146,7 @@ The other class options are passed to \texttt{tex-upmethodology}.
 \texttt{tex-upmethdology-utbmciad} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
 
 \begin{tiny}
-\begin{mtabular}{3}{XcX}
-\tabulartitle{Provided Values}
+\begin{mtabular}{3}{XcX}{Provided Values}
 \tabularheader{Name}{Language}{Content}
 \upmextensiondocvaluelist
 \end{mtabular}
@@ -153,7 +160,7 @@ The other class options are passed to \texttt{tex-upmethodology}.
 
 \section{Copyright of Materials}
 
-Copyright \copyright 2009, 2012-2025 Universit\'e de Technologie de Belfort-Monb\'eliard. All rights reserved. \\
+Copyright \copyright 2009, 2012-2026 Universit\'e de Technologie de Belfort-Monb\'eliard. All rights reserved. \\
 
 UTBM and all UTBM-related trademarks and logos are trademarks or registered trademarks of Universit\'e de Technologie de Belfort-Montb\'eliard in the France, other countries, or both.
 

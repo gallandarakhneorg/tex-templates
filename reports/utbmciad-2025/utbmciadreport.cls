@@ -29,6 +29,7 @@
 \newif\ifshowSayenslogo\showSayenslogotrue
 \newif\ifshowUTBMlogo\showUTBMlogotrue
 \newif\ifshowUTlogo\showUTlogotrue
+\newif\ifshowFundingSchemelogo\showFundingSchemelogofalse
 \newif\ifshowDocRefOnFront\showDocRefOnFronttrue
 \newif\ifshowDocRefOnBack\showDocRefOnBacktrue
 \newif\ifshowContactOnBack\showContactOnBacktrue
@@ -63,6 +64,9 @@
 \DeclareOption{utlogo}{\global\showUTlogotrue}
 \DeclareOption{noutlogo}{\global\showUTlogofalse}
 
+\DeclareOption{fundingschemelogo}{\global\showFundingSchemelogotrue}
+\DeclareOption{nofundingschemelogo}{\global\showFundingSchemelogofalse}
+
 \DeclareOption{docrefonfront}{\global\showDocRefOnFronttrue}
 \DeclareOption{nodocrefonfront}{\global\showDocRefOnFrontfalse}
 
@@ -85,6 +89,15 @@
 %% Check for the correct version of tex-upmethodology
 \@ifclasslater{UPMVERSION}{2026/04/05}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 2026/04/06}\@eha}
 
+%%--------------------
+%% Logos of funding schemes
+\gdef\utbmciadfundingschemeslogos{}
+\newcommand{\addfundingschemelogo}[2][1.25cm]{%
+	\global\protected@edef\utbmciadfundingschemeslogos{%
+		\utbmciadfundingschemeslogos%
+		\protect\hspace{.5cm}\protect\includegraphics[height=#1]{#2}%
+	}%
+}
 
 %%--------------------
 %% Use the style dedicated to the report of the multiagent group
