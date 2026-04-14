@@ -1,4 +1,4 @@
-% Copyright (c) 2013-25 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-26 Stephane GALLAND <galland@arakhne.org>
 %
 % UTBM logo and name are registered and owned by the
 % "Universite de Technologie de Belfort-Montbeliard".
@@ -28,7 +28,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 \ProvidesClass{ciadbeamer}
-   [2025/06/01 Class for CIAD slides]
+   [2026/04/14 Class for CIAD slides]
 
 % 1) Add the option "aspectratio=169" at the beginning of the options
 % 2) Save the full list of the options into \@classoptionslist@full
