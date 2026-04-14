@@ -1,0 +1,21 @@
+# Subversion, CVS, and GIT
+.svn/
+.cvs/
+.git/
+
+# Python Setup
+bin/
+build/
+dist/
+
+# Debian
+packaging/upstream/**
+tex-templates*.deb
+tex-templates*.dsc
+tex-templates*.changes
+tex-templates*.buildinfo
+tex-templates*.tar.gz
+
+# Temp files
+*.bak
+*~

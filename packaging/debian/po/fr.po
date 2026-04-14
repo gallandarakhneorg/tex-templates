@@ -1,0 +1,230 @@
+# French translations for the DEbian scripts of the tex-templates packages.
+# Copyright (C) 2013 Stephane Galland
+# This file is distributed under the same license as the PACKAGE package.
+# Stephane Galland <galland@arakhne.org>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: tex-templates\n"
+"Report-Msgid-Bugs-To: tex-templates@packages.debian.org\n"
+"POT-Creation-Date: 2023-05-02 22:17+0200\n"
+"PO-Revision-Date: 2013-08-16 11:45+0200\n"
+"Last-Translator: Stephane Galland <galland@arakhne.org>\n"
+"Language-Team: Stephane Galland <galland@arakhne.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:1001
+#: ../tex-templates-utbmciadreport-2021.templates:1001
+#: ../tex-templates-utbmciadreport-2025.templates:1001
+#: ../tex-templates-utbm-phdthesis.templates:1001
+msgid "Agreement for the Report Template of the UTBM"
+msgstr "Licence d'utilisation pour le patron de rapport pour l'UTBM"
+
+#. Type: note
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:1001
+#: ../tex-templates-utbmciadreport-2021.templates:1001
+#: ../tex-templates-utbmciadreport-2025.templates:1001
+#: ../tex-templates-utbm-phdthesis.templates:1001
+#: ../tex-templates-ube-phdthesis.templates:1001
+#: ../tex-templates-spimhdr.templates:1001
+msgid ""
+"THE ACCOMPANYING TEMPLATE IS PROVIDED UNDER THE TERMS OF THIS LICENSE "
+"AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION "
+"CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT."
+msgstr ""
+"LE PATRON ACCOMPAGNANT CE PAQUET EST FOURNI SOUS LES TERMES DE CETTE LICENCE "
+"D'UTILISATION. TOUT USAGE, REPRODUCTION OU DISTRIBUTION DE CE PATRON "
+"IMPLIQUE L'ACCEPTATION IMPLICITE DE CETTE LICENCE."
+
+#. Type: note
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:1001
+#: ../tex-templates-utbmciadreport-2021.templates:1001
+#: ../tex-templates-utbmciadreport-2025.templates:1001
+#: ../tex-templates-utbm-phdthesis.templates:1001
+msgid ""
+"YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM TEMPLATE  LATEX "
+"PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE UNIVERSITE DE "
+"TECHNOLOGIE DE BELFORT-MONTBELIARD, OR B) YOU ARE OFFICIALLY AND EXPLICITELY "
+"AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSITE DE "
+"TECHNOLOGIE DE BELFORT-MONTBELIARD."
+msgstr ""
+"VOUS ETES AUTORISE A UTILISE, REPRODUIRE OU DISTRIBUER LE PATRON LATEX DE "
+"L'UTBM SI ET SEULEMENT SI : A) VOUS ETES OFFICIELLEMENT MEMBRE DE "
+"L'UNIVERSITE DE TECHNOLOGIE DE BELFORT-MONTBELIARD, OU B) VOUS ETES "
+"OFFICIELLEMENT AUTORISE POUR L'USAGE DE CE PATRON PAR UN REPRESENTANT "
+"OFFICIEL DE L'UNIVERSITE DE TECHNOLOGIE DE BELFORT-MONTBELIARD."
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:2001
+#: ../tex-templates-utbmciadreport-2021.templates:2001
+#: ../tex-templates-utbmciadreport-2025.templates:2001
+#: ../tex-templates-utbm-phdthesis.templates:2001
+msgid "Do you accept the UTBM usage terms?"
+msgstr "Acceptez-vous les termes de la licence d'utilisation UTBM ?"
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:2001
+#: ../tex-templates-utbmciadreport-2021.templates:2001
+#: ../tex-templates-utbmciadreport-2025.templates:2001
+#: ../tex-templates-utbm-phdthesis.templates:2001
+msgid ""
+"In order to install this extension, you must accept the terms of the Usage "
+"Agreement for the UTBM templates. If you do not accept, the installation "
+"will be cancelled."
+msgstr ""
+"Pour installer ce patron, vous devez accepter les termes de la licence "
+"d'utilisation pour les patrons de l'UTBM. Si vous ne les acceptez par, "
+"l'installation sera annulée."
+
+#. Type: error
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:3001
+#: ../tex-templates-utbmciadreport-2021.templates:3001
+#: ../tex-templates-utbmciadreport-2025.templates:3001
+#: ../tex-templates-utbm-phdthesis.templates:3001
+msgid "Declined UTBM usage terms"
+msgstr "Les termes de la licence UTBM ont été refusés"
+
+#. Type: error
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:3001
+#: ../tex-templates-utbmciadreport-2021.templates:3001
+#: ../tex-templates-utbmciadreport-2025.templates:3001
+#: ../tex-templates-utbm-phdthesis.templates:3001
+msgid ""
+"If you do not accept the terms of the Usage Agreement for the UTBM "
+"templates, you cannot install the templates."
+msgstr ""
+"Si vous n'acceptez pas les termes de la licence d'utilisation des patrons de "
+"l'UTBM, vous ne pouvez pas installer un patron LaTeX."
+
+#. Type: error
+#. Description
+#: ../tex-templates-utbmciadreport-2019.templates:3001
+#: ../tex-templates-utbmciadreport-2021.templates:3001
+#: ../tex-templates-utbmciadreport-2025.templates:3001
+#: ../tex-templates-utbm-phdthesis.templates:3001
+#: ../tex-templates-ube-phdthesis.templates:3001
+#: ../tex-templates-spimhdr.templates:3001
+msgid "The installation of this package will be cancelled."
+msgstr "L'installation de ce paquet va être annulée."
+
+#. Type: note
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:1001
+msgid "Agreement for the Report Template of the UBE"
+msgstr "Licence d'utilisation pour le patron de rapport pour l'UBE"
+
+#. Type: note
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:1001
+#: ../tex-templates-spimhdr.templates:1001
+msgid ""
+"YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM TEMPLATE  LATEX "
+"PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE UNIVERSITE DE "
+"BOURGOGNE, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS "
+"EXTENSION BY A REPRESENTATIVE OF THE UNIVERSITE DE BOURGOGNE."
+msgstr ""
+"VOUS ETES AUTORISE A UTILISE, REPRODUIRE OU DISTRIBUER LE PATRON LATEX DE "
+"L'UBE SI ET SEULEMENT SI : A) VOUS ETES OFFICIELLEMENT MEMBRE DE L'UNIVERSITE "
+"DE BOURGOGNE, OU B) VOUS ETES OFFICIELLEMENT AUTORISE POUR L'USAGE DE CE "
+"PATRON PAR UN REPRESENTANT OFFICIEL DE L'UNIVERSITE DE BOURGOGNE."
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:2001
+msgid "Do you accept the UBE usage terms?"
+msgstr "Acceptez-vous les termes de la licence d'utilisation UBE ?"
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:2001
+msgid ""
+"In order to install this extension, you must accept the terms of the Usage "
+"Agreement for the UBE templates. If you do not accept, the installation will "
+"be cancelled."
+msgstr ""
+"Pour installer ce patron, vous devez accepter les termes de la licence "
+"d'utilisation pour les patrons de l'UBE. Si vous ne les acceptez par, "
+"l'installation sera annulée."
+
+#. Type: error
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:3001
+msgid "Declined UBE usage terms"
+msgstr "Les termes de la licence UBE ont été refusés"
+
+#. Type: error
+#. Description
+#: ../tex-templates-ube-phdthesis.templates:3001
+msgid ""
+"If you do not accept the terms of the Usage Agreement for the UBE templates, "
+"you cannot install the templates."
+msgstr ""
+"Si vous n'acceptez pas les termes de la licence d'utilisation des patrons de "
+"l'UBE, vous ne pouvez pas installer un patron LaTeX."
+
+#. Type: note
+#. Description
+#: ../tex-templates-spimhdr.templates:1001
+#, fuzzy
+#| msgid "Agreement for the Report Template of the UTBM"
+msgid "Agreement for the Report Template of the SPIM HDR"
+msgstr "Licence d'utilisation pour le patron de rapport pour l'UTBM"
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-spimhdr.templates:2001
+#, fuzzy
+#| msgid "Do you accept the UTBM usage terms?"
+msgid "Do you accept the SPIM usage terms?"
+msgstr "Acceptez-vous les termes de la licence d'utilisation UTBM ?"
+
+#. Type: boolean
+#. Description
+#: ../tex-templates-spimhdr.templates:2001
+#, fuzzy
+#| msgid ""
+#| "In order to install this extension, you must accept the terms of the "
+#| "Usage Agreement for the UTBM templates. If you do not accept, the "
+#| "installation will be cancelled."
+msgid ""
+"In order to install this extension, you must accept the terms of the Usage "
+"Agreement for the SPIM templates. If you do not accept, the installation "
+"will be cancelled."
+msgstr ""
+"Pour installer ce patron, vous devez accepter les termes de la licence "
+"d'utilisation pour les patrons de l'UTBM. Si vous ne les acceptez par, "
+"l'installation sera annulée."
+
+#. Type: error
+#. Description
+#: ../tex-templates-spimhdr.templates:3001
+#, fuzzy
+#| msgid "Declined UTBM usage terms"
+msgid "Declined SPIM usage terms"
+msgstr "Les termes de la licence UTBM ont été refusés"
+
+#. Type: error
+#. Description
+#: ../tex-templates-spimhdr.templates:3001
+#, fuzzy
+#| msgid ""
+#| "If you do not accept the terms of the Usage Agreement for the UTBM "
+#| "templates, you cannot install the templates."
+msgid ""
+"If you do not accept the terms of the Usage Agreement for the SPIM "
+"templates, you cannot install the templates."
+msgstr ""
+"Si vous n'acceptez pas les termes de la licence d'utilisation des patrons de "
+"l'UTBM, vous ne pouvez pas installer un patron LaTeX."

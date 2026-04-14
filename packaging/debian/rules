@@ -1,0 +1,370 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+include /usr/share/cdbs/1/rules/buildvars.mk
+
+top_dir      := $(shell pwd)
+
+upstream_dir := $(top_dir)/upstream
+build_dir    := $(top_dir)/build_dir
+patch_dir    := $(top_dir)/debian/patches
+install_dir  := $(top_dir)/debian/tmp
+skel_dir  := $(top_dir)/debian/skels
+skelout_dir  := $(top_dir)/debian
+
+root_tex_install_target := usr/share/texmf/tex/latex/
+root_tex_doc_install_target := usr/share/texmf/doc/latex/
+tex_install_target := ${root_tex_install_target}/upmethodology-extensions
+bst_install_target := usr/share/texmf/bibtex/bst/upmethodology-extensions
+doc_install_target := ${root_tex_doc_install_target}/upmethodology-extensions
+beamer_install_target := ${root_tex_install_target}/beamer/themes
+beamer_doc_target := ${root_tex_doc_install_target}/beamer/themes
+beamer_bst_install_target := usr/share/texmf/bibtex/bst/beamer
+
+build_src    := $(build_dir)/tex-templates
+
+showvars:
+	@echo "top_dir=$(top_dir)"
+	@echo "upstream_dir=$(upstream_dir)"
+	@echo "build_dir=$(build_dir)"
+	@echo "patch_dir=$(patch_dir)"
+	@echo "install_dir=$(install_dir)"
+	@echo "build_src=$(build_src)"
+	@echo "skel_dir=$(skel_dir)"
+	@echo "skelout_dir=$(skelout_dir)"
+
+build: build-stamp
+
+configure-stamp: unpack-stamp
+	dh_testdir
+	touch $@
+
+build-stamp: configure-stamp
+	dh_testdir
+	cd $(build_src)
+	touch $@
+
+prepare-debian-directory:
+	rm -rf $(build_dir) 2>/dev/null >/dev/null
+	mkdir -p -m=rwx,go=rx $(build_dir)
+	mkdir -p -m=rwx,go=rx $(build_src)
+	dh_testdir
+
+	# Create Debian files from the skels
+	@cp "$(skel_dir)/tex-templates-utbm.templates" "$(skelout_dir)/tex-templates-utbmciadreport-2019.templates"
+	@cp "$(skel_dir)/tex-templates-utbm.templates" "$(skelout_dir)/tex-templates-utbmciadreport-2021.templates"
+	@cp "$(skel_dir)/tex-templates-utbm.templates" "$(skelout_dir)/tex-templates-utbmciadreport-2025.templates"
+	@cp "$(skel_dir)/tex-templates-utbm.templates" "$(skelout_dir)/tex-templates-utbm-phdthesis.templates"
+	@cp "$(skel_dir)/tex-templates-utbm.templates" "$(skelout_dir)/tex-templates-ciad-beamer.templates"
+	@cp "$(skel_dir)/tex-templates-ube.templates" "$(skelout_dir)/tex-templates-ube-phdthesis.templates"
+	@cp "$(skel_dir)/tex-templates-umlp.templates" "$(skelout_dir)/tex-templates-umlp-phdthesis.templates"
+	@cp "$(skel_dir)/tex-templates-spimhdr.templates" "$(skelout_dir)/tex-templates-spimhdr.templates"
+
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-utbmciadreport-2019.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-utbmciadreport-2021.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-utbmciadreport-2025.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-phdthesis-base.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-utbm-phdthesis.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-ube-phdthesis.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-umlp-phdthesis.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-spimhdr.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-ciad-beamer.postinst"
+	@cp "$(skel_dir)/tex-templates.postinst" "$(skelout_dir)/tex-templates-ingedoc.postinst"
+
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-utbmciadreport-2019.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-utbmciadreport-2021.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-utbmciadreport-2025.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-phdthesis-base.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-utbm-phdthesis.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-ube-phdthesis.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-spimhdr.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-ciad-beamer.postrm"
+	@cp "$(skel_dir)/tex-templates.postrm" "$(skelout_dir)/tex-templates-ingedoc.postrm"
+
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for reports of the CIAD lab 2019" "$(skel_dir)/tex-templates-utbm.preinst" "$(skelout_dir)/tex-templates-utbmciadreport-2019.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for reports of the CIAD lab 2021" "$(skel_dir)/tex-templates-utbm.preinst" "$(skelout_dir)/tex-templates-utbmciadreport-2021.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for reports of the CIAD lab 2025" "$(skel_dir)/tex-templates-utbm.preinst" "$(skelout_dir)/tex-templates-utbmciadreport-2025.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for PhD thesis of the UTBM" "$(skel_dir)/tex-templates-utbm.preinst" "$(skelout_dir)/tex-templates-utbm-phdthesis.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for Beamer presentation of the CIAd lab" "$(skel_dir)/tex-templates-utbm.preinst" "$(skelout_dir)/tex-templates-ciad-beamer.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for PhD thesis of the UBE" "$(skel_dir)/tex-templates-ube.preinst" "$(skelout_dir)/tex-templates-ube-phdthesis.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for PhD thesis of the UMLP" "$(skel_dir)/tex-templates-umlp.preinst" "$(skelout_dir)/tex-templates-umlp-phdthesis.preinst"
+	@perl "$(top_dir)/debian/mktemplate.perl" "Template for HDR of SPIM" "$(skel_dir)/tex-templates-spimhdr.preinst" "$(skelout_dir)/tex-templates-spimhdr.preinst"
+
+	# Force updating of DebConf internationalization
+	@debconf-updatepo
+
+unpack-stamp: prepare-debian-directory
+	# unpack upstream tarballs
+	@cd $(build_dir)\
+		&& for f in $(upstream_dir)/*.tar.gz ; do\
+			echo "unpacking $$f"; \
+			tar xfz "$$f"; \
+		   done \
+		&& chmod -R go-w *
+
+	# Check file permissions for ensuring that the input archive files
+	# have an expected permission rights
+	@cd $(build_dir) \
+		&& for f in `find -type d` ; do \
+			PERM=`stat --printf "%a" "$$f"`; \
+			if test "$$PERM" -ne 755; then \
+				echo "Invalid file permission $$PERM for $(build_dir)/$$f"; \
+				false; \
+			fi; \
+		done
+	@cd $(build_dir) \
+		&& for f in `find -type f` ; do \
+			PERM=`stat --printf "%a" "$$f"`; \
+			if test "$$PERM" -ne 755 -a "$$PERM" -ne 644; then \
+				echo "Invalid file permission $$PERM for $(build_dir)/$$f"; \
+				false; \
+			fi; \
+		done
+
+	# apply any patches
+	@cd $(build_src) \
+		&& for p in $(wildcard $(patch_dir)/*.patch); do \
+			patch -p0 < $$p; \
+		done;
+	
+	# Remove obsolete files for the sources
+	find "$(build_src)" '(' -name "Makefile" -o -name "*-doc.pdf" ')' -a -exec 'rm' '{}' ';'
+
+	touch $@
+
+binary-indep:
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+	dh_install --autodest
+	dh_installexamples
+	dh_installdocs
+	dh_missing --fail-missing
+	dh_installchangelogs
+	dh_installdebconf
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb -- -Zgzip
+
+binary: binary-indep binary-arch
+
+install: install-stamp
+
+install-stamp: build-stamp
+	dh_testdir
+	dh_testroot
+	dh_prep
+	# Creating directories
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)"
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)"
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)"
+	#
+	# BEAMER
+	#
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/base"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/outer"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/inner"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/font"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/color"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/theme"
+	install -d -m 0755 "$(install_dir)/$(beamer_install_target)/plugins"
+	install -d -m 0755 "$(install_dir)/$(beamer_doc_target)/ciad/docfigs"
+	install -d -m 0755 "$(install_dir)/$(beamer_bst_install_target)"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"*.cls "$(install_dir)/$(beamer_install_target)"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamerbasetheme*.sty "$(install_dir)/$(beamer_install_target)/base"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamerhandouttheme*.sty "$(install_dir)/$(beamer_install_target)/base"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beameroutertheme*.sty "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamerinnertheme*.sty "$(install_dir)/$(beamer_install_target)/inner"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamerfonttheme*.sty "$(install_dir)/$(beamer_install_target)/font"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamercolortheme*.sty "$(install_dir)/$(beamer_install_target)/color"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamertheme*.sty "$(install_dir)/$(beamer_install_target)/theme"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad.bst "$(install_dir)/$(beamer_bst_install_target)"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logo.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logointitle.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logoontitleslide.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/frenchrepublic.pdf" "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.png "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.jpg "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-*-background.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-*-background-*.png "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-*-background-*.pdf "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-title-hands.png "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamercptptheme*.sty "$(install_dir)/$(beamer_install_target)/plugins"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"beamerodtptheme*.sty "$(install_dir)/$(beamer_install_target)/plugins"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"documentation.tex "$(install_dir)/$(beamer_doc_target)/ciad"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/"documentation.pdf "$(install_dir)/$(beamer_doc_target)/ciad"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/docfigs/"* "$(install_dir)/$(beamer_doc_target)/ciad/docfigs"
+	#
+	# INGEDOC
+	#
+	install -d -m 0755 "$(install_dir)/$(root_tex_install_target)/ingedoc-conf"
+	install -d -m 0755 "$(install_dir)/$(root_tex_doc_install_target)/ingedoc-conf"
+	install -m 0644 "$(build_src)/papers/ingedoc/"*.cls "$(install_dir)/$(root_tex_install_target)/ingedoc-conf"
+	install -m 0644 "$(build_src)/papers/ingedoc/IngeDocGuidelines.pdf" "$(install_dir)/$(root_tex_doc_install_target)/ingedoc-conf"
+	#
+	# SPIM BASE
+	#
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)/spim/base"
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/base"
+	install -m 644 "$(build_src)/spim/share/bst/"* "$(install_dir)/$(bst_install_target)/spim/base/"
+	install -m 644 "$(build_src)/spim/share/sty/"* "$(install_dir)/$(tex_install_target)/spim/base/"
+	#
+	# UTBM PHD
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/spimutbmphdthesis"
+	install -m 644 "$(build_src)/spim/utbm/spimutbmphdthesis/"*.cls "$(install_dir)/$(tex_install_target)/spim/spimutbmphdthesis/"
+	install -m 644 "$(build_src)/spim/utbm/spimutbmphdthesis/"*.cfg "$(install_dir)/$(tex_install_target)/spim/spimutbmphdthesis/"
+	install -m 644 "$(build_src)/spim/utbm/spimutbmphdthesis/utbm.pdf" "$(install_dir)/$(tex_install_target)/spim/spimutbmphdthesis/"
+	install -m 644 "$(build_src)/spim/utbm/spimutbmphdthesis/femtost.pdf" "$(install_dir)/$(tex_install_target)/spim/spimutbmphdthesis/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimutbmphdthesis"
+	install -m 644 "$(build_src)/spim/utbm/spimutbmphdthesis/"ex* "$(install_dir)/$(doc_install_target)/spim/spimutbmphdthesis/"
+	#
+	# UBE PHD
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/spimubephdthesis"
+	install -m 644 "$(build_src)/spim/ube/spimubephdthesis/"*.cls "$(install_dir)/$(tex_install_target)/spim/spimubephdthesis/"
+	install -m 644 "$(build_src)/spim/ube/spimubephdthesis/"*.cfg "$(install_dir)/$(tex_install_target)/spim/spimubephdthesis/"
+	install -m 644 "$(build_src)/spim/ube/spimubephdthesis/ube.pdf" "$(install_dir)/$(tex_install_target)/spim/spimubephdthesis/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubephdthesis"
+	install -m 644 "$(build_src)/spim/ube/spimubephdthesis/"ex* "$(install_dir)/$(doc_install_target)/spim/spimubephdthesis/"
+	#
+	#
+	# UBE HDR
+	#
+	# HDR
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/spimubehdr"
+	install -m 644 "$(build_src)/spim/ube/spimubehdr/"*.cls "$(install_dir)/$(tex_install_target)/spim/spimubehdr/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdr/"*.cfg "$(install_dir)/$(tex_install_target)/spim/spimubehdr/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdr/ube.pdf" "$(install_dir)/$(tex_install_target)/spim/spimubehdr/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubehdr"
+	install -m 644 "$(build_src)/spim/ube/spimubehdr/"ex* "$(install_dir)/$(root_tex_doc_install_target)/upmethodology-extensions/spim/spimubehdr/"
+	# HDR Applications
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/spimubehdrapplication"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/"*.cls "$(install_dir)/$(tex_install_target)/spim/spimubehdrapplication/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/"*.cfg "$(install_dir)/$(tex_install_target)/spim/spimubehdrapplication/"
+	#
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)/spim/spimubehdrapplication"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/"*.bst "$(install_dir)/$(bst_install_target)/spim/spimubehdrapplication/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication"
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/diplomes"
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/imgs"
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/lettres_recommandation"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/"ex* "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/"*.bib "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/diplomes/"* "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/diplomes/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/imgs/"* "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/imgs/"
+	install -m 644 "$(build_src)/spim/ube/spimubehdrapplication/lettres_recommandation/"* "$(install_dir)/$(doc_install_target)/spim/spimubehdrapplication/lettres_recommandation/"
+	#
+	# UMLP PHD
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/spimumlpphdthesis"
+	install -m 644 "$(build_src)/spim/umlp/spimumlpphdthesis/"*.cls "$(install_dir)/$(tex_install_target)/spim/spimumlpphdthesis/"
+	install -m 644 "$(build_src)/spim/umlp/spimumlpphdthesis/"*.cfg "$(install_dir)/$(tex_install_target)/spim/spimumlpphdthesis/"
+	install -m 644 "$(build_src)/spim/umlp/spimumlpphdthesis/umlp.pdf" "$(install_dir)/$(tex_install_target)/spim/spimumlpphdthesis/"
+	install -m 644 "$(build_src)/spim/umlp/spimumlpphdthesis/femtost.pdf" "$(install_dir)/$(tex_install_target)/spim/spimumlpphdthesis/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/spim/spimumlpphdthesis"
+	install -m 644 "$(build_src)/spim/umlp/spimumlpphdthesis/"ex* "$(install_dir)/$(doc_install_target)/spim/spimumlpphdthesis/"
+	#
+	# CIAD 2019 REPORT
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/reports/utbmciad-2019"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/"*.cls "$(install_dir)/$(tex_install_target)/reports/utbmciad-2019/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/"*.cfg "$(install_dir)/$(tex_install_target)/reports/utbmciad-2019/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/"*logo.pdf "$(install_dir)/$(tex_install_target)/reports/utbmciad-2019/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/utbmciad-frontbackground.pdf" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2019/"
+	#
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)/reports/utbmciad-2019"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/"*.bst "$(install_dir)/$(bst_install_target)/reports/utbmciad-2019/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/reports/utbmciad-2019"
+	install -m 0644 "$(build_src)/reports/utbmciad-2019/"upmethodology-utbmciad-doc* "$(install_dir)/$(doc_install_target)/reports/utbmciad-2019/"
+	#
+	# CIAD 2021 REPORT
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/"*.cls "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/"*.cfg "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/"*logo.pdf "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/ciadlogo_dark_background.pdf" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/frenchrepublic.pdf" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/ubfcciad-frontbackground.png" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2021/"
+	#
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)/reports/utbmciad-2021"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/"*.bst "$(install_dir)/$(bst_install_target)/reports/utbmciad-2021/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/reports/utbmciad-2021"
+	install -m 0644 "$(build_src)/reports/utbmciad-2021/"upmethodology-utbmciad-doc* "$(install_dir)/$(doc_install_target)/reports/utbmciad-2021/"
+	#
+	# CIAD 2025 REPORT
+	#
+	install -d -m 0755 "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/"*.cls "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/"*.cfg "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/"*logo.pdf "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/ciadlogo_dark_background.pdf" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/frenchrepublic.pdf" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/ciad-frontbackground.png" "$(install_dir)/$(tex_install_target)/reports/utbmciad-2025/"
+	#
+	install -d -m 0755 "$(install_dir)/$(bst_install_target)/reports/utbmciad-2025"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/"*.bst "$(install_dir)/$(bst_install_target)/reports/utbmciad-2025/"
+	#
+	install -d -m 0755 "$(install_dir)/$(doc_install_target)/reports/utbmciad-2025"
+	install -m 0644 "$(build_src)/reports/utbmciad-2025/"upmethodology-utbmciad-doc* "$(install_dir)/$(doc_install_target)/reports/utbmciad-2025/"
+	#
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	@${RM} -rf $(build_dir) *-stamp
+	dh_clean
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2019.templates"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2021.templates"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2025.templates"
+	@${RM} "$(skelout_dir)/tex-templates-utbm-phdthesis.templates"
+	@${RM} "$(skelout_dir)/tex-templates-ube-phdthesis.templates"
+	@${RM} "$(skelout_dir)/tex-templates-umlp-phdthesis.templates"
+	@${RM} "$(skelout_dir)/tex-templates-spimhdr.templates"
+	@${RM} "$(skelout_dir)/tex-templates-ciad-beamer.templates"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2019.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2021.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2025.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbm-phdthesis.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-ube-phdthesis.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-umlp-phdthesis.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-spimhdr.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-ciad-beamer.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-ingedoc.postinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2019.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2021.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2025.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-utbm-phdthesis.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-ube-phdthesis.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-umlp-phdthesis.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-spimhdr.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-ciad-beamer.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-ingedoc.postrm"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2019.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2021.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbmciadreport-2025.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-utbm-phdthesis.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-ube-phdthesis.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-umlp-phdthesis.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-spimhdr.preinst"
+	@${RM} "$(skelout_dir)/tex-templates-ciad-beamer.preinst"
+
+
+.PHONY: binary-indep binary-arch binary clean build install prepare-debian-directory
+

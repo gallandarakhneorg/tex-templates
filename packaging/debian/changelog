@@ -1,0 +1,1307 @@
+tex-templates (20260410-0arakhne0) noble; urgency=low
+
+  * Upgrade to TeX-UPmethodology 20260410
+  * CIAD Report: Add the definition of the color and scaling factor for the watermarks.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 10 Apr 2026 16:42:44 +0800
+
+tex-templates (20260406-0arakhne1) noble; urgency=low
+
+  * Upgrade to TeX-UPmethodology 20260406
+  * CIAD Report: Add the funding scheme macros.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 07 Apr 2026 09:40:17 +0800
+
+tex-templates (20260402-0arakhne1) noble; urgency=low
+
+  * CIAD Beamer: Update.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 03 Apr 2026 09:58:30 +0800
+
+tex-templates (20260402-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: add macro \bibliographyslide
+  * CIAD Beamer: add environment 'bibliographysection'
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 02 Apr 2026 23:40:39 +0800
+
+tex-templates (20260220-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Multiple changes (new environments, macros and configuration).
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 25 Feb 2026 08:52:19 +0100
+
+tex-templates (20250601-1arakhne0) noble; urgency=low
+
+  * PhD Thesis: Replace the support of the package 'minitoc' by th package 'etoc'.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 01 Jun 2025 17:33:13 +0200
+
+tex-templates (20250601-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Add options 'doiinbib' and 'nodoiinbib' for the bibliography labels.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 01 Jun 2025 15:27:37 +0200
+
+tex-templates (20250527-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Add a special front page for the oral defenses of PhD or Master theses.
+  * CIAD Beamer: Unify the syntax of the public API.
+  * CIAD Beamer: Fixing the invalid setting of the alternate background color.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 27 May 2025 11:24:36 +0200
+
+tex-templates (20250513-0arakhne0) noble; urgency=low
+
+  * PhD Thesis: Fixing the invalid inclusion of the SPIM logo on the front page.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 13 May 2025 10:22:57 +0200
+
+tex-templates (20250509-0arakhne0) noble; urgency=low
+
+  * PhD Thesis: Fixing the default name of the doctoral school.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 09 May 2025 14:14:05 +0200
+
+tex-templates (20250428-0arakhne0) noble; urgency=low
+
+  * PhD Thesis: Fixing the misspelled French names of the roles in the PhD committee.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 28 Apr 2025 11:26:30 +0200
+
+tex-templates (20250427-0arakhne0) noble; urgency=low
+
+  * HDR: New template
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 26 Apr 2025 23:00:44 +0200
+
+tex-templates (20250426-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Add style for tcolorbox with tabular inside.
+  * CIAD Beamer: Change the form of the arrows for 'bottomarrowsequence'.
+  * CIAD Beamer: Add option "textstyle" for the environment 'bottomarrowsequence'.
+  * CIAD Beamer: Add command '\copyleft'.
+  * CIAD Beamer: Fixing the rendering problem for the frame title background.
+  * CIAD Beamer: Add command '\partframeonly'.
+  * CIAD Beamer: Add option for removing the "French Republic" logo.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 26 Apr 2025 11:05:09 +0200
+
+tex-templates (20250420-0arakhne0) noble; urgency=low
+
+  * PhD Thesis: Add doctoral school logo on first page.
+  * PhD Thesis: Add second front page when in English language.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 20 Apr 2025 21:08:08 +0200
+
+tex-templates (20250419-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Add environment 'bottomarrowsequence'.
+  * CIAD Beamer: Introduce regular and alternate colors depending on the type of slide background picture.
+  * CIAD Beamer: Add documentation on 'definition' and 'definitionblock' environments.
+  * CIAD Beamer: Add environment 'textpictureframe'.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 19 Apr 2025 22:47:46 +0200
+
+tex-templates (20250323-0arakhne0) noble; urgency=low
+
+  * Add colors for subparagraphs and algorithms.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 23 Mar 2025 21:06:27 +0100
+
+tex-templates (20250316-0arakhne0) noble; urgency=low
+
+  * Apply the UMLP PhD style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 16 Mar 2025 09:58:36 +0100
+
+tex-templates (20250315-0arakhne0) noble; urgency=low
+
+  * Apply the new tex-upmethodology definitions.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 15 Mar 2025 21:48:28 +0100
+
+tex-templates (20250314-0arakhne0) noble; urgency=low
+
+  * Reconfigure the CIAD PhD templates for using the new tex-upmethodology version.
+  * Add laboratory on the front page.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 14 Mar 2025 18:14:30 +0100
+
+tex-templates (20250311-2arakhne0) noble; urgency=low
+
+  * Reconfigure the CIAD PhD templates for using the new chapter/section titles from tex-upmethodology.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 11 Mar 2025 16:07:06 +0100
+
+tex-templates (20250311-0arakhne0) noble; urgency=low
+
+  * Reconfigure the CIAD report style for using the new chapter/section titles from tex-upmethodology.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 11 Mar 2025 15:21:22 +0100
+
+tex-templates (20250109-0arakhne0) noble; urgency=low
+
+  * Remove UBFC references.
+  * Replace UB by UBE.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 09 Jan 2025 20:39:54 +0100
+
+tex-templates (20241004-0arakhne0) noble; urgency=low
+
+  * jammy -> noble
+  * PhD thesis: Updating the UTBM, UB and UFC styles to remove references to UBFC.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 04 Oct 2024 21:46:31 +0200
+
+tex-templates (20231120-0arakhne0) jammy; urgency=low
+
+  * CIAD beamer: Fixing invalid internal macro use.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 20 Nov 2023 09:04:39 +0800
+
+tex-templates (20230502-0arakhne0) jammy; urgency=low
+
+  * HDR: New style
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 02 May 2023 22:04:07 +0200
+
+tex-templates (20221004-0arakhne0) jammy; urgency=low
+
+  * focal -> jammy
+  * PhD thesis: Force dependency to UPMethodology 20221004.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 04 Oct 2022 11:52:33 +0200
+
+tex-templates (20220210-0arakhne0) focal; urgency=low
+
+  * CIAD beamer: Change the UBFC and French Republic logos.
+  * CIAD report: Change the UBFC and French Republic logos.
+  * PhD thesis: Change the UBFC logo.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 10 Feb 2022 17:49:01 +0100
+
+tex-templates (20210831-0arakhne0) focal; urgency=low
+
+  * CIAD report: Change the layout of logos on the front pages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 31 Aug 2021 09:54:07 +0200
+
+tex-templates (20210830-0arakhne0) focal; urgency=low
+
+  * CIAD report: Add the version 2021 of the CIAD report style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 30 Aug 2021 16:20:50 +0200
+
+tex-templates (20210801-0arakhne0) focal; urgency=low
+
+  * CIAD beamer: Major bug fixes and feature enhancement.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 01 Aug 2021 18:47:40 +0200
+
+tex-templates (20210708-1arakhne0) focal; urgency=low
+
+  * CIAD beamer: Minor bug fixes
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 08 Jul 2021 09:35:45 +0200
+
+tex-templates (20210708-0arakhne0) focal; urgency=low
+
+  * CIAD beamer: New graphical template for CIAD lab.
+  * PhD Thesis: Fixing the position of the PhD number on the front page.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 07 Jul 2021 21:13:20 +0200
+
+tex-templates (20201030-1arakhne0) focal; urgency=low
+
+  * CIAD beamer: Provide \footcite only if another package does not provide this command.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 30 Oct 2020 18:09:58 +0100
+
+tex-templates (20201030-0arakhne0) focal; urgency=low
+
+  * CIAD beamer: Remove the inclusion of the "setspace" package because it causes invalid rendering of the footnotes.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 30 Oct 2020 16:57:30 +0100
+
+tex-templates (20201002-0arakhne0) focal; urgency=low
+
+  * PhD Thesis: Add the \addjuryex macro.
+  * CIAD beamer: fixing the \animatedfigureslide macro.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 02 Oct 2020 12:51:03 +0200
+
+tex-templates (20200914-0arakhne0) focal; urgency=low
+
+  * bionic -> focal
+  * PhD Thesis: Replace the logo of UBFC.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 14 Sep 2020 13:20:18 +0200
+
+tex-templates (20200607-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add two title page pictures.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 07 Jun 2020 10:33:48 +0200
+
+tex-templates (20200526-1arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add UTBM background images into the debian package.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 26 May 2020 11:16:47 +0200
+
+tex-templates (20200526-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add background images for UTBM.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 26 May 2020 10:50:34 +0200
+
+tex-templates (20200517-1arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add ciadbackground image into the debian package.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 25 May 2020 16:05:02 +0200
+
+tex-templates (20200517-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add slide's background picture.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 17 May 2020 16:51:58 +0200
+
+tex-templates (20200424-0arakhne0) bionic; urgency=low
+
+  * PhD Thesis: Fixing BibTeX style for supporting the NatBib packge.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 24 Apr 2020 17:28:28 +0200
+
+tex-templates (20200422-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: "\figureslide" generates larger image.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 22 Apr 2020 10:03:13 +0200
+
+tex-templates (20200419-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add class options "titlecenteralignment" and "titlebottomalignement".
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 19 Apr 2020 16:48:27 +0200
+
+tex-templates (20200113-0arakhne0) bionic; urgency=low
+
+  * PhD Thesis: Add DOI in BST.
+  * CIAD Beamer: Add macro.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 13 Jan 2020 14:44:39 +0100
+
+tex-templates (20191017-0arakhne0) bionic; urgency=low
+
+  * PhD Thesis: Restart support of UB and UFC templates
+  * PhD Thesis: Add the capability to set the title in the second language.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 17 Oct 2019 10:01:07 +0200
+
+tex-templates (20191016-0arakhne0) bionic; urgency=low
+
+  * PhD Thesis: Stop support for UFC template.
+  * PhD Thesis: Stop support for UB template.
+  * PhD Thesis: Move the abstracts' page at the end of the document.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 16 Oct 2019 06:13:41 +0200
+
+tex-templates (20191009-0arakhne0) bionic; urgency=low
+
+  * CIAD Report: Expand the CIAD name into the postal addresses.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Oct 2019 00:14:15 +0800
+
+tex-templates (20191008-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add range on \section. Graphical updates.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 08 Oct 2019 15:15:31 +0800
+
+tex-templates (20191007-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: Add macros for managing the sections in TOC.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 07 Oct 2019 23:11:07 +0800
+
+tex-templates (20190928-1arakhne0) bionic; urgency=low
+
+  * CIAD Report: Add pretty nice bibliography style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 28 Sep 2019 21:20:37 +0800
+
+tex-templates (20190928-0arakhne0) bionic; urgency=low
+
+  * CIAD Report: override the colors for the highlight boxes.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 28 Sep 2019 18:18:39 +0800
+
+tex-templates (20190920-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: add macro \embeddedvideoslide
+  * CIAD Beamer: add title picture
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 20 Sep 2019 17:59:02 +0800
+
+tex-templates (20190826-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: fixing layout and colors.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 26 Aug 2019 00:24:08 +0200
+
+tex-templates (20190823-0arakhne0) bionic; urgency=low
+
+  * CIAD Beamer: fixing layout and colors..
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 23 Aug 2019 15:38:16 +0200
+
+tex-templates (20190619-0arakhne0) bionic; urgency=low
+
+  * CIAD Slides: add Carnot Institute logo.
+  * CIAD Slides: add background images.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 19 Jun 2019 20:11:50 +0200
+
+tex-templates (20190528-0arakhne0) bionic; urgency=low
+
+  * Add new title images into the CIAD beamer style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 28 May 2019 21:29:14 +0200
+
+tex-templates (20190220-0arakhne0) bionic; urgency=low
+
+  * Fixing the colors of the CIAD beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 20 Feb 2019 20:29:51 +0100
+
+tex-templates (20190129-0arakhne1) bionic; urgency=low
+
+  * xenial -> bionic.
+  * Fixing package dependency for Bionic system.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 20 Feb 2019 08:54:59 +0100
+
+tex-templates (20190129-0arakhne0) xenial; urgency=low
+
+  * Bug fixes.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 29 Jan 2019 00:25:46 +0100
+
+tex-templates (20190127-0arakhne0) xenial; urgency=low
+
+  * Add title images into the CIAD Beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 27 Jan 2019 15:19:06 +0100
+
+tex-templates (20190126-1arakhne0) xenial; urgency=low
+
+  * Add the missed images into the packages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 26 Jan 2019 22:30:56 +0100
+
+tex-templates (20190126-0arakhne0) xenial; urgency=low
+
+  * Change the CIAD theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 26 Jan 2019 21:19:46 +0100
+
+tex-templates (20190122-0arakhne0) xenial; urgency=low
+
+  * Change the top-left logo of CIAD in the beamer style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 22 Jan 2019 11:41:17 +0100
+
+tex-templates (20190112-1arakhne0) xenial; urgency=low
+
+  * Add \embeddedvideo into the CIAD beamer style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 12 Jan 2019 17:03:39 +0100
+
+tex-templates (20190112-0arakhne0) xenial; urgency=low
+
+  * Change the block color for CIAD presentation templates.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 12 Jan 2019 09:41:58 +0100
+
+tex-templates (20190111-0arakhne0) xenial; urgency=low
+
+  * New CIAD templates for presentations.
+  * Deprecation of the LE2I-UTBM beamer style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 11 Jan 2019 16:52:07 +0100
+
+tex-templates (20171013-0arakhne0) xenial; urgency=low
+
+  * New UBFC templates for PhD dissertations.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 13 Oct 2017 15:18:18 +0200
+
+tex-templates (20170912-1arakhne0) xenial; urgency=low
+
+  * Remove any macro expansion from the Hyperref setup.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 12 Sep 2017 11:34:39 +0200
+
+tex-templates (20170912-0arakhne0) xenial; urgency=low
+
+  * Remove \insertleiiutbmbeamerthemeversion from the Hyperref setup.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 12 Sep 2017 10:55:26 +0200
+
+tex-templates (20170720-0arakhne0) xenial; urgency=low
+
+  * Add \authordescription in LE2I slide template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 20 Jul 2017 16:15:38 +0200
+
+tex-templates (20161123-0arakhne0) xenial; urgency=low
+
+  * Change the logos in the LE2I-UTBM presentation style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 23 Nov 2016 12:23:09 +0100
+
+tex-templates (20160321-0arakhne0) wily; urgency=low
+
+  * Change the backpage for the PhD style of UFC.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 21 Mar 2016 12:10:02 +0100
+
+tex-templates (20160227-0arakhne0) wily; urgency=low
+
+  * Override the \includegraphics macro for providing a default width.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 27 Feb 2016 10:32:07 +0100
+
+tex-templates (20160219-0arakhne1) wily; urgency=low
+
+  * Add missed sty file.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 20 Feb 2016 00:36:26 +0100
+
+tex-templates (20160219-0arakhne0) wily; urgency=low
+
+  * Add "handout" class path.
+  * Fixing \emph, \Emph, \alert in alert boxes.
+  * Fixng top margins in alert boxes.
+  * Fixing error in \tableofcontentslide.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 19 Feb 2016 23:54:18 +0100
+
+tex-templates (20160210-0arakhne0) wily; urgency=low
+
+  * Updating \tableofcontentslide in L2EI-UTBM template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 10 Feb 2016 22:22:32 +0100
+
+tex-templates (20160114-0arakhne1) wily; urgency=low
+
+  * Fixing \thanksslide in L2EI-UTBM template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 14 Jan 2016 17:16:17 +0100
+
+tex-templates (20160114-0arakhne0) wily; urgency=low
+
+  * Add \thanksslide in L2EI-UTBM template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 14 Jan 2016 16:01:05 +0100
+
+tex-templates (20151130-0arakhne2) wily; urgency=low
+
+  * Change the compression format for old Ubuntu versions.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 30 Nov 2015 14:08:56 +0100
+
+tex-templates (20151130-0arakhne0) wily; urgency=low
+
+  * Bug fix.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 30 Nov 2015 12:41:36 +0100
+
+tex-templates (20151109-0arakhne0) wily; urgency=low
+
+  * trusty -> wily
+  * Fixing issue #28 for IRTES beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 09 Nov 2015 16:04:06 +0100
+
+tex-templates (20151102-0arakhne0) trusty; urgency=low
+
+  * Fixing issue #28.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 02 Nov 2015 14:01:23 +0100
+
+tex-templates (20151007-0arakhne0) trusty; urgency=low
+
+  * Add UBFC logo in the presentation.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 07 Oct 2015 10:13:29 +0200
+
+tex-templates (20150930-0arakhne0) trusty; urgency=low
+
+  * Change the affiliation of the multiagent group in the report template.
+  * Make obsolete the report templates for UTBM, IRTES, and IRTES-SET.
+  * Do not provide the debian packages for the obsolete templates.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 30 Sep 2015 11:30:26 +0200
+
+tex-templates (20150928-0arakhne1) trusty; urgency=low
+
+  * Remove old source code.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 28 Sep 2015 04:52:14 +0200
+
+tex-templates (20150928-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 28 Sep 2015 04:52:14 +0200
+
+tex-templates (20150925-1arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 25 Sep 2015 18:33:28 +0200
+
+tex-templates (20150925-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 25 Sep 2015 00:06:23 +0200
+
+tex-templates (20150921-1arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 21 Sep 2015 18:40:58 +0200
+
+tex-templates (20150921-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 21 Sep 2015 15:25:03 +0200
+
+tex-templates (20150919-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 19 Sep 2015 18:53:51 +0200
+
+tex-templates (20150915-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 15 Sep 2015 18:01:24 +0200
+
+tex-templates (20150914-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 14 Sep 2015 14:15:28 +0200
+
+tex-templates (20150903-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 03 Sep 2015 21:01:34 +0200
+
+tex-templates (20150901-1arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 01 Sep 2015 15:16:33 +0200
+
+tex-templates (20150901-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 01 Sep 2015 11:21:25 +0200
+
+tex-templates (20150707-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 07 Jul 2015 19:29:30 +0200
+
+tex-templates (20150429-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 29 Apr 2015 20:45:39 +0200
+
+tex-templates (20141106-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 06 Nov 2014 13:23:50 +0100
+
+tex-templates (20141022-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 22 Oct 2014 10:36:45 +0200
+
+tex-templates (20141019-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 19 Oct 2014 21:20:47 +0200
+
+tex-templates (20141018-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 18 Oct 2014 13:33:47 +0200
+
+tex-templates (20140911-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 11 Sep 2014 19:01:09 +0200
+
+tex-templates (20140910-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 10 Sep 2014 12:17:17 +0200
+
+tex-templates (20140717-0arakhne0) trusty; urgency=low
+
+  * New upstream.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 17 Jul 2014 11:44:10 +0200
+
+tex-templates (20140710.2-0arakhne0) trusty; urgency=low
+
+  * Fixing invalid bibliography formatting.
+  * Add the macro \chapterintro.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 10 Jul 2014 14:58:13 +0200
+
+tex-templates (20140710.1-0arakhne0) trusty; urgency=low
+
+  * Create a package with the shared definitions among the PhD thesis styles.
+  * Add macros to clear the internal lists.
+  * Add the IRTES logo by default on the UTBM PhD thesis.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 10 Jul 2014 11:14:21 +0200
+
+tex-templates (20140710-0arakhne0) trusty; urgency=low
+
+  * Add bibtex styles for the PhD thesis.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Jul 2014 23:17:45 +0200
+
+tex-templates (20140709-0arakhne0) trusty; urgency=low
+
+  * Make the examples for the PhD thesis more complete.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Jul 2014 21:08:13 +0200
+
+tex-templates (20140620-0arakhne1) trusty; urgency=low
+
+  * Remove the "tex-upmethodology-*" packages.
+  * Make conflicts with the "tex-upmethodology-*" packages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Jul 2014 16:36:55 +0200
+
+tex-templates (20140620-0arakhne0) trusty; urgency=low
+
+  * Add class option 'standardlists' in the PhD styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 20 Jun 2014 14:24:59 +0200
+
+tex-templates (20140503-0arakhne1) trusty; urgency=low
+
+  * Fixing the broken packages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 03 May 2014 20:47:15 +0200
+
+tex-templates (20140503-0arakhne0) trusty; urgency=low
+
+  * saucy -> trusty.
+  * Add BibTeX style for IRTES presentations.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 03 May 2014 20:30:26 +0200
+
+tex-templates (20140430-0arakhne0) saucy; urgency=low
+
+  * Update IRTES slide style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 01 May 2014 01:28:32 +0200
+
+tex-templates (20140404-0arakhne0) saucy; urgency=low
+
+  * Update HDR application style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 04 Apr 2014 19:30:36 +0200
+
+tex-templates (20140303-0arakhne0) saucy; urgency=low
+
+  * Support of minitoc colorization.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 03 Mar 2014 17:15:41 +0100
+
+tex-templates (20140204-0arakhne0) saucy; urgency=low
+
+  * Add the dependency to "translator" in the IRTEs beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 04 Feb 2014 16:35:40 +0100
+
+tex-templates (20140129-0arakhne0) saucy; urgency=low
+
+  * Fixing fancyhdr problem in HDR application template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 29 Jan 2014 10:50:21 +0100
+
+tex-templates (20140124-1arakhne0) saucy; urgency=low
+
+  * Fixing french text in the HDR template.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 24 Jan 2014 21:02:22 +0100
+
+tex-templates (20140124-0arakhne0) saucy; urgency=low
+
+  * Update the example for the HDR application.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 24 Jan 2014 18:19:08 +0100
+
+tex-templates (20140118-0arakhne0) saucy; urgency=low
+
+  * Update the IRTES beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 20 Jan 2014 13:20:13 +0100
+
+tex-templates (20140113-0arakhne0) saucy; urgency=low
+
+  * Update the IRTEs beamer theme.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 13 Jan 2014 21:22:19 +0100
+
+tex-templates (20131224-0arakhne0) saucy; urgency=low
+
+  * raring -> saucy
+  * Update the LyX layout.
+  * Lighter version of the UTBM header.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 24 Dec 2013 12:00:45 +0100
+
+tex-templates (20131213-0arakhne0) raring; urgency=low
+
+  * Fixing the standard colors from the IRTES institute.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 13 Dec 2013 14:33:20 +0100
+
+tex-templates (20131210-0arakhne0) raring; urgency=low
+
+  * Add headline definitions.
+  * Bug fixes.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 10 Dec 2013 13:24:31 +0100
+
+tex-templates (20131205-0arakhne0) raring; urgency=low
+
+  * Add the macro \putat(x,y){}.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 04 Dec 2013 23:25:11 +0100
+
+tex-templates (20131204-1arakhne0) raring; urgency=low
+
+  * Translate "Bibliography" in the TOC of the PDF.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 04 Dec 2013 09:47:18 +0100
+
+tex-templates (20131204-0arakhne0) raring; urgency=low
+
+  * Translate "Bibliography".
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 04 Dec 2013 09:12:12 +0100
+
+tex-templates (20131202-1arakhne0) raring; urgency=low
+
+  * Redefine the environment "enumerate" to enable description items.
+  * Fixing the color of the alert blocks.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 02 Dec 2013 22:35:55 +0100
+
+tex-templates (20131202-0arakhne0) raring; urgency=low
+
+  * Add macros \sidenote, \footnote, \footnote*, \footcite.
+  * Major bug fixes.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 02 Dec 2013 10:07:17 +0100
+
+tex-templates (20131128-0arakhne0) raring; urgency=low
+
+  * Add the IngeDoc LaTeX style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 28 Nov 2013 14:14:01 +0100
+
+tex-templates (20131126-1arakhne1) raring; urgency=low
+
+  * The wrong version of the source code is packaged.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 26 Nov 2013 17:13:06 +0100
+
+tex-templates (20131126-1arakhne0) raring; urgency=low
+
+  * Add the class options to control where to output the event's name.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 26 Nov 2013 16:31:34 +0100
+
+tex-templates (20131126-0arakhne0) raring; urgency=low
+
+  * Add the optional parameter for \partnerlogo.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 26 Nov 2013 10:20:43 +0100
+
+tex-templates (20131125-0arakhne0) raring; urgency=low
+
+  * Remove "fancyhdr" from the report styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 25 Nov 2013 15:34:06 +0100
+
+tex-templates (20131021-0arakhne0) raring; urgency=low
+
+  * Fixing the issue #15.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 21 Oct 2013 11:28:25 +0200
+
+tex-templates (20131014-0arakhne0) raring; urgency=low
+
+  * Fixing the headers of the HDR bibliography.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 14 Oct 2013 18:46:00 +0200
+
+tex-templates (20131013-0arakhne0) raring; urgency=low
+
+  * Add the macro \bibentry.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 13 Oct 2013 22:11:28 +0200
+
+tex-templates (20131010-0arakhne1) raring; urgency=low
+
+  * Fixing issues #1, #11, #12 and #13.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 10 Oct 2013 18:22:05 +0200
+
+tex-templates (20131010-0arakhne0) raring; urgency=low
+
+  * Fixing issues #2 and #10.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 10 Oct 2013 00:33:35 +0200
+
+tex-templates (20131009-0arakhne1) raring; urgency=low
+
+  * Fixing issue #9.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Oct 2013 15:45:04 +0200
+
+tex-templates (20131009-0arakhne0) raring; urgency=low
+
+  * Put back the front page in the HDR.
+  * Change the front page layout of the HDR.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 09 Oct 2013 09:54:02 +0200
+
+tex-templates (20131007-0arakhne1) raring; urgency=low
+
+  * Fixing conflicts in packages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 07 Oct 2013 14:41:02 +0200
+
+tex-templates (20131007-0arakhne0) raring; urgency=low
+
+  * Issues #6, #7, and #8 are fixed.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 07 Oct 2013 14:41:02 +0200
+
+tex-templates (20133001-0arakhne0) raring; urgency=low
+
+  * Issue #5 is fixed.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 01 Oct 2013 22:21:54 +0200
+
+tex-templates (20130929-0arakhne0) raring; urgency=low
+
+  * Issue #4 is fixed.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 29 Sep 2013 19:37:13 +0200
+
+tex-templates (20130919-0arakhne0) raring; urgency=low
+
+  * Issue #3 is fixed.
+  * The HDR style is updated by removing the first front page.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 19 Sep 2013 17:22:59 +0200
+
+tex-templates (20130827-0arakhne0) raring; urgency=low
+
+  * Set the colors for the theorem environment 'definition'.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 27 Aug 2013 19:21:33 +0200
+
+tex-templates (20130823-0arakhne0) raring; urgency=low
+
+  * Change the interline spacing in the titles of the PhD and HDR documents.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 23 Aug 2013 22:31:46 +0200
+
+tex-templates (20130816-0arakhne0) raring; urgency=low
+
+  * Rename the source package.
+  * Merge the tex-upmethodology styles with the Beamer templates.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 16 Aug 2013 14:29:32 +0200
+
+tex-upmethodology-utbm (20130815-0arakhne0) raring; urgency=low
+
+  * precise -> raring.
+  * Be sure that the used version of tex-upmethodology is 20130815.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 15 Aug 2013 16:58:33 +0200
+
+tex-upmethodology-utbm (20130707-0arakhne1) precise; urgency=low
+
+  * Install the BibTeX styles in the correct directory.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 07 Jul 2013 01:14:05 +0200
+
+tex-upmethodology-utbm (20130707-0arakhne0) precise; urgency=low
+
+  * Add the style for the HDR reports.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 07 Jul 2013 00:44:28 +0200
+
+tex-upmethodology-utbm (20130529-0arakhne0) precise; urgency=low
+
+  * Remove the macro "\tableofdefinitions" from the examples of PhD thesis to avoid compilation errors.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 29 May 2013 11:19:07 +0200
+
+tex-upmethodology-utbm (20130506-0arakhne0) precise; urgency=low
+
+  * Replace the bitmap versions of the Multiagent Group logos by the vectorial/pdf versions.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 06 May 2013 09:13:23 +0200
+
+tex-upmethodology-utbm (20130428-0arakhne4) precise; urgency=low
+
+  * Bug fix: The class multiagentfrreport used the incorrect report
+    style (multiagent_fr). It is replaced by the correct one:
+    multiagent.fr.
+  * tex-upmethodology-setlab: package is removed.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 28 Apr 2013 19:10:33 +0200
+
+tex-upmethodology-utbm (20130428-0arakhne3) precise; urgency=low
+
+  * Bug fix: The class multiagentfrreport used the incorrect report
+    style (irtesset). It is replaced by the correct one:
+    multiagentfrreport.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 28 Apr 2013 19:10:33 +0200
+
+tex-upmethodology-utbm (20130428-0arakhne2) precise; urgency=low
+
+  * Dependencies: the package tex-upmethodology-multiagentfr does not
+    depend on tex-upmethodology-setlab any more. It depends on
+    tex-upmethodology-irtesset
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 28 Apr 2013 18:45:31 +0200
+
+tex-upmethodology-utbm (20130428-0arakhne1) precise; urgency=low
+
+  * Add LaTeX classes: utbmreport, irtesreport, irtessetreport, and
+    multiagentfrreport.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 28 Apr 2013 18:22:18 +0200
+
+tex-upmethodology-utbm (20130428-0arakhne0) precise; urgency=low
+
+  * Replace the bitmap versions of the UTBM, IRTES and
+    IRTES-SET logos by the vectorial/pdf versions.
+  * example.tex: Update the example files for the PhD thesis styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 28 Apr 2013 16:45:26 +0200
+
+tex-upmethodology-utbm (20130331-0arakhne0) precise; urgency=low
+
+  * Add logo of the IRTES in the styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 31 Mar 2013 12:49:38 +0200
+
+tex-upmethodology-utbm (20130319-0arakhne0) precise; urgency=low
+
+  * Rename the figures to have different names in each style (thanks to F. Chollet for the bug report).
+  * Remove the command \textdegree from the styles to avoid compilation errors.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 19 Mar 2013 18:28:44 +0100
+
+tex-upmethodology-utbm (20121210-0arakhne0) precise; urgency=low
+
+  * Add general LaTeX classes that permits to create a ED-SPIM PhD thesis document with only a class style and no additional configuration.
+  * Add the LyX layout file.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 10 Dec 2012 10:07:05 +0100
+
+tex-upmethodology-utbm (20121113-0arakhne0) precise; urgency=low
+
+  * Change the backcovers of the PHD styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 13 Nov 2012 07:28:58 +0100
+
+tex-upmethodology-utbm (20121109-0arakhne0) precise; urgency=low
+
+  * Add the laboratory in the first page of the PHD thesis.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 09 Nov 2012 18:05:10 +0100
+
+tex-upmethodology-utbm (20121107-0arakhne0) precise; urgency=low
+
+  * Change the label of the French table of content from "Table des matieres" to "Sommaire"
+  * Change the color of the parts and the chapters in the table of content.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 07 Nov 2012 10:37:22 +0100
+
+tex-upmethodology-utbm (20121104-0arakhne0) precise; urgency=low
+
+  * Fixing the interline of the PhD titles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 04 Nov 2012 18:58:35 +0100
+
+tex-upmethodology-utbm (20121024-0arakhne0) precise; urgency=low
+
+  * Fixing the version test of the upmethodology-document class.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 24 Oct 2012 18:09:16 +0200
+
+tex-upmethodology-utbm (20121016-0arakhne0) precise; urgency=low
+
+  * The titles are left-aligned on the front pages of the PhD thesis
+    styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 16 Oct 2012 09:03:14 +0200
+
+tex-upmethodology-utbm (20121009-0arakhne0) precise; urgency=low
+
+  * Add the "library reference number" on the front page.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 09 Oct 2012 07:38:11 +0200
+
+tex-upmethodology-utbm (20121004-0arakhne1) precise; urgency=low
+
+  * Add the macro \thesiskeywords
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 04 Oct 2012 00:53:47 +0200
+
+tex-upmethodology-utbm (20121004-0arakhne0) precise; urgency=low
+
+  * Fixing mispelled words.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 03 Oct 2012 23:55:43 +0200
+
+tex-upmethodology-utbm (20121003-0arakhne0) precise; urgency=low
+
+  * Fixing the position of the background images
+    according to the layout of the pages
+    (including the margins).
+  * Replace the JPEG images by the PDF images.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 03 Oct 2012 20:18:05 +0200
+
+tex-upmethodology-utbm (20120922-0arakhne0) precise; urgency=low
+
+  * Add extensions for PhD thesis from SPIM-UFC and SPIM-UB.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 22 Sep 2012 15:09:37 +0200
+
+tex-upmethodology-utbm (20120921-0arakhne0) precise; urgency=low
+
+  * Change the extension for the PhD thesis with the SPIM-UTBM style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 21 Sep 2012 14:46:00 +0200
+
+tex-upmethodology-utbm (20120917-0arakhne0) precise; urgency=low
+
+  * oneiric -> precise
+  * Add the extension for the PhD thesis with the SPIM-UTBM style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 17 Sep 2012 15:49:50 +0200
+
+tex-upmethodology-utbm (20120217-0arakhne0) oneiric; urgency=low
+
+  * lucid -> oneric
+  * Add the name of the IRTES Institute.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 17 Feb 2012 17:28:31 +0100
+
+tex-upmethodology-utbm (20101012-0arakhne0) lucid; urgency=low
+
+  * karmic -> lucid
+  * Apply official rules on institution names for the Universite de Technologie
+    de Belfort-Montbeliard 
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 12 Oct 2010 17:42:35 +0200
+
+tex-upmethodology-utbm (20100423-0arakhne0) karmic; urgency=low
+
+  * Change lab name.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 23 Apr 2010 08:49:43 +0200
+
+tex-upmethodology-utbm (20100224-0arakhne0) karmic; urgency=low
+
+  * Change lab name.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 24 Feb 2010 17:18:22 +0100
+
+tex-upmethodology-utbm (20091230-0arakhne0) karmic; urgency=low
+
+  * jaunty -> karmic
+  * Chagne watermark size.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 30 Dec 2009 21:54:58 +0100
+
+tex-upmethodology-utbm (20091103-0arakhne0) jaunty; urgency=low
+
+  * Add contact information on the back cover
+    of the setlab and multiagent.fr styles.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 02 Nov 2009 15:23:17 +0100
+
+tex-upmethodology-utbm (20091102-0arakhne0) jaunty; urgency=low
+
+  * New upstream API from the core packages.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 02 Nov 2009 10:00:29 +0100
+
+tex-upmethodology-utbm (20091029-0arakhne0) jaunty; urgency=low
+
+  * Use Utopia font for the document.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 29 Oct 2009 12:24:40 +0100
+
+tex-upmethodology-utbm (20091028-0arakhne0) jaunty; urgency=low
+
+  * tex-upmethodology -> tex-upmethodology-utbm
+  * Add multiagent.fr style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 28 Oct 2009 14:18:05 +0100
+
+tex-upmethodology (20091027-0arakhne0) jaunty; urgency=low
+
+  * upmethodology-extension.sty:
+    - Clean the extension API.
+    - Add publication page.
+  * upmethodology-frontpage.sty:
+    - Clean the extension API.
+  * upmethodology-document.sty:
+    - Clean the extension API.
+    - Fixing document synoptic.
+    - Add publication page.
+  * upmethodology-document.cls:
+    - Add publication page.
+  * upmethodology-fmt:
+    - Add framedminipage environment.
+  * Update setlab and utbm extensions.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 27 Oct 2009 23:42:48 +0100
+
+tex-upmethodology (20091025-0arakhne1) jaunty; urgency=low
+
+  * Fixing package dependencies.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 25 Oct 2009 14:07:31 +0100
+
+tex-upmethodology (20091025-0arakhne0) jaunty; urgency=low
+
+  * tetex-upmethodology -> tex-upmethodology
+  * upmethodology-extension.sty:
+    - first public release.
+  * upmethodology-backpage.sty:
+    - first public release.
+  * upmethodology-document.cls:
+    - add back page support.
+    - add "nodocumentinfo" option.
+  * upmethodology-document.sty:
+    - add abstract and keywords.
+    - add front/back pages in extensions.
+    - add \if commands on extension's values.
+    - add automatic watermarks.
+  * upmethodology-frontpage.sty:
+    - add support for front page UPM extensions.
+  * upmethodology-fmt.sty:
+    - add \tablenote in mtable environment.
+    - add upmcaution, upminfo and upmquestion environments.
+    - remove CR character.
+    - add \arakhneorg command.
+  * upmethodology-version.sty:
+    - update English words.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 25 Oct 2009 09:33:27 +0100
+
+tetex-upmethodology (20090429-0arakhne0) jaunty; urgency=low
+
+  * feisty -> jaunty
+  * upmethodology-fmt.sty: Include package pifont (texlive distribution)
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 01 May 2008 12:31:46 +0200
+
+tetex-upmethodology (20070812-0arakhne2) feisty; urgency=low
+
+  * Depends on texlive instead of texlive.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 01 May 2008 12:31:46 +0200
+
+tetex-upmethodology (20070812-0arakhne1) feisty; urgency=low
+
+  * Force the package to be for all the OS platforms.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Mon, 13 Aug 2007 04:13:20 +0200
+
+tetex-upmethodology (20070812-0arakhne0) feisty; urgency=low
+
+  * Split the source tarballs to extract the extension sources.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 12 Aug 2007 11:41:15 +0200
+
+tetex-upmethodology (20070707-1) unstable; urgency=low
+
+  * Add commands to set the bibliography style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 07 Jul 2007 23:47:35 +0200
+
+tetex-upmethodology (20070706-1) unstable; urgency=low
+
+  * Bug fix: use varioref for the footnote references.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 06 Jul 2007 10:57:36 +0200
+
+tetex-upmethodology (20070705-1) unstable; urgency=low
+
+  * Add people name formatting function.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 05 Jul 2007 11:34:50 +0200
+
+tetex-upmethodology (20070704-1) unstable; urgency=low
+
+  * Bug fix: the front page layout was fixed for the modern style.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 04 Jul 2007 13:35:07 +0200
+
+tetex-upmethodology (20070703-2) unstable; urgency=low
+
+  * Bug fix: the directory /usr/share/texmf is no more used on Ubuntu.
+    Moving the files into /usr/share/texmf-tetex and
+    creating a symbolic link from /usr/share/texmf-tetex to
+    /usr/share/texmf
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 03 Jul 2007 19:15:03 +0200
+
+tetex-upmethodology (20070703-1) unstable; urgency=low
+
+  * New upstream
+
+ -- Stephane GALLAND <galland@arakhne.org>  Tue, 03 Jul 2007 16:13:25 +0200

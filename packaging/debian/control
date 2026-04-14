@@ -1,0 +1,165 @@
+Source: tex-templates
+Section: devel
+Priority: optional
+Build-Depends: debhelper (>= 4.0), debconf, texlive, texlive-extra-utils, texlive-latex-base
+Maintainer: Stephane Galland <galland@arakhne.org>
+Standards-Version: 3.9.6
+Homepage: https://github.com/gallandarakhneorg/tex-templates
+
+Package: tex-templates-utbmciadreport-2019
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-upmethodology (>= 20190804-0arakhne0)
+Replaces: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Breaks: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Conflicts: tex-templates-multiagentfr-report, tex-templates-utbmciadreport, tex-templates-utbmciadreport-2021
+Description: Template for reports of the CIAD at UTBM version 2019
+ This package contains a template for the reports
+ based on tex-upmethodology. It provides the
+ recommended style (2019) for the CIAD laboratory of the
+ Université de Technologie de Belfort-Montbéliard
+ (UTBM), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+
+Package: tex-templates-utbmciadreport-2021
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-upmethodology (>= 20190804-0arakhne0)
+Replaces: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Breaks: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Conflicts: tex-templates-multiagentfr-report, tex-templates-utbmciadreport, tex-templates-utbmciadreport-2019
+Description: Template for reports of the CIAD at UTBM
+ This package contains a template for the reports
+ based on tex-upmethodology, version 2021. It provides the
+ recommended style (2021) for the CIAD laboratory of the
+ Université de Technologie de Belfort-Montbéliard
+ (UTBM), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+
+Package: tex-templates-utbmciadreport-2025
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-upmethodology (>= 20190804-0arakhne0)
+Replaces: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Breaks: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
+Conflicts: tex-templates-multiagentfr-report, tex-templates-utbmciadreport, tex-templates-utbmciadreport-2019
+Description: Template for reports of the CIAD at UTBM
+ This package contains a template for the reports
+ based on tex-upmethodology, version 2025. It provides the
+ recommended style (2025) for the CIAD laboratory of the
+ Université de Technologie de Belfort-Montbéliard
+ (UTBM), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+
+Package: tex-templates-phdthesis-base
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-upmethodology (>= 20140710-0arakhne0)
+Description: Base elements for PhD thesis styles
+ This package contains the shared packages among
+ the PhD thesis styles.
+
+Package: tex-templates-utbm-phdthesis
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-templates-phdthesis-base (= ${source:Version})
+Replaces: tex-upmethodology-spimutbm-phdthesis
+Breaks: tex-upmethodology-spimutbm-phdthesis
+Conflicts: tex-upmethodology-spimutbm-phdthesis
+Description: Template for PhD thesis of the UTBM
+ This package contains a template for the PhD thesis
+ based on tex-upmethodology. It provides the
+ official style (2012-today) for the Université de Technologie
+ de Belfort-Montbéliard (UTBM), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+
+Package: tex-templates-ube-phdthesis
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-templates-phdthesis-base (= ${source:Version})
+Replaces: tex-upmethodology-spimub-phdthesis, tex-upmethodology-spimube-phdthesis
+Breaks: tex-upmethodology-spimub-phdthesis, tex-upmethodology-spimube-phdthesis
+Conflicts: tex-upmethodology-spimub-phdthesis, tex-upmethodology-spimube-phdthesis
+Description: Template for PhD thesis of the UBE
+ This package contains a template for the PhD thesis
+ based on tex-upmethodology. It provides the
+ official style (2025-today) for the Université
+ Bourgogne Europe (UBE), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Bourgogne.
+
+Package: tex-templates-umlp-phdthesis
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-templates-phdthesis-base (= ${source:Version})
+Replaces: tex-upmethodology-spimufc-phdthesis, tex-upmethodology-spimumlp-phdthesis
+Breaks: tex-upmethodology-spimufc-phdthesis, tex-upmethodology-spimumlp-phdthesis
+Conflicts: tex-upmethodology-spimufc-phdthesis, tex-upmethodology-spimumlp-phdthesis
+Description: Template for PhD thesis of the UMLP
+ This package contains a template for the PhD thesis
+ based on tex-upmethodology. It provides the
+ official style (2025-today) for the Université
+ Marie et Louis Pasteur (UMLP), France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université Marie et Louis Pasteur.
+
+Package: tex-templates-spimhdr
+Architecture: all
+Pre-Depends: debconf
+Depends: tex-templates-phdthesis-base (= ${source:Version})
+Replaces: tex-upmethodology-spimufc-hdr, tex-templates-ufc-hdr
+Breaks: tex-upmethodology-spimufc-hdr, tex-templates-ufc-hdr
+Conflicts: tex-upmethodology-spimufc-hdr, tex-templates-ufc-hdr
+Description: Template for HDR of the SPIM
+ This package contains a template for the HDR documents
+ based on tex-upmethodology. It provides the
+ non-official style (2023-today) for the SPIM doctoral school,
+ France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by SPIM.
+
+Package: tex-templates-ingedoc
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, texlive, texlive-extra-utils, texlive-latex-base
+Description: Template for the IngeDoc Conference
+ This package contains a template for the IngeDoc conference of
+ the Universite de Technologie de Belfort-Montbeliard (France).
+
+Package: tex-templates-ciad-beamer
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, texlive, texlive-extra-utils, texlive-latex-base, latex-beamer|texlive-latex-recommended
+Replaces: tex-templates-le2iutbm-beamer
+Breaks: tex-templates-le2iutbm-beamer
+Conflicts: tex-templates-le2iutbm-beamer
+Description: Template for Beamers of the CIAD laboratory
+ This package contains a template for the Beamer presesentations
+ for the CIAD laboratory. This package provides the recommended
+ style (2025-today) for the CIAD laboratory, France.
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+
