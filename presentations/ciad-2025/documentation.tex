@@ -168,6 +168,7 @@
 	\begin{block}{Automatic slides}
 		\begin{itemize}
 		\item \texttt{oraldefense}: Use the "Oral Defense" front page instead of the regular title page.
+		\item \texttt{conferencepresentation}: Use the "Conference Presentation" front page instead of the regular title page.
 		\item \texttt{nocover}: do not add a slide for the title and the ``thanks''.
 		\item \texttt{thanksslide}: add a slide with the word ``Thanks'' at the end (this is the default). 
 		\item \texttt{questionslide}: add a slide with the word ``Question'' at the end. 
@@ -368,6 +369,38 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Authors}
+
+\begin{frame}{Authors}
+	\begin{itemize}
+	\item Authors are defined with the command: \\
+		\texttt{{\textbackslash}author[short]\{long\}}
+		\begin{itemize}
+		\item the \texttt{long} list of author is displayed on the front page. You should separate the names with the command \texttt{{\textbackslash}and}.
+		\item the \texttt{short} list of author is displayed inside the foot line of the slides. You \alert{must not separate} the names with the command \texttt{{\textbackslash}and}.
+		\end{itemize}
+	\vfill
+	\item \alert{Alternatively}, you could define the authors with the commands: \\
+		\texttt{{\textbackslash}addauthor[short]\{long\}} \\
+		\texttt{{\textbackslash}addauthor*[short]\{long\}}
+		\begin{itemize}
+		\item Add \textbf{one} author to the list of the authors.
+		\item The ``starred'' version applies some visual indicators to the name (underline, etc.) It may be used to indicate the name of the talker for example.
+		\end{itemize}
+	\end{itemize}
+	\vfill
+	\alertbox{These commands must be put in the preamble of your document.}
+\end{frame}
+
+\begin{frame}{Author Description}
+	\begin{itemize}
+	\item Authors may be described with additional information (affiliation...): \\
+		\texttt{{\textbackslash}authordescription\{description\}}
+	\end{itemize}
+	\vfill
+	\alertbox{This command must be put in the preamble of your document.}
+\end{frame}
+
 \subsection{Title Page for PhD Oral Defense}
 
 \begin{frame}{{Title Page} for PhD Oral Defense}
@@ -412,36 +445,32 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Authors}
+\subsection{Title Page for Conference Presentation}
 
-\begin{frame}{Authors}
+\begin{frame}{{Title Page} for Conference Presentation}
 	\begin{itemize}
-	\item Authors are defined with the command: \\
-		\texttt{{\textbackslash}author[short]\{long\}}
-		\begin{itemize}
-		\item the \texttt{long} list of author is displayed on the front page. You should separate the names with the command \texttt{{\textbackslash}and}.
-		\item the \texttt{short} list of author is displayed inside the foot line of the slides. You \alert{must not separate} the names with the command \texttt{{\textbackslash}and}.
-		\end{itemize}
-	\vfill
-	\item \alert{Alternatively}, you could define the authors with the commands: \\
-		\texttt{{\textbackslash}addauthor[short]\{long\}} \\
-		\texttt{{\textbackslash}addauthor*[short]\{long\}}
-		\begin{itemize}
-		\item Add \textbf{one} author to the list of the authors.
-		\item The ``starred'' version applies some visual indicators to the name (underline, etc.) It may be used to indicate the name of the talker for example.
-		\end{itemize}
+	\item It is possible to change the regular title page by a title page dedicated to \Emph{Conference Presentations}.
+	\item For enabling the page, use the class option "\texttt{conferencepresentation}".
+	\item The configuration of the content of this special front page is explained in the following slides
 	\end{itemize}
 	\vfill
-	\alertbox{These commands must be put in the preamble of your document.}
+	\centering
+	\framebox{\includegraphics[width=.5\linewidth]{examplecptp}}
 \end{frame}
 
-\begin{frame}{Author Description}
+\begin{frame}{{Configuration} of the Title Page for Conference Presentation}
 	\begin{itemize}
-	\item Authors may be described with additional information (affiliation...): \\
-		\texttt{{\textbackslash}authordescription\{description\}}
+	\item Setting the title, the authors and the event is explained in the other sections
+	\item \texttt{{\textbackslash}affilitation\{<id>\}\{<name>\}} add an affilitation with the given identifier
+	\item \texttt{{\textbackslash}affil\{<id>\}} show affilitation identifier, usually on the side of the author names
+	\item \texttt{{\textbackslash}resetaffiliations} reset the list of affiliations
+	\item \texttt{{\textbackslash}date\{<text>\}} changes the conference presentation
+	\item \texttt{{\textbackslash}place\{<text>\}} changes the place/location of the conference
+	\item \texttt{{\textbackslash}addpresentationlogo\{<image path>\}} adds a logo at the bottom of the page
+	\item \texttt{{\textbackslash}resetpresentationlogo} removes all the logo from the front page
+	\item \texttt{{\textbackslash}resetpresentationlogotodefault} removes all the logo from the front page but keep the CIAD laboratory logos
+	\item \texttt{{\textbackslash}setpresentationbackground(<x>,<y>)\{<background index>\}} changes the background figure. Index is the number of the background image as defined for the regular slides. x and y are the coordinates of the images on the front page
 	\end{itemize}
-	\vfill
-	\alertbox{This command must be put in the preamble of your document.}
 \end{frame}
 
 \subsection{Keywords, Subject and Abstract}

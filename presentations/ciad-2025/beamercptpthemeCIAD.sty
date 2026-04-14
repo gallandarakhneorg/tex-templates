@@ -25,7 +25,7 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 \ProvidesPackage{beamercptpthemeCIAD}
-   [2025/06/01 Beamer 'Conference Presentation' title page for 'CIAD' Theme]
+   [2026/04/14 Beamer 'Conference Presentation' title page for 'CIAD' Theme]
 
 % Insert the place of the conference
 \gdef\insertplace{}
@@ -83,6 +83,39 @@
 }
 \setpresentationbackground(199,-147){1}
 
+
+% Insert the list of affilitations
+\gdef\insertaffiliations{}
+
+% Reset the list of affilitations to empty
+\newcommand{\resetaffiliations}{%
+	\gdef\insertaffiliations{}%
+}
+
+% Definition of the affiliation
+% #1: id
+% #2: name of the affilitation
+\newcommand{\affiliation}[2]{%
+	\ifthenelse{\equal{a}{a\insertaffiliations}}{%
+		\protected@xdef\insertaffiliations{%
+			\protect\affilformat{#1} \protect{#2}%
+		}%	
+	}{%
+		\protected@xdef\insertaffiliations{%
+			\insertaffiliations,\protect\xspace%
+			\protect\affilformat{#1} \protect{#2}%
+		}%	
+	}%
+}
+
+% Show the affiliation marker
+% #1: id
+\newcommand{\affilformat}[1]{\ensuremath{^{#1}}}
+
+% Show the affiliation marker on side of the author names
+% #1: id
+\newcommand{\affil}[1]{{\smaller\affilformat{#1}}}
+
 % Definition of the colors
 \setbeamercolor{text in conference presentation title area}{fg=black}
 \setbeamercolor{text in conference presentation author area}{fg=CIADdarkgreen}
@@ -122,6 +155,9 @@
 		\put(-20,-80){%
 			\mbox{}\parbox[b]{.95\paperwidth}{\centering\nohyphens{%
 				{\usebeamercolor[fg]{text in conference presentation author area}\usebeamerfont{text in conference presentation author area}\@beamer@theme@ciad@wraptextformats{\insertauthor}}%
+				\ifthenelse{\equal{a}{a\inserteventname}}{}{%
+					\\[.25cm]{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\inserteventname}}%
+				}%
 				\ifthenelse{\equal{a}{a\insertdate}}{%
 					\ifthenelse{\equal{a}{a\insertplace}}{}{%
 						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\insertplace}}%
@@ -130,11 +166,12 @@
 					\ifthenelse{\equal{a}{a\insertplace}}{%
 						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\insertdate}}%
 					}{%
-						\\[.25cm]{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{Journées Francophones sur les Systèmes Multi-Agents (JFSMA-25) \\ \insertdate\ - \insertplace} \\[.25cm]
-						
-	$^1$ Université de Turin, $^2$ Université de Technologie de Belfort Montbéliard, $^3$ Zayed University, $^4$ Université du Val d'Aoste
+						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\insertdate\ - \insertplace}
 						}%
 					}%
+				}%
+				\ifthenelse{\equal{a}{a\insertaffiliations}}{}{%
+					\\[.25cm]{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\insertaffiliations}}%
 				}%
 			}}\mbox{}%
 		}%
