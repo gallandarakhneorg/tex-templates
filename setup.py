@@ -61,9 +61,9 @@ def add_directory_to_tar(tar: tarfile.TarFile, root_dir: str, archive_parent: st
             arcname = os.path.join(archive_parent, rel_path)
             tar.add(full_path, arcname=arcname, recursive=False)
 
-def get_archive_name(root_dir : str, basename : str) -> str:
+def get_archive_basename(root_dir : str, basename : str) -> str:
     """
-    Compute the name of the archive file.
+    Compute the basename of the archive file.
     """
     version_file = os.path.join(root_dir, 'VERSION')
     with open(version_file, 'r') as version_f:
@@ -71,16 +71,26 @@ def get_archive_name(root_dir : str, basename : str) -> str:
     m = re.search(r'-([^-]+)$', version_number)
     if m:
         version_number = m.group(1)
-    return f"{basename}-{version_number}.tar.gz"
+    return f"{basename}-{version_number}"
+
+def get_archive_name(root_dir : str, basename : str) -> str:
+    """
+    Compute the name of the archive file.
+    """
+    return get_archive_basename(root_dir, basename) + ".tar.gz"
+
+def compute_sdist_archive_name(root_dir : str, archive_name : str) -> str:
+    dist_dir = os.path.join(root_dir, DIST_DIR)
+    os.makedirs(dist_dir, exist_ok=True)
+    archive_name = get_archive_name(root_dir, archive_name)
+    archive_path = os.path.join(dist_dir, archive_name)
+    return archive_path
 
 def cmd_sdist(root_dir : str, archive_name : str, folder_name : str):
     """
     Create a source distribution tar.gz archive.
     """
-    dist_dir = os.path.join(root_dir, DIST_DIR)
-    os.makedirs(dist_dir, exist_ok=True)
-    archive_name = get_archive_name(root_dir, archive_name)
-    archive_path = os.path.join(dist_dir, archive_name)
+    archive_path = compute_sdist_archive_name(root_dir, archive_name)
 
     if os.path.isfile(archive_path):
         os.unlink(archive_path)
@@ -310,18 +320,46 @@ def cmd_clean(root_dir : str):
     Clean temporary files, generated files.
     """
     removed_count = 0
-    dist_dir = os.path.join(root_dir, "dist")
-    if os.path.isdir(dist_dir):
-        shutil.rmtree(dist_dir)
-        print(f"Removed: {dist_dir}")
-        removed_count += 1
+    for cleanable in ['dist', 'build']:
+        dist_dir = os.path.join(root_dir, cleanable)
+        if os.path.isdir(dist_dir):
+            shutil.rmtree(dist_dir)
+            print(f"Removed: {dist_dir}")
+            removed_count += 1
     print(f"Cleaning complete. Removed {removed_count} item(s).")
+
+def cmd_build_deb(root_dir : str, archive_name : str):
+    """
+    Build the Debian packages using the scripts from Stephane Galland
+    """
+    basename = get_archive_basename(root_dir, archive_name)
+    build_dir = os.path.join(root_dir, 'build')
+    shutil.rmtree(build_dir, ignore_errors=True)
+    source_folder = os.path.join(root_dir, 'packaging', 'debian')
+    target_root_folder = os.path.join(build_dir, basename)
+    target_folder = os.path.join(target_root_folder, 'debian')
+    shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
+    source_archive_path = compute_sdist_archive_name(root_dir, archive_name)
+    target_source_archive_path = os.path.join(target_root_folder, 'upstream')
+    os.makedirs(target_source_archive_path, exist_ok=True)
+    shutil.copy(source_archive_path, target_source_archive_path)
+    old_dir = os.getcwd()
+    try:
+        os.chdir(target_root_folder)
+        cmd = ["dpkg-buildpackages_i386_ia64_amd64", "any"]
+        try:
+            subprocess.run(cmd, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error running deb packaging command: {e}")
+            sys.exit(255)
+    finally:
+        os.chdir(old_dir)
 
 def main():
     current_root_dir = os.path.normpath(os.path.dirname(str(__file__)))
     parser = argparse.ArgumentParser(description="Configure tex-templates project.")
-    parser.add_argument("command", choices=["build", "clean", "sdist"],
-                        help="Command to run: 'build' (preparing source code), 'sdist' (create archive) or 'clean' (remove files)")
+    parser.add_argument("command", choices=["build", "clean", "sdist", "deb"],
+                        help="Command to run: 'build' (preparing source code), 'sdist' (create archive), 'clean' (remove files) or 'deb' for building the Debian packages")
     parser.add_argument("--noversion", action="store_true", help="Do not generate the VERSION file. Keep it as-is.")
     parser.add_argument("--nociadslide", action="store_true", help="Do not generate the documentation for CIAD slides.")
     parser.add_argument("--nociadreport", action="store_true", help="Do not generate the documentation for CIAD reports.")
@@ -338,6 +376,10 @@ def main():
         cmd_sdist(current_root_dir, 'tex-templates', 'tex-templates')
     elif args.command == "clean":
         cmd_clean(current_root_dir)
+    elif args.command == "deb":
+        cmd_clean(current_root_dir)
+        cmd_sdist(current_root_dir, 'tex-templates', 'tex-templates')
+        cmd_build_deb(current_root_dir, 'tex-templates')
     else:
         print(f"Error: Unsupported command. Use 'build', 'sdist' or 'clean'.")
         sys.exit(255)
