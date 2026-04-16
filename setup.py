@@ -373,7 +373,7 @@ def main():
         cmd_build(args, current_root_dir)
     elif args.command == "sdist":
         cmd_clean(current_root_dir)
-        cmd_sdist(current_root_dir, 'tex-templates', 'tex-templates')
+        cmd_sdist(current_root_dir, 'tex-templates', 'arakhne-tex-templates')
     elif args.command == "clean":
         cmd_clean(current_root_dir)
     elif args.command == "deb":
