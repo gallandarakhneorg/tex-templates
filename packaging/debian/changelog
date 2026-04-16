@@ -1,3 +1,9 @@
+tex-templates (20260416-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Add the title page for conference presentations.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 16 Apr 2026 21:36:09 +0800
+
 tex-templates (20260410-0arakhne0) noble; urgency=low
 
   * Upgrade to TeX-UPmethodology 20260410
