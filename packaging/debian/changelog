@@ -1,3 +1,9 @@
+tex-templates (20260418-0arakhne0) noble; urgency=low
+
+  * all: Rename files to follow the naming conventions and rules from CTAN.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 18 Apr 2026 22:25:03 +0800
+
 tex-templates (20260416-0arakhne0) noble; urgency=low
 
   * CIAD Beamer: Add the title page for conference presentations.

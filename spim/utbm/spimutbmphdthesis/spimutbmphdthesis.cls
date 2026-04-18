@@ -75,7 +75,7 @@
 \newcommand{\femtostlaboratory}{%
 	\resetlaboratories%
 	\addlaboratory{Institut FEMTO-ST}%
-	\setlaboratorylogo{femtost}%
+	\setlaboratorylogo{spimutbmphdthesis_femtost}%
 }
 
 \endinput

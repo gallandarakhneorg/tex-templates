@@ -1,0 +1,39 @@
+** utbmciad-report **
+
+A LaTeX package for typesetting a scientific or technical report following the CIAD laboratory <https://www.ciad-lab.fr> template of the "Universite de Technologie Belfort Montbeliard" in France. 
+Built on the powerful upmethodology <https://ctan.org/pkg/upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+
+This package could be easily extended and adapted to the style for your own institution.
+
+1. Features
+
+- Front page: Automatically generates the title page with:
+  - Title, author, submission date, reference number
+  - Institutional logos
+- History of changes
+- Complete lists: Table of contents, list of figures, list of tables, list of definitions
+- Specialised environments: Definitions, theorems, research questions, objectives, contributions
+- Advanced tables & figures: Full caption support and source references
+- Inline enumerations: Compact lists within paragraphs
+- Customised description lists: Flexible key‑value labelling
+- Bibliographies: Two separate bibliographies (general and personal, e.g. own publications)
+
+2. Requirements
+
+- A recent TeX distribution (TeX Live 2020 or later, MiKTeX)
+- The following CTAN packages (automatically installed by most distributions):
+  - upmethodology <https://ctan.org/pkg/upmethodology>
+  - Standard LaTeX packages (e.g. babel, graphicx, geometry, tocloft, etc.)
+
+3. Download
+
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/> or CTAN <https://ctan.org/pkg/utbmciad-report-2025>.
+
+4. Documentation & Tutorial
+
+A complete tutorial with step‑by‑step examples is available at <https://www.arakhne.org/latex/tex-templates/report_tutorial.html>
+
+5. License
+
+This package is distributed under the GNU LESSER GENERAL PUBLIC LICENSE (LGPL), Version 3.
+
