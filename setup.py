@@ -56,13 +56,13 @@ INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING', 'README', 'VERSION']
 CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
         os.path.join('presentations', 'ciad-2025'): '',
-        os.path.join('spim', 'README_CTAN'): 'README',
-        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
+        os.path.join('presentations', 'README_CTAN'): 'README',
+        os.path.join('presentations', 'VERSION_CTAN'): 'VERSION'
     },
     'utbmciad-report': {
         os.path.join('reports', 'utbmciad-2025'): '',
-        os.path.join('spim', 'README_CTAN'): 'README',
-        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
+        os.path.join('reports', 'README_CTAN'): 'README',
+        os.path.join('reports', 'VERSION_CTAN'): 'VERSION'
     },
     'spim-phdthesisthemes': {
         os.path.join('spim', 'share', 'bst'): 'share',
