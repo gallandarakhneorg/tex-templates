@@ -188,7 +188,7 @@ install-stamp: build-stamp
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logo.pdf "$(install_dir)/$(beamer_install_target)/outer"
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logointitle.pdf "$(install_dir)/$(beamer_install_target)/outer"
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"*logoontitleslide.pdf "$(install_dir)/$(beamer_install_target)/outer"
-	install -m 0644 "$(build_src)/presentations/ciad-2025/frenchrepublic.pdf" "$(install_dir)/$(beamer_install_target)/outer"
+	install -m 0644 "$(build_src)/presentations/ciad-2025/ciad-frenchrepublic.pdf" "$(install_dir)/$(beamer_install_target)/outer"
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.png "$(install_dir)/$(beamer_install_target)/outer"
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.pdf "$(install_dir)/$(beamer_install_target)/outer"
 	install -m 0644 "$(build_src)/presentations/ciad-2025/"ciad-background*.jpg "$(install_dir)/$(beamer_install_target)/outer"
