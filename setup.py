@@ -242,13 +242,14 @@ class SourceDistributionManager(SetupCommand):
         self.__ctan_sources = ctan_sources
         self.__ctan_info_files = ctan_info_files
 
-    def _add_directory_to_tar(self, tar: tarfile.TarFile, dir_to_add: str, archive_parent: str):
+    def _add_directory_to_tar(self, tar : tarfile.TarFile, dir_to_add : str, archive_parent : str, tar_content : set[str]):
         """
         Recursively add files from root_dir into tar under "archive_parent/".
         :param tar: The TAR archive.
         :param dir_to_add: The path to the root folder of the files to add in the TAR archive.
         :param archive_parent: The relative path to the parent folder inside the archive. All the added files
         will be inside this "archive_parent" folder.
+        :param tar_content: the set of all files that are assumed to be in the TAR archive before the call to this function.
         """
         if not os.path.isdir(dir_to_add):
             self.error(f"Directory '{dir_to_add}' not found.")
@@ -257,7 +258,23 @@ class SourceDistributionManager(SetupCommand):
                 full_path = os.path.join(dirpath, filename)
                 rel_path = os.path.relpath(full_path, start=dir_to_add)
                 arcname = os.path.join(archive_parent, rel_path)
-                tar.add(full_path, arcname=arcname, recursive=False)
+                self._add_file_to_tar(tar, full_path, arcname, tar_content)
+
+    def _add_file_to_tar(self, tar : tarfile.TarFile, input_file : str, inner_filename : str, tar_content : set[str]):
+        """
+        Add a file in the archive.
+        :param tar: The TAR archive.
+        :param input_file: the filename of the file to add.
+        :param inner_filename: the name of the file inside the tar archive.
+        :param tar_content: the set of all files that are assumed to be in the TAR archive before the call to this function.
+        """
+        if inner_filename not in tar_content:
+            tar_content.add(inner_filename)
+            tar.add(input_file, arcname=inner_filename, recursive=False)
+            self.info2(f"+ {inner_filename}")
+            self.info3(f"  < {input_file}")
+        else:
+            self.error(f"Duplicate file {inner_filename} in TAR archive. Its source is: {input_file}.")
 
     def generate_sdist_archive(self):
         """
@@ -270,12 +287,14 @@ class SourceDistributionManager(SetupCommand):
 
         self.info(f"Creating source distribution: {archive_path}")
         with tarfile.open(archive_path, "w:gz") as tar:
+            tar_content = set()
             for src_dir in self.__sources:
-                self._add_directory_to_tar(tar, src_dir, os.path.join(self.__inner_folder_name, src_dir))
+                self._add_directory_to_tar(tar, src_dir, os.path.join(self.__inner_folder_name, src_dir), tar_content)
             for info_file in self.__info_files:
                 full_info_file = os.path.join(self._root_dir, info_file)
                 arcname = os.path.join(self.__inner_folder_name, info_file)
-                tar.add(full_info_file, arcname=arcname, recursive=False)
+                self._add_file_to_tar(tar, full_info_file, arcname, tar_content)
+        self.success("Source distribution archive created successfully.")
 
     def generate_ctan_sdist_archives(self):
         """
@@ -285,16 +304,17 @@ class SourceDistributionManager(SetupCommand):
             archive_path = self._compute_sdist_archive_name(f'ctan-{archive_name}')
             self.info(f"Creating CTAN source distribution: {archive_path}")
             with tarfile.open(archive_path, "w:gz") as tar:
+                tar_content = set()
                 for source_name, target_name in archive_elements.items():
                     src_element = os.path.join(self._root_dir, source_name)
                     if os.path.isfile(src_element):
-                        tar.add(src_element, arcname=os.path.join(archive_name, target_name), recursive=False)
+                        self._add_file_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
                     else:
-                        self._add_directory_to_tar(tar, src_element, os.path.join(archive_name, target_name))
-                    for info_file in self.__ctan_info_files:
-                        full_info_file = os.path.join(self._root_dir, info_file)
-                        arcname = os.path.join(archive_name, info_file)
-                        tar.add(full_info_file, arcname=arcname, recursive=False)
+                        self._add_directory_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
+                for info_file in self.__ctan_info_files:
+                    full_info_file = os.path.join(self._root_dir, info_file)
+                    arcname = os.path.join(archive_name, info_file)
+                    self._add_file_to_tar(tar, full_info_file, arcname, tar_content)
             self.success("CTAN source distribution archive created successfully.")
 
     def run(self):
