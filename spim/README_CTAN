@@ -1,9 +1,12 @@
 ** spim-phdthesisthemes **
 
-A LaTeX package for typesetting a PhD dissertation following the SPIM doctoral school template (one of the French doctoral schools). 
-Built on the powerful upmethodology <https://ctan.org/pkg/upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+LaTeX classes, packages and configuration files for typesetting a PhD dissertation following the SPIM doctoral school template and recommandations <https://www.umlp.fr/ecoles-doctorales/ed-spim>. 
 
-This package could be easily extended and adapted to the style for your own university.
+Built on the powerful TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+
+These classes packages and configuration files could be easily extended and adapted to the style for your own institution.
+
+spim-phdthesisthemes is part of the larger project TeX-templates <https://www.arakhne.org/latex/tex-templates>.
 
 1. Features
 
@@ -23,13 +26,13 @@ This package could be easily extended and adapted to the style for your own univ
 2. Requirements
 
 - A recent TeX distribution (TeX Live 2020 or later, MiKTeX)
-- The following CTAN packages (automatically installed by most distributions):
-  - upmethodology <https://ctan.org/pkg/upmethodology>
+- The following classes and packages (automatically installed by most distributions):
+  - TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology>, also available on CTAN as 'upmethodology'.
   - Standard LaTeX packages (e.g. babel, graphicx, geometry, tocloft, etc.)
 
 3. Download
 
-The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/> or CTAN <https://ctan.org/pkg/spim-phdthesisthemes>.
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/>.
 
 4. Documentation & Tutorial
 

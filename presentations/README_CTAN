@@ -1,6 +1,12 @@
 ** ciad-beamertheme **
 
-The CIAD Beamer Theme is a comprehensive LaTeX presentation theme designed for the CIAD laboratory ("Universite de Technologie Belfort Montbeliard" et "Universite Bourgogne Europe") <https://www.ciad-lab.fr>. It provides a professional, visually consistent presentation style with an extensive set of high-level commands that emulate the ease of use found in PowerPoint's Smart Objects and other graphical layout tools.
+The CIAD Beamer Theme, classes and packages constitute a comprehensive LaTeX presentation theme designed from the guidelines and recommandations from the "Connaissance et Intelligence Artificielle Distribuees" (CIAD UR 7533) research laboratory  <https://www.ciad-lab.fr> at the "Universite de Technologie Belfort Montbeliard" and "Universite Bourgogne Europe" in France.
+
+It provides a professional, visually consistent presentation style with an extensive set of high-level commands that emulate the ease of use found in PowerPoint's Smart Objects and other graphical layout tools.
+
+These Beamer Theme, classes and packages could be easily extended and adapted to reach the requirements and recommandations from your own institution.
+
+ciad-beamertheme is part of the larger project TeX-templates <https://www.arakhne.org/latex/tex-templates>.
 
 1. Major Features
 
@@ -69,7 +75,7 @@ Create consistent, styled content blocks with simple commands:
 
 1.7. Documentation & Tutorial
 
-Full documentation is available on <https://www.arakhne.org/latex/tex-templates> or <https://www.arakhne.org/download/latex/slides%20-%20beamer/documentation.pdf>. It is strongly recommended to read the Beamer user guide alongside this theme documentation.
+Full documentation is available on <https://www.arakhne.org/latex/tex-templates> or <https://www.arakhne.org/download/latex/slides%20-%20beamer/ciadbeamer-documentation.pdf>. It is strongly recommended to read the Beamer user guide alongside this theme documentation.
 
 A tutorial is also available: <https://www.arakhne.org/latex/tex-templates/ciadslides_tutorial.html>
 
@@ -82,7 +88,7 @@ A tutorial is also available: <https://www.arakhne.org/latex/tex-templates/ciads
 
 3. Download
 
-The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/> or CTAN <https://ctan.org/pkg/ciad-beamertheme>.
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/>.
 
 5. License
 

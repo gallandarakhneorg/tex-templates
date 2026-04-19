@@ -4,9 +4,9 @@
 
 \addauthorvalidator[galland@arakhne.org]{St{\'e}phane}{Galland}
 
-\setdockeywords{utbmciad, CIAD, UTBM, Style Extension, tex-upmethodology, \LaTeX}
+\setdockeywords{utbmciad, CIAD, UTBM, Style Extension, TeX-UPmethodology, \LaTeX}
 
-\setdocabstract{This document describes the style extension for \texttt{tex-upmethodology} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' from the Universit\'e de Technologie Belfort-Montb\'eliard, France.}
+\setdocabstract{This document describes the template extension to TeX-UPmethodology which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' from the Universit\'e de Technologie Belfort-Montb\'eliard, France.}
 
 \updateversion{1.0}{\makedate{05}{08}{2019}}{First version of the documentation.}{\upmpublic}
 \updateversion{1.1}{\makedate{09}{01}{2025}}{Remove UBFC.}{\upmpublic}
@@ -78,7 +78,7 @@
 
 \section{Introduction}
 
-This document describes the style extension for \texttt{tex-upmethodology} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' of the University of Technology of Belfort-Monb\'eliard, France.
+This document describes the style extension for TeX-UPmethodology\footnote{\url{https://www.arakhne.org/latex/tex-upmethodology}} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' of the University of Technology of Belfort-Monb\'eliard, France.
 
 This document contains only the values and the macros provided by the extensions.
 
@@ -86,46 +86,67 @@ This document contains only the values and the macros provided by the extensions
 
 \textbf{THE ACCOMPANYING EXTENSION IS PROVIDED UNDER THE TERMS OF THIS LICENSE AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.}
 
-\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBMCIAD STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE CIAD LABORATORY, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E BOURGOGNE FRANCHE-COMT\'E OR THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT-MONTB\'ELIARD.}
+\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM CIAD STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE CIAD LABORATORY, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT MONTB\'ELIARD.}
 
 \section{Requirements}
 
-\texttt{tex-upmethdology-utbmciad} requires the core packages of \texttt{tex-upmethodology}.
+\texttt{utbmciadreport} requires the core packages of \texttt{tex-upmethodology}.
 
 \section{Installation}
 
-Copy \texttt{tex-upmethdology-utbmciad} configuration file (\texttt{.cfg}) and all related pictures in your system-wide or local user \texttt{texmf}.
+Copy \texttt{utbmciad-report} configuration file (\texttt{.cfg}) and all related pictures in your system-wide or local user \texttt{texmf}.
 
 \section{Class Options}
 
-\texttt{utbmciad.cls} provides several class options that are specific:
+\texttt{utbmciad-report} provides several class options that are specific to the theme.
+The other class options are passed to \texttt{tex-upmethodology}.
+
+
+\subsection{Language}
+
 \begin{description}
+\item[english] The document is written in english (default).
+\item[french] The document is written in french.
+\end{description}
+
+\subsection{Logos}
+
+\begin{description}
+\item[ciadlogo] Show up the CIAD logo on the front and back pages.
 \item[utbmlogo] Show up the UTBM logo on the front and back pages.
 \item[noutbmlogo] Hide the UTBM logo from the front and back pages.
-\item[ciadlogo] Show up the CIAD logo on the front and back pages.
-\item[nociadlogo] Hide the CIAD logo from the front and back pages.
 \item[utlogo] Show up the UT Network logo on the front and back pages.
 \item[noutlogo] Hide the UT Network logo from the front and back pages.
+\item[nociadlogo] Hide the CIAD logo from the front and back pages.
 \item[icartslogo] Show up the iC ARTS logo on the front and back pages.
 \item[noicartslogo] Hide the iC ARTS logo from the front and back pages.
-\item[icartslogo] Show up the iC ARTS logo on the front and back pages.
+\item[sayenslogo] Show up the SATT Sayens logo on the front and back pages.
+\item[nosayenslogo] Hide the SATT Sayens logo from the front and back pages.
+\item[fundingschemelogo] Show up the logos of the funding schemes.
+\item[nofundingschemelogo] Hide the logos of the funding schemes.
 \item[doclogo] Same as \texttt{ciadlogo} option.
 \item[nodoclogo] Same as \texttt{nociadlogo} option.
+\end{description}
+
+\subsection{Document Reference}
+
+\begin{description}
 \item[docrefonfront] Show up the document reference on the front page.
 \item[nodocrefonfront] Hide the document reference from the front page.
 \item[docrefonback] Show up the document reference on the back page.
 \item[nodocrefonback] Hide the document reference from the back page.
-\item[contactonback] Show up the contact information on the back page.
-\item[nocontactonback] Hide the contact information from the back page.
-\item[fundingschemelogo] Show up the logos of the funding schemes.
-\item[nofundingschemelogo] Hide the logos of the funding schemes.
 \end{description}
 
-The other class options are passed to \texttt{tex-upmethodology}.
+\subsection{Contact Information}
+
+\begin{description}
+\item[contactonback] Show up the contact information on the back page.
+\item[nocontactonback] Hide the contact information from the back page.
+\end{description}
 
 \section{Provided Macros}
 
-\texttt{tex-upmethdology-utbmciad} provides the following macros:
+\texttt{utbmciad-report} provides the following macros:
 \begin{itemize}
 \item \texttt{{\textbackslash}addfundingschemelogo[height size]\{path to logo image\}}: Add a logo image in the list of the funding schemes' logos. The default height is $1.25cm$.
 \item \texttt{{\textbackslash}utbmciadfundingschemeslogos}: Show the list of all the funding schemes' logos.
@@ -135,7 +156,7 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 
 \section{Provided Colors}
 
-\texttt{tex-upmethdology-utbmciad} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
+\texttt{utbmciad-report} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
 
 \begin{mtabular}{4}{XccX}{Provided Colors}
 \tabularheader{Name}{Type}{Value}{Example}
@@ -144,7 +165,7 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 
 \section{Provided Values}
 
-\texttt{tex-upmethdology-utbmciad} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
+\texttt{utbmciad-report} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
 
 \begin{tiny}
 \begin{mtabular}{3}{XcX}{Provided Values}
@@ -161,13 +182,15 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 
 \section{Copyright of Materials}
 
-Copyright \copyright 2009, 2012-2026 Universit\'e de Technologie de Belfort-Monb\'eliard. All rights reserved. \\
+Copyright \copyright 2009, 2012-2026 Universit\'e de Technologie de Belfort Monb\'eliard. All rights reserved. \\
 
 UTBM and all UTBM-related trademarks and logos are trademarks or registered trademarks of Universit\'e de Technologie de Belfort-Montb\'eliard in the France, other countries, or both.
 
-UB and all UB-related trademarks and logos are trademarks or registered trademarks of Universit\'e de Bourgogne in the France, other countries, or both.
+UBE and all UBE-related trademarks and logos are trademarks or registered trademarks of Universit\'e Bourgogne Europe in the France, other countries, or both.
 
-iC and all iC-related trademarks and logos are trademarks or registered trademarks of Institut Carnot in the France, other countries, or both.
+iC and all iC-related trademarks and logos are trademarks or registered trademarks of Institut Carnot ARTS in the France, other countries, or both.
+
+SATT Sayens and all SATT Sayens-related trademarks and logos are trademarks or registered trademarks of the SATT Sayens in the France, other countries, or both.
 
 You are not granted to use, modify or distribute this package without the explicit authorization of the representative of the organizations.
 

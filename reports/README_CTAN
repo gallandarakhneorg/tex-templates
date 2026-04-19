@@ -1,9 +1,12 @@
 ** utbmciad-report **
 
-A LaTeX package for typesetting a scientific or technical report following the CIAD laboratory <https://www.ciad-lab.fr> template of the "Universite de Technologie Belfort Montbeliard" in France. 
-Built on the powerful upmethodology <https://ctan.org/pkg/upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+LaTeX class and configuration file for typesetting a scientific or technical report following the template and guidelines from the "Connaissance et Intelligence Articielle Distribuees" (CIAD UR 7533) research laboratory <https://www.ciad-lab.fr>  of the "Universite de Technologie Belfort Montbeliard" in France.
 
-This package could be easily extended and adapted to the style for your own institution.
+Built on the powerful TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+
+This class and configuration file could be easily extended and adapted to the style for your own institution.
+
+utbmciad-report is part of the larger project TeX-templates <https://www.arakhne.org/latex/tex-templates>.
 
 1. Features
 
@@ -21,13 +24,13 @@ This package could be easily extended and adapted to the style for your own inst
 2. Requirements
 
 - A recent TeX distribution (TeX Live 2020 or later, MiKTeX)
-- The following CTAN packages (automatically installed by most distributions):
-  - upmethodology <https://ctan.org/pkg/upmethodology>
+- The following classes and packages (automatically installed by most distributions):
+  - TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology>, also available on CTAN as 'upmethodology'
   - Standard LaTeX packages (e.g. babel, graphicx, geometry, tocloft, etc.)
 
 3. Download
 
-The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/> or CTAN <https://ctan.org/pkg/utbmciad-report-2025>.
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/>.
 
 4. Documentation & Tutorial
 

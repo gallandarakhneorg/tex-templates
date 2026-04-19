@@ -1,5 +1,4 @@
-%
-% Copyright (c) 2013-25 Stephane GALLAND <galland@arakhne.org>
+% Copyright (c) 2013-26 Stephane GALLAND <galland@arakhne.org>
 % 
 % This program is free library; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as

@@ -52,12 +52,12 @@ INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING', 'README', 'VERSION']
 CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
         os.path.join('presentations', 'ciad-2025'): '',
-        os.path.join('presentations', 'README'): 'README'
+        os.path.join('spim', 'README_CTAN'): 'README',
         os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     },
     'utbmciad-report': {
         os.path.join('reports', 'utbmciad-2025'): '',
-        os.path.join('reports', 'README'): 'README'
+        os.path.join('spim', 'README_CTAN'): 'README',
         os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     },
     'spim-phdthesisthemes': {
@@ -66,7 +66,7 @@ CTAN_SOURCE_DIRS = {
         os.path.join('spim', 'utbm', 'spimutbmphdthesis'): 'utbm',
         os.path.join('spim', 'umlp', 'spimumlpphdthesis'): 'umlp',
         os.path.join('spim', 'ube', 'spimubephdthesis'): 'ube',
-        os.path.join('spim', 'README'): 'README'
+        os.path.join('spim', 'README_CTAN'): 'README',
         os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     }
 }
@@ -324,9 +324,8 @@ class BuildManager(SetupCommand):
             result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
             if result.returncode != 0:
                 print("LaTeX compilation failed. Here is the log:")
-                # Print last 50 lines of stdout/stderr for debugging
-                print(result.stdout[-2000:] if result.stdout else "")
-                print(result.stderr[-2000:] if result.stderr else "")
+                print(result.stdout if result.stdout else "")
+                print(result.stderr if result.stderr else "")
                 temp_dir.cleanup()
                 sys.exit(255)
             else:
@@ -336,9 +335,8 @@ class BuildManager(SetupCommand):
                 result2 = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
                 if result2.returncode != 0:
                     print("Error: Second compilation had issues.")
-                    # Print last 50 lines of stdout/stderr for debugging
-                    print(result.stdout[-2000:] if result.stdout else "")
-                    print(result.stderr[-2000:] if result.stderr else "")
+                    print(result.stdout if result.stdout else "")
+                    print(result.stderr if result.stderr else "")
                     temp_dir.cleanup()
                     sys.exit(255)
                 else:
