@@ -19,8 +19,6 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:1001
-#: ../tex-templates-utbmciadreport-2021.templates:1001
 #: ../tex-templates-utbmciadreport-2025.templates:1001
 #: ../tex-templates-utbm-phdthesis.templates:1001
 msgid "Agreement for the Report Template of the UTBM"
@@ -28,8 +26,6 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:1001
-#: ../tex-templates-utbmciadreport-2021.templates:1001
 #: ../tex-templates-utbmciadreport-2025.templates:1001
 #: ../tex-templates-utbm-phdthesis.templates:1001
 #: ../tex-templates-ube-phdthesis.templates:1001
@@ -42,8 +38,6 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:1001
-#: ../tex-templates-utbmciadreport-2021.templates:1001
 #: ../tex-templates-utbmciadreport-2025.templates:1001
 #: ../tex-templates-utbm-phdthesis.templates:1001
 msgid ""
@@ -56,8 +50,6 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:2001
-#: ../tex-templates-utbmciadreport-2021.templates:2001
 #: ../tex-templates-utbmciadreport-2025.templates:2001
 #: ../tex-templates-utbm-phdthesis.templates:2001
 msgid "Do you accept the UTBM usage terms?"
@@ -65,8 +57,6 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:2001
-#: ../tex-templates-utbmciadreport-2021.templates:2001
 #: ../tex-templates-utbmciadreport-2025.templates:2001
 #: ../tex-templates-utbm-phdthesis.templates:2001
 msgid ""
@@ -77,8 +67,6 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:3001
-#: ../tex-templates-utbmciadreport-2021.templates:3001
 #: ../tex-templates-utbmciadreport-2025.templates:3001
 #: ../tex-templates-utbm-phdthesis.templates:3001
 msgid "Declined UTBM usage terms"
@@ -86,8 +74,6 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:3001
-#: ../tex-templates-utbmciadreport-2021.templates:3001
 #: ../tex-templates-utbmciadreport-2025.templates:3001
 #: ../tex-templates-utbm-phdthesis.templates:3001
 msgid ""
@@ -97,8 +83,6 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../tex-templates-utbmciadreport-2019.templates:3001
-#: ../tex-templates-utbmciadreport-2021.templates:3001
 #: ../tex-templates-utbmciadreport-2025.templates:3001
 #: ../tex-templates-utbm-phdthesis.templates:3001
 #: ../tex-templates-ube-phdthesis.templates:3001

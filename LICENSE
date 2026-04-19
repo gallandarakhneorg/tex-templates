@@ -1,0 +1,59 @@
+Copyright (c) 2013-2026 Stephane Galland <galland@arakhne.org>
+
+This software package, "tex-templates", contains three distinct types of material:
+
+1. LaTeX source code (all files that are under the `src/` directory and any
+   documentation source files).
+2. University and institutions logo images (all files under the `logos/` directory).
+3. Font Collections owned by an university and institution (all files under the `fonts/` directory).
+
+Licensing terms for each part are different:
+
+----------------------------------------------------------------------
+1. LaTeX source code
+----------------------------------------------------------------------
+The LaTeX source code is free software: you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+A copy of the GNU Lesser General Public License (LGPLv3) is provided
+in the file `LICENSE.LGPLv3`.  You can also find it at
+https://www.gnu.org/licenses/lgpl-3.0.html
+
+----------------------------------------------------------------------
+2. University and institution logos
+----------------------------------------------------------------------
+The logo files are not licensed under the LGPLv3. They are the property
+of their respective university or institution and are included with
+permission for redistribution only as part of this complete package.
+They may NOT be modified, altered, or extracted
+and used separately without explicit written permission from
+the owning university or institution.
+
+The exact terms governing the logos are set forth in the file
+"logos/LICENSE.logos". By redistributing this package, you agree
+to abide by those terms.
+
+----------------------------------------------------------------------
+3. University and institution font collections
+----------------------------------------------------------------------
+The font files are not licensed under the LGPLv3. They are the property
+of their respective university or institution and are included with
+permission for redistribution only as part of this complete package.
+They may NOT be modified, altered, or extracted
+and used separately without explicit written permission from
+the owning university or institution.
+
+The exact terms governing the logos are set forth in the file
+"fonts/LICENSE.fonts". By redistributing this package, you agree
+to abide by those terms.
+
+----------------------------------------------------------------------
+Overall distribution
+----------------------------------------------------------------------
+When redistributing this package (e.g., on CTAN, a personal website,
+or a CDN), you must preserve the directory structure and all
+accompanying license files.  Users of the LaTeX code may remove the
+"logos/" and "fonts/" directories without affecting their rights under the LGPLv3.
+

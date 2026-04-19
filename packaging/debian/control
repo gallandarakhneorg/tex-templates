@@ -6,44 +6,6 @@ Maintainer: Stephane Galland <galland@arakhne.org>
 Standards-Version: 3.9.6
 Homepage: https://github.com/gallandarakhneorg/tex-templates
 
-Package: tex-templates-utbmciadreport-2019
-Architecture: all
-Pre-Depends: debconf
-Depends: tex-upmethodology (>= 20190804-0arakhne0)
-Replaces: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
-Breaks: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
-Conflicts: tex-templates-multiagentfr-report, tex-templates-utbmciadreport, tex-templates-utbmciadreport-2021
-Description: Template for reports of the CIAD at UTBM version 2019
- This package contains a template for the reports
- based on tex-upmethodology. It provides the
- recommended style (2019) for the CIAD laboratory of the
- Université de Technologie de Belfort-Montbéliard
- (UTBM), France.
- .
- According to the international copyright laws,
- you are not allowed to use this package if you
- are not granted by the Université de Technologie
- de Belfort-Montbéliard.
-
-Package: tex-templates-utbmciadreport-2021
-Architecture: all
-Pre-Depends: debconf
-Depends: tex-upmethodology (>= 20190804-0arakhne0)
-Replaces: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
-Breaks: tex-templates-multiagentfr-report, tex-templates-utbmciadreport
-Conflicts: tex-templates-multiagentfr-report, tex-templates-utbmciadreport, tex-templates-utbmciadreport-2019
-Description: Template for reports of the CIAD at UTBM
- This package contains a template for the reports
- based on tex-upmethodology, version 2021. It provides the
- recommended style (2021) for the CIAD laboratory of the
- Université de Technologie de Belfort-Montbéliard
- (UTBM), France.
- .
- According to the international copyright laws,
- you are not allowed to use this package if you
- are not granted by the Université de Technologie
- de Belfort-Montbéliard.
-
 Package: tex-templates-utbmciadreport-2025
 Architecture: all
 Pre-Depends: debconf

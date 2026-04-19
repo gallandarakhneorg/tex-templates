@@ -1,77 +1,75 @@
 Presentation
 
-tex-templates is a collection of LaTeX styles for different usages.
+tex-templates is a collection of LaTeX classes and styles for writing
+PhD dissertations, technical reports, slides and conference articles.
 
 Slides
 
-tex-templates provides styles for creating slides with the Beamer tool.
-- CIAD Laboratory located at the Université de Technologie de
-Belfort-Montbéliard and the Université Bourgogne Europe
-“[download]”:./presentations/ciad-2025
+tex-templates provides styles for creating slides with the Beamer
+tool. - “Connaissance et Intelligence Artificielle Distribuées” research
+laboratory located at the Université de Technologie Belfort Montbéliard
+and the Université Bourgogne Europe [download]
 
 PhD Theses
 
 tex-templates provides the official styles for writing a PhD thesis in
-the following Universities:
-
-- Université de Technologie de Belfort-Montbéliard [download part 1]
+the following Universities: - Université de Technologie Belfort
+Montbéliard [download part 1] [download part 2] [download part 3] -
+Université Bourgogne Europe [download part 1] [download part 2]
+[download part 3] - Université Marie et Louis Pasteur [download part 1]
 [download part 2] [download part 3]
-
-- Université Bourgogne Europe [download part 1] [download part 2]
-[download part 3]
-- Université Marie et Louis Pasteur [download part 1] [download part 2]
-[download part 3]
 
 Examples for these PhD thesis styles may be found at:
 http://www.ciad-lab.fr/
 
 French Research Supervision Accreditation
 
-tex-templates provides the unofficial styles for preparing a French
-Research Supervision Accredidation (In French: Habilitation à diriger
-des rerchers - HDR):
-
-- Application document for Université Bourgogne Europe [download part 1]
-[download part 2] [download part 3]
-- HDR report for Université Bourgogne Europe [download part 1] [download
-part 2] [download part 3]
+tex-templates provides the unofficial template for preparing a French
+Research Supervision Accreditation (In French: Habilitation à diriger
+des recherches - HDR): - Application document for Université Bourgogne
+Europe [download part 1] [download part 2] [download part 3] - HDR
+report for Université Bourgogne Europe [download part 1] [download part
+2] [download part 3]
 
 Technical Reports
 
-tex-templates provides the styles for writing the technical reports of
-the CIAD Laboratory at the Université de Technologie de
+tex-templates provides the official template for writing the technical
+reports of the CIAD Laboratory at the Université de Technologie
 Belfort-Montbéliard
 
-- Technical or Scientific report style
-“[download]”:./reports/utbmciad-2025
+-   Technical or Scientific report style [download]
 
 Conference Papers
 
-tex-templates provides the styles for the following conferences:
-- IngéDoc at the Université de Technologie de Belfort-Montbéliard
-“[download]”:./papers/ingedoc
+tex-templates provides the template for the following conferences: -
+IngéDoc at the Université de Technologie Belfort-Montbéliard [download]
+(2016)
 
 Installation
 
-1.  For the reports, install the tex-upmethodology collection of
-    packages (also available on CTAN, and included in the major TeX
+1.  For the reports, install the tex-upmethodology collection of classes
+    and packages (also available on CTAN, and included in the major TeX
     distributions)
 2.  Copy the content of the current directory inside one of your texmf
-    directory, usually /usr/share/texmf/tex/latex/tex-templates or
+    directories, usually /usr/share/texmf/tex/latex/tex-templates or
     $HOME/.texmf on Unix operating systems.
 3.  Update the LaTeX databases from the command line:
 
-$> mktexlsr
-$> update-updmap —quiet
+    $> mktexlsr
+    $> update-updmap --quiet
 
 Author
 
 Prof.Dr. Stéphane GALLAND
 
-http://www.arakhne.org/homes/galland.html
+http://www.arakhne.org/
 http://www.ciad-lab.fr/galland_stephane
 
 License
 
-GNU LESSER GENERAL PUBLIC LICENSE for the source code.
-The logos are owned by the corresponding institutions.
+-   All LaTeX source code (everything in the src/ directory) is licensed
+    under the GNU Lesser General Public License v3.0.
+-   The university and institution logos (in the logos/ directory) are
+    not free software. They are included with permission of the
+    university and institution and may be redistributed unchanged, but
+    may not be modified. See logos/LICENSE.logos for details.

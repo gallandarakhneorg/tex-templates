@@ -1,0 +1,46 @@
+** utbmciad-report **
+
+LaTeX class and configuration file for typesetting a scientific or technical report following the template and guidelines from the "Connaissance et Intelligence Articielle Distribuees" (CIAD UR 7533) research laboratory <https://www.ciad-lab.fr>  of the "Universite de Technologie Belfort Montbeliard" in France.
+
+Built on the powerful TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+
+This class and configuration file could be easily extended and adapted to the style for your own institution.
+
+utbmciad-report is part of the larger project TeX-templates <https://www.arakhne.org/latex/tex-templates>.
+
+1. Features
+
+- Front page: Automatically generates the title page with:
+  - Title, author, submission date, reference number
+  - Institutional logos
+- History of changes
+- Complete lists: Table of contents, list of figures, list of tables, list of definitions
+- Specialised environments: Definitions, theorems, research questions, objectives, contributions
+- Advanced tables & figures: Full caption support and source references
+- Inline enumerations: Compact lists within paragraphs
+- Customised description lists: Flexible key‑value labelling
+- Bibliographies: Two separate bibliographies (general and personal, e.g. own publications)
+
+2. Requirements
+
+- A recent TeX distribution (TeX Live 2020 or later, MiKTeX)
+- The following classes and packages (automatically installed by most distributions):
+  - TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology>, also available on CTAN as 'upmethodology'
+  - Standard LaTeX packages (e.g. babel, graphicx, geometry, tocloft, etc.)
+
+3. Download
+
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/>.
+
+4. Documentation & Tutorial
+
+A complete tutorial with step‑by‑step examples is available at <https://www.arakhne.org/latex/tex-templates/report_tutorial.html>
+
+5. Licenses
+
+-   All LaTeX source code (everything in the src/ directory) is licensed
+    under the GNU Lesser General Public License v3.0.
+-   The university and institution logos (in the logos/ directory) are
+    not free software. They are included with permission of the
+    university and institution and may be redistributed unchanged, but
+    may not be modified. See logos/LICENSE.logos for details.

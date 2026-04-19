@@ -1,0 +1,30 @@
+%Filename: t1fz1.fd
+%Created by: tex fz1b8a-drv
+%Created using fontinst v1.933
+
+%THIS FILE SHOULD BE PUT IN A TEX INPUTS DIRECTORY
+
+\ProvidesFile{t1fz1.fd}
+   [2012/11/08 Fontinst v1.933 font definitions for T1/fz1.]
+
+\DeclareFontFamily{T1}{fz1}{}
+
+\DeclareFontShape{T1}{fz1}{b}{n}{
+   <-> fz1b8t
+}{}
+
+\DeclareFontShape{T1}{fz1}{b}{sc}{
+   <-> fz1bc8t
+}{}
+
+\DeclareFontShape{T1}{fz1}{b}{sl}{
+   <-> fz1bo8t
+}{}
+
+\DeclareFontShape{T1}{fz1}{bx}{n}{<->ssub * fz1/b/n}{}
+\DeclareFontShape{T1}{fz1}{bx}{sc}{<->ssub * fz1/b/sc}{}
+\DeclareFontShape{T1}{fz1}{bx}{sl}{<->ssub * fz1/b/sl}{}
+\DeclareFontShape{T1}{fz1}{b}{it}{<->ssub * fz1/b/sl}{}
+\DeclareFontShape{T1}{fz1}{bx}{it}{<->ssub * fz1/b/it}{}
+
+\endinput

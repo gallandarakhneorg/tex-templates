@@ -1,0 +1,49 @@
+** spim-phdthesisthemes **
+
+LaTeX classes, packages and configuration files for typesetting a PhD dissertation following the SPIM doctoral school template and recommandations <https://spim.ubfc.fr>. 
+
+Built on the powerful TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology> suite, it provides a professional, ready-to-use structure with advanced formatting macros.
+
+These classes packages and configuration files could be easily extended and adapted to the style for your own institution.
+
+spim-phdthesisthemes is part of the larger project TeX-templates <https://www.arakhne.org/latex/tex-templates>.
+
+1. Features
+
+- Front page: Automatically generates the title page with:
+  - Thesis title, author, submission date
+  - Jury members (supervisors, reviewers, examiners)
+  - Institutional logos
+- Bilingual abstracts & keywords: French and English versions
+- Complete lists: Table of contents, list of figures, list of tables, list of definitions
+- Structured chapters: Optional lettrine (dropped capital) and local table of contents per chapter
+- Specialised environments: Definitions, theorems, research questions, objectives, contributions
+- Advanced tables & figures: Full caption support and source references
+- Inline enumerations: Compact lists within paragraphs
+- Customised description lists: Flexible key‑value labelling
+- Bibliographies: Two separate bibliographies (general and personal, e.g. own publications)
+
+2. Requirements
+
+- A recent TeX distribution (TeX Live 2020 or later, MiKTeX)
+- The following classes and packages (automatically installed by most distributions):
+  - TeX-UPmethodology <https://www.arakhne.org/latex/tex-upmethodology>, also available on CTAN as 'upmethodology'.
+  - Standard LaTeX packages (e.g. babel, graphicx, geometry, tocloft, etc.)
+
+3. Download
+
+The package is available for downloading from the official webpage <https://www.arakhne.org/latex/tex-templates/>.
+
+4. Documentation & Tutorial
+
+A complete tutorial with step‑by‑step examples is available at <https://www.arakhne.org/latex/tex-templates/phddissertation_tutorial.html>
+
+5. Licenses
+
+-   All LaTeX source code (everything in the src/ directory) is licensed
+    under the GNU Lesser General Public License v3.0.
+-   The university and institution logos (in the logos/ directory) are
+    not free software. They are included with permission of the
+    university and institution and may be redistributed unchanged, but
+    may not be modified. See logos/LICENSE.logos for details.
+

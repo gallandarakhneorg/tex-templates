@@ -1,0 +1,184 @@
+% Copyright (c) 2026 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM logo and name are registered and owned by the
+% "Universite de Technologie de Belfort-Montbeliard".
+%
+% UBE logo and name are registered and owned by the
+% "Universite Bourgogne Europe".
+%
+% CIAD logo and name are registered and owned by the
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
+%
+% EDIH, FEDER, EU logo and name are registered and owned by the
+% "European Commission".
+%
+% RBFC logo and name are registered and owned by the
+% "Conseil régional de Bourgogne Franche Comté".
+%
+% DEDIHCATED-BFC logo and name are owned by the project consortium.
+%
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+
+\ProvidesPackage{beamerthemeDEDIHCATEDBFC}[2026/04/20]
+
+\RequirePackage{ifthen}
+
+\gdef\beamer@theme@dedihcatedbfc@lang{french}
+
+\DeclareOptionBeamer{language}{\gdef\beamer@theme@dedihcatedbfc@lang{#1}}
+%\ExecuteOptionsBeamer{left}
+\ProcessOptionsBeamer
+
+\RequirePackage[language=\beamer@theme@dedihcatedbfc@lang,conferencepresentation]{beamerthemeCIAD}
+
+\usecolortheme{DEDIHCATEDBFC}
+
+\AtBeginDocument{%
+	\resolvepicturename{dedihcatedbfc_small_logo}%
+	\pgfdeclareimage[width=.8cm]{small_bottom_left_logo}{\resolvedfilename}%
+}
+
+% Reset the title background to empty
+\gdef\insertpresentationbackground{}
+
+% Title page
+\renewcommand{\insertciadpresentationtitlepage}{%
+	\expandafter\begin{picture}(0,0)(0,\beamer@theme@ciad@outer@offsety)%
+		% Page background
+		\insertpresentationbackground%
+		% Draw the bottom blue border
+		\put(-30,-150){%
+			\begin{tikzpicture}%
+			\fill[DEDIHCATEDblue](0,0) rectangle (18,3);%
+			\end{tikzpicture}%
+		}%
+		\put(-230,-320){%
+			\includegraphics[width=14cm]{dedihcatedbfc_title_left}%
+		}%
+		\put(310,-360){%
+			\includegraphics[width=8cm]{dedihcatedbfc_title_right}%
+		}%
+		\put(200,-90){%
+			\includegraphics[height=.65cm]{edihlogo}%
+		}%
+		\put(200,-118){%
+			\includegraphics[height=.65cm]{federlogo}
+		}%
+		\put(204,-138){\parbox{2cm}{%
+			\textcolor{white}{\smaller www.vehiculedufutur.com/\\[-1.2ex]dedihcated}%
+		}}%
+		% Draw the top logo
+		\put(145,45){%
+			\includegraphics[width=3.5cm]{dedihcatedlogo}
+		}%
+		% Title
+		\put(-20,30){%
+			\parbox[t]{.95\paperwidth}{\centering\nohyphens{%
+				\usebeamercolor[fg]{text in conference presentation title area}%
+				{\usebeamerfont{text in conference presentation title area}\@beamer@theme@ciad@wraptextformats{\inserttitle} \\[.25cm] \@beamer@theme@ciad@wraptextformats{\insertsubtitle}}%
+			}}%
+		}%
+		% Talker
+		\put(-20,-60){%
+			\parbox[b]{.95\paperwidth}{\raggedright\nohyphens{%
+				{\usebeamercolor[fg]{text in conference presentation author area}\usebeamerfont{text in conference presentation author area}\@beamer@theme@ciad@wraptextformats{\smaller\insertauthor}}%
+			}}%
+		}%
+		% Date and Event
+		\put(5,-110){%
+			\parbox[c]{.5\paperwidth}{\nohyphens{%
+				\ifthenelse{\equal{a}{a\inserteventname}}{}{%
+					{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\larger\larger\inserteventname}}%
+				}%
+				\ifthenelse{\equal{a}{a\insertdate}}{%
+					\ifthenelse{\equal{a}{a\insertplace}}{}{%
+						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\larger\insertplace}}%
+					}%
+				}{%
+					\ifthenelse{\equal{a}{a\insertplace}}{%
+						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\larger\insertdate}}%
+					}{%
+						\\{\usebeamercolor[fg]{text in conference presentation date and place area}\usebeamerfont{text in conference presentation date and place area}\@beamer@theme@ciad@wraptextformats{\larger\insertdate\ - \insertplace}
+						}%
+					}%
+				}%
+			}}%
+		}%
+	\end{picture}%
+}
+
+
+% Footline with the logos
+\gdef\beamer@theme@ciad@outer@footline{%
+	\ifbeamer@plainframe\else%
+	\begin{picture}(0,25)(0,0)%
+	% Logo
+	\put(2,2){%
+		\pgfuseimage{small_bottom_left_logo}%
+	}
+	% Frame number
+	\put(438,7.5){\parbox[c]{2em}{%
+			{\mbox{}\hfill\usebeamercolor[fg]{footline}\tiny\insertframenumbering}%
+	}}%
+	% Partner logos
+	\put(255,3.5){\parbox[b]{6.4cm}{\mbox{}\hfill%
+			\beamer@theme@ciad@partnerlogo%
+			\ifthenelse{\boolean{beamer@theme@ciad@lablogo}}{%
+				\hspace{.1cm}\insertinstitutelogosinfootline{\hspace{.1cm}}%
+			}{}%
+	}}%
+	% Left text
+	\ifbeamer@theme@ciad@tableofcontentslide@footline%
+		\global\beamer@theme@ciad@tableofcontentslide@footlinefalse%
+		\beamer@theme@ciad@footline@foroutline%
+	\else%
+		\beamer@theme@ciad@footline@default%
+	\fi%
+	\end{picture}%
+	\fi%
+}
+
+\renewcommand{\insertfootlinewithsections}{%
+	\put(30,7){%
+		\parbox[c]{\beamer@theme@ciad@outer@footlinewidth}{%
+		%
+		\def\slideentry##1##2##3##4##5##6{}%
+		\def\sectionentry##1##2##3##4##5{%
+			\ifnum##5=\c@part%
+				\def\insertsectionhead{##2}%
+				\def\insertsectionheadnumber{##1}%
+				\def\insertpartheadnumber{##5}%
+				\strut{%
+				  \usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+				  \ifnum\c@section=##1%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot}}}}%
+				  \else%
+					\mbox{\hyperlink{Navigation##3}{{\usebeamertemplate{section in head/foot shaded}}}}%
+				  \fi%
+				}%
+				\hskip1em%
+			\fi\ignorespaces%
+		}%
+		%
+		\dohead}}%
+}
+
+
+\mode<presentation>
+
+\mode
+<all>

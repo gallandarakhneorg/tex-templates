@@ -27,7 +27,7 @@ Usage:
     python3 setup.py clean          # Clean the folders
     python3 setup.py deb            # Create the Debian packages
 """
-
+import glob
 import os
 import sys
 import re
@@ -47,51 +47,99 @@ BUILD_DIR = "build"
 
 DIST_DIR = "dist"
 
+SRC_DIR = "src"
+
+LOGOS_DIR = "logos"
+
 DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
 DEBIAN_COMPRESS_WITH = "gzip"
 
-SOURCE_DIRS = ["presentations", "reports", "spim", "papers"]
-INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING', 'README', 'VERSION']
+SOURCE_DIRS = [
+    os.path.join(SRC_DIR, "presentations"),
+    os.path.join(SRC_DIR, "reports"),
+    os.path.join(SRC_DIR, "spim"),
+    os.path.join(SRC_DIR, "papers"),
+    "logos",
+    "fonts",
+]
+INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VERSION']
 
 CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
-        os.path.join('presentations', 'ciad-2025'): '',
-        os.path.join('presentations', 'README_CTAN'): 'README',
-        os.path.join('presentations', 'VERSION_CTAN'): 'VERSION'
+        'free': {
+            os.path.join(SRC_DIR, 'presentations', 'ciad-2025'): SRC_DIR,
+            os.path.join(SRC_DIR, 'presentations', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'presentations', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'ciad-*',
+            'LICENSE.logos'
+        ]
     },
     'utbmciad-report': {
-        os.path.join('reports', 'utbmciad-2025'): '',
-        os.path.join('reports', 'README_CTAN'): 'README',
-        os.path.join('reports', 'VERSION_CTAN'): 'VERSION'
+        'free': {
+            os.path.join(SRC_DIR, 'reports', 'utbmciad-2025'): SRC_DIR,
+            os.path.join(SRC_DIR, 'reports', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'reports', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'utbmciadreport-*',
+            'LICENSE.logos'
+        ]
     },
     'spim-phdthesisthemes': {
-        os.path.join('spim', 'share', 'bst'): 'share',
-        os.path.join('spim', 'share', 'sty'): 'share',
-        os.path.join('spim', 'utbm', 'spimutbmphdthesis'): 'utbm',
-        os.path.join('spim', 'umlp', 'spimumlpphdthesis'): 'umlp',
-        os.path.join('spim', 'ube', 'spimubephdthesis'): 'ube',
-        os.path.join('spim', 'README_CTAN'): 'README',
-        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
+        'free': {
+            os.path.join(SRC_DIR, 'spim', 'share', 'bst'): os.path.join(SRC_DIR, 'share'),
+            os.path.join(SRC_DIR, 'spim', 'share', 'sty'): os.path.join(SRC_DIR, 'share'),
+            os.path.join(SRC_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(SRC_DIR, 'utbm'),
+            os.path.join(SRC_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(SRC_DIR, 'umlp'),
+            os.path.join(SRC_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(SRC_DIR, 'ube'),
+            os.path.join(SRC_DIR, 'spim', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'spim', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'spimbasephdthesis-*',
+            'spimutbmphdthesis_*',
+            'spimubehdr_*',
+            'spimubephdthesis_*',
+            'spimumlpphdthesis_*',
+            'LICENSE.logos'
+        ]
     }
 }
-CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING']
+CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
 
 
 class SetupCommand(ABC):
 
-    def __init__(self, root_dir : str, dist_dir : str = DIST_DIR, build_dir : str = BUILD_DIR, verbosity : int = 0):
+    def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
+                 build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR, logos_dir : str = LOGOS_DIR,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
+        :param use_logos: indicates if the not-free logos must be used during the building process.
         :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
         :param build_dir: the basename of the temporary folder in which all results of building will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param logos_dir: the basename of the root folder for non-free resources.
         :param verbosity: level of verbosity.
         """
         self.__verbosity = verbosity
         self.__current_version = None
         self.__current_tex_version = None
+        self._use_logos = use_logos
         self._root_dir = root_dir
         self._dist_dir = dist_dir
         self._build_dir = build_dir
+        self._src_dir = src_dir
+        self._logos_dir = logos_dir
+
+    @property
+    def verbosity(self) -> str:
+        return self.__verbosity
 
     @property
     def current_version(self) -> str:
@@ -163,7 +211,7 @@ class SetupCommand(ABC):
         Show up an information message of second level.
         :param messages: the list of information messages. Each one will be shown one a line.
         """
-        if self.__verbosity >= 1:
+        if self.verbosity >= 1:
             for message in messages:
                 print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
 
@@ -172,7 +220,7 @@ class SetupCommand(ABC):
         Show up an information message of third level.
         :param messages: the list of information messages. Each one will be shown one a line.
         """
-        if self.__verbosity >= 2:
+        if self.verbosity >= 2:
             for message in messages:
                 print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
 
@@ -188,16 +236,22 @@ class SetupCommand(ABC):
 class CleanManager(SetupCommand):
 
     def __init__(self, root_dir : str,
+                 use_logos : bool = False,
                  dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR,
+                 src_dir : str = SRC_DIR,
+                 logos_dir : str = LOGOS_DIR,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
+        :param use_logos: indicates if the not-free logos must be used during the building process.
         :param dist_dir: the basename of the folder in which all the archives will be copied.
         :param build_dir: the basename of the folder in which the output of the building is copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param logos_dir: the basename of the root folder for non-free resources.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
 
     def run(self):
         removed_count = 0
@@ -215,25 +269,32 @@ class CleanManager(SetupCommand):
 class SourceDistributionManager(SetupCommand):
 
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str, ctan : bool,
+                 use_logos : bool = False,
                  dist_dir : str = DIST_DIR,
                  build_dir: str = BUILD_DIR,
                  sources: list[str] = SOURCE_DIRS,
                  info_files: list[str] = INFO_FILES,
                  ctan_sources : dict[str,dict[str,str]] = CTAN_SOURCE_DIRS,
                  ctan_info_files : list[str] = CTAN_INFO_FILES,
+                 src_dir : str = SRC_DIR,
+                 logos_dir : str = LOGOS_DIR,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
         :param inner_folder_name: the name of the folder that will contain all the files inside the main sdist archive.
+        :param use_logos: indicates if the not-free logos must be used during the building process.
         :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
         :param build_dir: the basename of the folder in which the output of the building is copied.
         :param ctan: indicates if the CTAN archive files should be generated.
         :param ctan_sources: the dictionary for all the source files to be included in the CTAN archives.
         :param ctan_info_files: the list of information files to be included in the CTAN archives.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param logos_dir: the basename of the root folder for non-free resources.
+                 use_logos : bool = False,
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__ctan = ctan
@@ -311,14 +372,20 @@ class SourceDistributionManager(SetupCommand):
         for archive_name, archive_elements in self.__ctan_sources.items():
             archive_path = self._compute_ctan_archive_name(archive_name)
             self.info(f"Creating CTAN source distribution: {archive_path}")
-            with tarfile.open(archive_path, "w:gz") as tar:
+            with (tarfile.open(archive_path, "w:gz") as tar):
                 tar_content = set()
-                for source_name, target_name in archive_elements.items():
-                    src_element = os.path.join(self._root_dir, source_name)
-                    if os.path.isfile(src_element):
-                        self._add_file_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
-                    else:
-                        self._add_directory_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
+                if 'free' in archive_elements:
+                    for source_name, target_name in archive_elements['free'].items():
+                        src_element = os.path.join(self._root_dir, source_name)
+                        if os.path.isfile(src_element):
+                            self._add_file_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
+                        else:
+                            self._add_directory_to_tar(tar, src_element, os.path.join(archive_name, target_name), tar_content)
+                if self._use_logos and 'nonfree' in archive_elements:
+                    for wildcard in archive_elements['nonfree']:
+                        for src_filename in glob.glob(os.path.join(self._root_dir, self._logos_dir, wildcard), recursive=False):
+                            target_filename = os.path.join(archive_name, self._logos_dir, os.path.basename(src_filename))
+                            self._add_file_to_tar(tar, src_filename, target_filename, tar_content)
                 for info_file in self.__ctan_info_files:
                     full_info_file = os.path.join(self._root_dir, info_file)
                     arcname = os.path.join(archive_name, info_file)
@@ -330,7 +397,7 @@ class SourceDistributionManager(SetupCommand):
         Create a source distribution archives.
         """
         # Always cleaning before generating the archives.
-        clean_cmd = CleanManager(root_dir=self._root_dir, dist_dir=self._dist_dir)
+        clean_cmd = CleanManager(root_dir=self._root_dir, dist_dir=self._dist_dir, use_logos=self._use_logos)
         clean_cmd.run()
         # Run the distribution command
         self.generate_sdist_archive()
@@ -345,6 +412,8 @@ class BuildManager(SetupCommand):
     def __init__(self, root_dir : str,
                  dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR,
+                 src_dir : str = SRC_DIR,
+                 logos_dir : str = LOGOS_DIR,
                  debug : bool = False,
                  disable_readme : bool = False,
                  disable_version : bool = False,
@@ -356,11 +425,14 @@ class BuildManager(SetupCommand):
                  disable_spimumlp : bool = False,
                  disable_ingedoc : bool = False,
                  disable_ctan : bool = False,
+                 use_logos : bool = False,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param logos_dir: the basename of the root folder for non-free resources.
         :param debug: indicates if the builder is invoked in debug mode. The behavior of the builder may differ in debug mode.
         :param disable_readme: Disable the building of the README file.
         :param disable_version: Disable the building of the VERSION file.
@@ -372,9 +444,10 @@ class BuildManager(SetupCommand):
         :param disable_spimumlp: Disable the building of the SPIM/UMLP PhD thesis template.
         :param disable_ingedoc: Disable the building of the IngeDoc template.
         :param disable_ctan: Disable the building of elements related to CTAN.
+        :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
         self.__debug = debug
         self.__disable_readme = disable_readme
         self.__disable_version = disable_version
@@ -387,8 +460,7 @@ class BuildManager(SetupCommand):
         self.__disable_ingedoc = disable_ingedoc
         self.__disable_ctan = disable_ctan
 
-    @staticmethod
-    def _run_pdflatex(temp_dir: TemporaryDirectory, tex_file: str):
+    def _run_pdflatex(self, temp_dir: TemporaryDirectory, tex_file: str):
         """
         Run the pdflatex command on the given document.
         """
@@ -398,7 +470,7 @@ class BuildManager(SetupCommand):
         try:
             os.chdir(temp_dir.name)
             # Run pdflatex with nonstop mode to avoid hanging on errors
-            cmd = ["pdflatex", "-interaction=nonstopmode", tex_file]
+            cmd = ["pdflatex", "-halt-on-error", "-file-line-error", "-interaction=errorstopmode", tex_file]
             result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
             if result.returncode != 0:
                 temp_dir.cleanup()
@@ -429,14 +501,15 @@ class BuildManager(SetupCommand):
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         # Check prerequisites
-        if not os.path.isdir(src_dir):
-            self.error(f"Directory '{src_dir}' not found.")
-        for additional_src_dir in additional_src_dirs:
-            if not os.path.isdir(additional_src_dir):
-                self.error(f"Directory '{additional_src_dir}' not found.")
+        input_directories = [src_dir] + [*additional_src_dirs]
+        if self._use_logos:
+            input_directories = [*input_directories] + [os.path.join(self._root_dir, self._logos_dir)]
+        for directory in input_directories:
+            if not os.path.isdir(directory):
+                self.error(f"Directory '{directory}' not found.")
         tmp_dir = TemporaryDirectory(delete=False)
         documentation_pdf_file = os.path.join(tmp_dir.name, pdf_filename)
-        for input_dir in [src_dir] + [*additional_src_dirs]:
+        for input_dir in input_directories:
             # Walk through src directory
             for root, dirs, files in os.walk(input_dir):
                 # Compute relative path from src_dir
@@ -462,7 +535,6 @@ class BuildManager(SetupCommand):
         # Remove the document file from the tmp folder
         if os.path.exists(documentation_pdf_file):
             os.unlink(documentation_pdf_file)
-            self.info(f"File {documentation_pdf_file} removed")
         return tmp_dir
 
     def _generate_documentation(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
@@ -475,10 +547,10 @@ class BuildManager(SetupCommand):
         pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
         tmp_dir = self._prepare_documentation_dir(src_dir, pdf_filename, *additional_src_dirs)
         try:
-            BuildManager._run_pdflatex(tmp_dir, tex_filename)
+            self._run_pdflatex(tmp_dir, tex_filename)
             shutil.copyfile(os.path.join(tmp_dir.name, pdf_filename),
                             os.path.join(src_dir, pdf_filename))
-            self.info(f"File {pdf_filename} copied.")
+            self.success(f"File {pdf_filename} copied.")
         finally:
             if not self.__debug:
                 tmp_dir.cleanup()
@@ -490,11 +562,11 @@ class BuildManager(SetupCommand):
         pandoc_cmd = shutil.which("pandoc")
         if not pandoc_cmd:
             self.error('Pandoc command cannot be found')
-        readme_input = os.path.join(self._root_dir, "README.textile")
+        readme_input = os.path.join(self._root_dir, "README.md")
         if not os.path.isfile(readme_input):
             self.error(f"File '{readme_input}' not found, skipping README conversion.")
         readme_output = os.path.join(self._root_dir, "README")
-        cmd = [pandoc_cmd, "-f", "textile", "-t", "plain", str(readme_input), "-o", str(readme_output)]
+        cmd = [pandoc_cmd, "-f", "markdown", "-t", "plain", str(readme_input), "-o", str(readme_output)]
         try:
             subprocess.run(cmd, check=True)
             self.success(f"{readme_input} -> {readme_output}")
@@ -516,7 +588,7 @@ class BuildManager(SetupCommand):
         Update the versions of the STY and CLS in the packages so that it corresponds to the TeX-template version.
         """
         version = self.current_tex_version
-        for dirpath, dirnames, filenames in os.walk(self._root_dir):
+        for dirpath, dirnames, filenames in os.walk(os.path.join(self._root_dir, self._src_dir)):
             for filename in filenames:
                 is_sty = filename.endswith('.sty')
                 is_cls = filename.endswith('.cls')
@@ -551,7 +623,7 @@ class BuildManager(SetupCommand):
         Update the versions of the CTAN files so that it corresponds to the TeX-template version.
         """
         version = self.current_version
-        for dirpath, dirnames, filenames in os.walk(self._root_dir):
+        for dirpath, dirnames, filenames in os.walk(os.path.join(self._root_dir, self._src_dir)):
             for filename in filenames:
                 if filename == 'VERSION_CTAN':
                     full_path = os.path.join(dirpath, filename)
@@ -567,23 +639,23 @@ class BuildManager(SetupCommand):
         """
         Build the documentation of the CIAD slides.
         """
-        src_dir = os.path.join(self._root_dir, 'presentations', 'ciad-2025')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'presentations', 'ciad-2025')
         self._generate_documentation(src_dir, 'ciadbeamer-documentation.tex')
 
     def generate_ciadreport_documentation(self):
         """
         Build the documentation of the CIAD reports.
         """
-        src_dir = os.path.join(self._root_dir, 'reports', 'utbmciad-2025')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'reports', 'utbmciad-2025')
         self._generate_documentation(src_dir, 'utbmciadreport-doc.tex')
 
     def generate_spimutbm_phd_documentation(self):
         """
         Build the documentation of the SPIM/UTBM PhD dissertations.
         """
-        bst_dir = os.path.join(self._root_dir, 'spim', 'share', 'bst')
-        sty_dir = os.path.join(self._root_dir, 'spim', 'share', 'sty')
-        src_dir = os.path.join(self._root_dir, 'spim', 'utbm', 'spimutbmphdthesis')
+        bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
+        sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'utbm', 'spimutbmphdthesis')
         self._generate_documentation(src_dir, 'spimutbmphdthesis_exemple_francais.tex', bst_dir, sty_dir)
         self._generate_documentation(src_dir, 'spimutbmphdthesis_example_english.tex', bst_dir, sty_dir)
 
@@ -591,9 +663,9 @@ class BuildManager(SetupCommand):
         """
         Build the documentation of the SPIM/UBE PhD dissertations.
         """
-        bst_dir = os.path.join(self._root_dir, 'spim', 'share', 'bst')
-        sty_dir = os.path.join(self._root_dir, 'spim', 'share', 'sty')
-        src_dir = os.path.join(self._root_dir, 'spim', 'ube', 'spimubephdthesis')
+        bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
+        sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubephdthesis')
         self._generate_documentation(src_dir, 'spimubephdthesis_exemple_francais.tex', bst_dir, sty_dir)
         self._generate_documentation(src_dir, 'spimubephdthesis_example_english.tex', bst_dir, sty_dir)
 
@@ -601,9 +673,9 @@ class BuildManager(SetupCommand):
         """
         Build the documentation of the SPIM/UBE HDR dissertations.
         """
-        bst_dir = os.path.join(self._root_dir, 'spim', 'share', 'bst')
-        sty_dir = os.path.join(self._root_dir, 'spim', 'share', 'sty')
-        src_dir = os.path.join(self._root_dir, 'spim', 'ube', 'spimubehdr')
+        bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
+        sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubehdr')
         self._generate_documentation(src_dir, 'spimubehdr_exemple_francais.tex', bst_dir, sty_dir)
         self._generate_documentation(src_dir, 'spimubehdr_example_english.tex', bst_dir, sty_dir)
 
@@ -611,18 +683,18 @@ class BuildManager(SetupCommand):
         """
         Build the documentation of the SPIM/UBE HDR applications.
         """
-        bst_dir = os.path.join(self._root_dir, 'spim', 'share', 'bst')
-        sty_dir = os.path.join(self._root_dir, 'spim', 'share', 'sty')
-        src_dir = os.path.join(self._root_dir, 'spim', 'ube', 'spimubehdrapplication')
+        bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
+        sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubehdrapplication')
         self._generate_documentation(src_dir, 'hdrapplication-exemple.tex', bst_dir, sty_dir)
 
     def generate_spimumlp_phd_documentation(self):
         """
         Build the documentation of the SPIM/UMLP PhD dissertations.
         """
-        bst_dir = os.path.join(self._root_dir, 'spim', 'share', 'bst')
-        sty_dir = os.path.join(self._root_dir, 'spim', 'share', 'sty')
-        src_dir = os.path.join(self._root_dir, 'spim', 'umlp', 'spimumlpphdthesis')
+        bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
+        sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'umlp', 'spimumlpphdthesis')
         self._generate_documentation(src_dir, 'spimumlpphdthesis_exemple_francais.tex', bst_dir, sty_dir)
         self._generate_documentation(src_dir, 'spimumlpphdthesis_example_english.tex', bst_dir, sty_dir)
 
@@ -630,7 +702,7 @@ class BuildManager(SetupCommand):
         """
         Build the documentation of the IngeDoc Article template.
         """
-        src_dir = os.path.join(self._root_dir, 'papers', 'ingedoc')
+        src_dir = os.path.join(self._root_dir, self._src_dir, 'papers', 'ingedoc')
         self._generate_documentation(src_dir, 'IngeDocGuidelines.tex')
 
     def run(self):
@@ -664,7 +736,8 @@ class DebianPackageManager(SetupCommand):
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
                  sign_with : str = None, compress_with : str = None,
                  dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
-                 verbosity : int = 0):
+                 src_dir : str = SRC_DIR, logos_dir : str = LOGOS_DIR,
+                 use_logos : bool = False, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
@@ -673,9 +746,12 @@ class DebianPackageManager(SetupCommand):
         :param compress_with: the name of the compression method for creating the Debian source archives.
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param logos_dir: the basename of the root folder for non-free resources.
+        :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
@@ -688,6 +764,9 @@ class DebianPackageManager(SetupCommand):
         dpkg_command = shutil.which('dpkg-buildpackage')
         if not dpkg_command:
             self.error("Command dpkg-buildpackage not found in PATH")
+
+        self.info(f"Preparing Debian environment...")
+
         basename = self._get_archive_basename(self.__archive_name)
         build_dir = os.path.join(self._root_dir, self._build_dir)
         shutil.rmtree(build_dir, ignore_errors=True)
@@ -695,29 +774,41 @@ class DebianPackageManager(SetupCommand):
         target_root_folder = os.path.join(build_dir, basename)
         target_folder = os.path.join(target_root_folder, 'debian')
         shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
+        self.success(f"Debian folder cloned to {target_folder}")
+
         source_archive_path = self._compute_sdist_archive_name(self.__archive_name)
         target_source_archive_path = os.path.join(target_root_folder, 'upstream')
         os.makedirs(target_source_archive_path, exist_ok=True)
         shutil.copy(source_archive_path, target_source_archive_path)
+        self.success(f"Upstream archive copied in {target_source_archive_path}")
+
         old_dir = os.getcwd()
         try:
-            os.chdir(target_root_folder)
-            cmd = ['dpkg-buildpackage', '-rfakeroot', '-k' + self.__sign_with, '-tc',
+            self.info(f"Building the Debian packages...")
+            cmd = ['dpkg-buildpackage', '-rfakeroot', '-tc',
                    '-Z' + self.__compress_with]
-            try:
-                subprocess.run(cmd, check=True)
-            except subprocess.CalledProcessError as e:
-                self.error(f"Cannot run deb packaging command: {e}")
+            if self.__sign_with:
+                self.info(f"A dialog box may be opened for querying the secret phrase for the signing account {self.__sign_with}")
+                cmd = cmd + [ '-k' + self.__sign_with ]
+            os.chdir(target_root_folder)
+            result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+            if result.returncode != 0:
+                self.error("Cannot build the Debian packages. Here is the log:",
+                           result.stdout if result.stdout else "",
+                           result.stderr if result.stderr else "")
+            else:
+                self.success(f"Debian packages were built.")
         finally:
             os.chdir(old_dir)
 
     def run(self):
         # Build the source archives
         sdist_cmd = SourceDistributionManager(root_dir=self._root_dir,
-                                              dist_dir=self._dist_dir,
                                               archive_name=self.__archive_name,
                                               inner_folder_name=self.__inner_folder_name,
-                                              ctan=False)
+                                              ctan=False,
+                                              use_logos=self._use_logos,
+                                              verbosity=self.verbosity)
         sdist_cmd.run()
         # Build the Debian packages
         self.generate_debian_packages()
@@ -742,6 +833,7 @@ def main():
     parser.add_argument("--debug", action="store_true", help="Do not remove temp files or temp folders.")
     parser.add_argument("--debsign", action="store", metavar='email', help=f"Specify the email with which the Debian packages must be signed. Default is {DEBIAN_SIGN_EMAIL}")
     parser.add_argument("--debcompress", action="store", metavar='method', help=f"Specify the compression method for the Debian source archives. Default is {DEBIAN_COMPRESS_WITH}")
+    parser.add_argument("--logos", action="store_true", help=f"Enable the use of the not-free logos.")
     args = parser.parse_args()
 
     if args.command == "build":
@@ -755,6 +847,7 @@ def main():
                            disable_spimumlp=args.nospimumlp,
                            disable_ingedoc=args.noingedoc,
                            disable_ctan=args.noctan,
+                           use_logos=args.logos,
                            debug=args.debug,
                            verbosity=args.v)
     elif args.command == "sdist":
@@ -762,16 +855,19 @@ def main():
                                         archive_name='tex-templates',
                                         inner_folder_name='tex-templates',
                                         ctan=not args.noctan,
-                                        verbosity=args.v)
+                                        use_logos=args.logos,
+                                        verbosity=self.verbosity)
     elif args.command == "clean":
         cmd = CleanManager(root_dir=current_root_dir,
-                           verbosity=args.v)
+                           verbosity=args.v,
+                           use_logos=args.logos)
     elif args.command == "deb":
         cmd = DebianPackageManager(root_dir=current_root_dir,
                                    archive_name='tex-templates',
                                    inner_folder_name='tex-templates',
                                    sign_with=args.debsign,
                                    compress_with=args.debcompress,
+                                   use_logos=args.logos,
                                    verbosity=args.v)
     else:
         sys.exit(255)
