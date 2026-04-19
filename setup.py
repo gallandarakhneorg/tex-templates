@@ -25,6 +25,7 @@ Usage:
     python3 setup.py build          # Build the source files
     python3 setup.py sdist          # Create a source distribution archive
     python3 setup.py clean          # Clean the folders
+    python3 setup.py deb            # Create the Debian packages
 """
 
 import os
@@ -35,6 +36,7 @@ import shutil
 import subprocess
 import argparse
 from abc import ABC
+from builtins import property
 from datetime import datetime
 from tempfile import TemporaryDirectory
 
@@ -51,10 +53,12 @@ CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
         os.path.join('presentations', 'ciad-2025'): '',
         os.path.join('presentations', 'README'): 'README'
+        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     },
     'utbmciad-report': {
         os.path.join('reports', 'utbmciad-2025'): '',
         os.path.join('reports', 'README'): 'README'
+        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     },
     'spim-phdthesisthemes': {
         os.path.join('spim', 'share', 'bst'): 'share',
@@ -63,9 +67,10 @@ CTAN_SOURCE_DIRS = {
         os.path.join('spim', 'umlp', 'spimumlpphdthesis'): 'umlp',
         os.path.join('spim', 'ube', 'spimubephdthesis'): 'ube',
         os.path.join('spim', 'README'): 'README'
+        os.path.join('spim', 'VERSION_CTAN'): 'VERSION'
     }
 }
-CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING', 'VERSION']
+CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING']
 
 
 class SetupCommand(ABC):
@@ -76,9 +81,25 @@ class SetupCommand(ABC):
         :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
         :param build_dir: the basename of the temporary folder in which all results of building will be copied.
         """
+        self.__current_version = None
+        self.__current_tex_version = None
         self._root_dir = root_dir
         self._dist_dir = dist_dir
         self._build_dir = build_dir
+
+    @property
+    def current_version(self) -> str:
+        if self.__current_version is None:
+            self.__current_version = datetime.now().strftime("%Y%m%d")
+            self.__current_tex_version = datetime.now().strftime("%Y/%m/%d")
+        return self.__current_version
+
+    @property
+    def current_tex_version(self) -> str:
+        if self.__current_tex_version is None:
+            self.__current_tex_version = datetime.now().strftime("%Y/%m/%d")
+            self.__current_version = datetime.now().strftime("%Y%m%d")
+        return self.__current_tex_version
 
     def _get_archive_basename(self, name : str) -> str:
         """
@@ -251,12 +272,14 @@ class BuildManager(SetupCommand):
                  debug : bool = False,
                  disable_readme : bool = False,
                  disable_version : bool = False,
+                 disable_tex_version_update : bool = False,
                  disable_ciadslide : bool = False,
                  disable_ciadreport : bool = False,
                  disable_spimutbm : bool = False,
                  disable_spimube : bool = False,
                  disable_spimumlp : bool = False,
-                 disable_ingedoc : bool = False):
+                 disable_ingedoc : bool = False,
+                 disable_ctan : bool = False):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
@@ -264,23 +287,27 @@ class BuildManager(SetupCommand):
         :param debug: indicates if the builder is invoked in debug mode. The behavior of the builder may differ in debug mode.
         :param disable_readme: Disable the building of the README file.
         :param disable_version: Disable the building of the VERSION file.
+        :param disable_tex_version_updates: Disable the updates of the dates in the TeX files(sty, cls)
         :param disable_ciadslide: Disable the building of the CIAD Beamer template.
         :param disable_ciadreport: Disable the building of the CIAD report.
         :param disable_spimutbm: Disable the building of the SPIM/UTBM PhD thesis template.
         :param disable_spimube: Disable the building of the SPIM/UBE PhD thesis template.
         :param disable_spimumlp: Disable the building of the SPIM/UMLP PhD thesis template.
         :param disable_ingedoc: Disable the building of the IngeDoc template.
+        :param disable_ctan: Disable the building of elements related to CTAN.
         """
         super().__init__(root_dir, dist_dir, build_dir)
         self.__debug = debug
         self.__disable_readme = disable_readme
         self.__disable_version = disable_version
+        self.__disable_tex_version_update = disable_tex_version_update
         self.__disable_ciadslide = disable_ciadslide
         self.__disable_ciadreport = disable_ciadreport
         self.__disable_spimutbm = disable_spimutbm
         self.__disable_spimube = disable_spimube
         self.__disable_spimumlp = disable_spimumlp
         self.__disable_ingedoc = disable_ingedoc
+        self.__disable_ctan = disable_ctan
 
     @staticmethod
     def _run_pdflatex(temp_dir: TemporaryDirectory, tex_file: str):
@@ -412,11 +439,63 @@ class BuildManager(SetupCommand):
         """
         Generate the content of the VERSION file.
         """
-        version = datetime.now().strftime("%Y%m%d")
+        version = self.current_version
         version_file = os.path.join(self._root_dir, 'VERSION')
         with open(version_file, 'w') as version_f:
             version_f.write(f"tex-templates-{version}\n")
         print(f"Version {version} written in {version_file}")
+
+    def update_versions_in_tex_files(self):
+        """
+        Update the versions of the STY and CLS in the packages so that it corresponds to the TeX-template version.
+        """
+        version = self.current_tex_version
+        for dirpath, dirnames, filenames in os.walk(self._root_dir):
+            for filename in filenames:
+                is_sty = filename.endswith('.sty')
+                is_cls = filename.endswith('.cls')
+                if is_sty or is_cls:
+                    full_path = os.path.join(dirpath, filename)
+                    with open(full_path, 'r') as f:
+                        content = f.read()
+                    new_content = re.sub(r'\\gdef\s*\\insertciadbeamerthemeversion\s*\{.+?\}',
+                                         '\\\\gdef\\\\insertciadbeamerthemeversion{' + re.escape(version) + '}',
+                                         content, re.S + re.DOTALL)
+                    new_content = re.sub(r'\\gdef\s*\\insertciadreportthemeversion\s*\{.+?\}',
+                                         '\\\\gdef\\\\insertciadreportthemeversion{' + re.escape(version) + '}',
+                                         content, re.S + re.DOTALL)
+                    new_content = re.sub(r'\\gdef\s*\\@ingedoc@class@version\s*\{.+?\}',
+                                         '\\\\gdef\\\\@ingedoc@class@version{' + re.escape(version) + '}',
+                                         new_content, re.S + re.DOTALL)
+                    if is_sty:
+                        new_content = re.sub(r'\\ProvidesPackage\s*\{(.+?)\}\s*\[.*?\]',
+                                             '\\\\ProvidesPackage{\\1}[' + re.escape(version) +']',
+                                             new_content, re.S + re.DOTALL)
+                    elif is_cls:
+                        new_content = re.sub(r'\\ProvidesClass\s*\{(.+?)\}\s*\[.*?\]',
+                                             '\\\\ProvidesPackage{\\1}[' + re.escape(version) + ']',
+                                             new_content, re.S + re.DOTALL)
+                    if new_content is not None and content != new_content:
+                        print(f"Updating version in {full_path}")
+                        with open(full_path, 'w') as f:
+                            f.write(new_content)
+
+    def update_versions_in_ctan_files(self):
+        """
+        Update the versions of the CTAN files so that it corresponds to the TeX-template version.
+        """
+        version = self.current_version
+        for dirpath, dirnames, filenames in os.walk(self._root_dir):
+            for filename in filenames:
+                if filename == 'VERSION_CTAN':
+                    full_path = os.path.join(dirpath, filename)
+                    with open(full_path, 'r') as f:
+                        content = f.read()
+                    new_content = re.sub(r'[0-9]{8}', version, content, re.S + re.DOTALL)
+                    if new_content is not None and content != new_content:
+                        with open(full_path, 'w') as f:
+                            f.write(new_content)
+                    print(f"Version {version} written in {full_path}")
 
     def generate_ciadslide_documentation(self):
         """
@@ -493,6 +572,10 @@ class BuildManager(SetupCommand):
             self.generate_readme()
         if not self.__disable_version:
             self.generate_version()
+            if not self.__disable_ctan:
+                self.update_versions_in_ctan_files()
+        if not self.__disable_tex_version_update:
+            self.update_versions_in_tex_files()
         if not self.__disable_ciadslide:
             self.generate_ciadslide_documentation()
         if not self.__disable_ciadreport:
@@ -571,6 +654,7 @@ def main():
     parser.add_argument("command", choices=["build", "clean", "sdist", "deb"],
                         help="Command to run: 'build' (preparing source code), 'sdist' (create archive), 'clean' (remove files) or 'deb' for building the Debian packages")
     parser.add_argument("--noversion", action="store_true", help="Do not generate the VERSION file. Keep it as-is.")
+    parser.add_argument("--notexversion", action="store_true", help="Do not update the versions in the TeX files.")
     parser.add_argument("--nociadslide", action="store_true", help="Do not generate the documentation for CIAD slides.")
     parser.add_argument("--nociadreport", action="store_true", help="Do not generate the documentation for CIAD reports.")
     parser.add_argument("--nospimutbm", action="store_true", help="Do not generate the documentation for SPIM UTBM PhD dissertation.")
@@ -584,12 +668,14 @@ def main():
     if args.command == "build":
         cmd = BuildManager(root_dir=current_root_dir,
                            disable_version=args.noversion,
+                           disable_tex_version_update=args.notexversion,
                            disable_ciadslide=args.nociadslide,
                            disable_ciadreport=args.nociadreport,
                            disable_spimutbm=args.nospimutbm,
                            disable_spimube=args.nospimube,
                            disable_spimumlp=args.nospimumlp,
                            disable_ingedoc=args.noingedoc,
+                           disable_ctan=args.noctan,
                            debug=args.debug)
     elif args.command == "sdist":
         cmd = SourceDistributionManager(root_dir=current_root_dir,

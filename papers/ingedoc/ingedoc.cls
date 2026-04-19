@@ -17,9 +17,10 @@
 % License along with this library; see the file COPYING.  If not,
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
-\gdef\@ingedoc@class@version{2013/11/28}
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{ingedoc}[\@ingedoc@class@version]
+\ProvidesPackage{ingedoc}[2026/04/19]
+
+\gdef\@ingedoc@class@version{2026/04/19}
 
 \typeout{Using the IngeDoc Paper Style version \@ingedoc@class@version.}
 \typeout{It was written by Stephane GALLAND <stephane.galland@utbm.fr>}
