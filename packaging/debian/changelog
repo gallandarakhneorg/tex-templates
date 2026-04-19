@@ -1,3 +1,9 @@
+tex-templates (20260419-0arakhne0) noble; urgency=low
+
+  * all: Apply changes regarding CTAN recommandations.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sun, 19 Apr 2026 12:25:55 +0800
+
 tex-templates (20260418-0arakhne0) noble; urgency=low
 
   * all: Rename files to follow the naming conventions and rules from CTAN.

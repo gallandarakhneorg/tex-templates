@@ -46,6 +46,9 @@ BUILD_DIR = "build"
 
 DIST_DIR = "dist"
 
+DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
+DEBIAN_COMPRESS_WITH = "gzip"
+
 SOURCE_DIRS = ["presentations", "reports", "spim", "papers"]
 INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING', 'README', 'VERSION']
 
@@ -594,22 +597,33 @@ class BuildManager(SetupCommand):
 class DebianPackageManager(SetupCommand):
 
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
+                 sign_with : str = None, compress_with : str = None,
                  dist_dir :str = DIST_DIR, build_dir :str = BUILD_DIR):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
         :param inner_folder_name: the name of the folder that will contain all the files inside the main sdist archive.
+        :param sign_with: the email that must be used for signing the Debian packages.
+        :param compress_with: the name of the compression method for creating the Debian source archives.
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
         """
         super().__init__(root_dir, dist_dir, build_dir)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
+        self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
+        self.__compress_with = compress_with if compress_with else DEBIAN_COMPRESS_WITH
 
     def generate_debian_packages(self):
         """
         Build the Debian packages using the scripts from Stephane Galland.
         """
+        dpkg_command = shutil.which('dpkg-buildpackage')
+        if not dpkg_command:
+            print("Error: dpkg-buildpackage nout found in PATH")
+            sys.exit(255)
+
+
         basename = self._get_archive_basename(self.__archive_name)
         build_dir = os.path.join(self._root_dir, self._build_dir)
         shutil.rmtree(build_dir, ignore_errors=True)
@@ -624,7 +638,8 @@ class DebianPackageManager(SetupCommand):
         old_dir = os.getcwd()
         try:
             os.chdir(target_root_folder)
-            cmd = ["dpkg-buildpackages_i386_ia64_amd64", "any"]
+            cmd = ['dpkg-buildpackage', '-rfakeroot', '-k' + self.__sign_with, '-tc',
+                   '-Z' + self.__compress_with]
             try:
                 subprocess.run(cmd, check=True)
             except subprocess.CalledProcessError as e:
@@ -661,6 +676,8 @@ def main():
     parser.add_argument("--noingedoc", action="store_true", help="Do not generate the documentation for Ingedoc papers.")
     parser.add_argument("--noctan", action="store_true", help="Do not generate the source distribution archives for CTAN.")
     parser.add_argument("--debug", action="store_true", help="Do not remove temp files or temp folders.")
+    parser.add_argument("--debsign", action="store", metavar='email', help=f"Specify the email with which the Debian packages must be signed. Default is {DEBIAN_SIGN_EMAIL}")
+    parser.add_argument("--debcompress", action="store", metavar='method', help=f"Specify the compression method for the Debian source archives. Default is {DEBIAN_COMPRESS_WITH}")
     args = parser.parse_args()
 
     if args.command == "build":
@@ -685,7 +702,9 @@ def main():
     elif args.command == "deb":
         cmd = DebianPackageManager(root_dir=current_root_dir,
                                    archive_name='tex-templates',
-                                   inner_folder_name='tex-templates')
+                                   inner_folder_name='tex-templates',
+                                   sign_with=args.debsign,
+                                   compress_with=args.debcompress)
     else:
         print(f"Error: Unsupported command. Use 'build', 'sdist' or 'clean'.")
         sys.exit(255)
