@@ -296,12 +296,20 @@ class SourceDistributionManager(SetupCommand):
                 self._add_file_to_tar(tar, full_info_file, arcname, tar_content)
         self.success("Source distribution archive created successfully.")
 
+    def _compute_ctan_archive_name(self, archive_name : str):
+        """
+        Compute the filename of the CTAN archive.
+        :param name: the basename of the archive to generate.
+        :return: the full path to the archive file.
+        """
+        return self._compute_sdist_archive_name(f'{archive_name}-ctan')
+
     def generate_ctan_sdist_archives(self):
         """
         Create the archive files for CTAN.
         """
         for archive_name, archive_elements in self.__ctan_sources.items():
-            archive_path = self._compute_sdist_archive_name(f'ctan-{archive_name}')
+            archive_path = self._compute_ctan_archive_name(archive_name)
             self.info(f"Creating CTAN source distribution: {archive_path}")
             with tarfile.open(archive_path, "w:gz") as tar:
                 tar_content = set()
