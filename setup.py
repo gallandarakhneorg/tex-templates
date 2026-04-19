@@ -35,6 +35,7 @@ import tarfile
 import shutil
 import subprocess
 import argparse
+from colorama import init, Fore, Style
 from abc import ABC
 from builtins import property
 from datetime import datetime
@@ -78,12 +79,14 @@ CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'COPYING']
 
 class SetupCommand(ABC):
 
-    def __init__(self, root_dir : str, dist_dir : str = DIST_DIR, build_dir : str = BUILD_DIR):
+    def __init__(self, root_dir : str, dist_dir : str = DIST_DIR, build_dir : str = BUILD_DIR, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
         :param build_dir: the basename of the temporary folder in which all results of building will be copied.
+        :param verbosity: level of verbosity.
         """
+        self.__verbosity = verbosity
         self.__current_version = None
         self.__current_tex_version = None
         self._root_dir = root_dir
@@ -138,18 +141,63 @@ class SetupCommand(ABC):
         archive_path = os.path.join(dist_dir, archive_name)
         return archive_path
 
+    def error(self, *messages : str):
+        """
+        Show up an error message. This function exists the script with return code to 255.
+        :param messages: the list of error messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.RED + f"ERROR  : {message}" + Style.RESET_ALL)
+        sys.exit(255)
+
+    def info(self, *messages : str):
+        """
+        Show up an information message.
+        :param messages: the list of information messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.BLUE + "INFO   :" + Style.RESET_ALL + f" {message}")
+
+    def info2(self, *messages : str):
+        """
+        Show up an information message of second level.
+        :param messages: the list of information messages. Each one will be shown one a line.
+        """
+        if self.__verbosity >= 1:
+            for message in messages:
+                print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
+
+    def info3(self, *messages : str):
+        """
+        Show up an information message of third level.
+        :param messages: the list of information messages. Each one will be shown one a line.
+        """
+        if self.__verbosity >= 2:
+            for message in messages:
+                print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
+
+    def success(self, *messages : str):
+        """
+        Show up a success message.
+        :param messages: the list of information messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.GREEN + "SUCCESS:" + Style.RESET_ALL + f" {message}")
+
 
 class CleanManager(SetupCommand):
 
     def __init__(self, root_dir : str,
                  dist_dir : str = DIST_DIR,
-                 build_dir : str = BUILD_DIR):
+                 build_dir : str = BUILD_DIR,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the folder in which all the archives will be copied.
         :param build_dir: the basename of the folder in which the output of the building is copied.
+        :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir)
+        super().__init__(root_dir, dist_dir, build_dir, verbosity)
 
     def run(self):
         removed_count = 0
@@ -157,9 +205,9 @@ class CleanManager(SetupCommand):
             dist_dir = os.path.join(self._root_dir, cleanable)
             if os.path.isdir(dist_dir):
                 shutil.rmtree(dist_dir)
-                print(f"Removed: {dist_dir}")
+                self.info(f"Directory {dist_dir} removed")
                 removed_count += 1
-        print(f"Cleaning complete. Removed {removed_count} item(s).")
+        self.success(f"Cleaning complete. Removed {removed_count} item(s).")
 
 
 
@@ -172,7 +220,8 @@ class SourceDistributionManager(SetupCommand):
                  sources: list[str] = SOURCE_DIRS,
                  info_files: list[str] = INFO_FILES,
                  ctan_sources : dict[str,dict[str,str]] = CTAN_SOURCE_DIRS,
-                 ctan_info_files : list[str] = CTAN_INFO_FILES):
+                 ctan_info_files : list[str] = CTAN_INFO_FILES,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
@@ -182,8 +231,9 @@ class SourceDistributionManager(SetupCommand):
         :param ctan: indicates if the CTAN archive files should be generated.
         :param ctan_sources: the dictionary for all the source files to be included in the CTAN archives.
         :param ctan_info_files: the list of information files to be included in the CTAN archives.
+        :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir)
+        super().__init__(root_dir, dist_dir, build_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__ctan = ctan
@@ -201,9 +251,7 @@ class SourceDistributionManager(SetupCommand):
         will be inside this "archive_parent" folder.
         """
         if not os.path.isdir(dir_to_add):
-            print(f"Error: Directory '{dir_to_add}' not found.")
-            sys.exit(255)
-
+            self.error(f"Directory '{dir_to_add}' not found.")
         for dirpath, dirnames, filenames in os.walk(dir_to_add):
             for filename in filenames:
                 full_path = os.path.join(dirpath, filename)
@@ -220,7 +268,7 @@ class SourceDistributionManager(SetupCommand):
         if os.path.isfile(archive_path):
             os.unlink(archive_path)
 
-        print(f"Creating source distribution: {archive_path}")
+        self.info(f"Creating source distribution: {archive_path}")
         with tarfile.open(archive_path, "w:gz") as tar:
             for src_dir in self.__sources:
                 self._add_directory_to_tar(tar, src_dir, os.path.join(self.__inner_folder_name, src_dir))
@@ -228,7 +276,6 @@ class SourceDistributionManager(SetupCommand):
                 full_info_file = os.path.join(self._root_dir, info_file)
                 arcname = os.path.join(self.__inner_folder_name, info_file)
                 tar.add(full_info_file, arcname=arcname, recursive=False)
-        print("Done.")
 
     def generate_ctan_sdist_archives(self):
         """
@@ -236,21 +283,19 @@ class SourceDistributionManager(SetupCommand):
         """
         for archive_name, archive_elements in self.__ctan_sources.items():
             archive_path = self._compute_sdist_archive_name(f'ctan-{archive_name}')
-            print(f"Creating CTAN source distribution: {archive_path}")
+            self.info(f"Creating CTAN source distribution: {archive_path}")
             with tarfile.open(archive_path, "w:gz") as tar:
                 for source_name, target_name in archive_elements.items():
                     src_element = os.path.join(self._root_dir, source_name)
                     if os.path.isfile(src_element):
-                        print(f"\tadding file: {src_element}")
                         tar.add(src_element, arcname=os.path.join(archive_name, target_name), recursive=False)
                     else:
-                        print(f"\tadding folder: {src_element}")
                         self._add_directory_to_tar(tar, src_element, os.path.join(archive_name, target_name))
                     for info_file in self.__ctan_info_files:
                         full_info_file = os.path.join(self._root_dir, info_file)
                         arcname = os.path.join(archive_name, info_file)
                         tar.add(full_info_file, arcname=arcname, recursive=False)
-            print("Done.")
+            self.success("CTAN source distribution archive created successfully.")
 
     def run(self):
         """
@@ -282,7 +327,8 @@ class BuildManager(SetupCommand):
                  disable_spimube : bool = False,
                  disable_spimumlp : bool = False,
                  disable_ingedoc : bool = False,
-                 disable_ctan : bool = False):
+                 disable_ctan : bool = False,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
@@ -298,8 +344,9 @@ class BuildManager(SetupCommand):
         :param disable_spimumlp: Disable the building of the SPIM/UMLP PhD thesis template.
         :param disable_ingedoc: Disable the building of the IngeDoc template.
         :param disable_ctan: Disable the building of elements related to CTAN.
+        :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir)
+        super().__init__(root_dir, dist_dir, build_dir, verbosity)
         self.__debug = debug
         self.__disable_readme = disable_readme
         self.__disable_version = disable_version
@@ -317,7 +364,7 @@ class BuildManager(SetupCommand):
         """
         Run the pdflatex command on the given document.
         """
-        print(f"Compiling {tex_file} with pdflatex...")
+        self.info(f"Compiling {tex_file} with pdflatex...")
         # Save current working directory
         original_cwd = os.getcwd()
         try:
@@ -326,24 +373,22 @@ class BuildManager(SetupCommand):
             cmd = ["pdflatex", "-interaction=nonstopmode", tex_file]
             result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
             if result.returncode != 0:
-                print("LaTeX compilation failed. Here is the log:")
-                print(result.stdout if result.stdout else "")
-                print(result.stderr if result.stderr else "")
                 temp_dir.cleanup()
-                sys.exit(255)
+                self.error("LaTeX compilation failed. Here is the log:",
+                           result.stdout if result.stdout else "",
+                           result.stderr if result.stderr else "")
             else:
-                print("LaTeX compilation succeeded.")
+                self.info("LaTeX compilation succeeded.")
                 # Run a second time to resolve cross-references (not required but common)
-                print("Running pdflatex again to resolve references...")
+                self.info("Running pdflatex again to resolve references...")
                 result2 = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
                 if result2.returncode != 0:
-                    print("Error: Second compilation had issues.")
-                    print(result.stdout if result.stdout else "")
-                    print(result.stderr if result.stderr else "")
                     temp_dir.cleanup()
-                    sys.exit(255)
+                    self.error("Second compilation had issues.",
+                               result.stdout if result.stdout else "",
+                               result.stderr if result.stderr else "")
                 else:
-                    print("Documentation generated successfully.")
+                    self.success("Documentation generated successfully.")
         finally:
             os.chdir(original_cwd)
 
@@ -357,16 +402,13 @@ class BuildManager(SetupCommand):
         """
         # Check prerequisites
         if not os.path.isdir(src_dir):
-            print(f"Error: '{src_dir}' directory not found.")
-            sys.exit(255)
+            self.error(f"Directory '{src_dir}' not found.")
         for additional_src_dir in additional_src_dirs:
             if not os.path.isdir(additional_src_dir):
-                print(f"Error: '{additional_src_dir}' directory not found.")
-                sys.exit(255)
+                self.error(f"Directory '{additional_src_dir}' not found.")
         tmp_dir = TemporaryDirectory(delete=False)
         documentation_pdf_file = os.path.join(tmp_dir.name, pdf_filename)
         for input_dir in [src_dir] + [*additional_src_dirs]:
-            #print(f"Creating symbolic links from {input_dir} into {tmp_dir.name}...")
             # Walk through src directory
             for root, dirs, files in os.walk(input_dir):
                 # Compute relative path from src_dir
@@ -386,15 +428,13 @@ class BuildManager(SetupCommand):
                         try:
                             # Use absolute path for source to make symlink robust
                             os.symlink(src_file, link_path)
-                            #print(f"  {link_path} -> {src_file}")
                         except Exception as e:
-                            print(f"  Warning: Could not create symlink {link_path}: {e}")
                             tmp_dir.cleanup()
-                            sys.exit(255)
+                            self.error(f"Cannot create symlink {link_path}: {e}")
         # Remove the document file from the tmp folder
         if os.path.exists(documentation_pdf_file):
             os.unlink(documentation_pdf_file)
-            print(f"File {documentation_pdf_file} removed")
+            self.info(f"File {documentation_pdf_file} removed")
         return tmp_dir
 
     def _generate_documentation(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
@@ -410,7 +450,7 @@ class BuildManager(SetupCommand):
             BuildManager._run_pdflatex(tmp_dir, tex_filename)
             shutil.copyfile(os.path.join(tmp_dir.name, pdf_filename),
                             os.path.join(src_dir, pdf_filename))
-            print(f"Copied {pdf_filename} into {src_dir}.")
+            self.info(f"File {pdf_filename} copied.")
         finally:
             if not self.__debug:
                 tmp_dir.cleanup()
@@ -421,20 +461,17 @@ class BuildManager(SetupCommand):
         """
         pandoc_cmd = shutil.which("pandoc")
         if not pandoc_cmd:
-            print('Error: pandoc command cannot be found')
-            sys.exit(255)
+            self.error('Pandoc command cannot be found')
         readme_input = os.path.join(self._root_dir, "README.textile")
         if not os.path.isfile(readme_input):
-            print(f"Error: '{readme_input}' not found, skipping README conversion.")
-            sys.exit(255)
+            self.error(f"File '{readme_input}' not found, skipping README conversion.")
         readme_output = os.path.join(self._root_dir, "README")
         cmd = [pandoc_cmd, "-f", "textile", "-t", "plain", str(readme_input), "-o", str(readme_output)]
         try:
             subprocess.run(cmd, check=True)
-            print(f"Converted '{readme_input}' -> '{readme_output}'")
+            self.success(f"{readme_input} -> {readme_output}")
         except subprocess.CalledProcessError as e:
-            print(f"Error running pandoc: {e}")
-            sys.exit(255)
+            self.error(f"Cannot run pandoc: {e}")
 
     def generate_version(self):
         """
@@ -444,7 +481,7 @@ class BuildManager(SetupCommand):
         version_file = os.path.join(self._root_dir, 'VERSION')
         with open(version_file, 'w') as version_f:
             version_f.write(f"tex-templates-{version}\n")
-        print(f"Version {version} written in {version_file}")
+        self.success(f"Version {version} written in {version_file}")
 
     def update_versions_in_tex_files(self):
         """
@@ -477,9 +514,9 @@ class BuildManager(SetupCommand):
                                              '\\\\ProvidesPackage{\\1}[' + re.escape(version) + ']',
                                              new_content, re.S + re.DOTALL)
                     if new_content is not None and content != new_content:
-                        print(f"Updating version in {full_path}")
                         with open(full_path, 'w') as f:
                             f.write(new_content)
+                        self.success(f"Version {version} written in {full_path}")
 
     def update_versions_in_ctan_files(self):
         """
@@ -496,7 +533,7 @@ class BuildManager(SetupCommand):
                     if new_content is not None and content != new_content:
                         with open(full_path, 'w') as f:
                             f.write(new_content)
-                    print(f"Version {version} written in {full_path}")
+                    self.success(f"Version {version} written in {full_path}")
 
     def generate_ciadslide_documentation(self):
         """
@@ -598,7 +635,8 @@ class DebianPackageManager(SetupCommand):
 
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
                  sign_with : str = None, compress_with : str = None,
-                 dist_dir :str = DIST_DIR, build_dir :str = BUILD_DIR):
+                 dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
@@ -607,8 +645,9 @@ class DebianPackageManager(SetupCommand):
         :param compress_with: the name of the compression method for creating the Debian source archives.
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
+        :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, dist_dir, build_dir)
+        super().__init__(root_dir, dist_dir, build_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
@@ -620,10 +659,7 @@ class DebianPackageManager(SetupCommand):
         """
         dpkg_command = shutil.which('dpkg-buildpackage')
         if not dpkg_command:
-            print("Error: dpkg-buildpackage nout found in PATH")
-            sys.exit(255)
-
-
+            self.error("Command dpkg-buildpackage not found in PATH")
         basename = self._get_archive_basename(self.__archive_name)
         build_dir = os.path.join(self._root_dir, self._build_dir)
         shutil.rmtree(build_dir, ignore_errors=True)
@@ -643,8 +679,7 @@ class DebianPackageManager(SetupCommand):
             try:
                 subprocess.run(cmd, check=True)
             except subprocess.CalledProcessError as e:
-                print(f"Error running deb packaging command: {e}")
-                sys.exit(255)
+                self.error(f"Cannot run deb packaging command: {e}")
         finally:
             os.chdir(old_dir)
 
@@ -666,6 +701,7 @@ def main():
     parser = argparse.ArgumentParser(description="Configure tex-templates project.")
     parser.add_argument("command", choices=["build", "clean", "sdist", "deb"],
                         help="Command to run: 'build' (preparing source code), 'sdist' (create archive), 'clean' (remove files) or 'deb' for building the Debian packages")
+    parser.add_argument('-v', action='count', default=0, help='Increase verbosity level')
     parser.add_argument("--noversion", action="store_true", help="Do not generate the VERSION file. Keep it as-is.")
     parser.add_argument("--notexversion", action="store_true", help="Do not update the versions in the TeX files.")
     parser.add_argument("--nociadslide", action="store_true", help="Do not generate the documentation for CIAD slides.")
@@ -691,22 +727,25 @@ def main():
                            disable_spimumlp=args.nospimumlp,
                            disable_ingedoc=args.noingedoc,
                            disable_ctan=args.noctan,
-                           debug=args.debug)
+                           debug=args.debug,
+                           verbosity=args.v)
     elif args.command == "sdist":
         cmd = SourceDistributionManager(root_dir=current_root_dir,
                                         archive_name='tex-templates',
                                         inner_folder_name='tex-templates',
-                                        ctan=not args.noctan)
+                                        ctan=not args.noctan,
+                                        verbosity=args.v)
     elif args.command == "clean":
-        cmd = CleanManager(root_dir=current_root_dir)
+        cmd = CleanManager(root_dir=current_root_dir,
+                           verbosity=args.v)
     elif args.command == "deb":
         cmd = DebianPackageManager(root_dir=current_root_dir,
                                    archive_name='tex-templates',
                                    inner_folder_name='tex-templates',
                                    sign_with=args.debsign,
-                                   compress_with=args.debcompress)
+                                   compress_with=args.debcompress,
+                                   verbosity=args.v)
     else:
-        print(f"Error: Unsupported command. Use 'build', 'sdist' or 'clean'.")
         sys.exit(255)
 
     if cmd is not None:
