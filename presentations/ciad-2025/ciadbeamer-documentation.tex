@@ -20,13 +20,13 @@
 
 \usefootlinewithsections
 
-\pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{utbmgraylogo}
-\pgfdeclareimage[height=.2cm]{fakeubelogoinpartners}{ubegraylogo}
-\pgfdeclareimage[height=.2cm]{fakecarnotlogoinpartners}{carnotgraylogo}
-\pgfdeclareimage[height=.25cm]{fakeciadlogointitle}{ciadlogointitle}
-\pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{utbmlogointitle}
-\pgfdeclareimage[height=.25cm]{fakeubelogointitle}{ubelogointitle}
-\pgfdeclareimage[height=.25cm]{fakeuserlogointitle}{utbmlogo}
+\pgfdeclareimage[height=.2cm]{fakeutbmlogoinpartners}{ciad-utbmgraylogo}
+\pgfdeclareimage[height=.2cm]{fakeubelogoinpartners}{ciad-ubegraylogo}
+\pgfdeclareimage[height=.2cm]{fakecarnotlogoinpartners}{ciad-carnotgraylogo}
+\pgfdeclareimage[height=.25cm]{fakeciadlogointitle}{ciad-logointitle}
+\pgfdeclareimage[height=.25cm]{fakeutbmlogointitle}{ciad-utbmlogointitle}
+\pgfdeclareimage[height=.25cm]{fakeubelogointitle}{ciad-ubelogointitle}
+\pgfdeclareimage[height=.25cm]{fakeuserlogointitle}{ciad-utbmlogo}
 
 \makeatletter
 \let\fakebackground\beamer@theme@ciad@outer@background
@@ -274,7 +274,7 @@
 		\item \texttt{pgf-id} is the identifier of the picture that is declared with the command \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id\}\{filename\}} before calling the command \texttt{{\textbackslash}settitlepagerightfigure}.
 	\end{itemize}
 	\begin{example}
-		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{utbmlogo\}} \\
+		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{ciad-utbmlogo\}} \\
 		\texttt{{\textbackslash}settitlepagerightfigure(250,-30)\{mypicture\}} \\
 		\centering\includegraphics[width=.25\linewidth]{frontpage2}
 	\end{example}
@@ -288,7 +288,7 @@
 		\item \texttt{pgf-id} is the identifier of the picture that is declared with the command \texttt{{\textbackslash}declarepgfimage[size]\{pgf-id\}\{filename\}} before calling the command \texttt{{\textbackslash}settitlepageleftfigure}.
 	\end{itemize}
 	\begin{example}
-		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{utbmlogo\}} \\
+		\texttt{{\textbackslash}pgfdeclareimage[width=5cm]\{mypicture\}\{ciad-utbmlogo\}} \\
 		\texttt{{\textbackslash}settitlepageleftfigure(0,-30)\{mypicture\}} \\
 		\centering\includegraphics[width=.25\linewidth]{frontpage4}
 	\end{example}
@@ -1320,12 +1320,12 @@
 	\item The CIAD theme provides a command that permits to display a picture on the entire slide: \\
 			\texttt{{\textbackslash}figureslide[options]\{Title of the slide\}\{file\}}
 	\item The size of the picture is adjusted to the slide drawing area.
-	\item Example: \texttt{{\textbackslash}figureslide\{XyZ\}\{ciadlogo\}} 
+	\item Example: \texttt{{\textbackslash}figureslide\{XyZ\}\{ciad-ciadlogo\}} 
 	\end{itemize}
 	\vspace{1em}
 	\begin{center}
 		\fakeslide{XyZ}{
-			\put(-3,20){\includegraphics[width=\linewidth]{ciadlogo}}
+			\put(-3,20){\includegraphics[width=\linewidth]{ciad-ciadlogo}}
 		}
 	\end{center}
 \end{frame}
@@ -1351,7 +1351,7 @@
 	\end{itemize}
 \end{frame}
 
-\figureslide{Example of a Single Figure on a Slide}{ciadlogo}
+\figureslide{Example of a Single Figure on a Slide}{ciad-ciadlogo}
 
 \subsection{Slide with an ``animated'' figure on the center}
 \subsectiontableofcontentslide
@@ -1427,7 +1427,7 @@
 	\item The CIAD theme provides a command that permits to display a \emph{embedded video} on the entire slide. This video could be displayed during the show with a viewer such as PDFPC: \\
 		\texttt{{\textbackslash}embeddedvideoslide[options]\{Title of the slide\}\{video file\}\{image file\}}
 	\item The size of the picture is adjusted to the slide drawing area.
-	\item Example: \texttt{{\textbackslash}embeddedvideoslide\{XyZ\}\{myvideo\}\{ciadlogo\}} 
+	\item Example: \texttt{{\textbackslash}embeddedvideoslide\{XyZ\}\{myvideo\}\{ciad-ciadlogo\}} 
 	\item The given image is displayed if the viewer cannot show up the video.
 	\end{itemize}
 \end{frame}
@@ -1472,12 +1472,12 @@
 \end{frame}
 
 \settextvideofooter{XYZ}
-\begin{textvideoframe}{{Example of frame} with left text and right video}{fakevideo.mp4}{ciadlogo}
+\begin{textvideoframe}{{Example of frame} with left text and right video}{fakevideo.mp4}{ciad-ciadlogo}
 	This is the standard frame content. See the previous slide for an explanation \\[.5cm]
 	\texttt{{\textbackslash}settextvideofooter\{XYZ\}} \\[.5cm]
 	\texttt{{\textbackslash}begin\{textvideoframe\}} \\
 	\texttt{~~\{Example of frame[...]\}} \\
-	\texttt{~~\{fakevideo.mp4\}\{ciadlogo\}} \\
+	\texttt{~~\{fakevideo.mp4\}\{ciad-ciadlogo\}} \\
 	\texttt{~~This is [...]} \\
 	\texttt{{\textbackslash}end\{textvideoframe\}}
 \end{textvideoframe}
@@ -2253,7 +2253,7 @@
 			\texttt{{\textbackslash}wrapitem[width]\{item text\}}
 	\end{itemize}
 	\begin{example}\tiny
-		\wrapfigure[width=.1\linewidth]{ciadlogo}
+		\wrapfigure[width=.1\linewidth]{ciad-ciadlogo}
 		\begin{itemize}
 		\wrapitem{item 1 with \texttt{{\textbackslash}wrapitem}.}
 		\wrapitem[.85\linewidth]{item 2 with \texttt{{\textbackslash}wrapitem}, item 2 with \texttt{{\textbackslash}wrapitem}, item 2 with \texttt{{\textbackslash}wrapitem}, item 2 with \texttt{{\textbackslash}wrapitem}.}
@@ -2435,7 +2435,7 @@
 		\end{itemize}
 	\end{itemize}
 	\begin{center}
-		\videolink[width=.3\linewidth]{./documentation.tex}{ubelogo}
+		\videolink[width=.3\linewidth]{./ciadbeamer-documentation.tex}{ciad-ubelogo}
 	\end{center}
 \end{frame}
 
@@ -2451,7 +2451,7 @@
 		\end{itemize}
 	\end{itemize}
 	\begin{center}
-		\picturegoto[width=.3\linewidth]{progressbartypes}{ubelogo}
+		\picturegoto[width=.3\linewidth]{progressbartypes}{ciad-ubelogo}
 	\end{center}
 \end{frame}
 
@@ -2503,10 +2503,10 @@
 \sectionsintoc{7-}
 \sectiontableofcontentslide
 
-\pgfdeclareimage[width=.5\linewidth]{transitionalciadlogo}{ciadlogo}
-\pgfdeclareimage[width=.5\linewidth]{transitionalutbmlogo}{utbmlogo}
-\pgfdeclareimage[width=.5\linewidth]{transitionalubelogo}{ubelogo}
-\pgfdeclareimage[width=.5\linewidth]{transitionalcarnotlogo}{carnotlogo}
+\pgfdeclareimage[width=.5\linewidth]{transitionalciadlogo}{ciad-ciadlogo}
+\pgfdeclareimage[width=.5\linewidth]{transitionalutbmlogo}{ciad-utbmlogo}
+\pgfdeclareimage[width=.5\linewidth]{transitionalubelogo}{ciad-ubelogo}
+\pgfdeclareimage[width=.5\linewidth]{transitionalcarnotlogo}{ciad-carnotlogo}
 
 \begin{frame}[c]{Transition: {\textbackslash}transblindshorizontal}
 	\transblindshorizontal

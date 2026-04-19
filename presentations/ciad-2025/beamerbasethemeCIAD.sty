@@ -671,7 +671,7 @@
 	\gdef\beamer@theme@ciad@headline@currentpicture{\beamer@theme@ciad@headline@defaultpicture}%
 }
 
-\pgfdeclareimage[height=.5cm]{CIADlogointitle}{ciadlogointitle}
+\pgfdeclareimage[height=.5cm]{CIADlogointitle}{ciad-logointitle}
 \newcommand{\insertheaderlinewithciadlogo}{%
 	\begin{picture}(0,0)(0,0)%
 		\put(415,-16){%
@@ -684,7 +684,7 @@
 	\gdef\beamer@theme@ciad@headline@defaultpicture{\pgfuseimage{CIADlogointitle}}%
 }
 
-\pgfdeclareimage[width=.6cm]{UTBMlogointitle}{utbmlogointitle}
+\pgfdeclareimage[width=.6cm]{UTBMlogointitle}{ciad-utbmlogointitle}
 \newcommand{\insertheaderlinewithutbmlogo}{%
 	\begin{picture}(0,0)(0,0)%
 		\put(424,-17){%
@@ -847,15 +847,15 @@
 
 \usefootlinefortitlepage
 
-\pgfdeclareimage[height=.35cm]{ciadlogoinpartners}{ciadlogo}
-\pgfdeclareimage[height=.35cm]{utbmlogoinpartners}{utbmlogo}
-\pgfdeclareimage[height=.35cm]{ubelogoinpartners}{ubelogo}
-\pgfdeclareimage[height=.35cm]{carnotlogoinpartners}{carnotlogo}
+\pgfdeclareimage[height=.35cm]{ciadlogoinpartners}{ciad-ciadlogo}
+\pgfdeclareimage[height=.35cm]{utbmlogoinpartners}{ciad-utbmlogo}
+\pgfdeclareimage[height=.35cm]{ubelogoinpartners}{ciad-ubelogo}
+\pgfdeclareimage[height=.35cm]{carnotlogoinpartners}{ciad-carnotlogo}
 
-\pgfdeclareimage[height=.35cm]{ciadgraylogoinpartners}{ciadgraylogo}
-\pgfdeclareimage[height=.35cm]{utbmgraylogoinpartners}{utbmgraylogo}
-\pgfdeclareimage[height=.35cm]{ubegraylogoinpartners}{ubegraylogo}
-\pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{carnotgraylogo}
+\pgfdeclareimage[height=.35cm]{ciadgraylogoinpartners}{ciad-ciadgraylogo}
+\pgfdeclareimage[height=.35cm]{utbmgraylogoinpartners}{ciad-utbmgraylogo}
+\pgfdeclareimage[height=.35cm]{ubegraylogoinpartners}{ciad-ubegraylogo}
+\pgfdeclareimage[height=.35cm]{carnotgraylogoinpartners}{ciad-carnotgraylogo}
 
 \newcommand{\insertinstitutelogosinfootline}[1]{%
 	\ifthenelse{\boolean{beamer@theme@ciad@utbmlogo}}{%
