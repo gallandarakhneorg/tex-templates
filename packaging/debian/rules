@@ -203,7 +203,6 @@ install-stamp: build-stamp
 	install -d -m 0755 "$(install_dir)/$(tex_install_target)/spim/base"
 	install -m 644 "$(build_src)/src/spim/share/bst/"* "$(install_dir)/$(bst_install_target)/spim/base/"
 	install -m 644 "$(build_src)/src/spim/share/sty/"* "$(install_dir)/$(tex_install_target)/spim/base/"
-	install -m 644 "$(build_src)/logos/spimbasephdthesis_"* "$(install_dir)/$(tex_install_target)/spim/base/"	
 	#
 	# UTBM PHD
 	#
