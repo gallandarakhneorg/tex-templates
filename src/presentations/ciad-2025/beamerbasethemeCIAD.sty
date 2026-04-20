@@ -2971,8 +2971,8 @@
 		\ifthenelse{\boolean{beamer@theme@ciad@randombackground}}{%
 			% Random selection of the background
 			\pgfmathrandomitem\@tmp{beamer@theme@ciad@randombackground@array}
-			\xdef\@tmp{\@tmp}%
-			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{#1}{#2}{\@tmp}%
+			\protected@xdef\@tmp{\protect\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{#1}{#2}{\@tmp}}%
+			\@tmp%
 		}{}%
 	\else%
 		\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{#1}{#2}{\beamer@theme@ciad@backgroundpicture@current}%
