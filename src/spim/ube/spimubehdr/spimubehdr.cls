@@ -18,7 +18,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{spimubehdr}[2026/04/19]
+\ProvidesClass{spimubehdr}[2026/04/20]
 
 %%--------------------
 %% Class options

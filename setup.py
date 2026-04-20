@@ -667,27 +667,27 @@ class BuildManager(BaseBuildingCommand):
                     full_path = os.path.join(dirpath, filename)
                     with open(full_path, 'r') as f:
                         content = f.read()
-                    new_content = re.sub(r'\\gdef\s*\\insertciadbeamerthemeversion\s*\{.+?\}',
+                    new_content = re.sub(r'\\gdef\\insertciadbeamerthemeversion\{.+?\}',
                                          '\\\\gdef\\\\insertciadbeamerthemeversion{' + re.escape(version) + '}',
                                          content, re.S + re.DOTALL)
                     new_content = re.sub(r'\\gdef\s*\\insertciadreportthemeversion\s*\{.+?\}',
                                          '\\\\gdef\\\\insertciadreportthemeversion{' + re.escape(version) + '}',
-                                         content, re.S + re.DOTALL)
+                                         new_content, re.S + re.DOTALL)
                     new_content = re.sub(r'\\gdef\s*\\@ingedoc@class@version\s*\{.+?\}',
                                          '\\\\gdef\\\\@ingedoc@class@version{' + re.escape(version) + '}',
                                          new_content, re.S + re.DOTALL)
                     if is_sty:
-                        new_content = re.sub(r'\\ProvidesPackage\s*\{(.+?)\}\s*\[.*?\]',
+                        new_content = re.sub(r'\\ProvidesPackage\{(.+?)\}\[.*?\]',
                                              '\\\\ProvidesPackage{\\1}[' + re.escape(version) +']',
                                              new_content, re.S + re.DOTALL)
                     elif is_cls:
-                        new_content = re.sub(r'\\ProvidesClass\s*\{(.+?)\}\s*\[.*?\]',
-                                             '\\\\ProvidesPackage{\\1}[' + re.escape(version) + ']',
+                        new_content = re.sub(r'\\ProvidesClass\{(.+?)\}\s*\[.*?\]',
+                                             '\\\\ProvidesClass{\\1}[' + re.escape(version) + ']',
                                              new_content, re.S + re.DOTALL)
                     if new_content is not None and content != new_content:
                         with open(full_path, 'w') as f:
                             f.write(new_content)
-                    self.success(f"Version {version} written in {full_path}")
+                        self.success(f"Version {version} written in {full_path}")
 
     def update_versions_in_ctan_files(self):
         """

@@ -18,7 +18,7 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{ingedoc}[2026/04/19]
+\ProvidesClass{ingedoc}[2026/04/20]
 
 \gdef\@ingedoc@class@version{2026/04/20}
 
