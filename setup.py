@@ -687,7 +687,7 @@ class BuildManager(BaseBuildingCommand):
                     if new_content is not None and content != new_content:
                         with open(full_path, 'w') as f:
                             f.write(new_content)
-                        self.success(f"Version {version} written in {full_path}")
+                    self.success(f"Version {version} written in {full_path}")
 
     def update_versions_in_ctan_files(self):
         """
@@ -987,11 +987,11 @@ class TestManager(BaseBuildingCommand):
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         test_name = os.path.basename(src_dir)
-        if self._use_logos:
-            self.test(f"Use nonfree logos.")
-        else:
-            self.test(f"Use free logos.")
         self.test(f"Running tests for {test_name}...")
+        if self._use_logos:
+            self.test2(f"Use nonfree logos.")
+        else:
+            self.test2(f"Use free logos.")
         for root, dirs, files in os.walk(src_dir):
             for file in sorted(files):
                 if file.endswith(".tex") and file.startswith("test") and self.__in_range(file):
@@ -1013,11 +1013,62 @@ class TestManager(BaseBuildingCommand):
             adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
         self._do_tests(tests_root_dir, *adds)
 
+    def _test_spimutbm(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'spim', 'utbm', 'spimutbmphdthesis')
+        adds = [
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'utbm', 'spimutbmphdthesis')
+        ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
+    def _test_spimube_phdthesis(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'spim', 'ube', 'spimubephdthesis')
+        adds = [
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubephdthesis')
+        ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
+    def _test_spimube_hdr(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'spim', 'ube', 'spimubehdr')
+        adds = [
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubehdr')
+        ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
+    def _test_spimumlp(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'spim', 'umlp', 'spimumlpphdthesis')
+        adds = [
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst'),
+            os.path.join(self._root_dir, self._src_dir, 'spim', 'umlp', 'spimumlpphdthesis')
+        ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
     def run(self):
         if not self.__disable_ciadslide:
             self._test_ciadslide()
         if not self.__disable_ciadreport:
             self._test_ciadreport()
+        if not self.__disable_spimutbm:
+            self._test_spimutbm()
+        if not self.__disable_spimube:
+            self._test_spimube_phdthesis()
+            self._test_spimube_hdr()
+        if not self.__disable_spimumlp:
+            self._test_spimumlp()
 
 
 def main():

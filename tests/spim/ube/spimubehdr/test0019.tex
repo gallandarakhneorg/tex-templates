@@ -1,0 +1,30 @@
+% Class option: frontmatter
+\documentclass[frontmatter]{spimubehdr}
+ 
+\declarethesis
+	[Sous-titre]
+	{Titre}
+	{17 septembre 2012}
+	{Belfort}
+	{XXX}
+\declareminorthesistitle{Titre dans la langue secondaire}
+\addauthor[email]{Prénom}{Nom}
+\addjury{Incroyable}{Hulk}
+	{\rolePresidentM}
+	{Professeur à l'Université de Gotham City \\ Commentaire secondaire}
+ \thesisabstract[english]{This is the abstract in English.}
+\thesiskeywords[english]{Keyword 1, Keyword 2}
+\thesisabstract[french]{Ceci est le résumé en français.}
+\thesiskeywords[french]{Mot-cl\'e 1, Mot-cl\'e 2}
+
+\begin{document}
+\frontmatter
+\tableofcontents
+\mainmatter
+\chapter{Introduction}
+ 
+Bla bla bla.
+
+\backmatter
+ 
+\end{document}

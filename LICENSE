@@ -55,5 +55,6 @@ Overall distribution
 When redistributing this package (e.g., on CTAN, a personal website,
 or a CDN), you must preserve the directory structure and all
 accompanying license files.  Users of the LaTeX code may remove the
-"logos/" and "fonts/" directories without affecting their rights under the LGPLv3.
+"logos/" and "fonts/" directories without affecting their rights under
+the LGPLv3.
 
