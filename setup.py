@@ -284,13 +284,14 @@ class BaseBuildingCommand(SetupCommand):
                          tests_dir, logos_dir, verbosity)
 
     def _run_pdflatex(self, temp_dir: TemporaryDirectory, tex_file: str, second_run : bool = True,
-                      show_logs: bool = True):
+                      show_logs: bool = True, clean_on_error : bool = True):
         """
         Run the pdflatex command on the given document.
         :param temp_dir: the path to the temporary directory in which the document is located.
         :param tex_file: the name to the TeX file to compile.
         :param second_run: indicates if the pdflatex command should be run two times.
         :param show_logs: indicates if the log messages are displayed.
+        :param clean_on_error: indicates if the temporary files must be cleaned on error.
         """
         if show_logs:
             self.info(f"Compiling {tex_file} with pdflatex...")
@@ -302,7 +303,8 @@ class BaseBuildingCommand(SetupCommand):
             cmd = ["pdflatex", "-halt-on-error", "-file-line-error", "-interaction=errorstopmode", tex_file]
             result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
             if result.returncode != 0:
-                temp_dir.cleanup()
+                if clean_on_error:
+                    temp_dir.cleanup()
                 self.error("LaTeX compilation failed. Here is the log:",
                            result.stdout if result.stdout else "",
                            result.stderr if result.stderr else "")
@@ -315,7 +317,8 @@ class BaseBuildingCommand(SetupCommand):
                         self.info("Running pdflatex again to resolve references...")
                     result2 = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
                     if result2.returncode != 0:
-                        temp_dir.cleanup()
+                        if clean_on_error:
+                            temp_dir.cleanup()
                         self.error("Second compilation had issues.",
                                    result.stdout if result.stdout else "",
                                    result.stderr if result.stderr else "")
@@ -960,7 +963,8 @@ class TestManager(BaseBuildingCommand):
         pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
         tmp_dir = self._prepare_document_generation_dir(src_dir, pdf_filename, *additional_src_dirs)
         try:
-            self._run_pdflatex(tmp_dir, tex_filename, second_run=False, show_logs=False)
+            self._run_pdflatex(tmp_dir, tex_filename, second_run=False, show_logs=False,
+                               clean_on_error=not self.__debug)
             if not os.path.isfile(os.path.join(tmp_dir.name, pdf_filename)):
                 self.error("PDF not found.")
         finally:
@@ -983,6 +987,10 @@ class TestManager(BaseBuildingCommand):
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         test_name = os.path.basename(src_dir)
+        if self._use_logos:
+            self.test(f"Use nonfree logos.")
+        else:
+            self.test(f"Use free logos.")
         self.test(f"Running tests for {test_name}...")
         for root, dirs, files in os.walk(src_dir):
             for file in sorted(files):
@@ -998,9 +1006,18 @@ class TestManager(BaseBuildingCommand):
             adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
         self._do_tests(tests_root_dir, *adds)
 
+    def _test_ciadreport(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'reports', 'utbmciad-2025')
+        adds = [ os.path.join(self._root_dir, self._src_dir, 'reports', 'utbmciad-2025') ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
     def run(self):
         if not self.__disable_ciadslide:
             self._test_ciadslide()
+        if not self.__disable_ciadreport:
+            self._test_ciadreport()
 
 
 def main():
