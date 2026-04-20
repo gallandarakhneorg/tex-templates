@@ -49,6 +49,8 @@ DIST_DIR = "dist"
 
 SRC_DIR = "src"
 
+TESTS_DIR = "tests"
+
 LOGOS_DIR = "logos"
 
 DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
@@ -116,7 +118,8 @@ CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
 class SetupCommand(ABC):
 
     def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
-                 build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR, logos_dir : str = LOGOS_DIR,
+                 build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
@@ -124,6 +127,7 @@ class SetupCommand(ABC):
         :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
         :param build_dir: the basename of the temporary folder in which all results of building will be copied.
         :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
         :param verbosity: level of verbosity.
         """
@@ -135,6 +139,7 @@ class SetupCommand(ABC):
         self._dist_dir = dist_dir
         self._build_dir = build_dir
         self._src_dir = src_dir
+        self._tests_dir = tests_dir
         self._logos_dir = logos_dir
 
     @property
@@ -169,23 +174,25 @@ class SetupCommand(ABC):
             version_number = m.group(1)
         return f"{name}-{version_number}"
 
-    def _get_archive_name(self, name : str) -> str:
+    def _get_archive_name(self, name : str, postfix='') -> str:
         """
         Compute the name of the archive file with the ".tar.gz" extension.
         :param name: the name of the archived component.
+        :param postfix: the postfix text to add after the version number.
         :return: the basename with ".tar.gz".
         """
-        return self._get_archive_basename(name) + ".tar.gz"
+        return self._get_archive_basename(name) + postfix + ".tar.gz"
 
-    def _compute_sdist_archive_name(self, name : str) -> str:
+    def _compute_sdist_archive_name(self, name : str, postfix : str = '') -> str:
         """
         Compute the filename of the sdist archive.
         :param name: the basename of the archive to generate.
+        :param postfix: the postfix text to add after the version number.
         :return: the full path to the archive file.
         """
         dist_dir = os.path.join(self._root_dir, self._dist_dir)
         os.makedirs(dist_dir, exist_ok=True)
-        archive_name = self._get_archive_name(name)
+        archive_name = self._get_archive_name(name, postfix=postfix)
         archive_path = os.path.join(dist_dir, archive_name)
         return archive_path
 
@@ -213,7 +220,7 @@ class SetupCommand(ABC):
         """
         if self.verbosity >= 1:
             for message in messages:
-                print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
+                print(Fore.BLUE + "INFO   :" + Style.RESET_ALL + f"     {message}")
 
     def info3(self, *messages : str):
         """
@@ -222,7 +229,7 @@ class SetupCommand(ABC):
         """
         if self.verbosity >= 2:
             for message in messages:
-                print(Fore.BLUE + "INFO   :     " + Style.RESET_ALL + f" {message}")
+                print(Fore.BLUE + "INFO   :" + Style.RESET_ALL + f"          {message}")
 
     def success(self, *messages : str):
         """
@@ -232,6 +239,138 @@ class SetupCommand(ABC):
         for message in messages:
             print(Fore.GREEN + "SUCCESS:" + Style.RESET_ALL + f" {message}")
 
+    def success2(self, *messages : str):
+        """
+        Show up a level-2 success message.
+        :param messages: the list of information messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.GREEN + "SUCCESS:" + Style.RESET_ALL + f"     {message}")
+
+    def test(self, *messages : str):
+        """
+        Show up a test message.
+        :param messages: the list of error messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.YELLOW + f"TEST   : {message}" + Style.RESET_ALL)
+
+    def test2(self, *messages : str):
+        """
+        Show up a level-2 test message.
+        :param messages: the list of error messages. Each one will be shown one a line.
+        """
+        for message in messages:
+            print(Fore.YELLOW + "TEST   :" + Style.RESET_ALL + f"     {message}")
+
+
+class BaseBuildingCommand(SetupCommand):
+
+    def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
+                 build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
+                 verbosity : int = 0):
+        """
+        :param root_dir: the path to the root folder of TeX-templates
+        :param use_logos: indicates if the not-free logos must be used during the building process.
+        :param dist_dir: the basename of the source distribution folder in which all the archives will be copied.
+        :param build_dir: the basename of the temporary folder in which all results of building will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
+        :param logos_dir: the basename of the root folder for non-free resources.
+        :param verbosity: level of verbosity.
+        """
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir,
+                         tests_dir, logos_dir, verbosity)
+
+    def _run_pdflatex(self, temp_dir: TemporaryDirectory, tex_file: str, second_run : bool = True,
+                      show_logs: bool = True):
+        """
+        Run the pdflatex command on the given document.
+        :param temp_dir: the path to the temporary directory in which the document is located.
+        :param tex_file: the name to the TeX file to compile.
+        :param second_run: indicates if the pdflatex command should be run two times.
+        :param show_logs: indicates if the log messages are displayed.
+        """
+        if show_logs:
+            self.info(f"Compiling {tex_file} with pdflatex...")
+        # Save current working directory
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(temp_dir.name)
+            # Run pdflatex with nonstop mode to avoid hanging on errors
+            cmd = ["pdflatex", "-halt-on-error", "-file-line-error", "-interaction=errorstopmode", tex_file]
+            result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+            if result.returncode != 0:
+                temp_dir.cleanup()
+                self.error("LaTeX compilation failed. Here is the log:",
+                           result.stdout if result.stdout else "",
+                           result.stderr if result.stderr else "")
+            else:
+                if show_logs:
+                    self.info("LaTeX compilation succeeded.")
+                # Run a second time to resolve cross-references (not required but common)
+                if second_run:
+                    if show_logs:
+                        self.info("Running pdflatex again to resolve references...")
+                    result2 = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+                    if result2.returncode != 0:
+                        temp_dir.cleanup()
+                        self.error("Second compilation had issues.",
+                                   result.stdout if result.stdout else "",
+                                   result.stderr if result.stderr else "")
+                    elif show_logs:
+                        self.success("Documentation generated successfully.")
+        finally:
+            os.chdir(original_cwd)
+
+    def _prepare_document_generation_dir(self, src_dir: str, pdf_filename: str,
+                                         *additional_src_dirs: str) -> TemporaryDirectory:
+        """
+        Prepare the tmp/ folder for the generation of documentation.
+        :param src_dir: folder from which the documentation could be found.
+        :param pdf_filename: name of the PDF file of the documentation.
+        :param additional_src_dirs: additional src folders to add to the documentation building process.
+        """
+        # Check prerequisites
+        input_directories = [src_dir] + [*additional_src_dirs]
+        if self._use_logos:
+            input_directories = [*input_directories] + [os.path.join(self._root_dir, self._logos_dir)]
+        for directory in input_directories:
+            if not os.path.isdir(directory):
+                self.error(f"Directory '{directory}' not found.")
+        tmp_dir = TemporaryDirectory(delete=False)
+        documentation_pdf_file = os.path.join(tmp_dir.name, pdf_filename)
+        for input_dir in input_directories:
+            # Walk through src directory
+            for root, dirs, files in os.walk(input_dir):
+                # Compute relative path from src_dir
+                rel_path = os.path.relpath(root, input_dir)
+                # Target directory
+                target_dir = os.path.join(tmp_dir.name, rel_path)
+                # Create target directory if it doesn't exist
+                os.makedirs(target_dir, exist_ok=True)
+                for file in files:
+                    src_file = os.path.join(root, file)
+                    link_path = os.path.join(target_dir, file)
+                    # If the link already exists and is a symlink, remove it first (to avoid errors)
+                    if os.path.islink(link_path):
+                        os.unlink(link_path)
+                    if link_path != documentation_pdf_file:
+                        # Create the symlink (relative or absolute? Use absolute to be safe)
+                        try:
+                            # Use absolute path for source to make symlink robust
+                            os.symlink(src_file, link_path)
+                        except Exception as e:
+                            tmp_dir.cleanup()
+                            self.error(f"Cannot create symlink {link_path}: {e}")
+        # Remove the document file from the tmp folder
+        if os.path.exists(documentation_pdf_file):
+            os.unlink(documentation_pdf_file)
+        return tmp_dir
+
+
+
 
 class CleanManager(SetupCommand):
 
@@ -240,6 +379,7 @@ class CleanManager(SetupCommand):
                  dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR,
                  src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
                  verbosity : int = 0):
         """
@@ -248,10 +388,12 @@ class CleanManager(SetupCommand):
         :param dist_dir: the basename of the folder in which all the archives will be copied.
         :param build_dir: the basename of the folder in which the output of the building is copied.
         :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir,
+                         tests_dir, logos_dir, verbosity)
 
     def run(self):
         removed_count = 0
@@ -277,6 +419,7 @@ class SourceDistributionManager(SetupCommand):
                  ctan_sources : dict[str,dict[str,str]] = CTAN_SOURCE_DIRS,
                  ctan_info_files : list[str] = CTAN_INFO_FILES,
                  src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
                  verbosity : int = 0):
         """
@@ -290,11 +433,11 @@ class SourceDistributionManager(SetupCommand):
         :param ctan_sources: the dictionary for all the source files to be included in the CTAN archives.
         :param ctan_info_files: the list of information files to be included in the CTAN archives.
         :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
-                 use_logos : bool = False,
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__ctan = ctan
@@ -363,7 +506,7 @@ class SourceDistributionManager(SetupCommand):
         :param name: the basename of the archive to generate.
         :return: the full path to the archive file.
         """
-        return self._compute_sdist_archive_name(f'{archive_name}-ctan')
+        return self._compute_sdist_archive_name(archive_name, postfix='-ctan')
 
     def generate_ctan_sdist_archives(self):
         """
@@ -407,12 +550,13 @@ class SourceDistributionManager(SetupCommand):
 
 
 
-class BuildManager(SetupCommand):
+class BuildManager(BaseBuildingCommand):
 
     def __init__(self, root_dir : str,
                  dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR,
                  src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
                  debug : bool = False,
                  disable_readme : bool = False,
@@ -432,6 +576,7 @@ class BuildManager(SetupCommand):
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
         :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
         :param debug: indicates if the builder is invoked in debug mode. The behavior of the builder may differ in debug mode.
         :param disable_readme: Disable the building of the README file.
@@ -447,7 +592,7 @@ class BuildManager(SetupCommand):
         :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
         self.__debug = debug
         self.__disable_readme = disable_readme
         self.__disable_version = disable_version
@@ -460,83 +605,6 @@ class BuildManager(SetupCommand):
         self.__disable_ingedoc = disable_ingedoc
         self.__disable_ctan = disable_ctan
 
-    def _run_pdflatex(self, temp_dir: TemporaryDirectory, tex_file: str):
-        """
-        Run the pdflatex command on the given document.
-        """
-        self.info(f"Compiling {tex_file} with pdflatex...")
-        # Save current working directory
-        original_cwd = os.getcwd()
-        try:
-            os.chdir(temp_dir.name)
-            # Run pdflatex with nonstop mode to avoid hanging on errors
-            cmd = ["pdflatex", "-halt-on-error", "-file-line-error", "-interaction=errorstopmode", tex_file]
-            result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
-            if result.returncode != 0:
-                temp_dir.cleanup()
-                self.error("LaTeX compilation failed. Here is the log:",
-                           result.stdout if result.stdout else "",
-                           result.stderr if result.stderr else "")
-            else:
-                self.info("LaTeX compilation succeeded.")
-                # Run a second time to resolve cross-references (not required but common)
-                self.info("Running pdflatex again to resolve references...")
-                result2 = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
-                if result2.returncode != 0:
-                    temp_dir.cleanup()
-                    self.error("Second compilation had issues.",
-                               result.stdout if result.stdout else "",
-                               result.stderr if result.stderr else "")
-                else:
-                    self.success("Documentation generated successfully.")
-        finally:
-            os.chdir(original_cwd)
-
-    def _prepare_documentation_dir(self, src_dir: str, pdf_filename: str,
-                                  *additional_src_dirs: str) -> TemporaryDirectory:
-        """
-        Prepare the tmp/ folder for the generation of documentation.
-        :param src_dir: folder from which the documentation could be found.
-        :param pdf_filename: name of the PDF file of the documentation.
-        :param additional_src_dirs: additional src folders to add to the documentation building process.
-        """
-        # Check prerequisites
-        input_directories = [src_dir] + [*additional_src_dirs]
-        if self._use_logos:
-            input_directories = [*input_directories] + [os.path.join(self._root_dir, self._logos_dir)]
-        for directory in input_directories:
-            if not os.path.isdir(directory):
-                self.error(f"Directory '{directory}' not found.")
-        tmp_dir = TemporaryDirectory(delete=False)
-        documentation_pdf_file = os.path.join(tmp_dir.name, pdf_filename)
-        for input_dir in input_directories:
-            # Walk through src directory
-            for root, dirs, files in os.walk(input_dir):
-                # Compute relative path from src_dir
-                rel_path = os.path.relpath(root, input_dir)
-                # Target directory
-                target_dir = os.path.join(tmp_dir.name, rel_path)
-                # Create target directory if it doesn't exist
-                os.makedirs(target_dir, exist_ok=True)
-                for file in files:
-                    src_file = os.path.join(root, file)
-                    link_path = os.path.join(target_dir, file)
-                    # If the link already exists and is a symlink, remove it first (to avoid errors)
-                    if os.path.islink(link_path):
-                        os.unlink(link_path)
-                    if link_path != documentation_pdf_file:
-                        # Create the symlink (relative or absolute? Use absolute to be safe)
-                        try:
-                            # Use absolute path for source to make symlink robust
-                            os.symlink(src_file, link_path)
-                        except Exception as e:
-                            tmp_dir.cleanup()
-                            self.error(f"Cannot create symlink {link_path}: {e}")
-        # Remove the document file from the tmp folder
-        if os.path.exists(documentation_pdf_file):
-            os.unlink(documentation_pdf_file)
-        return tmp_dir
-
     def _generate_documentation(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
         """
         Build the documentation.
@@ -545,7 +613,7 @@ class BuildManager(SetupCommand):
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
-        tmp_dir = self._prepare_documentation_dir(src_dir, pdf_filename, *additional_src_dirs)
+        tmp_dir = self._prepare_document_generation_dir(src_dir, pdf_filename, *additional_src_dirs)
         try:
             self._run_pdflatex(tmp_dir, tex_filename)
             shutil.copyfile(os.path.join(tmp_dir.name, pdf_filename),
@@ -736,8 +804,9 @@ class DebianPackageManager(SetupCommand):
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
                  sign_with : str = None, compress_with : str = None,
                  dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
-                 src_dir : str = SRC_DIR, logos_dir : str = LOGOS_DIR,
-                 use_logos : bool = False, verbosity : int = 0):
+                 src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR,
+                 logos_dir : str = LOGOS_DIR, use_logos : bool = False,
+                 verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param archive_name: the expected name of the main sdist archive.
@@ -747,11 +816,12 @@ class DebianPackageManager(SetupCommand):
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
         :param build_dir: the basename of the folder in which all the built files will be copied.
         :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
         :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
@@ -815,11 +885,129 @@ class DebianPackageManager(SetupCommand):
 
 
 
+
+class TestManager(BaseBuildingCommand):
+
+    def __init__(self, root_dir : str,
+                 test_range : str = None,
+                 dist_dir : str = DIST_DIR,
+                 build_dir : str = BUILD_DIR,
+                 src_dir : str = SRC_DIR,
+                 tests_dir : str = TESTS_DIR,
+                 logos_dir : str = LOGOS_DIR,
+                 disable_ciadslide : bool = False,
+                 disable_ciadreport : bool = False,
+                 disable_spimutbm : bool = False,
+                 disable_spimube : bool = False,
+                 disable_spimumlp : bool = False,
+                 use_logos : bool = False,
+                 debug : bool = False,
+                 verbosity : int = 0):
+        """
+        :param root_dir: the path to the root folder of TeX-templates
+        :param test_range: Specify the range of test numbers to test. It may be single number '3', range '3:18',
+        open ranges ':5' or '7:'.
+        :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
+        :param build_dir: the basename of the folder in which all the built files will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
+        :param logos_dir: the basename of the root folder for non-free resources.
+        :param disable_ciadslide: Disable the building of the CIAD Beamer template.
+        :param disable_ciadreport: Disable the building of the CIAD report.
+        :param disable_spimutbm: Disable the building of the SPIM/UTBM PhD thesis template.
+        :param disable_spimube: Disable the building of the SPIM/UBE PhD thesis template.
+        :param disable_spimumlp: Disable the building of the SPIM/UMLP PhD thesis template.
+        :param use_logos: indicates if the not-free logos must be used during the building process.
+        :param debug: activate the behavior for debugging tests.
+        :param verbosity: level of verbosity.
+        """
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
+        # Analyze range
+        self.__test_range = test_range
+        self.__test_range_min = 0
+        self.__test_range_max = 34768 # Max int
+        if self.__test_range:
+            m = re.match(r'\s*([0-9]+)?\s*:\s*([0-9]+)?\s*', test_range)
+            if m:
+                if m.group(1):
+                    self.__test_range_min = int(m.group(1))
+                if m.group(2):
+                    self.__test_range_max = int(m.group(2))
+            else:
+                m = re.match(r'\s*([0-9]+)\s*', test_range)
+                if m:
+                    self.__test_range_min = int(m.group(1))
+                    self.__test_range_max = self.__test_range_min
+            if self.__test_range_min > self.__test_range_max:
+                tmp = self.__test_range_min
+                self.__test_range_min = self.__test_range_max
+                self.__test_range_max = tmp
+        #
+        self.__disable_ciadslide = disable_ciadslide
+        self.__disable_ciadreport = disable_ciadreport
+        self.__disable_spimutbm = disable_spimutbm
+        self.__disable_spimube = disable_spimube
+        self.__disable_spimumlp = disable_spimumlp
+        self.__debug = debug
+
+    def _do_test(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
+        """
+        Build the test document.
+        :param src_dir: folder from which the documentation could be found.
+        :param tex_filename: name of the TeX file of the documentation.
+        :param additional_src_dirs: additional src folders to add to the documentation building process.
+        """
+        pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
+        tmp_dir = self._prepare_document_generation_dir(src_dir, pdf_filename, *additional_src_dirs)
+        try:
+            self._run_pdflatex(tmp_dir, tex_filename, second_run=False, show_logs=False)
+            if not os.path.isfile(os.path.join(tmp_dir.name, pdf_filename)):
+                self.error("PDF not found.")
+        finally:
+            if not self.__debug:
+                tmp_dir.cleanup()
+
+    def __in_range(self, test_name : str):
+        if self.__test_range:
+            m = re.search(r'([0-9]+)', test_name)
+            if m:
+                value = int(m.group(1))
+                return value >= self.__test_range_min and value <= self.__test_range_max
+            return False
+        return True
+
+    def _do_tests(self, src_dir: str, *additional_src_dirs: str):
+        """
+        Build the test document.
+        :param src_dir: folder from which the documentation could be found.
+        :param additional_src_dirs: additional src folders to add to the documentation building process.
+        """
+        test_name = os.path.basename(src_dir)
+        self.test(f"Running tests for {test_name}...")
+        for root, dirs, files in os.walk(src_dir):
+            for file in sorted(files):
+                if file.endswith(".tex") and file.startswith("test") and self.__in_range(file):
+                    self.test2(f"Testing {file}...")
+                    self._do_test(root, file, *additional_src_dirs)
+                    self.success2(f"{file} passed.")
+
+    def _test_ciadslide(self):
+        tests_root_dir = os.path.join(self._root_dir, self._tests_dir, 'presentations', 'ciad-2025')
+        adds = [ os.path.join(self._root_dir, self._src_dir, 'presentations', 'ciad-2025') ]
+        if self._use_logos:
+            adds = adds + [ os.path.join(self._root_dir, self._logos_dir) ]
+        self._do_tests(tests_root_dir, *adds)
+
+    def run(self):
+        if not self.__disable_ciadslide:
+            self._test_ciadslide()
+
+
 def main():
     current_root_dir = os.path.normpath(os.path.dirname(str(__file__)))
-    parser = argparse.ArgumentParser(description="Configure tex-templates project.")
-    parser.add_argument("command", choices=["build", "clean", "sdist", "deb"],
-                        help="Command to run: 'build' (preparing source code), 'sdist' (create archive), 'clean' (remove files) or 'deb' for building the Debian packages")
+    parser = argparse.ArgumentParser(description="Configure and build tex-templates project.")
+    parser.add_argument("command", choices=["build", "test", "sdist", "deb", "clean"],
+                        help="Command to run: 'build' (preparing source code), 'test' (test the templates), 'sdist' (create archive), 'deb' for building the Debian packages or 'clean' (remove files)")
     parser.add_argument('-v', action='count', default=0, help='Increase verbosity level')
     parser.add_argument("--noversion", action="store_true", help="Do not generate the VERSION file. Keep it as-is.")
     parser.add_argument("--notexversion", action="store_true", help="Do not update the versions in the TeX files.")
@@ -830,10 +1018,11 @@ def main():
     parser.add_argument("--nospimumlp", action="store_true", help="Do not generate the documentation for SPIM UMLP PhD dissertation.")
     parser.add_argument("--noingedoc", action="store_true", help="Do not generate the documentation for Ingedoc papers.")
     parser.add_argument("--noctan", action="store_true", help="Do not generate the source distribution archives for CTAN.")
+    parser.add_argument("--nologo", action="store_true", help=f"Disable the use of the not-free logos.")
+    parser.add_argument("--testrange", action="store", help="Specify the range of test numers, e.g. '3:7'.")
     parser.add_argument("--debug", action="store_true", help="Do not remove temp files or temp folders.")
     parser.add_argument("--debsign", action="store", metavar='email', help=f"Specify the email with which the Debian packages must be signed. Default is {DEBIAN_SIGN_EMAIL}")
     parser.add_argument("--debcompress", action="store", metavar='method', help=f"Specify the compression method for the Debian source archives. Default is {DEBIAN_COMPRESS_WITH}")
-    parser.add_argument("--logos", action="store_true", help=f"Enable the use of the not-free logos.")
     args = parser.parse_args()
 
     if args.command == "build":
@@ -847,7 +1036,7 @@ def main():
                            disable_spimumlp=args.nospimumlp,
                            disable_ingedoc=args.noingedoc,
                            disable_ctan=args.noctan,
-                           use_logos=args.logos,
+                           use_logos=not args.nologo,
                            debug=args.debug,
                            verbosity=args.v)
     elif args.command == "sdist":
@@ -855,19 +1044,30 @@ def main():
                                         archive_name='tex-templates',
                                         inner_folder_name='tex-templates',
                                         ctan=not args.noctan,
-                                        use_logos=args.logos,
-                                        verbosity=self.verbosity)
+                                        use_logos=not args.nologo,
+                                        verbosity=args.v)
+    elif args.command == "test":
+        cmd = TestManager(root_dir=current_root_dir,
+                          disable_ciadslide=args.nociadslide,
+                          disable_ciadreport=args.nociadreport,
+                          disable_spimutbm=args.nospimutbm,
+                          disable_spimube=args.nospimube,
+                          disable_spimumlp=args.nospimumlp,
+                          test_range=args.testrange,
+                          use_logos=not args.nologo,
+                          debug=args.debug,
+                          verbosity=args.v)
     elif args.command == "clean":
         cmd = CleanManager(root_dir=current_root_dir,
                            verbosity=args.v,
-                           use_logos=args.logos)
+                           use_logos=not args.nologo)
     elif args.command == "deb":
         cmd = DebianPackageManager(root_dir=current_root_dir,
                                    archive_name='tex-templates',
                                    inner_folder_name='tex-templates',
                                    sign_with=args.debsign,
                                    compress_with=args.debcompress,
-                                   use_logos=args.logos,
+                                   use_logos=not args.nologo,
                                    verbosity=args.v)
     else:
         sys.exit(255)
