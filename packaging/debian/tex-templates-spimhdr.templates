@@ -1,0 +1,30 @@
+Template: tex-templates/show-spimhdr-license
+Type: note
+_Description: Agreement for the Report Template of the SPIM HDR
+ THE ACCOMPANYING TEMPLATE IS PROVIDED UNDER THE TERMS OF THIS LICENSE
+ AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION CONSTITUTES
+ RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ .
+ YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM TEMPLATE 
+ LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED
+ MEMBER OF THE UNIVERSITE DE BOURGOGNE, OR B)
+ YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY
+ A REPRESENTATIVE OF THE UNIVERSITE DE BOURGOGNE.
+
+
+Template: tex-templates/accept-spimhdr-license
+Type: boolean
+Default: false
+_Description: Do you accept the SPIM usage terms?
+ In order to install this extension, you must accept the terms
+ of the Usage Agreement for the SPIM templates.
+ If you do not accept, the installation will be cancelled.
+
+
+Template: tex-templates/error-spimhdr-license
+Type: error
+_Description: Declined SPIM usage terms
+ If you do not accept the terms of the Usage Agreement
+ for the SPIM templates, you cannot install the templates.
+ .
+ The installation of this package will be cancelled.

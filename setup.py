@@ -115,6 +115,210 @@ CTAN_SOURCE_DIRS = {
 CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
 
 
+DEB_TEX_ROOT = 'usr/share/texmf/tex/latex'
+DEB_DOC_ROOT = 'usr/share/texmf/doc/latex'
+DEB_BST_ROOT = 'usr/share/texmf/bibtex/bst'
+DEB_BEAMER_TEX_ROOT = DEB_TEX_ROOT + '/beamer/themes'
+DEB_BEAMER_BST_ROOT = DEB_BST_ROOT + '/beamer'
+DEB_BEAMER_DOC_ROOT = DEB_DOC_ROOT + '/beamer/themes'
+DEB_UPM_TEX_ROOT = DEB_TEX_ROOT + '/upmethodology-extensions'
+DEB_UPM_DOC_ROOT = DEB_DOC_ROOT + '/upmethodology-extensions'
+DEB_UPM_BST_ROOT = DEB_BST_ROOT + '/upmethodology-extensions'
+
+# Path are written with the Unix syntax ('/')
+# Empty value means no installation
+DEBIAN_FILE_MAP = {
+    # Ignored
+    '*_CTAN': None,
+    '*LICENSE*': None,
+    'AUTHORS*': None,
+    'Changelog*': None,
+    'fonts/*': None,
+    'README*': None,
+    'src/papers/ingedoc/*.bat': None,
+    'src/papers/ingedoc/*.sh': None,
+    'src/spim/share/lyx/*': None,
+    'VERSION*': None,
+    # CIAD Beamer (Free)
+    'src/presentations/ciad-2025/*.bst': DEB_BEAMER_BST_ROOT,
+    'src/presentations/ciad-2025/*.cls': DEB_BEAMER_TEX_ROOT,
+    'src/presentations/ciad-2025/*documentation*': DEB_BEAMER_DOC_ROOT + '/ciad',
+    'src/presentations/ciad-2025/beamerbasetheme*': DEB_BEAMER_TEX_ROOT + '/base',
+    'src/presentations/ciad-2025/beamercptptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
+    'src/presentations/ciad-2025/beamercolortheme*': DEB_BEAMER_TEX_ROOT + '/color',
+    'src/presentations/ciad-2025/beamerfonttheme*': DEB_BEAMER_TEX_ROOT + '/font',
+    'src/presentations/ciad-2025/beamerhandouttheme*': DEB_BEAMER_TEX_ROOT + '/base',
+    'src/presentations/ciad-2025/beamerinnertheme*': DEB_BEAMER_TEX_ROOT + '/inner',
+    'src/presentations/ciad-2025/beamerodtptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
+    'src/presentations/ciad-2025/beameroutertheme*': DEB_BEAMER_TEX_ROOT + '/outer',
+    'src/presentations/ciad-2025/beamertheme*': DEB_BEAMER_TEX_ROOT + '/theme',
+    'src/presentations/ciad-2025/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+    'src/presentations/ciad-2025/ciadbeamer-nologo*': DEB_BEAMER_TEX_ROOT + '/outer',
+    'src/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
+    # CIAD Beamer (Nonfree)
+    'logos/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+    # CIAD Report (Free)
+    'src/reports/utbmciad-2025/*.bst': DEB_UPM_BST_ROOT + '/reports/utbmciad-2025',
+    'src/reports/utbmciad-2025/*.cfg': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    'src/reports/utbmciad-2025/*.cls': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    'src/reports/utbmciad-2025/*.png': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    'src/reports/utbmciad-2025/*-nologo.pdf': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    'src/reports/utbmciad-2025/utbmciadreport-doc*': DEB_UPM_DOC_ROOT + '/reports/utbmciad-2025',
+    # CIAD Report (Nonfree)
+    'logos/utbmciadreport*': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    # SPIM Base (Free)
+    'src/spim/share/bst/*': DEB_UPM_BST_ROOT + '/spim/base',
+    'src/spim/share/sty/*': DEB_UPM_TEX_ROOT + '/spim/base',
+    # SPIM Base (Nonfree)
+    'logos/spimbasephdthesis*': DEB_UPM_TEX_ROOT + '/spim/base',
+    # SPIM UTBM PHD (Free)
+    'src/spim/utbm/spimutbmphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    'src/spim/utbm/spimutbmphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    'src/spim/utbm/spimutbmphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    'src/spim/utbm/spimutbmphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    # SPIM UTBM PHD (Nonfree)
+    'logos/spimutbmphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    # SPIM UMLP PHD (Free)
+    'src/spim/umlp/spimumlpphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    'src/spim/umlp/spimumlpphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    'src/spim/umlp/spimumlpphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    'src/spim/umlp/spimumlpphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    # SPIM UMLP PHD (Nonfree)
+    'logos/spimumlpphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    # SPIM UBE PHD (Free)
+    'src/spim/ube/spimubephdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    'src/spim/ube/spimubephdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    'src/spim/ube/spimubephdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    'src/spim/ube/spimubephdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    # SPIM UBE PHD (Nonfree)
+    'logos/spimubephdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    # SPIM UBE HDR (Free)
+    'src/spim/ube/spimubehdr/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    'src/spim/ube/spimubehdr/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    'src/spim/ube/spimubehdr/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    'src/spim/ube/spimubehdr/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    # SPIM UBE PHD (Nonfree)
+    'logos/spimubehdr*': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    # SPIM UBE HDR Application (Free)
+    'src/spim/ube/spimubehdrapplication/*.bst': DEB_UPM_BST_ROOT + '/spim/spimubehdrapplication',
+    'src/spim/ube/spimubehdrapplication/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
+    'src/spim/ube/spimubehdrapplication/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
+    'src/spim/ube/spimubehdrapplication/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    'src/spim/ube/spimubehdrapplication/*.bib': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    'src/spim/ube/spimubehdrapplication/diplomes/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/diplomes',
+    'src/spim/ube/spimubehdrapplication/imgs/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/imgs',
+    'src/spim/ube/spimubehdrapplication/lettres_recommandation/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/lettres_recommandation',
+    # IngeDoc (Free)
+    'src/papers/ingedoc/*.bib': DEB_DOC_ROOT + '/ingedoc-conf',
+    'src/papers/ingedoc/*.cls': DEB_TEX_ROOT + '/ingedoc-conf',
+    'src/papers/ingedoc/*.png': DEB_DOC_ROOT + '/ingedoc-conf',
+    'src/papers/ingedoc/*.sh': DEB_DOC_ROOT + '/ingedoc-conf',
+    'src/papers/ingedoc/IngeDocGuidelines*': DEB_DOC_ROOT + '/ingedoc-conf',
+}
+
+
+DEBIAN_SKELETONS = {
+    'tex-templates-ciad-beamer.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-ciad-beamer.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-ciad-beamer.preinst': {
+        'name': 'Template for Beamer presentation of CIAD',
+        'in': 'tex-templates-utbm.preinst',
+    },
+    'tex-templates-ciad-beamer.templates': {
+        'in': 'tex-templates-utbm.templates',
+    },
+
+    'tex-templates-ingedoc.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-ingedoc.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+
+    'tex-templates-phdthesis-base.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-phdthesis-base.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+
+    'tex-templates-spimhdr.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-spimhdr.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-spimhdr.preinst': {
+        'name': 'Template for HDR of SPIM',
+        'in': 'tex-templates-spimhdr.preinst',
+    },
+    'tex-templates-spimhdr.templates': {
+        'in': 'tex-templates-spimhdr.templates',
+    },
+
+    'tex-templates-ube-phdthesis.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-ube-phdthesis.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-ube-phdthesis.preinst': {
+        'name': 'Template for PhD thesis of UBE',
+        'in': 'tex-templates-ube.preinst',
+    },
+    'tex-templates-ube-phdthesis.templates': {
+        'in': 'tex-templates-ube.templates',
+    },
+
+    'tex-templates-umlp-phdthesis.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-umlp-phdthesis.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-umlp-phdthesis.preinst': {
+        'name': 'Template for PhD thesis of UMLP',
+        'in': 'tex-templates-umlp.preinst',
+    },
+    'tex-templates-umlp-phdthesis.templates': {
+        'in': 'tex-templates-umlp.templates',
+    },
+
+    'tex-templates-utbm-phdthesis.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-utbm-phdthesis.preinst': {
+        'name': 'Template for PhD thesis of UTBM',
+        'in': 'tex-templates-utbm.preinst',
+    },
+    'tex-templates-utbm-phdthesis.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-utbm-phdthesis.templates': {
+        'in': 'tex-templates-utbm.templates',
+    },
+
+    'tex-templates-utbmciadreport-2025.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-utbmciadreport-2025.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-utbmciadreport-2025.preinst': {
+        'name': 'Template for reports of CIAD 2025',
+        'in': 'tex-templates-utbm.preinst',
+    },
+    'tex-templates-utbmciadreport-2025.templates': {
+        'in': 'tex-templates-utbm.templates',
+    },
+}
+
+
+
 class SetupCommand(ABC):
 
     def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
@@ -483,9 +687,10 @@ class SourceDistributionManager(SetupCommand):
         else:
             self.error(f"Duplicate file {inner_filename} in TAR archive. Its source is: {input_file}.")
 
-    def generate_sdist_archive(self):
+    def generate_sdist_archive(self) -> str:
         """
         Generate the sdist archive.
+        :return: the path to the sdist archive.
         """
         archive_path = self._compute_sdist_archive_name(self.__archive_name)
 
@@ -502,6 +707,7 @@ class SourceDistributionManager(SetupCommand):
                 arcname = os.path.join(self.__inner_folder_name, info_file)
                 self._add_file_to_tar(tar, full_info_file, arcname, tar_content)
         self.success("Source distribution archive created successfully.")
+        return archive_path
 
     def _compute_ctan_archive_name(self, archive_name : str):
         """
@@ -538,17 +744,19 @@ class SourceDistributionManager(SetupCommand):
                     self._add_file_to_tar(tar, full_info_file, arcname, tar_content)
             self.success("CTAN source distribution archive created successfully.")
 
-    def run(self):
+    def run(self) -> str:
         """
         Create a source distribution archives.
+        :return: the path to the main sdist archive.
         """
         # Always cleaning before generating the archives.
         clean_cmd = CleanManager(root_dir=self._root_dir, dist_dir=self._dist_dir, use_logos=self._use_logos)
         clean_cmd.run()
         # Run the distribution command
-        self.generate_sdist_archive()
+        sdist_path = self.generate_sdist_archive()
         if self.__ctan:
             self.generate_ctan_sdist_archives()
+        return sdist_path
 
 
 
@@ -802,93 +1010,6 @@ class BuildManager(BaseBuildingCommand):
 
 
 
-class DebianPackageManager(SetupCommand):
-
-    def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
-                 sign_with : str = None, compress_with : str = None,
-                 dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
-                 src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR,
-                 logos_dir : str = LOGOS_DIR, use_logos : bool = False,
-                 verbosity : int = 0):
-        """
-        :param root_dir: the path to the root folder of TeX-templates
-        :param archive_name: the expected name of the main sdist archive.
-        :param inner_folder_name: the name of the folder that will contain all the files inside the main sdist archive.
-        :param sign_with: the email that must be used for signing the Debian packages.
-        :param compress_with: the name of the compression method for creating the Debian source archives.
-        :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
-        :param build_dir: the basename of the folder in which all the built files will be copied.
-        :param src_dir: the basename of the root folder for LGPL sources.
-        :param tests_dir: the basename of the root folder for tests.
-        :param logos_dir: the basename of the root folder for non-free resources.
-        :param use_logos: indicates if the not-free logos must be used during the building process.
-        :param verbosity: level of verbosity.
-        """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
-        self.__archive_name = archive_name
-        self.__inner_folder_name = inner_folder_name
-        self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
-        self.__compress_with = compress_with if compress_with else DEBIAN_COMPRESS_WITH
-
-    def generate_debian_packages(self):
-        """
-        Build the Debian packages using the scripts from Stephane Galland.
-        """
-        dpkg_command = shutil.which('dpkg-buildpackage')
-        if not dpkg_command:
-            self.error("Command dpkg-buildpackage not found in PATH")
-
-        self.info(f"Preparing Debian environment...")
-
-        basename = self._get_archive_basename(self.__archive_name)
-        build_dir = os.path.join(self._root_dir, self._build_dir)
-        shutil.rmtree(build_dir, ignore_errors=True)
-        source_folder = os.path.join(self._root_dir, 'packaging', 'debian')
-        target_root_folder = os.path.join(build_dir, basename)
-        target_folder = os.path.join(target_root_folder, 'debian')
-        shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
-        self.success(f"Debian folder cloned to {target_folder}")
-
-        source_archive_path = self._compute_sdist_archive_name(self.__archive_name)
-        target_source_archive_path = os.path.join(target_root_folder, 'upstream')
-        os.makedirs(target_source_archive_path, exist_ok=True)
-        shutil.copy(source_archive_path, target_source_archive_path)
-        self.success(f"Upstream archive copied in {target_source_archive_path}")
-
-        old_dir = os.getcwd()
-        try:
-            self.info(f"Building the Debian packages...")
-            cmd = ['dpkg-buildpackage', '-rfakeroot', '-tc',
-                   '-Z' + self.__compress_with]
-            if self.__sign_with:
-                self.info(f"A dialog box may be opened for querying the secret phrase for the signing account {self.__sign_with}")
-                cmd = cmd + [ '-k' + self.__sign_with ]
-            os.chdir(target_root_folder)
-            result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
-            if result.returncode != 0:
-                self.error("Cannot build the Debian packages. Here is the log:",
-                           result.stdout if result.stdout else "",
-                           result.stderr if result.stderr else "")
-            else:
-                self.success(f"Debian packages were built.")
-        finally:
-            os.chdir(old_dir)
-
-    def run(self):
-        # Build the source archives
-        sdist_cmd = SourceDistributionManager(root_dir=self._root_dir,
-                                              archive_name=self.__archive_name,
-                                              inner_folder_name=self.__inner_folder_name,
-                                              ctan=False,
-                                              use_logos=self._use_logos,
-                                              verbosity=self.verbosity)
-        sdist_cmd.run()
-        # Build the Debian packages
-        self.generate_debian_packages()
-
-
-
-
 class TestManager(BaseBuildingCommand):
 
     def __init__(self, root_dir : str,
@@ -1071,6 +1192,237 @@ class TestManager(BaseBuildingCommand):
             self._test_spimumlp()
 
 
+
+class DebianPackageManager(SetupCommand):
+
+    def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
+                 sign_with : str = None, compress_with : str = None,
+                 dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
+                 src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR,
+                 logos_dir : str = LOGOS_DIR, use_logos : bool = False,
+                 verbosity : int = 0, only_rules : bool = False):
+        """
+        :param root_dir: the path to the root folder of TeX-templates
+        :param archive_name: the expected name of the main sdist archive.
+        :param inner_folder_name: the name of the folder that will contain all the files inside the main sdist archive.
+        :param sign_with: the email that must be used for signing the Debian packages.
+        :param compress_with: the name of the compression method for creating the Debian source archives.
+        :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
+        :param build_dir: the basename of the folder in which all the built files will be copied.
+        :param src_dir: the basename of the root folder for LGPL sources.
+        :param tests_dir: the basename of the root folder for tests.
+        :param logos_dir: the basename of the root folder for non-free resources.
+        :param use_logos: indicates if the not-free logos must be used during the building process.
+        :param verbosity: level of verbosity.
+        :param only_rules: indicates if oly the "debian/rules" file must be generated and not the Debian packages themselves.
+        """
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
+        self.__debian_dir = os.path.join(self._root_dir, 'packaging', 'debian')
+        self.__skels_dir = os.path.join(self.__debian_dir, 'skels')
+        self.__archive_name = archive_name
+        self.__inner_folder_name = inner_folder_name
+        self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
+        self.__compress_with = compress_with if compress_with else DEBIAN_COMPRESS_WITH
+        self.__only_rules = only_rules
+        self.__rel_debian_tmp_dir = os.path.join('debian', 'tmp')
+        self.__rel_source_dir = self.__inner_folder_name + '-sources'
+
+    def __check_changelog(self):
+        changelog_file = os.path.join(self.__debian_dir, 'changelog')
+        with open(changelog_file, 'r') as changelog:
+            content = changelog.read()
+        version = self.current_version
+        if not re.search(r'tex-templates\s*\(' + re.escape(version) + r'\-[0-9]+arakhne[0-9]+\)', content, re.S + re.DOTALL):
+            self.error(f"No version {version} found in {changelog_file}")
+        self.success(f"Debian changelog has the current version.")
+
+    def generate_debian_packages(self):
+        """
+        Build the Debian packages using the scripts from Stephane Galland.
+        """
+        dpkg_command = shutil.which('dpkg-buildpackage')
+        if not dpkg_command:
+            self.error("Command dpkg-buildpackage not found in PATH")
+
+        self.info("Preparing Debian environment...")
+
+        basename = self._get_archive_basename(self.__archive_name)
+        build_dir = os.path.join(self._root_dir, self._build_dir)
+        shutil.rmtree(build_dir, ignore_errors=True)
+        source_folder = os.path.join(self._root_dir, 'packaging', 'debian')
+        target_root_folder = os.path.join(build_dir, basename)
+        target_folder = os.path.join(target_root_folder, 'debian')
+        shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
+        self.success(f"Debian folder cloned to {target_folder}")
+
+        source_archive_path = self._compute_sdist_archive_name(self.__archive_name)
+        target_source_archive_path = os.path.join(target_root_folder, 'upstream')
+        os.makedirs(target_source_archive_path, exist_ok=True)
+        shutil.copy(source_archive_path, target_source_archive_path)
+        self.success(f"Upstream archive copied in {target_source_archive_path}")
+
+        old_dir = os.getcwd()
+        try:
+            self.info("Building the Debian packages...")
+            cmd = ['dpkg-buildpackage', '-rfakeroot', '-tc',
+                   '-Z' + self.__compress_with]
+            if self.__sign_with:
+                self.info(f"A dialog box may be opened for querying the secret phrase for the signing account {self.__sign_with}")
+                cmd = cmd + [ '-k' + self.__sign_with ]
+            os.chdir(target_root_folder)
+            result = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+            if result.returncode != 0:
+                self.error("Cannot build the Debian packages. Here is the log:",
+                           result.stdout if result.stdout else "",
+                           result.stderr if result.stderr else "")
+            else:
+                self.success("Debian packages were built.")
+        finally:
+            os.chdir(old_dir)
+
+
+    def generate_debian_rules(self, source_archive_path : str, file_mapping : dict[str,str]):
+        """
+        Generate the "debian/rules" file for installing the files in 'file_mapping'.
+        :param source_archive_path: the path to the sdist tarball file.
+        :param file_mapping: mapping from source filenames to the folder names in "debian/tmp".
+        """
+        self.info("Generating debian/rules...")
+
+        rules_file = os.path.join(self.__debian_dir, 'rules')
+        os.makedirs(self.__debian_dir, exist_ok=True)
+
+        local_tarball = os.path.join('upstream', os.path.basename(source_archive_path))
+
+        copy_commands = []
+        local_source_root = self.__rel_source_dir #os.path.join(self.__rel_source_dir, self.__inner_folder_name)
+        for local_source_file, debian_target_folder in file_mapping.items():
+            copy_commands.append(f'\tmkdir -p "{self.__rel_debian_tmp_dir}/{debian_target_folder}"')
+            copy_commands.append(f'\tcp "{local_source_root}/{local_source_file}" "{self.__rel_debian_tmp_dir}/{debian_target_folder}/"')
+
+        rules_content = f"""#!/usr/bin/make -f
+# -*- makefile -*-
+# Generated by TeX-templates setup.py - do not edit directly
+
+TARBALL ?= {local_tarball}
+EXTRACT_DIR ?= {self.__rel_source_dir}
+
+%:
+\tdh $@
+
+# Extract the tarball before installing
+override_dh_auto_install: $(EXTRACT_DIR)/.extracted
+{'\n'.join(copy_commands)}
+
+# Rule to extract tarball (idempotent)
+$(EXTRACT_DIR)/.extracted:
+\tmkdir -p "$(EXTRACT_DIR)"
+\ttar xfz "$(TARBALL)" -C "$(EXTRACT_DIR)" --strip-components=1
+\ttouch $@
+
+# Clean up extracted directory
+override_dh_clean:
+\tdh_clean
+\trm -rf "$(EXTRACT_DIR)"
+"""
+
+        with open(rules_file, "w") as rules_output:
+            rules_output.write(rules_content)
+        os.chmod(rules_file, 0o755)
+
+        self.success("File debian/rules generated.")
+
+
+    @staticmethod
+    def __regex_mapping(mapping_patterns: dict[str,str]) -> dict[re.Pattern,str]:
+        """
+        Build a dictionary that maps regular expression to target folder.
+        :param mapping_patterns: the mapping to convert.
+        :return: the result of the convertion.
+        """
+        result = dict()
+        for pattern, target in mapping_patterns.items():
+            expr = re.compile(pattern.replace('.', '\\.').replace('*', '.*?'), re.S + re.DOTALL)
+            if not expr:
+                self.error(f'Invalid pattern: {pattern}')
+            result[expr] = target
+        return result
+
+
+    def build_installation_mapping(self, source_archive_path : str, mapping_patterns: dict[str,str]) -> dict[str,str]:
+        """
+        Generate the "debian/rules" file for installing the files in 'file_mapping'.
+        :param source_archive_path: the path to the sdist tarball file.
+        :param mapping_patterns: definition of installation patterns.
+        :return: the mapping from local files to their installation folder
+        """
+        self.info("Generating the file installation mapping...")
+        file_mapping = dict()
+
+        if mapping_patterns:
+            compiled_patterns = DebianPackageManager.__regex_mapping(mapping_patterns)
+            if compiled_patterns:
+                with tarfile.open(source_archive_path, 'r:*') as tar:
+                    prefix = '^' + re.escape(self.__inner_folder_name) + '/'
+                    for tar_member in tar.getmembers():
+                        if tar_member.isfile():
+                            tar_member_name = re.sub(prefix, '', tar_member.name)
+                            found = False
+                            for pattern, target in compiled_patterns.items():
+                                if pattern.match(tar_member_name):
+                                    found = True
+                                    if target:
+                                        file_mapping[tar_member_name] = target
+                                    break
+                            if not found:
+                                self.error(f"Cannot install {tar_member_name}. No matching rule found.")
+
+        if file_mapping:
+            self.success("Mapping built.")
+        else:
+            self.error("No file to install in Debian packages.")
+        return file_mapping
+
+
+    def generate_prepost_scripts(self):
+        """
+        Generate the pre- and post-scripts for the Debian packages.
+        """
+        self.info("Generating the pre/post scripts for Debian packages...")
+        nb_scripts = 0
+        for output, decl in DEBIAN_SKELETONS.items():
+            if 'name' in decl and decl['name']:
+                with open(os.path.join(self.__skels_dir, decl['in']), 'rt') as input_file:
+                    content = input_file.read()
+                content = re.sub(re.escape('||||PRODUCT_NAME||||'), decl['name'], content, re.S + re.DOTALL)
+                with open(os.path.join(self.__debian_dir, output), 'wt') as output_file:
+                    output_file.write(content)
+            else:
+                shutil.copyfile(os.path.join(self.__skels_dir, decl['in']),
+                                os.path.join(self.__debian_dir, output))
+            nb_scripts += 1
+        self.success(f"{nb_scripts} script(s) generated.")
+
+
+    def run(self):
+        self.__check_changelog()
+        # Build the source archives
+        sdist_cmd = SourceDistributionManager(root_dir=self._root_dir,
+                                              archive_name=self.__archive_name,
+                                              inner_folder_name=self.__inner_folder_name,
+                                              ctan=False,
+                                              use_logos=self._use_logos,
+                                              verbosity=self.verbosity)
+        sdist_archive = sdist_cmd.run()
+        # Build the Debian packages
+        file_mapping = self.build_installation_mapping(sdist_archive, DEBIAN_FILE_MAP)
+        self.generate_debian_rules(sdist_archive, file_mapping)
+        self.generate_prepost_scripts()
+        if not self.__only_rules:
+            self.generate_debian_packages()
+
+
+
 def main():
     current_root_dir = os.path.normpath(os.path.dirname(str(__file__)))
     parser = argparse.ArgumentParser(description="Configure and build tex-templates project.")
@@ -1091,6 +1443,7 @@ def main():
     parser.add_argument("--debug", action="store_true", help="Do not remove temp files or temp folders.")
     parser.add_argument("--debsign", action="store", metavar='email', help=f"Specify the email with which the Debian packages must be signed. Default is {DEBIAN_SIGN_EMAIL}")
     parser.add_argument("--debcompress", action="store", metavar='method', help=f"Specify the compression method for the Debian source archives. Default is {DEBIAN_COMPRESS_WITH}")
+    parser.add_argument("--onlyrules", action="store_true", help="Generate only the debian/rules file")
     args = parser.parse_args()
 
     if args.command == "build":
@@ -1136,7 +1489,8 @@ def main():
                                    sign_with=args.debsign,
                                    compress_with=args.debcompress,
                                    use_logos=not args.nologo,
-                                   verbosity=args.v)
+                                   verbosity=args.v,
+                                   only_rules=args.onlyrules)
     else:
         sys.exit(255)
 
