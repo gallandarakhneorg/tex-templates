@@ -35,6 +35,7 @@ import tarfile
 import shutil
 import subprocess
 import argparse
+import textwrap
 from colorama import init, Fore, Style
 from abc import ABC
 from builtins import property
@@ -43,77 +44,35 @@ from tempfile import TemporaryDirectory
 
 from pip._internal.utils import temp_dir
 
-BUILD_DIR = "build"
-
-DIST_DIR = "dist"
-
-SRC_DIR = "src"
-
-TESTS_DIR = "tests"
-
-LOGOS_DIR = "logos"
-
-DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
-DEBIAN_COMPRESS_WITH = "gzip"
+##########################################################
+# GENERAL CONFIGURATION
+##########################################################
+BUILD_DIR = 'build'
+DIST_DIR = 'dist'
+SRC_DIR = 'src'
+TESTS_DIR = 'tests'
+LOGOS_DIR = 'logos'
+FONTS_DIR = 'fonts'
+DOCS_DIR = 'doc'
+PACKAGING_DIR = 'packaging'
 
 SOURCE_DIRS = [
-    os.path.join(SRC_DIR, "presentations"),
-    os.path.join(SRC_DIR, "reports"),
-    os.path.join(SRC_DIR, "spim"),
-    os.path.join(SRC_DIR, "papers"),
-    "logos",
-    "fonts",
+    os.path.join(SRC_DIR, 'presentations'),
+    os.path.join(SRC_DIR, 'reports'),
+    os.path.join(SRC_DIR, 'spim'),
+    os.path.join(SRC_DIR, 'papers'),
+    LOGOS_DIR,
+    FONTS_DIR,
+    DOCS_DIR,
+    PACKAGING_DIR,
 ]
-INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VERSION']
+INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VERSION', 'setup.py']
 
-CTAN_SOURCE_DIRS = {
-    'ciad-beamertheme': {
-        'free': {
-            os.path.join(SRC_DIR, 'presentations', 'ciad-2025'): SRC_DIR,
-            os.path.join(SRC_DIR, 'presentations', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'presentations', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION'
-        },
-        'nonfree': [
-            'ciad-*',
-            'LICENSE.logos'
-        ]
-    },
-    'utbmciad-report': {
-        'free': {
-            os.path.join(SRC_DIR, 'reports', 'utbmciad-2025'): SRC_DIR,
-            os.path.join(SRC_DIR, 'reports', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'reports', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION'
-        },
-        'nonfree': [
-            'utbmciadreport-*',
-            'LICENSE.logos'
-        ]
-    },
-    'spim-phdthesisthemes': {
-        'free': {
-            os.path.join(SRC_DIR, 'spim', 'share', 'bst'): os.path.join(SRC_DIR, 'share'),
-            os.path.join(SRC_DIR, 'spim', 'share', 'sty'): os.path.join(SRC_DIR, 'share'),
-            os.path.join(SRC_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(SRC_DIR, 'utbm'),
-            os.path.join(SRC_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(SRC_DIR, 'umlp'),
-            os.path.join(SRC_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(SRC_DIR, 'ube'),
-            os.path.join(SRC_DIR, 'spim', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'spim', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION'
-        },
-        'nonfree': [
-            'spimbasephdthesis-*',
-            'spimutbmphdthesis_*',
-            'spimubehdr_*',
-            'spimubephdthesis_*',
-            'spimumlpphdthesis_*',
-            'LICENSE.logos'
-        ]
-    }
-}
-CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
-
+##########################################################
+# DEBIAN CONFIGURATION
+##########################################################
+DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
+DEBIAN_COMPRESS_WITH = "gzip"
 
 DEB_TEX_ROOT = 'usr/share/texmf/tex/latex'
 DEB_DOC_ROOT = 'usr/share/texmf/doc/latex'
@@ -133,89 +92,88 @@ DEBIAN_FILE_MAP = {
     '*LICENSE*': None,
     'AUTHORS*': None,
     'Changelog*': None,
-    'fonts/*': None,
+    FONTS_DIR + '/*': None,
     'README*': None,
-    'src/papers/ingedoc/*.bat': None,
-    'src/papers/ingedoc/*.sh': None,
-    'src/spim/share/lyx/*': None,
+    SRC_DIR + '/papers/ingedoc/*.bat': None,
+    SRC_DIR + '/papers/ingedoc/*.sh': None,
+    SRC_DIR + '/spim/share/lyx/*': None,
     'VERSION*': None,
     # CIAD Beamer (Free)
-    'src/presentations/ciad-2025/*.bst': DEB_BEAMER_BST_ROOT,
-    'src/presentations/ciad-2025/*.cls': DEB_BEAMER_TEX_ROOT,
-    'src/presentations/ciad-2025/*documentation*': DEB_BEAMER_DOC_ROOT + '/ciad',
-    'src/presentations/ciad-2025/beamerbasetheme*': DEB_BEAMER_TEX_ROOT + '/base',
-    'src/presentations/ciad-2025/beamercptptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
-    'src/presentations/ciad-2025/beamercolortheme*': DEB_BEAMER_TEX_ROOT + '/color',
-    'src/presentations/ciad-2025/beamerfonttheme*': DEB_BEAMER_TEX_ROOT + '/font',
-    'src/presentations/ciad-2025/beamerhandouttheme*': DEB_BEAMER_TEX_ROOT + '/base',
-    'src/presentations/ciad-2025/beamerinnertheme*': DEB_BEAMER_TEX_ROOT + '/inner',
-    'src/presentations/ciad-2025/beamerodtptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
-    'src/presentations/ciad-2025/beameroutertheme*': DEB_BEAMER_TEX_ROOT + '/outer',
-    'src/presentations/ciad-2025/beamertheme*': DEB_BEAMER_TEX_ROOT + '/theme',
-    'src/presentations/ciad-2025/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
-    'src/presentations/ciad-2025/ciadbeamer-nologo*': DEB_BEAMER_TEX_ROOT + '/outer',
-    'src/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
+    SRC_DIR + '/presentations/ciad-2025/*.bst': DEB_BEAMER_BST_ROOT,
+    SRC_DIR + '/presentations/ciad-2025/*.cls': DEB_BEAMER_TEX_ROOT,
+    SRC_DIR + '/presentations/ciad-2025/*documentation*': DEB_BEAMER_DOC_ROOT + '/ciad',
+    SRC_DIR + '/presentations/ciad-2025/beamerbasetheme*': DEB_BEAMER_TEX_ROOT + '/base',
+    SRC_DIR + '/presentations/ciad-2025/beamercptptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
+    SRC_DIR + '/presentations/ciad-2025/beamercolortheme*': DEB_BEAMER_TEX_ROOT + '/color',
+    SRC_DIR + '/presentations/ciad-2025/beamerfonttheme*': DEB_BEAMER_TEX_ROOT + '/font',
+    SRC_DIR + '/presentations/ciad-2025/beamerhandouttheme*': DEB_BEAMER_TEX_ROOT + '/base',
+    SRC_DIR + '/presentations/ciad-2025/beamerinnertheme*': DEB_BEAMER_TEX_ROOT + '/inner',
+    SRC_DIR + '/presentations/ciad-2025/beamerodtptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
+    SRC_DIR + '/presentations/ciad-2025/beameroutertheme*': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/ciad-2025/beamertheme*': DEB_BEAMER_TEX_ROOT + '/theme',
+    SRC_DIR + '/presentations/ciad-2025/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/ciad-2025/ciadbeamer-nologo*': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
     # CIAD Beamer (Nonfree)
-    'logos/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+    LOGOS_DIR + '/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
     # CIAD Report (Free)
-    'src/reports/utbmciad-2025/*.bst': DEB_UPM_BST_ROOT + '/reports/utbmciad-2025',
-    'src/reports/utbmciad-2025/*.cfg': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
-    'src/reports/utbmciad-2025/*.cls': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
-    'src/reports/utbmciad-2025/*.png': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
-    'src/reports/utbmciad-2025/*-nologo.pdf': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
-    'src/reports/utbmciad-2025/utbmciadreport-doc*': DEB_UPM_DOC_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/*.bst': DEB_UPM_BST_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/*.cfg': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/*.cls': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/*.png': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/*-nologo.pdf': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    SRC_DIR + '/reports/utbmciad-2025/utbmciadreport-doc*': DEB_UPM_DOC_ROOT + '/reports/utbmciad-2025',
     # CIAD Report (Nonfree)
-    'logos/utbmciadreport*': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+    LOGOS_DIR + '/utbmciadreport*': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
     # SPIM Base (Free)
-    'src/spim/share/bst/*': DEB_UPM_BST_ROOT + '/spim/base',
-    'src/spim/share/sty/*': DEB_UPM_TEX_ROOT + '/spim/base',
+    SRC_DIR + '/spim/share/bst/*': DEB_UPM_BST_ROOT + '/spim/base',
+    SRC_DIR + '/spim/share/sty/*': DEB_UPM_TEX_ROOT + '/spim/base',
     # SPIM Base (Nonfree)
-    'logos/spimbasephdthesis*': DEB_UPM_TEX_ROOT + '/spim/base',
+    LOGOS_DIR + '/spimbasephdthesis*': DEB_UPM_TEX_ROOT + '/spim/base',
     # SPIM UTBM PHD (Free)
-    'src/spim/utbm/spimutbmphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
-    'src/spim/utbm/spimutbmphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
-    'src/spim/utbm/spimutbmphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
-    'src/spim/utbm/spimutbmphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
     # SPIM UTBM PHD (Nonfree)
-    'logos/spimutbmphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+    LOGOS_DIR + '/spimutbmphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
     # SPIM UMLP PHD (Free)
-    'src/spim/umlp/spimumlpphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
-    'src/spim/umlp/spimumlpphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
-    'src/spim/umlp/spimumlpphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
-    'src/spim/umlp/spimumlpphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
     # SPIM UMLP PHD (Nonfree)
-    'logos/spimumlpphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+    LOGOS_DIR + '/spimumlpphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
     # SPIM UBE PHD (Free)
-    'src/spim/ube/spimubephdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
-    'src/spim/ube/spimubephdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
-    'src/spim/ube/spimubephdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
-    'src/spim/ube/spimubephdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    SRC_DIR + '/spim/ube/spimubephdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    SRC_DIR + '/spim/ube/spimubephdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    SRC_DIR + '/spim/ube/spimubephdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    SRC_DIR + '/spim/ube/spimubephdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
     # SPIM UBE PHD (Nonfree)
-    'logos/spimubephdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+    LOGOS_DIR + '/spimubephdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
     # SPIM UBE HDR (Free)
-    'src/spim/ube/spimubehdr/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
-    'src/spim/ube/spimubehdr/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
-    'src/spim/ube/spimubehdr/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
-    'src/spim/ube/spimubehdr/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    SRC_DIR + '/spim/ube/spimubehdr/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    SRC_DIR + '/spim/ube/spimubehdr/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    SRC_DIR + '/spim/ube/spimubehdr/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    SRC_DIR + '/spim/ube/spimubehdr/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
     # SPIM UBE PHD (Nonfree)
-    'logos/spimubehdr*': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+    LOGOS_DIR + '/spimubehdr*': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
     # SPIM UBE HDR Application (Free)
-    'src/spim/ube/spimubehdrapplication/*.bst': DEB_UPM_BST_ROOT + '/spim/spimubehdrapplication',
-    'src/spim/ube/spimubehdrapplication/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
-    'src/spim/ube/spimubehdrapplication/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
-    'src/spim/ube/spimubehdrapplication/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
-    'src/spim/ube/spimubehdrapplication/*.bib': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
-    'src/spim/ube/spimubehdrapplication/diplomes/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/diplomes',
-    'src/spim/ube/spimubehdrapplication/imgs/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/imgs',
-    'src/spim/ube/spimubehdrapplication/lettres_recommandation/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/lettres_recommandation',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/*.bst': DEB_UPM_BST_ROOT + '/spim/spimubehdrapplication',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/*.bib': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/diplomes/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/diplomes',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/imgs/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/imgs',
+    SRC_DIR + '/spim/ube/spimubehdrapplication/lettres_recommandation/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/lettres_recommandation',
     # IngeDoc (Free)
-    'src/papers/ingedoc/*.bib': DEB_DOC_ROOT + '/ingedoc-conf',
-    'src/papers/ingedoc/*.cls': DEB_TEX_ROOT + '/ingedoc-conf',
-    'src/papers/ingedoc/*.png': DEB_DOC_ROOT + '/ingedoc-conf',
-    'src/papers/ingedoc/*.sh': DEB_DOC_ROOT + '/ingedoc-conf',
-    'src/papers/ingedoc/IngeDocGuidelines*': DEB_DOC_ROOT + '/ingedoc-conf',
+    SRC_DIR + '/papers/ingedoc/*.bib': DEB_DOC_ROOT + '/ingedoc-conf',
+    SRC_DIR + '/papers/ingedoc/*.cls': DEB_TEX_ROOT + '/ingedoc-conf',
+    SRC_DIR + '/papers/ingedoc/*.png': DEB_DOC_ROOT + '/ingedoc-conf',
+    SRC_DIR + '/papers/ingedoc/*.sh': DEB_DOC_ROOT + '/ingedoc-conf',
+    SRC_DIR + '/papers/ingedoc/IngeDocGuidelines*': DEB_DOC_ROOT + '/ingedoc-conf',
 }
-
 
 DEBIAN_SKELETONS = {
     'tex-templates-ciad-beamer.postinst': {
@@ -317,14 +275,70 @@ DEBIAN_SKELETONS = {
     },
 }
 
+##########################################################
+# CTAN CONFIGURATION
+###########################################################
+CTAN_SOURCE_DIRS = {
+    'ciad-beamertheme': {
+        'free': {
+            os.path.join(SRC_DIR, 'presentations', 'ciad-2025'): SRC_DIR,
+            os.path.join(SRC_DIR, 'presentations', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'presentations', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'ciad-*',
+            'LICENSE.logos'
+        ]
+    },
+    'utbmciad-report': {
+        'free': {
+            os.path.join(SRC_DIR, 'reports', 'utbmciad-2025'): SRC_DIR,
+            os.path.join(SRC_DIR, 'reports', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'reports', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'utbmciadreport-*',
+            'LICENSE.logos'
+        ]
+    },
+    'spim-phdthesisthemes': {
+        'free': {
+            os.path.join(SRC_DIR, 'spim', 'share', 'bst'): os.path.join(SRC_DIR, 'share'),
+            os.path.join(SRC_DIR, 'spim', 'share', 'sty'): os.path.join(SRC_DIR, 'share'),
+            os.path.join(SRC_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(SRC_DIR, 'utbm'),
+            os.path.join(SRC_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(SRC_DIR, 'umlp'),
+            os.path.join(SRC_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(SRC_DIR, 'ube'),
+            os.path.join(SRC_DIR, 'spim', 'LICENSE_CTAN'): 'LICENSE',
+            os.path.join(SRC_DIR, 'spim', 'README_CTAN'): 'README',
+            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION'
+        },
+        'nonfree': [
+            'spimbasephdthesis-*',
+            'spimutbmphdthesis_*',
+            'spimubehdr_*',
+            'spimubephdthesis_*',
+            'spimumlpphdthesis_*',
+            'LICENSE.logos'
+        ]
+    }
+}
+CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
 
+
+
+##########################################################
+# CODE
+##########################################################
 
 class SetupCommand(ABC):
 
     def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
-                 verbosity : int = 0):
+                 fonts_dir : str = FONTS_DIR, docs_dir : str = DOCS_DIR,
+                 packagings_dir : str = PACKAGING_DIR, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param use_logos: indicates if the not-free logos must be used during the building process.
@@ -332,7 +346,10 @@ class SetupCommand(ABC):
         :param build_dir: the basename of the temporary folder in which all results of building will be copied.
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
-        :param logos_dir: the basename of the root folder for non-free resources.
+        :param logos_dir: the basename of the root folder for non-free logos and images.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param verbosity: level of verbosity.
         """
         self.__verbosity = verbosity
@@ -345,6 +362,9 @@ class SetupCommand(ABC):
         self._src_dir = src_dir
         self._tests_dir = tests_dir
         self._logos_dir = logos_dir
+        self._fonts_dir = fonts_dir
+        self._docs_dir = docs_dir
+        self._packagings_dir = packagings_dir
 
     @property
     def verbosity(self) -> str:
@@ -473,7 +493,8 @@ class BaseBuildingCommand(SetupCommand):
     def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
                  build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
-                 verbosity : int = 0):
+                 fonts_dir: str = FONTS_DIR, docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param use_logos: indicates if the not-free logos must be used during the building process.
@@ -482,10 +503,14 @@ class BaseBuildingCommand(SetupCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param verbosity: level of verbosity.
         """
         super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir,
-                         tests_dir, logos_dir, verbosity)
+                         tests_dir, logos_dir, fonts_dir, docs_dir,packagings_dir,
+                         verbosity)
 
     def _run_pdflatex(self, temp_dir: TemporaryDirectory, tex_file: str, second_run : bool = True,
                       show_logs: bool = True, clean_on_error : bool = True):
@@ -588,6 +613,9 @@ class CleanManager(SetupCommand):
                  src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR,
+                 docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
@@ -597,10 +625,14 @@ class CleanManager(SetupCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param verbosity: level of verbosity.
         """
         super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir,
-                         tests_dir, logos_dir, verbosity)
+                         tests_dir, logos_dir, fonts_dir, docs_dir, packagings_dir,
+                         verbosity)
 
     def run(self):
         removed_count = 0
@@ -628,6 +660,9 @@ class SourceDistributionManager(SetupCommand):
                  src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR,
+                 docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR,
                  verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
@@ -642,9 +677,13 @@ class SourceDistributionManager(SetupCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
+                         logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__ctan = ctan
@@ -769,6 +808,9 @@ class BuildManager(BaseBuildingCommand):
                  src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR,
+                 docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR,
                  debug : bool = False,
                  disable_readme : bool = False,
                  disable_version : bool = False,
@@ -789,6 +831,9 @@ class BuildManager(BaseBuildingCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param debug: indicates if the builder is invoked in debug mode. The behavior of the builder may differ in debug mode.
         :param disable_readme: Disable the building of the README file.
         :param disable_version: Disable the building of the VERSION file.
@@ -803,7 +848,8 @@ class BuildManager(BaseBuildingCommand):
         :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
+                         logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
         self.__debug = debug
         self.__disable_readme = disable_readme
         self.__disable_version = disable_version
@@ -1019,6 +1065,9 @@ class TestManager(BaseBuildingCommand):
                  src_dir : str = SRC_DIR,
                  tests_dir : str = TESTS_DIR,
                  logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR,
+                 docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR,
                  disable_ciadslide : bool = False,
                  disable_ciadreport : bool = False,
                  disable_spimutbm : bool = False,
@@ -1036,6 +1085,9 @@ class TestManager(BaseBuildingCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param disable_ciadslide: Disable the building of the CIAD Beamer template.
         :param disable_ciadreport: Disable the building of the CIAD report.
         :param disable_spimutbm: Disable the building of the SPIM/UTBM PhD thesis template.
@@ -1045,7 +1097,8 @@ class TestManager(BaseBuildingCommand):
         :param debug: activate the behavior for debugging tests.
         :param verbosity: level of verbosity.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
+                         logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
         # Analyze range
         self.__test_range = test_range
         self.__test_range_min = 0
@@ -1199,7 +1252,10 @@ class DebianPackageManager(SetupCommand):
                  sign_with : str = None, compress_with : str = None,
                  dist_dir : str = DIST_DIR, build_dir :str = BUILD_DIR,
                  src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR,
-                 logos_dir : str = LOGOS_DIR, use_logos : bool = False,
+                 logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR, docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR,
+                 use_logos : bool = False,
                  verbosity : int = 0, only_rules : bool = False):
         """
         :param root_dir: the path to the root folder of TeX-templates
@@ -1212,12 +1268,16 @@ class DebianPackageManager(SetupCommand):
         :param src_dir: the basename of the root folder for LGPL sources.
         :param tests_dir: the basename of the root folder for tests.
         :param logos_dir: the basename of the root folder for non-free resources.
+        :param fonts_dir: the basename of the root folder for non-free fonts.
+        :param docs_dir: the basename of the root folder for documentation.
+        :param packaging_dir: the basename of the root folder for packaging configurations.
         :param use_logos: indicates if the not-free logos must be used during the building process.
         :param verbosity: level of verbosity.
         :param only_rules: indicates if oly the "debian/rules" file must be generated and not the Debian packages themselves.
         """
-        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir, logos_dir, verbosity)
-        self.__debian_dir = os.path.join(self._root_dir, 'packaging', 'debian')
+        super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
+                         logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
+        self.__debian_dir = os.path.join(self._root_dir, self._packagings_dir, 'debian')
         self.__skels_dir = os.path.join(self.__debian_dir, 'skels')
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
@@ -1249,7 +1309,7 @@ class DebianPackageManager(SetupCommand):
         basename = self._get_archive_basename(self.__archive_name)
         build_dir = os.path.join(self._root_dir, self._build_dir)
         shutil.rmtree(build_dir, ignore_errors=True)
-        source_folder = os.path.join(self._root_dir, 'packaging', 'debian')
+        source_folder = os.path.join(self._root_dir, self._packagings_dir, 'debian')
         target_root_folder = os.path.join(build_dir, basename)
         target_folder = os.path.join(target_root_folder, 'debian')
         shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
@@ -1301,33 +1361,33 @@ class DebianPackageManager(SetupCommand):
             copy_commands.append(f'\tcp "{local_source_root}/{local_source_file}" "{self.__rel_debian_tmp_dir}/{debian_target_folder}/"')
 
         rules_content = f"""#!/usr/bin/make -f
-# -*- makefile -*-
-# Generated by TeX-templates setup.py - do not edit directly
-
-TARBALL ?= {local_tarball}
-EXTRACT_DIR ?= {self.__rel_source_dir}
-
-%:
-\tdh $@
-
-# Extract the tarball before installing
-override_dh_auto_install: $(EXTRACT_DIR)/.extracted
-{'\n'.join(copy_commands)}
-
-# Rule to extract tarball (idempotent)
-$(EXTRACT_DIR)/.extracted:
-\tmkdir -p "$(EXTRACT_DIR)"
-\ttar xfz "$(TARBALL)" -C "$(EXTRACT_DIR)" --strip-components=1
-\ttouch $@
-
-# Clean up extracted directory
-override_dh_clean:
-\tdh_clean
-\trm -rf "$(EXTRACT_DIR)"
-"""
+                            # -*- makefile -*-
+                            # Generated by TeX-templates setup.py - do not edit directly
+                            
+                            TARBALL ?= {local_tarball}
+                            EXTRACT_DIR ?= {self.__rel_source_dir}
+                            
+                            %:
+                            \tdh $@
+                            
+                            # Extract the tarball before installing
+                            override_dh_auto_install: $(EXTRACT_DIR)/.extracted
+                            {'\n'.join(copy_commands)}
+                            
+                            # Rule to extract tarball (idempotent)
+                            $(EXTRACT_DIR)/.extracted:
+                            \tmkdir -p "$(EXTRACT_DIR)"
+                            \ttar xfz "$(TARBALL)" -C "$(EXTRACT_DIR)" --strip-components=1
+                            \ttouch $@
+                            
+                            # Clean up extracted directory
+                            override_dh_clean:
+                            \tdh_clean
+                            \trm -rf "$(EXTRACT_DIR)"
+                            """
 
         with open(rules_file, "w") as rules_output:
-            rules_output.write(rules_content)
+            rules_output.write(textwrap.dedent(rules_content))
         os.chmod(rules_file, 0o755)
 
         self.success("File debian/rules generated.")
