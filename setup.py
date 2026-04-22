@@ -67,7 +67,7 @@ SOURCE_DIRS = [
     PACKAGING_DIR,
     TESTS_DIR,
 ]
-INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VERSION', 'setup.py']
+INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.md', 'LICENSE.LGPLv3', 'README.md', 'VERSION', 'setup.py']
 
 ##########################################################
 # DEBIAN CONFIGURATION
@@ -296,10 +296,10 @@ CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
         'free': {
             os.path.join(SRC_DIR, 'presentations', 'ciad-2025'): SRC_DIR,
-            os.path.join(SRC_DIR, 'presentations', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'presentations', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION',
             os.path.join(DOCS_DIR, 'presentations', 'ciad-2025'): DOCS_DIR,
+            os.path.join(PACKAGING_DIR, 'ctan', 'presentations', 'LICENSE.md'): 'LICENSE.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'presentations', 'README.md'): 'README.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'presentations', 'VERSION'): 'VERSION',
         },
         'nonfree': [
             'ciad-*',
@@ -309,10 +309,10 @@ CTAN_SOURCE_DIRS = {
     'utbmciad-report': {
         'free': {
             os.path.join(SRC_DIR, 'reports', 'utbmciad-2025'): SRC_DIR,
-            os.path.join(SRC_DIR, 'reports', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'reports', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION',
             os.path.join(DOCS_DIR, 'reports', 'utbmciad-2025'): DOCS_DIR,
+            os.path.join(PACKAGING_DIR, 'ctan', 'reports', 'LICENSE.md'): 'LICENSE.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'reports', 'README.md'): 'README.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'reports', 'VERSION'): 'VERSION',
         },
         'nonfree': [
             'utbmciadreport-*',
@@ -326,12 +326,12 @@ CTAN_SOURCE_DIRS = {
             os.path.join(SRC_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(SRC_DIR, 'utbm'),
             os.path.join(SRC_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(SRC_DIR, 'umlp'),
             os.path.join(SRC_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(SRC_DIR, 'ube'),
-            os.path.join(SRC_DIR, 'spim', 'LICENSE_CTAN'): 'LICENSE',
-            os.path.join(SRC_DIR, 'spim', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION',
             os.path.join(DOCS_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(DOCS_DIR, 'utbm'),
             os.path.join(DOCS_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(DOCS_DIR, 'umlp'),
             os.path.join(DOCS_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(DOCS_DIR, 'ube'),
+            os.path.join(PACKAGING_DIR, 'ctan', 'spim', 'LICENSE.md'): 'LICENSE.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'spim', 'README.md'): 'README.md',
+            os.path.join(PACKAGING_DIR, 'ctan', 'spim', 'VERSION'): 'VERSION',
         },
         'nonfree': [
             'spimbasephdthesis-*',
@@ -842,7 +842,7 @@ class BuildCommand(BaseBuildingCommand):
     def __init__(self, root_dir : str, dist_dir : str = DIST_DIR, build_dir : str = BUILD_DIR,
                  src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
                  fonts_dir: str = FONTS_DIR, docs_dir: str = DOCS_DIR, packagings_dir: str = PACKAGING_DIR,
-                 debug : bool = False, disable_readme : bool = False, disable_version : bool = False,
+                 debug : bool = False, disable_version : bool = False,
                  disable_tex_version_update : bool = False, disable_ciadslide : bool = False,
                  disable_ciadreport : bool = False, disable_spimutbm : bool = False,
                  disable_spimube : bool = False, disable_spimumlp : bool = False,
@@ -859,7 +859,6 @@ class BuildCommand(BaseBuildingCommand):
         :param docs_dir: the basename of the root folder for documentation.
         :param packaging_dir: the basename of the root folder for packaging configurations.
         :param debug: indicates if the builder is invoked in debug mode. The behavior of the builder may differ in debug mode.
-        :param disable_readme: Disable the building of the README file.
         :param disable_version: Disable the building of the VERSION file.
         :param disable_tex_version_updates: Disable the updates of the dates in the TeX files(sty, cls)
         :param disable_ciadslide: Disable the building of the CIAD Beamer template.
@@ -875,7 +874,6 @@ class BuildCommand(BaseBuildingCommand):
         super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
                          logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
         self.__debug = debug
-        self.__disable_readme = disable_readme
         self.__disable_version = disable_version
         self.__disable_tex_version_update = disable_tex_version_update
         self.__disable_ciadslide = disable_ciadslide
@@ -904,24 +902,6 @@ class BuildCommand(BaseBuildingCommand):
         finally:
             if not self.__debug:
                 tmp_dir.cleanup()
-
-    def generate_readme(self):
-        """
-        Build the README file.
-        """
-        pandoc_cmd = shutil.which("pandoc")
-        if not pandoc_cmd:
-            self.error('Pandoc command cannot be found')
-        readme_input = os.path.join(self._docs_dir, "README.md")
-        if not os.path.isfile(readme_input):
-            self.error(f"File '{readme_input}' not found, skipping README conversion.")
-        readme_output = os.path.join(self._root_dir, "README")
-        cmd = [pandoc_cmd, "-f", "markdown", "-t", "plain", str(readme_input), "-o", str(readme_output)]
-        try:
-            subprocess.run(cmd, check=True)
-            self.success(f"{readme_input} -> {readme_output}")
-        except subprocess.CalledProcessError as e:
-            self.error(f"Cannot run pandoc: {e}")
 
     def generate_version(self):
         """
@@ -1065,8 +1045,6 @@ class BuildCommand(BaseBuildingCommand):
         self._generate_documentation(src_dir, docs_dir, 'IngeDocGuidelines.tex')
 
     def run(self):
-        if not self.__disable_readme:
-            self.generate_readme()
         if not self.__disable_version:
             self.generate_version()
             if not self.__disable_ctan:
@@ -1420,7 +1398,7 @@ class DebianPackagingCommand(SetupCommand):
             rules_output.write(rules_content)
         os.chmod(rules_file, 0o755)
 
-        self.success("File debian/rules generated.")
+        self.success(f"File debian/rules generated with {len(copy_commands)} specific commands.")
 
 
     @staticmethod
