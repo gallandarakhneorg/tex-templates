@@ -1,3 +1,9 @@
+tex-templates (20260422-0arakhne0) noble; urgency=low
+
+  * all: Separate the documentation files in "doc/".
+
+ -- Stephane GALLAND <galland@arakhne.org>  Wed, 22 Apr 2026 11:13:05 +0800
+
 tex-templates (20260420-0arakhne0) noble; urgency=low
 
   * all: Split the project into free software modules (src/) and nonfree modules (logos/, fonts/).

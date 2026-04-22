@@ -1,0 +1,360 @@
+\documentclass[french]{hdrapplication}
+
+\usepackage[utf8]{inputenc}
+
+%-----------------------------------------
+% INFORMATIONS ABOUT THE AUTHOR
+
+\Set{authorname}{Firstname Lastname}
+\Set{authoremail}{email@u-bourgogne.fr}
+\Set{authorweb}{\url{http://www.u-bourgogne.fr/me}}
+\Set{authorbirthdate}{6 avril 2025}
+\Set{academicyear}{2025/2026}
+\Set{dateofsignature}{4 janvier 2025}
+\Set{authorcity}{Belfort}
+\SetHomeUniversity{Université de Technologie de Belfort-Montbéliard}{
+	Campus de Belfort, 13 rue Ernest Thierry-Mieg \\
+	90010 Belfort cedex, France \\
+	Tél.~: 03 84 58 34 18 \\
+	Email~: \Get{authoremail}}
+\SetHomeLaboratory{Laboratoire Connaissance et Intelligence Artificielle Distribuées (CIAD UR 7533)}{
+	Université de Technologie de Belfort-Montbéliard \\
+	Campus de Belfort, 13 rue Ernest Thierry-Mieg \\
+	90010 Belfort cedex, France \\
+	Tél.~: 03 84 58 34 18 \\
+	Email~: \Get{authoremail} \\
+	Web~: \Get{authorweb}}
+
+% University that is delivering the HDR
+%\Set{universityname}{Universit\'e Bourgogne Europe}
+
+% Current author position
+%\Set{authorposition}{Ma\^{\i}tre de Conf\'erences}
+
+% Current CNU section
+%\Set{authorsection}{27}
+
+%-----------------------------------------
+% CATEGORIES OF PUBLICATIONS
+
+% Comment or uncomment the categories according to your needs
+
+%
+% BEFORE PHD DEFENSE / DURING PHD PERIOD
+%
+
+% Articles in international or national ranked journals with selection commitee
+\declarebibliopre{ACLb}{}{prephd}
+%% Articles in international or national not-ranked journals with selection committee
+%\declarebibliopre{ACLNb}{}{prephd}
+%% Articles in international or national journals without selection committee
+%\declarebibliopre{ASCLb}{}{prephd}
+%% Papers in the proceedings of an international conference
+%\declarebibliopre{CACTIb}{}{prephd}
+%% Papers in the proceedings of a national conference
+%\declarebibliopre{CACTNb}{}{prephd}
+%% Oral Communications without proceeding in international or national conference
+%\declarebibliopre{CCOMb}{}{prephd}
+%% Posters in international or national conference
+%\declarebibliopre{CAFFb}{}{prephd}
+%% Editor of books or journals
+%\declarebibliopre{DOb}{}{prephd}
+%% Scientific books
+%\declarebibliopre{OSb}{}{prephd}
+%% Chapters in scientific books
+%\declarebibliopre{COSb}{}{prephd}
+%% Keynotes in international or national conference
+%\declarebibliopre{CINVb}{}{prephd}
+%% PhD or Master theses
+%\declarebibliopre{THb}{}{prephd}
+%% Patents
+%\declarebibliopre{BREb}{}{prephd}
+%% Publications for research transfer
+%\declarebibliopre{PTb}{}{prephd}
+%% Research tools (not software)
+%\declarebibliopre{ORb}{}{prephd}
+%% Books for scientific culture dissemination
+%\declarebibliopre{OVb}{}{prephd}
+%% Chapters in a book for scientific culture dissemination
+%\declarebibliopre{COVb}{}{prephd}
+%% Papers for scientific culture dissemination
+%\declarebibliopre{PVb}{}{prephd}
+%% Artistic research productions
+%\declarebibliopre{PATb}{}{prephd}
+%% Other productions (registered software, reports...)
+%\declarebibliopre{APb}{}{prephd}
+
+%
+% AFTER PHD DEFENSE
+%
+
+%% Articles in international or national ranked journals with selection commitee
+%\declarebiblioppost{ACLa}{}{prephd}
+%% Articles in international or national not-ranked journals with selection committee
+%\declarebibliopost{ACLNa}{}{prephd}
+%% Articles in international or national journals without selection committee
+%\declarebibliopost{ASCLa}{}{prephd}
+% Papers in the proceedings of an international conference
+\declarebibliopost{CACTIa}{}{postphd}
+%% Papers in the proceedings of a national conference
+%\declarebibliopost{CACTNa}{}{prephd}
+%% Oral Communications without proceeding in international or national conference
+%\declarebibliopost{CCOMa}{}{prephd}
+%% Posters in international or national conference
+%\declarebibliopost{CAFFa}{}{prephd}
+%% Editor of books or journals
+%\declarebibliopost{DOa}{}{prephd}
+%% Scientific books
+%\declarebibliopost{OSa}{}{prephd}
+%% Chapters in scientific books
+%\declarebibliopost{COSa}{}{prephd}
+%% Keynotes in international or national conference
+%\declarebibliopost{CINVa}{}{prephd}
+%% PhD or Master theses
+%\declarebibliopost{THa}{}{prephd}
+%% Patents
+%\declarebibliopost{BREa}{}{prephd}
+%% Publications for research transfer
+%\declarebibliopost{PTa}{}{prephd}
+%% Research tools (not software)
+%\declarebibliopost{ORa}{}{prephd}
+%% Books for scientific culture dissemination
+%\declarebibliopost{OVa}{}{prephd}
+%% Chapters in a book for scientific culture dissemination
+%\declarebibliopost{COVa}{}{prephd}
+%% Papers for scientific culture dissemination
+%\declarebibliopost{PVa}{}{prephd}
+%% Artistic research productions
+%\declarebibliopost{PATa}{}{prephd}
+%% Other productions (registered software, reports...)
+%\declarebibliopost{APa}{}{prephd}
+
+
+%-----------------------------------------
+\begin{document}
+ 
+\Section{Lettre au Président de l'\Get{universityname}}
+
+Je soussigné, \Get{authorname}, \Get{authorposition} à l'\Get{homeuniversity}, né le \Get{authorbirthdate}, sollicite une inscription pour l'habilitation à diriger des recherches auprès de l'\Get{universityname} pour l'année universitaire \Get{academicyear}.
+
+
+Je déclare sur l'honneur n'avoir sollicité aucune inscription à ce diplôme auprès d'une autre université au titre de la présente année ou au titre des années précédentes.
+
+
+Je vous pris d'agréer, Monsieur le Président, l'expression de mes sentiments distingués.
+
+\vspace{1cm}
+Fait à \Get{authorcity}. \\
+Le \Get{dateofsignature}.
+
+
+\vspace{1cm}
+\noindent Signature: \\
+\vspace{.25cm}
+\textbf{\large\Get{authorname}} \\[.5cm]
+\includegraphics[width=5cm]{imgs/signature}
+\newpage
+
+\Section{Photocopies des diplômes} 
+
+\includescanneddocument{diplomes/doctorat}
+
+\Section{Curriculum Vit\ae} 
+
+\subsection{\'Etat civil}
+
+42 ans, nationalité française.
+
+\subsection{Parcours académique}
+
+\begin{itemize}
+\item \textbf{Master} spécialité Informatique......
+\item \textbf{Doctorat} spécialité Informatique.....
+\end{itemize}
+
+\subsection{Parcours professionnel}
+
+\begin{itemize}
+\item \textbf{Maître de Conférences}, ......
+\end{itemize}
+
+\subsection{\'Eléments remarquables}
+
+\begin{itemize}
+\item \textbf{Thèses encadrées et soutenues~:} ......
+\item \textbf{Production depuis recrutement~:} X revues, 2 chapitres de livres......
+\item \textbf{Projets de recherche~:} 1 projet européen, 2 projets ANR......
+\item \textbf{Brevets et transfert de technologie~:} 4 dépôts logiciels, 1 contrat de tranfert......
+\end{itemize}
+
+\Section{Avis}
+
+Cette section contient les lettres de recommandation de :
+
+
+\begin{itemize}
+\item \textbf{Prénom Nom}, Professeur à XXX, Parrain de \Get{authorname}.\parbreak
+\item \textbf{Prénom Nom}, Professeur à XXX, responsable de l'équipe XXX du laboratoire XXX.\parbreak
+\item \textbf{Prénom Nom}, Professeur à XXX, directeur du laboratoire XXX.\parbreak
+\item \textbf{Prénom Nom}, Professeur à XXX, directeur de l'institut YYY.\parbreak
+\item \textbf{Prénom Nom}, Professeur à XXX, directeur de l'école doctorale SPIM.
+\end{itemize}
+
+\pagebreak
+
+\subsection{Avis de Prénom Nom, Professeur à XXX, Directeur de Recherche de \Get{authorname}}
+
+\includescannedletter{lettres_recommandation/letter}
+
+\subsection{Avis de Prénom Nom, Professeur à XXX, responsable de l'équipe XXX du laboratoire XXX}
+
+\includescannedletter{lettres_recommandation/letter}
+
+\subsection{Avis de Prénom Nom, Professeur à XXX, directeur du laboratoire XXX}
+
+\includescannedletter{lettres_recommandation/letter}
+
+\subsection{Avis de Prénom Nom, Professeur à XXX, directeur de l'institut YYY}
+
+\includescannedletter{lettres_recommandation/letter}
+
+\subsection{Avis de Prénom Nom, Professeur à XXX, directeur de l'école doctorale SPIM}
+
+\Section{Travaux de thèse}
+
+Expliquer mes travaux de thèse.
+
+Ces recherches ont fait l'objet des publications suivantes :
+\begin{itemize}
+\item revue : \citeACLb{PaperPre1}.
+\end{itemize}
+
+
+\Section{Travaux post thèse}
+
+Expliquer mes travaux post-thèse.
+
+Les travaux réalisés après ma thèse ont donné lieu aux publications suivantes :
+\begin{itemize}
+\item conférences : \citeCACTIa{PaperPost1}.
+\end{itemize}
+
+\section{Perspectives}
+
+Les principales perspectives sont :
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Insertion dans l'équipe de recherche}
+
+\subsection{Animation de la recherche}
+
+Depuis 2025, j'anime l'axe de recherche ``XXXX'' (9 PR, 9 MC, 9 IR) de l'équipe XXX du laboratoire XXX.
+L'objectif de cet axe est de.....
+
+\subsection{Coopération}
+
+J'ai contribué au développement de collaborations avec d'autres laboratoires nationaux et internationaux :
+\begin{itemize}
+\item Citer les collaborations avec les encadrements, projets et articles communs.
+\end{itemize}
+
+\subsection{Contrats de recherche}
+
+Expliquer mes contrats de recherche.
+
+\subsection{Brevets, dépôts logiciels et transferts de technologie}
+
+Expliquer mes brevets ou mes dépôts de logiciels.
+
+\subsection{Organisation de manifestations}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsection{Insertion dans des réseaux}
+
+Je suis membre des réseaux suivants :
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsection{Expertises, Invitations}
+
+\subsubsection{Invitations}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{Expertises dans des programmes nationaux}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsubsection{Comités de sélection}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Encadrement}
+
+Au total, j'ai participé à l'encadrement de~:
+\begin{itemize}
+\item thèses soutenues~: 9;
+\item thèses en-cours : 9;
+\item stages et projets de niveau master~: 9.
+\end{itemize}
+
+\subsection{Thèses soutenues}
+
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\subsection{Thèses en-cours}
+
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\subsection{Stages de recherche}
+
+Ils ont été encadrés à 100\%:
+\begin{itemize}
+\item 9 étudiants en DEA/Master et Projets de fin d'étude d'ingénieur.
+\item 9 ingénieur CNAM.
+\item 9 étudiants en DUT.
+\end{itemize}
+
+\section{Autres activités}
+
+\subsection{Activités d'intérêt collectif}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+\subsection{Activités d'enseignement}
+
+Expliquer mes activités d'enseignement.
+
+\subsubsection{Responsabilités pédagogiques}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+
+
+%-----------------------------------------
+% Liste tous les articles publiés par catégorie
+
+\nociteACLb{PaperPre1}
+
+\nociteCACTIa{PaperPost1}
+
+\hdrpublicationlist
+
+\end{document}

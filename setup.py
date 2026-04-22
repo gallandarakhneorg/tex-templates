@@ -65,6 +65,7 @@ SOURCE_DIRS = [
     FONTS_DIR,
     DOCS_DIR,
     PACKAGING_DIR,
+    TESTS_DIR,
 ]
 INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VERSION', 'setup.py']
 
@@ -73,7 +74,7 @@ INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE', 'LICENSE.LGPLv3', 'README', 'VE
 ##########################################################
 DEBIAN_SIGN_EMAIL = "galland@arakhne.org"
 DEBIAN_COMPRESS_WITH = "gzip"
-
+DEBIAN_CONFIG_DIR = 'debian'
 DEB_TEX_ROOT = 'usr/share/texmf/tex/latex'
 DEB_DOC_ROOT = 'usr/share/texmf/doc/latex'
 DEB_BST_ROOT = 'usr/share/texmf/bibtex/bst'
@@ -92,16 +93,20 @@ DEBIAN_FILE_MAP = {
     '*LICENSE*': None,
     'AUTHORS*': None,
     'Changelog*': None,
-    FONTS_DIR + '/*': None,
     'README*': None,
+    'setup.py': None,
+    'VERSION*': None,
     SRC_DIR + '/papers/ingedoc/*.bat': None,
     SRC_DIR + '/papers/ingedoc/*.sh': None,
     SRC_DIR + '/spim/share/lyx/*': None,
-    'VERSION*': None,
+    TESTS_DIR + '/*': None,
+    DOCS_DIR + '/README*': None,
+    FONTS_DIR + '/*': None,
+    PACKAGING_DIR + '/*': None,
+
     # CIAD Beamer (Free)
     SRC_DIR + '/presentations/ciad-2025/*.bst': DEB_BEAMER_BST_ROOT,
     SRC_DIR + '/presentations/ciad-2025/*.cls': DEB_BEAMER_TEX_ROOT,
-    SRC_DIR + '/presentations/ciad-2025/*documentation*': DEB_BEAMER_DOC_ROOT + '/ciad',
     SRC_DIR + '/presentations/ciad-2025/beamerbasetheme*': DEB_BEAMER_TEX_ROOT + '/base',
     SRC_DIR + '/presentations/ciad-2025/beamercptptheme*': DEB_BEAMER_TEX_ROOT + '/plugins',
     SRC_DIR + '/presentations/ciad-2025/beamercolortheme*': DEB_BEAMER_TEX_ROOT + '/color',
@@ -113,66 +118,75 @@ DEBIAN_FILE_MAP = {
     SRC_DIR + '/presentations/ciad-2025/beamertheme*': DEB_BEAMER_TEX_ROOT + '/theme',
     SRC_DIR + '/presentations/ciad-2025/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
     SRC_DIR + '/presentations/ciad-2025/ciadbeamer-nologo*': DEB_BEAMER_TEX_ROOT + '/outer',
-    SRC_DIR + '/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
+    DOCS_DIR + '/presentations/ciad-2025/*documentation*': DEB_BEAMER_DOC_ROOT + '/ciad',
+    DOCS_DIR + '/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
     # CIAD Beamer (Nonfree)
     LOGOS_DIR + '/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+
     # CIAD Report (Free)
     SRC_DIR + '/reports/utbmciad-2025/*.bst': DEB_UPM_BST_ROOT + '/reports/utbmciad-2025',
     SRC_DIR + '/reports/utbmciad-2025/*.cfg': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
     SRC_DIR + '/reports/utbmciad-2025/*.cls': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
     SRC_DIR + '/reports/utbmciad-2025/*.png': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
     SRC_DIR + '/reports/utbmciad-2025/*-nologo.pdf': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
-    SRC_DIR + '/reports/utbmciad-2025/utbmciadreport-doc*': DEB_UPM_DOC_ROOT + '/reports/utbmciad-2025',
+    DOCS_DIR + '/reports/utbmciad-2025/utbmciadreport-doc*': DEB_UPM_DOC_ROOT + '/reports/utbmciad-2025',
     # CIAD Report (Nonfree)
     LOGOS_DIR + '/utbmciadreport*': DEB_UPM_TEX_ROOT + '/reports/utbmciad-2025',
+
     # SPIM Base (Free)
     SRC_DIR + '/spim/share/bst/*': DEB_UPM_BST_ROOT + '/spim/base',
     SRC_DIR + '/spim/share/sty/*': DEB_UPM_TEX_ROOT + '/spim/base',
     # SPIM Base (Nonfree)
     LOGOS_DIR + '/spimbasephdthesis*': DEB_UPM_TEX_ROOT + '/spim/base',
+
     # SPIM UTBM PHD (Free)
     SRC_DIR + '/spim/utbm/spimutbmphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
     SRC_DIR + '/spim/utbm/spimutbmphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
-    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
-    SRC_DIR + '/spim/utbm/spimutbmphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    DOCS_DIR + '/spim/utbm/spimutbmphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
+    DOCS_DIR + '/spim/utbm/spimutbmphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimutbmphdthesis',
     # SPIM UTBM PHD (Nonfree)
     LOGOS_DIR + '/spimutbmphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimutbmphdthesis',
+
     # SPIM UMLP PHD (Free)
     SRC_DIR + '/spim/umlp/spimumlpphdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
     SRC_DIR + '/spim/umlp/spimumlpphdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
-    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
-    SRC_DIR + '/spim/umlp/spimumlpphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    DOCS_DIR + '/spim/umlp/spimumlpphdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
+    DOCS_DIR + '/spim/umlp/spimumlpphdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimumlpphdthesis',
     # SPIM UMLP PHD (Nonfree)
     LOGOS_DIR + '/spimumlpphdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimumlpphdthesis',
+
     # SPIM UBE PHD (Free)
     SRC_DIR + '/spim/ube/spimubephdthesis/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
     SRC_DIR + '/spim/ube/spimubephdthesis/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
-    SRC_DIR + '/spim/ube/spimubephdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
-    SRC_DIR + '/spim/ube/spimubephdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    DOCS_DIR + '/spim/ube/spimubephdthesis/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
+    DOCS_DIR + '/spim/ube/spimubephdthesis/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubephdthesis',
     # SPIM UBE PHD (Nonfree)
     LOGOS_DIR + '/spimubephdthesis*': DEB_UPM_TEX_ROOT + '/spim/spimubephdthesis',
+
     # SPIM UBE HDR (Free)
     SRC_DIR + '/spim/ube/spimubehdr/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
     SRC_DIR + '/spim/ube/spimubehdr/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
-    SRC_DIR + '/spim/ube/spimubehdr/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
-    SRC_DIR + '/spim/ube/spimubehdr/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    DOCS_DIR + '/spim/ube/spimubehdr/*example*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
+    DOCS_DIR + '/spim/ube/spimubehdr/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdr',
     # SPIM UBE PHD (Nonfree)
     LOGOS_DIR + '/spimubehdr*': DEB_UPM_TEX_ROOT + '/spim/spimubehdr',
+
     # SPIM UBE HDR Application (Free)
     SRC_DIR + '/spim/ube/spimubehdrapplication/*.bst': DEB_UPM_BST_ROOT + '/spim/spimubehdrapplication',
     SRC_DIR + '/spim/ube/spimubehdrapplication/*.cfg': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
     SRC_DIR + '/spim/ube/spimubehdrapplication/*.cls': DEB_UPM_TEX_ROOT + '/spim/spimubehdrapplication',
-    SRC_DIR + '/spim/ube/spimubehdrapplication/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
-    SRC_DIR + '/spim/ube/spimubehdrapplication/*.bib': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
-    SRC_DIR + '/spim/ube/spimubehdrapplication/diplomes/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/diplomes',
-    SRC_DIR + '/spim/ube/spimubehdrapplication/imgs/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/imgs',
-    SRC_DIR + '/spim/ube/spimubehdrapplication/lettres_recommandation/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/lettres_recommandation',
+    DOCS_DIR + '/spim/ube/spimubehdrapplication/*.bib': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    DOCS_DIR + '/spim/ube/spimubehdrapplication/*exemple*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication',
+    DOCS_DIR + '/spim/ube/spimubehdrapplication/diplomes/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/diplomes',
+    DOCS_DIR + '/spim/ube/spimubehdrapplication/imgs/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/imgs',
+    DOCS_DIR + '/spim/ube/spimubehdrapplication/lettres_recommandation/*': DEB_UPM_DOC_ROOT + '/spim/spimubehdrapplication/lettres_recommandation',
+
     # IngeDoc (Free)
-    SRC_DIR + '/papers/ingedoc/*.bib': DEB_DOC_ROOT + '/ingedoc-conf',
     SRC_DIR + '/papers/ingedoc/*.cls': DEB_TEX_ROOT + '/ingedoc-conf',
-    SRC_DIR + '/papers/ingedoc/*.png': DEB_DOC_ROOT + '/ingedoc-conf',
     SRC_DIR + '/papers/ingedoc/*.sh': DEB_DOC_ROOT + '/ingedoc-conf',
-    SRC_DIR + '/papers/ingedoc/IngeDocGuidelines*': DEB_DOC_ROOT + '/ingedoc-conf',
+    DOCS_DIR + '/papers/ingedoc/*.bib': DEB_DOC_ROOT + '/ingedoc-conf',
+    DOCS_DIR + '/papers/ingedoc/*.png': DEB_DOC_ROOT + '/ingedoc-conf',
+    DOCS_DIR + '/papers/ingedoc/IngeDocGuidelines*': DEB_DOC_ROOT + '/ingedoc-conf',
 }
 
 DEBIAN_SKELETONS = {
@@ -284,7 +298,8 @@ CTAN_SOURCE_DIRS = {
             os.path.join(SRC_DIR, 'presentations', 'ciad-2025'): SRC_DIR,
             os.path.join(SRC_DIR, 'presentations', 'LICENSE_CTAN'): 'LICENSE',
             os.path.join(SRC_DIR, 'presentations', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION'
+            os.path.join(SRC_DIR, 'presentations', 'VERSION_CTAN'): 'VERSION',
+            os.path.join(DOCS_DIR, 'presentations', 'ciad-2025'): DOCS_DIR,
         },
         'nonfree': [
             'ciad-*',
@@ -296,7 +311,8 @@ CTAN_SOURCE_DIRS = {
             os.path.join(SRC_DIR, 'reports', 'utbmciad-2025'): SRC_DIR,
             os.path.join(SRC_DIR, 'reports', 'LICENSE_CTAN'): 'LICENSE',
             os.path.join(SRC_DIR, 'reports', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION'
+            os.path.join(SRC_DIR, 'reports', 'VERSION_CTAN'): 'VERSION',
+            os.path.join(DOCS_DIR, 'reports', 'utbmciad-2025'): DOCS_DIR,
         },
         'nonfree': [
             'utbmciadreport-*',
@@ -312,7 +328,10 @@ CTAN_SOURCE_DIRS = {
             os.path.join(SRC_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(SRC_DIR, 'ube'),
             os.path.join(SRC_DIR, 'spim', 'LICENSE_CTAN'): 'LICENSE',
             os.path.join(SRC_DIR, 'spim', 'README_CTAN'): 'README',
-            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION'
+            os.path.join(SRC_DIR, 'spim', 'VERSION_CTAN'): 'VERSION',
+            os.path.join(DOCS_DIR, 'spim', 'utbm', 'spimutbmphdthesis'): os.path.join(DOCS_DIR, 'utbm'),
+            os.path.join(DOCS_DIR, 'spim', 'umlp', 'spimumlpphdthesis'): os.path.join(DOCS_DIR, 'umlp'),
+            os.path.join(DOCS_DIR, 'spim', 'ube', 'spimubephdthesis'): os.path.join(DOCS_DIR, 'ube'),
         },
         'nonfree': [
             'spimbasephdthesis-*',
@@ -329,7 +348,7 @@ CTAN_INFO_FILES = ['AUTHORS', 'Changelog', 'LICENSE.LGPLv3']
 
 
 ##########################################################
-# CODE
+# CODE: SetupCommand
 ##########################################################
 
 class SetupCommand(ABC):
@@ -488,6 +507,10 @@ class SetupCommand(ABC):
             print(Fore.YELLOW + "TEST   :" + Style.RESET_ALL + f"     {message}")
 
 
+##########################################################
+# CODE: BaseBuildingCommand
+##########################################################
+
 class BaseBuildingCommand(SetupCommand):
 
     def __init__(self, root_dir : str, use_logos : bool = False, dist_dir : str = DIST_DIR,
@@ -556,16 +579,21 @@ class BaseBuildingCommand(SetupCommand):
         finally:
             os.chdir(original_cwd)
 
-    def _prepare_document_generation_dir(self, src_dir: str, pdf_filename: str,
+    def _prepare_document_generation_dir(self, src_dir: str, doc_dir : str, pdf_filename: str,
                                          *additional_src_dirs: str) -> TemporaryDirectory:
         """
         Prepare the tmp/ folder for the generation of documentation.
-        :param src_dir: folder from which the documentation could be found.
+        :param src_dir: folder from which the TeX code could be found.
+        :param doc_dir: folder from which the documentation could be found.
         :param pdf_filename: name of the PDF file of the documentation.
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         # Check prerequisites
-        input_directories = [src_dir] + [*additional_src_dirs]
+        input_directories = [src_dir]
+        if doc_dir:
+            input_directories = [*input_directories] + [doc_dir]
+        if additional_src_dirs:
+            input_directories = [*input_directories] + [*additional_src_dirs]
         if self._use_logos:
             input_directories = [*input_directories] + [os.path.join(self._root_dir, self._logos_dir)]
         for directory in input_directories:
@@ -602,9 +630,12 @@ class BaseBuildingCommand(SetupCommand):
         return tmp_dir
 
 
+##########################################################
+# CODE: CleanCommand
+##########################################################
 
 
-class CleanManager(SetupCommand):
+class CleanCommand(SetupCommand):
 
     def __init__(self, root_dir : str,
                  use_logos : bool = False,
@@ -646,8 +677,11 @@ class CleanManager(SetupCommand):
 
 
 
+##########################################################
+# CODE: SourceDistributionCommand
+##########################################################
 
-class SourceDistributionManager(SetupCommand):
+class SourceDistributionCommand(SetupCommand):
 
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str, ctan : bool,
                  use_logos : bool = False,
@@ -789,7 +823,7 @@ class SourceDistributionManager(SetupCommand):
         :return: the path to the main sdist archive.
         """
         # Always cleaning before generating the archives.
-        clean_cmd = CleanManager(root_dir=self._root_dir, dist_dir=self._dist_dir, use_logos=self._use_logos)
+        clean_cmd = CleanCommand(root_dir=self._root_dir, dist_dir=self._dist_dir, use_logos=self._use_logos)
         clean_cmd.run()
         # Run the distribution command
         sdist_path = self.generate_sdist_archive()
@@ -799,31 +833,21 @@ class SourceDistributionManager(SetupCommand):
 
 
 
+##########################################################
+# CODE: BuildCommand
+##########################################################
 
-class BuildManager(BaseBuildingCommand):
+class BuildCommand(BaseBuildingCommand):
 
-    def __init__(self, root_dir : str,
-                 dist_dir : str = DIST_DIR,
-                 build_dir : str = BUILD_DIR,
-                 src_dir : str = SRC_DIR,
-                 tests_dir : str = TESTS_DIR,
-                 logos_dir : str = LOGOS_DIR,
-                 fonts_dir: str = FONTS_DIR,
-                 docs_dir: str = DOCS_DIR,
-                 packagings_dir: str = PACKAGING_DIR,
-                 debug : bool = False,
-                 disable_readme : bool = False,
-                 disable_version : bool = False,
-                 disable_tex_version_update : bool = False,
-                 disable_ciadslide : bool = False,
-                 disable_ciadreport : bool = False,
-                 disable_spimutbm : bool = False,
-                 disable_spimube : bool = False,
-                 disable_spimumlp : bool = False,
-                 disable_ingedoc : bool = False,
-                 disable_ctan : bool = False,
-                 use_logos : bool = False,
-                 verbosity : int = 0):
+    def __init__(self, root_dir : str, dist_dir : str = DIST_DIR, build_dir : str = BUILD_DIR,
+                 src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR, logos_dir : str = LOGOS_DIR,
+                 fonts_dir: str = FONTS_DIR, docs_dir: str = DOCS_DIR, packagings_dir: str = PACKAGING_DIR,
+                 debug : bool = False, disable_readme : bool = False, disable_version : bool = False,
+                 disable_tex_version_update : bool = False, disable_ciadslide : bool = False,
+                 disable_ciadreport : bool = False, disable_spimutbm : bool = False,
+                 disable_spimube : bool = False, disable_spimumlp : bool = False,
+                 disable_ingedoc : bool = False, disable_ctan : bool = False,
+                 use_logos : bool = False, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param dist_dir: the basename of the folder in which all the source distribution files will be copied.
@@ -862,19 +886,20 @@ class BuildManager(BaseBuildingCommand):
         self.__disable_ingedoc = disable_ingedoc
         self.__disable_ctan = disable_ctan
 
-    def _generate_documentation(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
+    def _generate_documentation(self, src_dir: str, doc_dir: str, tex_filename: str, *additional_src_dirs: str):
         """
         Build the documentation.
-        :param src_dir: folder from which the documentation could be found.
+        :param src_dir: folder from which the TeX code could be found.
+        :param doc_dir: folder from which the documentation could be found.
         :param tex_filename: name of the TeX file of the documentation.
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
-        tmp_dir = self._prepare_document_generation_dir(src_dir, pdf_filename, *additional_src_dirs)
+        tmp_dir = self._prepare_document_generation_dir(src_dir, doc_dir, pdf_filename, *additional_src_dirs)
         try:
             self._run_pdflatex(tmp_dir, tex_filename)
             shutil.copyfile(os.path.join(tmp_dir.name, pdf_filename),
-                            os.path.join(src_dir, pdf_filename))
+                            os.path.join(doc_dir, pdf_filename))
             self.success(f"File {pdf_filename} copied.")
         finally:
             if not self.__debug:
@@ -887,7 +912,7 @@ class BuildManager(BaseBuildingCommand):
         pandoc_cmd = shutil.which("pandoc")
         if not pandoc_cmd:
             self.error('Pandoc command cannot be found')
-        readme_input = os.path.join(self._root_dir, "README.md")
+        readme_input = os.path.join(self._docs_dir, "README.md")
         if not os.path.isfile(readme_input):
             self.error(f"File '{readme_input}' not found, skipping README conversion.")
         readme_output = os.path.join(self._root_dir, "README")
@@ -913,35 +938,36 @@ class BuildManager(BaseBuildingCommand):
         Update the versions of the STY and CLS in the packages so that it corresponds to the TeX-template version.
         """
         version = self.current_tex_version
-        for dirpath, dirnames, filenames in os.walk(os.path.join(self._root_dir, self._src_dir)):
-            for filename in filenames:
-                is_sty = filename.endswith('.sty')
-                is_cls = filename.endswith('.cls')
-                if is_sty or is_cls:
-                    full_path = os.path.join(dirpath, filename)
-                    with open(full_path, 'r') as f:
-                        content = f.read()
-                    new_content = re.sub(r'\\gdef\\insertciadbeamerthemeversion\{.+?\}',
-                                         '\\\\gdef\\\\insertciadbeamerthemeversion{' + re.escape(version) + '}',
-                                         content, re.S + re.DOTALL)
-                    new_content = re.sub(r'\\gdef\s*\\insertciadreportthemeversion\s*\{.+?\}',
-                                         '\\\\gdef\\\\insertciadreportthemeversion{' + re.escape(version) + '}',
-                                         new_content, re.S + re.DOTALL)
-                    new_content = re.sub(r'\\gdef\s*\\@ingedoc@class@version\s*\{.+?\}',
-                                         '\\\\gdef\\\\@ingedoc@class@version{' + re.escape(version) + '}',
-                                         new_content, re.S + re.DOTALL)
-                    if is_sty:
-                        new_content = re.sub(r'\\ProvidesPackage\{(.+?)\}\[.*?\]',
-                                             '\\\\ProvidesPackage{\\1}[' + re.escape(version) +']',
+        for tex_containers in [os.path.join(self._root_dir, self._src_dir), os.path.join(self._root_dir, self._docs_dir)]:
+            for dirpath, dirnames, filenames in os.walk(tex_containers):
+                for filename in filenames:
+                    is_sty = filename.endswith('.sty')
+                    is_cls = filename.endswith('.cls')
+                    if is_sty or is_cls:
+                        full_path = os.path.join(dirpath, filename)
+                        with open(full_path, 'r') as f:
+                            content = f.read()
+                        new_content = re.sub(r'\\gdef\\insertciadbeamerthemeversion\{.+?\}',
+                                             '\\\\gdef\\\\insertciadbeamerthemeversion{' + re.escape(version) + '}',
+                                             content, re.S + re.DOTALL)
+                        new_content = re.sub(r'\\gdef\s*\\insertciadreportthemeversion\s*\{.+?\}',
+                                             '\\\\gdef\\\\insertciadreportthemeversion{' + re.escape(version) + '}',
                                              new_content, re.S + re.DOTALL)
-                    elif is_cls:
-                        new_content = re.sub(r'\\ProvidesClass\{(.+?)\}\s*\[.*?\]',
-                                             '\\\\ProvidesClass{\\1}[' + re.escape(version) + ']',
+                        new_content = re.sub(r'\\gdef\s*\\@ingedoc@class@version\s*\{.+?\}',
+                                             '\\\\gdef\\\\@ingedoc@class@version{' + re.escape(version) + '}',
                                              new_content, re.S + re.DOTALL)
-                    if new_content is not None and content != new_content:
-                        with open(full_path, 'w') as f:
-                            f.write(new_content)
-                        self.success(f"Version {version} written in {full_path}")
+                        if is_sty:
+                            new_content = re.sub(r'\\ProvidesPackage\{(.+?)\}\[.*?\]',
+                                                 '\\\\ProvidesPackage{\\1}[' + re.escape(version) +']',
+                                                 new_content, re.S + re.DOTALL)
+                        elif is_cls:
+                            new_content = re.sub(r'\\ProvidesClass\{(.+?)\}\s*\[.*?\]',
+                                                 '\\\\ProvidesClass{\\1}[' + re.escape(version) + ']',
+                                                 new_content, re.S + re.DOTALL)
+                        if new_content is not None and content != new_content:
+                            with open(full_path, 'w') as f:
+                                f.write(new_content)
+                            self.success(f"Version {version} written in {full_path}")
 
     def update_versions_in_ctan_files(self):
         """
@@ -965,14 +991,16 @@ class BuildManager(BaseBuildingCommand):
         Build the documentation of the CIAD slides.
         """
         src_dir = os.path.join(self._root_dir, self._src_dir, 'presentations', 'ciad-2025')
-        self._generate_documentation(src_dir, 'ciadbeamer-documentation.tex')
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'presentations', 'ciad-2025')
+        self._generate_documentation(src_dir, docs_dir, 'ciadbeamer-documentation.tex')
 
     def generate_ciadreport_documentation(self):
         """
         Build the documentation of the CIAD reports.
         """
         src_dir = os.path.join(self._root_dir, self._src_dir, 'reports', 'utbmciad-2025')
-        self._generate_documentation(src_dir, 'utbmciadreport-doc.tex')
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'reports', 'utbmciad-2025')
+        self._generate_documentation(src_dir, docs_dir, 'utbmciadreport-doc.tex')
 
     def generate_spimutbm_phd_documentation(self):
         """
@@ -981,8 +1009,9 @@ class BuildManager(BaseBuildingCommand):
         bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
         sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
         src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'utbm', 'spimutbmphdthesis')
-        self._generate_documentation(src_dir, 'spimutbmphdthesis_exemple_francais.tex', bst_dir, sty_dir)
-        self._generate_documentation(src_dir, 'spimutbmphdthesis_example_english.tex', bst_dir, sty_dir)
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'spim', 'utbm', 'spimutbmphdthesis')
+        self._generate_documentation(src_dir, docs_dir, 'spimutbmphdthesis_exemple_francais.tex', bst_dir, sty_dir)
+        self._generate_documentation(src_dir, docs_dir, 'spimutbmphdthesis_example_english.tex', bst_dir, sty_dir)
 
     def generate_spimube_phd_documentation(self):
         """
@@ -991,8 +1020,9 @@ class BuildManager(BaseBuildingCommand):
         bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
         sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
         src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubephdthesis')
-        self._generate_documentation(src_dir, 'spimubephdthesis_exemple_francais.tex', bst_dir, sty_dir)
-        self._generate_documentation(src_dir, 'spimubephdthesis_example_english.tex', bst_dir, sty_dir)
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'spim', 'ube', 'spimubephdthesis')
+        self._generate_documentation(src_dir, docs_dir, 'spimubephdthesis_exemple_francais.tex', bst_dir, sty_dir)
+        self._generate_documentation(src_dir, docs_dir, 'spimubephdthesis_example_english.tex', bst_dir, sty_dir)
 
     def generate_spimube_hdr_documentation(self):
         """
@@ -1001,8 +1031,9 @@ class BuildManager(BaseBuildingCommand):
         bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
         sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
         src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubehdr')
-        self._generate_documentation(src_dir, 'spimubehdr_exemple_francais.tex', bst_dir, sty_dir)
-        self._generate_documentation(src_dir, 'spimubehdr_example_english.tex', bst_dir, sty_dir)
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'spim', 'ube', 'spimubehdr')
+        self._generate_documentation(src_dir, docs_dir, 'spimubehdr_exemple_francais.tex', bst_dir, sty_dir)
+        self._generate_documentation(src_dir, docs_dir, 'spimubehdr_example_english.tex', bst_dir, sty_dir)
 
     def generate_spimube_hdrapplication_documentation(self):
         """
@@ -1011,7 +1042,8 @@ class BuildManager(BaseBuildingCommand):
         bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
         sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
         src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'ube', 'spimubehdrapplication')
-        self._generate_documentation(src_dir, 'hdrapplication-exemple.tex', bst_dir, sty_dir)
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'spim', 'ube', 'spimubehdrapplication')
+        self._generate_documentation(src_dir, docs_dir, 'hdrapplication-exemple.tex', bst_dir, sty_dir)
 
     def generate_spimumlp_phd_documentation(self):
         """
@@ -1020,15 +1052,17 @@ class BuildManager(BaseBuildingCommand):
         bst_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'bst')
         sty_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'share', 'sty')
         src_dir = os.path.join(self._root_dir, self._src_dir, 'spim', 'umlp', 'spimumlpphdthesis')
-        self._generate_documentation(src_dir, 'spimumlpphdthesis_exemple_francais.tex', bst_dir, sty_dir)
-        self._generate_documentation(src_dir, 'spimumlpphdthesis_example_english.tex', bst_dir, sty_dir)
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'spim', 'umlp', 'spimumlpphdthesis')
+        self._generate_documentation(src_dir, docs_dir, 'spimumlpphdthesis_exemple_francais.tex', bst_dir, sty_dir)
+        self._generate_documentation(src_dir, docs_dir, 'spimumlpphdthesis_example_english.tex', bst_dir, sty_dir)
 
     def generate_ingedoc_documentation(self):
         """
         Build the documentation of the IngeDoc Article template.
         """
         src_dir = os.path.join(self._root_dir, self._src_dir, 'papers', 'ingedoc')
-        self._generate_documentation(src_dir, 'IngeDocGuidelines.tex')
+        docs_dir = os.path.join(self._root_dir, self._docs_dir, 'papers', 'ingedoc')
+        self._generate_documentation(src_dir, docs_dir, 'IngeDocGuidelines.tex')
 
     def run(self):
         if not self.__disable_readme:
@@ -1055,27 +1089,19 @@ class BuildManager(BaseBuildingCommand):
             self.generate_ingedoc_documentation()
 
 
+##########################################################
+# CODE: TestCommand
+##########################################################
 
-class TestManager(BaseBuildingCommand):
+class TestCommand(BaseBuildingCommand):
 
-    def __init__(self, root_dir : str,
-                 test_range : str = None,
-                 dist_dir : str = DIST_DIR,
-                 build_dir : str = BUILD_DIR,
-                 src_dir : str = SRC_DIR,
-                 tests_dir : str = TESTS_DIR,
-                 logos_dir : str = LOGOS_DIR,
-                 fonts_dir: str = FONTS_DIR,
-                 docs_dir: str = DOCS_DIR,
-                 packagings_dir: str = PACKAGING_DIR,
-                 disable_ciadslide : bool = False,
-                 disable_ciadreport : bool = False,
-                 disable_spimutbm : bool = False,
-                 disable_spimube : bool = False,
-                 disable_spimumlp : bool = False,
-                 use_logos : bool = False,
-                 debug : bool = False,
-                 verbosity : int = 0):
+    def __init__(self, root_dir : str, test_range : str = None, dist_dir : str = DIST_DIR,
+                 build_dir : str = BUILD_DIR, src_dir : str = SRC_DIR, tests_dir : str = TESTS_DIR,
+                 logos_dir : str = LOGOS_DIR, fonts_dir: str = FONTS_DIR, docs_dir: str = DOCS_DIR,
+                 packagings_dir: str = PACKAGING_DIR, disable_ciadslide : bool = False,
+                 disable_ciadreport : bool = False, disable_spimutbm : bool = False,
+                 disable_spimube : bool = False, disable_spimumlp : bool = False,
+                 use_logos : bool = False, debug : bool = False, verbosity : int = 0):
         """
         :param root_dir: the path to the root folder of TeX-templates
         :param test_range: Specify the range of test numbers to test. It may be single number '3', range '3:18',
@@ -1130,12 +1156,12 @@ class TestManager(BaseBuildingCommand):
     def _do_test(self, src_dir: str, tex_filename: str, *additional_src_dirs: str):
         """
         Build the test document.
-        :param src_dir: folder from which the documentation could be found.
+        :param src_dir: folder from which the TeX files could be found.
         :param tex_filename: name of the TeX file of the documentation.
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         pdf_filename = os.path.splitext(tex_filename)[0] + '.pdf'
-        tmp_dir = self._prepare_document_generation_dir(src_dir, pdf_filename, *additional_src_dirs)
+        tmp_dir = self._prepare_document_generation_dir(src_dir, None, pdf_filename, *additional_src_dirs)
         try:
             self._run_pdflatex(tmp_dir, tex_filename, second_run=False, show_logs=False,
                                clean_on_error=not self.__debug)
@@ -1156,8 +1182,8 @@ class TestManager(BaseBuildingCommand):
 
     def _do_tests(self, src_dir: str, *additional_src_dirs: str):
         """
-        Build the test document.
-        :param src_dir: folder from which the documentation could be found.
+        Build the test documents.
+        :param src_dir: folder from which the TeX files could be found.
         :param additional_src_dirs: additional src folders to add to the documentation building process.
         """
         test_name = os.path.basename(src_dir)
@@ -1246,7 +1272,11 @@ class TestManager(BaseBuildingCommand):
 
 
 
-class DebianPackageManager(SetupCommand):
+##########################################################
+# CODE: DebianPackagingCommand
+##########################################################
+
+class DebianPackagingCommand(SetupCommand):
 
     def __init__(self, root_dir : str, archive_name : str, inner_folder_name : str,
                  sign_with : str = None, compress_with : str = None,
@@ -1277,14 +1307,14 @@ class DebianPackageManager(SetupCommand):
         """
         super().__init__(root_dir, use_logos, dist_dir, build_dir, src_dir, tests_dir,
                          logos_dir, fonts_dir, docs_dir, packagings_dir, verbosity)
-        self.__debian_dir = os.path.join(self._root_dir, self._packagings_dir, 'debian')
+        self.__debian_dir = os.path.join(self._root_dir, self._packagings_dir, DEBIAN_CONFIG_DIR)
         self.__skels_dir = os.path.join(self.__debian_dir, 'skels')
         self.__archive_name = archive_name
         self.__inner_folder_name = inner_folder_name
         self.__sign_with = sign_with if sign_with else DEBIAN_SIGN_EMAIL
         self.__compress_with = compress_with if compress_with else DEBIAN_COMPRESS_WITH
         self.__only_rules = only_rules
-        self.__rel_debian_tmp_dir = os.path.join('debian', 'tmp')
+        self.__rel_debian_tmp_dir = os.path.join(DEBIAN_CONFIG_DIR, 'tmp')
         self.__rel_source_dir = self.__inner_folder_name + '-sources'
 
     def __check_changelog(self):
@@ -1300,18 +1330,14 @@ class DebianPackageManager(SetupCommand):
         """
         Build the Debian packages using the scripts from Stephane Galland.
         """
-        dpkg_command = shutil.which('dpkg-buildpackage')
-        if not dpkg_command:
-            self.error("Command dpkg-buildpackage not found in PATH")
-
         self.info("Preparing Debian environment...")
 
         basename = self._get_archive_basename(self.__archive_name)
         build_dir = os.path.join(self._root_dir, self._build_dir)
         shutil.rmtree(build_dir, ignore_errors=True)
-        source_folder = os.path.join(self._root_dir, self._packagings_dir, 'debian')
+        source_folder = os.path.join(self._root_dir, self._packagings_dir, DEBIAN_CONFIG_DIR)
         target_root_folder = os.path.join(build_dir, basename)
-        target_folder = os.path.join(target_root_folder, 'debian')
+        target_folder = os.path.join(target_root_folder, DEBIAN_CONFIG_DIR)
         shutil.copytree(source_folder, target_folder, dirs_exist_ok=True)
         self.success(f"Debian folder cloned to {target_folder}")
 
@@ -1359,35 +1385,39 @@ class DebianPackageManager(SetupCommand):
         for local_source_file, debian_target_folder in file_mapping.items():
             copy_commands.append(f'\tmkdir -p "{self.__rel_debian_tmp_dir}/{debian_target_folder}"')
             copy_commands.append(f'\tcp "{local_source_root}/{local_source_file}" "{self.__rel_debian_tmp_dir}/{debian_target_folder}/"')
-
-        rules_content = f"""#!/usr/bin/make -f
-                            # -*- makefile -*-
-                            # Generated by TeX-templates setup.py - do not edit directly
-                            
-                            TARBALL ?= {local_tarball}
-                            EXTRACT_DIR ?= {self.__rel_source_dir}
-                            
-                            %:
-                            \tdh $@
-                            
-                            # Extract the tarball before installing
-                            override_dh_auto_install: $(EXTRACT_DIR)/.extracted
-                            {'\n'.join(copy_commands)}
-                            
-                            # Rule to extract tarball (idempotent)
-                            $(EXTRACT_DIR)/.extracted:
-                            \tmkdir -p "$(EXTRACT_DIR)"
-                            \ttar xfz "$(TARBALL)" -C "$(EXTRACT_DIR)" --strip-components=1
-                            \ttouch $@
-                            
-                            # Clean up extracted directory
-                            override_dh_clean:
-                            \tdh_clean
-                            \trm -rf "$(EXTRACT_DIR)"
-                            """
-
+        # Create the global structure of the Makafile (caution: indentation must be based on tab characters)
+        rules_content = f"""
+            #!/usr/bin/make -f
+            # -*- makefile -*-
+            # Generated by TeX-templates setup.py - do not edit directly
+            
+            TARBALL ?= {local_tarball}
+            EXTRACT_DIR ?= {self.__rel_source_dir}
+            
+            %:
+            \tdh $@
+            
+            # Extract the tarball before installing
+            override_dh_auto_install: $(EXTRACT_DIR)/.extracted
+            @@@@LINES@@@@
+            
+            # Rule to extract tarball (idempotent)
+            $(EXTRACT_DIR)/.extracted:
+            \tmkdir -p "$(EXTRACT_DIR)"
+            \ttar xfz "$(TARBALL)" -C "$(EXTRACT_DIR)" --strip-components=1
+            \ttouch $@
+            
+            # Clean up extracted directory
+            override_dh_clean:
+            \tdh_clean
+            \trm -rf "$(EXTRACT_DIR)"
+            """
+        # Fixing the indentation (only tab characters are allowed, and inside the Makefile rules only)
+        rules_content = textwrap.dedent(rules_content).strip()
+        # Put the dynamic copying lines in the global Makefile
+        rules_content = re.sub(re.escape('@@@@LINES@@@@'), '\n'.join(copy_commands), rules_content, re.S + re.DOTALL)
         with open(rules_file, "w") as rules_output:
-            rules_output.write(textwrap.dedent(rules_content))
+            rules_output.write(rules_content)
         os.chmod(rules_file, 0o755)
 
         self.success("File debian/rules generated.")
@@ -1420,7 +1450,7 @@ class DebianPackageManager(SetupCommand):
         file_mapping = dict()
 
         if mapping_patterns:
-            compiled_patterns = DebianPackageManager.__regex_mapping(mapping_patterns)
+            compiled_patterns = DebianPackagingCommand.__regex_mapping(mapping_patterns)
             if compiled_patterns:
                 with tarfile.open(source_archive_path, 'r:*') as tar:
                     prefix = '^' + re.escape(self.__inner_folder_name) + '/'
@@ -1465,9 +1495,13 @@ class DebianPackageManager(SetupCommand):
 
 
     def run(self):
+        dpkg_command = shutil.which('dpkg-buildpackage')
+        if not dpkg_command:
+            self.error("Command dpkg-buildpackage not found in PATH")
+
         self.__check_changelog()
         # Build the source archives
-        sdist_cmd = SourceDistributionManager(root_dir=self._root_dir,
+        sdist_cmd = SourceDistributionCommand(root_dir=self._root_dir,
                                               archive_name=self.__archive_name,
                                               inner_folder_name=self.__inner_folder_name,
                                               ctan=False,
@@ -1482,6 +1516,10 @@ class DebianPackageManager(SetupCommand):
             self.generate_debian_packages()
 
 
+
+##########################################################
+# CODE: main()
+##########################################################
 
 def main():
     current_root_dir = os.path.normpath(os.path.dirname(str(__file__)))
@@ -1507,7 +1545,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "build":
-        cmd = BuildManager(root_dir=current_root_dir,
+        cmd = BuildCommand(root_dir=current_root_dir,
                            disable_version=args.noversion,
                            disable_tex_version_update=args.notexversion,
                            disable_ciadslide=args.nociadslide,
@@ -1521,14 +1559,14 @@ def main():
                            debug=args.debug,
                            verbosity=args.v)
     elif args.command == "sdist":
-        cmd = SourceDistributionManager(root_dir=current_root_dir,
+        cmd = SourceDistributionCommand(root_dir=current_root_dir,
                                         archive_name='tex-templates',
                                         inner_folder_name='tex-templates',
                                         ctan=not args.noctan,
                                         use_logos=not args.nologo,
                                         verbosity=args.v)
     elif args.command == "test":
-        cmd = TestManager(root_dir=current_root_dir,
+        cmd = TestCommand(root_dir=current_root_dir,
                           disable_ciadslide=args.nociadslide,
                           disable_ciadreport=args.nociadreport,
                           disable_spimutbm=args.nospimutbm,
@@ -1539,23 +1577,25 @@ def main():
                           debug=args.debug,
                           verbosity=args.v)
     elif args.command == "clean":
-        cmd = CleanManager(root_dir=current_root_dir,
+        cmd = CleanCommand(root_dir=current_root_dir,
                            verbosity=args.v,
                            use_logos=not args.nologo)
     elif args.command == "deb":
-        cmd = DebianPackageManager(root_dir=current_root_dir,
-                                   archive_name='tex-templates',
-                                   inner_folder_name='tex-templates',
-                                   sign_with=args.debsign,
-                                   compress_with=args.debcompress,
-                                   use_logos=not args.nologo,
-                                   verbosity=args.v,
-                                   only_rules=args.onlyrules)
+        cmd = DebianPackagingCommand(root_dir=current_root_dir,
+                                     archive_name='tex-templates',
+                                     inner_folder_name='tex-templates',
+                                     sign_with=args.debsign,
+                                     compress_with=args.debcompress,
+                                     use_logos=not args.nologo,
+                                     verbosity=args.v,
+                                     only_rules=args.onlyrules)
     else:
         sys.exit(255)
 
     if cmd is not None:
         cmd.run()
+
+
 
 if __name__ == "__main__":
     main()

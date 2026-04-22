@@ -1,0 +1,189 @@
+\documentclass[article,nodocrefonfront,nodocrefonback]{utbmciadreport}
+
+\declaredocument{UTBM/CIAD Report Template Extension to TeX-UPmethodology}{Official Documentation - Version \insertciadreportthemeversion}{utbmciad-report-doc}
+
+\addauthorvalidator[galland@arakhne.org]{St{\'e}phane}{Galland}
+
+\setdockeywords{utbmciad, CIAD, UTBM, Style Extension, TeX-UPmethodology, \LaTeX}
+
+\setdocabstract{This document describes the template extension to TeX-UPmethodology which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' from the Universit\'e de Technologie Belfort-Montb\'eliard, France.}
+
+\updateversion{1.0}{\makedate{05}{08}{2019}}{First version of the documentation.}{\upmpublic}
+\updateversion{1.1}{\makedate{09}{01}{2025}}{Remove UBFC.}{\upmpublic}
+\updateversion{1.2}{\makedate{06}{04}{2026}}{Add funding scheme features.}{\upmpublic}
+\updateversion{1.3}{\makedate{10}{04}{2026}}{Add color for watermark.}{\upmpublic}
+%\incversion{\makedate{dd}{mm}{yyyy}}{Description.}{\upmpublic}
+
+\makeatletter
+\upm@extension@savealllangtrue
+
+\gdef\upmextensiondoccolorlist{}
+\gdef\upmextensiondocvaluelist{}
+
+\global\let\upm@extensiondoc@old@definecolor\definecolor
+\global\let\upm@extensiondoc@old@setpdfcolor\setpdfcolor
+\global\let\upm@extensiondoc@old@setvalue\upm@extension@Set
+
+\renewcommand{\definecolor}[3]{%
+	\upm@extensiondoc@old@definecolor{#1}{#2}{#3}%
+	\protected@xdef\upmextensiondoccolorlist{\upmextensiondoccolorlist%
+		\protect\ensuremath{\protect\upm@protect{#1}} & #2 & #3 & \protect\textcolor{#1}{\protect\ensuremath{\protect\upm@protect{#1}}} \protect\\%
+	}%
+}
+
+\renewcommand{\setpdfcolor}[1]{%
+	\upm@extensiondoc@old@setpdfcolor{#1}%
+	\upm@extensiondoc@old@definecolor{my__pdf__color}{rgb}{#1}%
+	\protected@xdef\upmextensiondoccolorlist{\upmextensiondoccolorlist%
+		``PDFCOLOR'' & rgb & #1 & \protect\textcolor{my__pdf__color}{PDF color} \protect\\%
+	}%
+}
+
+\let\MyProtect\upm@protect
+\newcommand{\MyGet}[2]{%
+	\ifthenelse{\equal{#2}{copyright}}{-}{%
+	\ifthenelse{\equal{#2}{trademarks}}{-}{%
+	\ifthenelse{\equal{#2}{cfrontpage}}{-}{%
+	\ifthenelse{\equal{#2}{backpage}}{-}{%
+	\ifthenelse{\equal{#2}{abstract}}{-}{%
+	\ifthenelse{\equal{#2}{keywords}}{-}{%
+	\ifthenelse{\equal{#2}{logo}}{-}{%
+	\ifthenelse{\equal{#2}{smalllogo}}{-}{%
+	\ifthenelse{\equal{#2}{frontillustration}}{-}{%
+	\ifthenelse{\equal{#2}{headerillustration}}{-}{%
+	\GetLang{#2}{#1}%
+	}}}}}}}}}}%
+}
+
+\renewcommand{\Set}[3][default]{%
+	\ifthenelse{\equal{#1}{default}}{%
+		\upm@extensiondoc@old@setvalue{#2}{#3}%
+		\protected@xdef\upmextensiondocvaluelist{\upmextensiondocvaluelist%
+			\protect\upm@protect{#2} & \protect\textit{all} & \protect\MyGet{\upmcurrentlang}{#2} \protect\\%
+		}%
+	}{%
+		\upm@extensiondoc@old@setvalue[#1]{#2}{#3}%
+		\protected@xdef\upmextensiondocvaluelist{\upmextensiondocvaluelist%
+			\protect\upm@protect{#2} & \protect\upm@protect{#1} & \protect\MyGet{#1}{#2} \protect\\%
+		}%
+	}%
+}
+
+\makeatother
+
+%\UseExtension{utbmciad}
+%\Set{partnerlogo}{XXX}
+
+\begin{document}
+
+\section{Introduction}
+
+This document describes the style extension for TeX-UPmethodology\footnote{\url{https://www.arakhne.org/latex/tex-upmethodology}} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' of the University of Technology of Belfort-Monb\'eliard, France.
+
+This document contains only the values and the macros provided by the extensions.
+
+\section{Usage}
+
+\textbf{THE ACCOMPANYING EXTENSION IS PROVIDED UNDER THE TERMS OF THIS LICENSE AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.}
+
+\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM CIAD STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE CIAD LABORATORY, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT MONTB\'ELIARD.}
+
+\section{Requirements}
+
+\texttt{utbmciadreport} requires the core packages of \texttt{tex-upmethodology}.
+
+\section{Installation}
+
+Copy \texttt{utbmciad-report} configuration file (\texttt{.cfg}) and all related pictures in your system-wide or local user \texttt{texmf}.
+
+\section{Class Options}
+
+\texttt{utbmciad-report} provides several class options that are specific to the theme.
+The other class options are passed to \texttt{tex-upmethodology}.
+
+
+\subsection{Language}
+
+\begin{description}
+\item[english] The document is written in english (default).
+\item[french] The document is written in french.
+\end{description}
+
+\subsection{Logos}
+
+\begin{description}
+\item[ciadlogo] Show up the CIAD logo on the front and back pages.
+\item[utbmlogo] Show up the UTBM logo on the front and back pages.
+\item[noutbmlogo] Hide the UTBM logo from the front and back pages.
+\item[utlogo] Show up the UT Network logo on the front and back pages.
+\item[noutlogo] Hide the UT Network logo from the front and back pages.
+\item[nociadlogo] Hide the CIAD logo from the front and back pages.
+\item[icartslogo] Show up the iC ARTS logo on the front and back pages.
+\item[noicartslogo] Hide the iC ARTS logo from the front and back pages.
+\item[sayenslogo] Show up the SATT Sayens logo on the front and back pages.
+\item[nosayenslogo] Hide the SATT Sayens logo from the front and back pages.
+\item[fundingschemelogo] Show up the logos of the funding schemes.
+\item[nofundingschemelogo] Hide the logos of the funding schemes.
+\item[doclogo] Same as \texttt{ciadlogo} option.
+\item[nodoclogo] Same as \texttt{nociadlogo} option.
+\end{description}
+
+\subsection{Document Reference}
+
+\begin{description}
+\item[docrefonfront] Show up the document reference on the front page.
+\item[nodocrefonfront] Hide the document reference from the front page.
+\item[docrefonback] Show up the document reference on the back page.
+\item[nodocrefonback] Hide the document reference from the back page.
+\end{description}
+
+\subsection{Contact Information}
+
+\begin{description}
+\item[contactonback] Show up the contact information on the back page.
+\item[nocontactonback] Hide the contact information from the back page.
+\end{description}
+
+\section{Provided Macros}
+
+\texttt{utbmciad-report} provides the following macros:
+\begin{itemize}
+\item \texttt{{\textbackslash}addfundingschemelogo[height size]\{path to logo image\}}: Add a logo image in the list of the funding schemes' logos. The default height is $1.25cm$.
+\item \texttt{{\textbackslash}utbmciadfundingschemeslogos}: Show the list of all the funding schemes' logos.
+\end{itemize}
+
+The packages of \texttt{tex-upmethodology} (a dependency of this style) provides plenty of additional macros. See the documentation of \texttt{tex-upmethodology} for details.
+
+\section{Provided Colors}
+
+\texttt{utbmciad-report} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
+
+\begin{mtabular}{4}{XccX}{Provided Colors}
+\tabularheader{Name}{Type}{Value}{Example}
+\upmextensiondoccolorlist
+\end{mtabular}
+
+\section{Provided Values}
+
+\texttt{utbmciad-report} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
+
+\begin{tiny}
+\begin{mtabular}{3}{XcX}{Provided Values}
+\tabularheader{Name}{Language}{Content}
+\upmextensiondocvaluelist
+\end{mtabular}
+\end{tiny}
+
+\section{Copyright of the Extension's Source Code}
+
+\Get{copyright}
+
+\Get{trademarks}
+
+\section{Copyright of Materials}
+
+The logos and related trademarks that may appear in this documentation are trademarks or registered trademarks with an owner listed in the file \texttt{logos/LICENSE.logos}.
+
+They are included with permission and may be redistributed unchanged as part ofthe my-package distribution. Any modification, derivation, or use outside the original package context is prohibited without explicit written permission from owning university or owning institution.
+
+\end{document}
