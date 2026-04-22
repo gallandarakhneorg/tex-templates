@@ -49,7 +49,7 @@ from pip._internal.utils import temp_dir
 ##########################################################
 BUILD_DIR = 'build'
 DIST_DIR = 'dist'
-SRC_DIR = 'src'
+SRC_DIR = 'tex'
 TESTS_DIR = 'tests'
 LOGOS_DIR = 'logos'
 FONTS_DIR = 'fonts'

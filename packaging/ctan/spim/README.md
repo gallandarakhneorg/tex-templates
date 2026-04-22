@@ -40,6 +40,6 @@ A complete tutorial with step‑by‑step examples is available at https://www.a
 
 ## 5. Licenses
 
-- All LaTeX source code (everything in the `src/` and `doc/` directories) is licensed under the GNU Lesser General Public License v3.0.
+- All LaTeX source code (everything in the `tex/` and `doc/` directories) is licensed under the GNU Lesser General Public License v3.0.
 - The university and institution logos (in the `logos/` directory) are not free software. They are included with permission of the university and institution and may be redistributed unchanged, but may not be modified. See `logos/LICENSE.logos` for details.
 

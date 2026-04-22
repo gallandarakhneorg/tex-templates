@@ -2,7 +2,7 @@ Copyright (c) 2013-2026 Stephane Galland <galland@arakhne.org>
 
 This software package, tex-templates, contains three distinct types of material:
 
-1. LaTeX source code (all files that are under the `src/`, `doc/`, `tests/` and `packaging/` directories and any documentation source files).
+1. LaTeX source code (all files that are under the `tex/`, `doc/`, `tests/` and `packaging/` directories and any documentation source files).
 2. University and institutions logo images (all files under the `logos/` directory).
 3. Font Collections owned by an university and institution (all files under the `fonts/` directory).
 
