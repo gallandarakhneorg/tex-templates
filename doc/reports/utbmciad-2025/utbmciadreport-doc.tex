@@ -1,4 +1,6 @@
-\documentclass[article,nodocrefonfront,nodocrefonback]{utbmciadreport}
+\documentclass[english,article,nodocrefonfront,nodocrefonback]{utbmciadreport}
+
+\usepackage[T1]{fontenc}
 
 \declaredocument{UTBM/CIAD Report Template Extension to TeX-UPmethodology}{Official Documentation - Version \insertciadreportthemeversion}{utbmciad-report-doc}
 
@@ -6,17 +8,22 @@
 
 \setdockeywords{utbmciad, CIAD, UTBM, Style Extension, TeX-UPmethodology, \LaTeX}
 
-\setdocabstract{This document describes the template extension to TeX-UPmethodology which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' from the Universit\'e de Technologie Belfort-Montb\'eliard, France.}
+\setdocabstract{This document describes the template extension to TeX-UPmethodology which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribuées'' from the Université de Technologie Belfort-Montbéliard, France.}
 
 \updateversion{1.0}{\makedate{05}{08}{2019}}{First version of the documentation.}{\upmpublic}
 \updateversion{1.1}{\makedate{09}{01}{2025}}{Remove UBFC.}{\upmpublic}
 \updateversion{1.2}{\makedate{06}{04}{2026}}{Add funding scheme features.}{\upmpublic}
 \updateversion{1.3}{\makedate{10}{04}{2026}}{Add color for watermark.}{\upmpublic}
-%\incversion{\makedate{dd}{mm}{yyyy}}{Description.}{\upmpublic}
+\incsubversion{\makedate{23}{04}{2026}}{Add UTF8 support package.}{\upmpublic}
+
+%-------------------------------
+% CAUTION: State the capture of the definitions of the theme. YOU MUST NOT USE THESE COMMANDS IN YOUR DOCUMENT.
+%-------------------------------
 
 \makeatletter
 \upm@extension@savealllangtrue
 
+% The following commands are defined to capture the definitions of the colors and the values.
 \gdef\upmextensiondoccolorlist{}
 \gdef\upmextensiondocvaluelist{}
 
@@ -69,24 +76,40 @@
 	}%
 }
 
-\makeatother
+\input{upmext-utbmciad.cfg}
 
-%\UseExtension{utbmciad}
-%\Set{partnerlogo}{XXX}
+\makeatother
+%-------------------------------
+% END OF SECTION
+%-------------------------------
 
 \begin{document}
 
 \section{Introduction}
 
-This document describes the style extension for TeX-UPmethodology\footnote{\url{https://www.arakhne.org/latex/tex-upmethodology}} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribu\'ees'' of the University of Technology of Belfort-Monb\'eliard, France.
+This document describes the style extension for TeX-UPmethodology\footnote{\url{https://www.arakhne.org/latex/tex-upmethodology}} which is providing the standard document layout and colors of the Laboratory ``Connaissance et Intelligence Artificielle Distribuées''\footnote{\url{https://www.ciad-lab.fr}} (CIAD UR 7533) of ``Université de Technology Belfort-Monbéliard''\footnote{\url{https://www.utbm.fr}}, France.
 
-This document contains only the values and the macros provided by the extensions.
+\Emph{This document contains only the values and the macros provided by the extensions itself, not the values and macros provided by TeX-UPmethodology.}
 
-\section{Usage}
+\section{Usage and Licensing}
 
-\textbf{THE ACCOMPANYING EXTENSION IS PROVIDED UNDER THE TERMS OF THIS LICENSE AGREEMENT. ANY USE, REPRODUCTION OR DISTRIBUTION OF THE EXTENSION CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.}
+This extension contains two distinct types of material:
+\begin{enumerate}
+\item LaTeX source code (all files that are under the \texttt{tex/} and \texttt{docs/} directories and any documentation source files).
+\item University and institutions logo images (all files under the \texttt{logos/} directory).
+\end{enumerate}
 
-\textbf{YOU ARE GRANTED TO USE, REPRODUCE OR DISTRIBUTE THE UTBM CIAD STYLE EXTENTION FOR TEX-UPMETHODOLOGY LATEX PACKAGE IF AND ONLY IF: A) YOU ARE A REGISTERED MEMBER OF THE CIAD LABORATORY, OR B) YOU ARE OFFICIALLY AND EXPLICITELY AUTHORIZED TO USE THIS EXTENSION BY A REPRESENTATIVE OF THE UNIVERSIT\'E DE TECHNOLOGIE DE BELFORT MONTB\'ELIARD.}
+Licensing terms for each part are different:
+\begin{enumdescription}
+\item[LaTeX source code] The LaTeX source code is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+	A copy of the GNU Lesser General Public License (LGPLv3) is provided in the file \texttt{LICENSE.LGPLv3}.  You can also find it at \url{https://www.gnu.org/licenses/lgpl-3.0.html}.
+\item[University and institution logos] The logo files are not licensed under the LGPLv3. They are the property of their respective university or institution and are included with permission for redistribution only as part of this complete package. They may NOT be modified, altered, or extracted and used separately without explicit written permission from the owning university or institution.
+
+	The exact terms governing the logos are set forth in the file \texttt{logos/LICENSE.logos}. By redistributing this package, you agree to abide by those terms.
+\end{enumdescription}
+
+When redistributing this package (e.g., on CTAN, a personal website, or a CDN), you must preserve the directory structure and all accompanying license files.  Users of the LaTeX code may remove the \texttt{logos/} directory without affecting their rights under the LGPLv3.
 
 \section{Requirements}
 
@@ -156,7 +179,7 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 
 \section{Provided Colors}
 
-\texttt{utbmciad-report} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications.
+\texttt{utbmciad-report} provides the following colors. The colors are expressed according to the standard \texttt{color.sty} specifications. If the table below is empty, it means that this extension does not provide any specific color.
 
 \begin{mtabular}{4}{XccX}{Provided Colors}
 \tabularheader{Name}{Type}{Value}{Example}
@@ -165,7 +188,7 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 
 \section{Provided Values}
 
-\texttt{utbmciad-report} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro.
+\texttt{utbmciad-report} provides the following values. The values are accessible with \texttt{{\textbackslash}Get} macro. If the table below is empty, it means that this extension does not provide any specific definition of value.
 
 \begin{tiny}
 \begin{mtabular}{3}{XcX}{Provided Values}
@@ -173,17 +196,5 @@ The packages of \texttt{tex-upmethodology} (a dependency of this style) provides
 \upmextensiondocvaluelist
 \end{mtabular}
 \end{tiny}
-
-\section{Copyright of the Extension's Source Code}
-
-\Get{copyright}
-
-\Get{trademarks}
-
-\section{Copyright of Materials}
-
-The logos and related trademarks that may appear in this documentation are trademarks or registered trademarks with an owner listed in the file \texttt{logos/LICENSE.logos}.
-
-They are included with permission and may be redistributed unchanged as part ofthe my-package distribution. Any modification, derivation, or use outside the original package context is prohibited without explicit written permission from owning university or owning institution.
 
 \end{document}

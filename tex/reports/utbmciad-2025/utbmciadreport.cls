@@ -18,9 +18,9 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{utbmciadreport}[2026/04/22]
+\ProvidesClass{utbmciadreport}[2026/04/23]
 
-\gdef\insertciadreportthemeversion{2026/04/22}
+\gdef\insertciadreportthemeversion{2026/04/23}
 
 %%--------------------
 %% Global conditions

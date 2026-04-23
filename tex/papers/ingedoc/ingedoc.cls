@@ -18,9 +18,9 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{ingedoc}[2026/04/22]
+\ProvidesClass{ingedoc}[2026/04/23]
 
-\gdef\@ingedoc@class@version{2026/04/22}
+\gdef\@ingedoc@class@version{2026/04/23}
 
 \typeout{Using the IngeDoc Paper Style version \@ingedoc@class@version.}
 \typeout{It was written by Stephane GALLAND <stephane.galland@utbm.fr>}

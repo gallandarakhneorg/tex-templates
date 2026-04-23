@@ -1,3 +1,9 @@
+tex-templates (20260423-0arakhne0) noble; urgency=low
+
+  * CIAD Report: Fixing the documentation content.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Thu, 23 Apr 2026 16:09:54 +0800
+
 tex-templates (20260422-0arakhne0) noble; urgency=low
 
   * all: Separate the documentation files in "doc/".
