@@ -24,7 +24,7 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 %
-\ProvidesPackage{beamerouterthemeCIAD}[2026/04/23]
+\ProvidesPackage{beamerouterthemeCIAD}[2026/05/06]
 
 \mode<presentation>
 
@@ -281,6 +281,9 @@
 		% Title
 		\put(-20,-25){\usebeamercolor[fg]{maintitle}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
 			\nohyphens{\begin{raggedright}\usebeamerfont{part title}{\@beamer@theme@ciad@wraptextformats{{\beamer@theme@ciad@rsection@insertpartprefix}\beamer@partname}}%
+		\ifbeamer@theme@ciad@part@hassubtitle%
+		\mbox{}\\[.25cm]{\usebeamerfont{part subtitle}\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@part@subtitle}}%
+		\fi%
 		\end{raggedright}}}}%
 		% Author
 		\ifbeamer@theme@ciad@part@hasauthor%

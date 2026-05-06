@@ -25,9 +25,9 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\ProvidesPackage{beamerbasethemeCIAD}[2026/04/23]
+\ProvidesPackage{beamerbasethemeCIAD}[2026/05/06]
 
-\gdef\insertciadbeamerthemeversion{2026/04/23}
+\gdef\insertciadbeamerthemeversion{2026/05/06}
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -1219,6 +1219,7 @@
 
 \newif\ifbeamer@theme@ciad@part@hasoptionparam
 \newif\ifbeamer@theme@ciad@part@hasauthor
+\newif\ifbeamer@theme@ciad@part@hassubtitle
 \newif\ifbeamer@theme@ciad@part@addintoc
 
 % Command for showing the part frame only. This command does not add sectionning elements
@@ -1279,6 +1280,12 @@
 		\gdef\beamer@theme@ciad@part@shorttitle{#1}%
 	}%
 }
+\define@key{beamerthemeciadpart}{subtitle}{%
+	\ifthenelse{\equal{a#1}{a}}{}{%
+		\global\beamer@theme@ciad@part@hassubtitletrue%
+		\gdef\beamer@theme@ciad@part@subtitle{#1}%
+	}%
+}
 \define@key{beamerthemeciadpart}{label}{%
 	\gdef\beamer@theme@ciad@part@partlabel{#1}%
 }
@@ -1287,6 +1294,7 @@
 	\beamer@theme@ciad@optlist{#1}%
 	\global\beamer@theme@ciad@part@hasoptionparamfalse%
 	\global\beamer@theme@ciad@part@hasauthorfalse%
+	\global\beamer@theme@ciad@part@hassubtitlefalse%
 	\gdef\beamer@theme@ciad@part@partlabel{}%
 	\ifbeamer@theme@ciad@optlist@needdefault%
 		\setkeys{beamerthemeciadpart}{title=#1}%
