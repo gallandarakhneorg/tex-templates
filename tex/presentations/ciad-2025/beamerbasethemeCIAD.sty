@@ -342,15 +342,65 @@
 
 %-----------------------------------------
 % Localization support
+\@namedef{beamer@theme@ciad@langshort@english}{en}
 \deftranslation[to=English]{ColumnChar}{:}
 \deftranslation[to=English]{Thanks}{Thank you for your attention\dots}
 \deftranslation[to=English]{Questions}{Questions\dots}
+
+\@namedef{beamer@theme@ciad@langshort@french}{fr}
 \deftranslation[to=French]{ColumnChar}{\,:}
 \deftranslation[to=French]{Thanks}{Merci de votre attention\dots}
 \deftranslation[to=French]{Questions}{Questions\dots}
+
+\@namedef{beamer@theme@ciad@langshort@german}{ge}
 \deftranslation[to=German]{ColumnChar}{ :}
 \deftranslation[to=German]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
 \deftranslation[to=German]{Questions}{Fragen\dots}
+
+\def\languageshortname{\expandafter\@nameuse{beamer@theme@ciad@langshort@\languagename}}
+
+
+\def\beamer@theme@ciad@strip@tex#1.tex#2\@nil{#1}
+
+% #1: Filename with or without the ".tex" extension.
+% #2: the base inclusion command.
+\newcommand{\beamer@theme@ciad@localized@input}[2]{%
+	\protected@xdef\beamer@theme@ciad@tmp{\beamer@theme@ciad@strip@tex#1.tex\@empty\@nil}%
+	\protected@xdef\beamer@theme@ciad@tmp{\beamer@theme@ciad@tmp_\languageshortname.tex}%
+	\message{Input for language \languagename (\languageshortname): \beamer@theme@ciad@tmp}
+	\IfFileExists{\beamer@theme@ciad@tmp}{%
+		\expandafter#2{\beamer@theme@ciad@tmp}%
+	}{%
+		% Default: no localization
+		\message{Fallback to standard input: #1}%
+		#2{#1}%
+	}%
+}
+
+% #1: Filename without the ".tex" extension
+\global\let\beamer@theme@ciad@input@original\input
+\newcommand{\inputlang}[1]{%
+	\beamer@theme@ciad@localized@input{#1}{\beamer@theme@ciad@input@original}%
+}
+
+% #1: Filename without the ".tex" extension
+\global\let\beamer@theme@ciad@include@original\include
+\newcommand{\includelang}[1]{%
+	\beamer@theme@ciad@localized@input{#1}{\beamer@theme@ciad@include@original}%
+}
+
+% #1: the command to localized
+\newcommand{\localized}[1]{%
+	\ifx#1\input%
+		\expandafter\inputlang%
+	\else
+		\ifx#1\include%
+			\expandafter\includelang%
+		\else
+			#1%
+		\fi%
+	\fi%
+}
 
 %-----------------------------------------
 % Thank slide
@@ -1645,7 +1695,12 @@
 	\beamer@theme@ciad@figureslide@@frame
 		{#9}{#2}{#4}{#5}{#6}{#7}{#8}%
 		{\savebox{\beamer@theme@ciad@figureslide@box}{%
-			\includegraphics[width=\paperwidth]{#3}%
+			\expandafter\resolvepicturename*{#3_\languageshortname}%
+			\ifx\resolvedfilename\relax%
+				\includegraphics[width=\paperwidth]{#3}%
+			\else%
+				\includegraphics[width=\paperwidth]{\resolvedfilename}%
+			\fi%
 		}}%
 }
 

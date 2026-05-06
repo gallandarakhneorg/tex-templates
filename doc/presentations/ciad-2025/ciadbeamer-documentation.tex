@@ -2675,6 +2675,33 @@
 \sectionsintoc{7-}
 \sectiontableofcontentslide
 
+\subsection{Localization}
+
+\begin{frame}{Multilingual Support}
+	Talks may be written with frames in different languages. The CIAD Beamer template provides commands for helping to building multilingual documents.
+	\begin{itemize}
+	\item \texttt{{\textbackslash}languageshortname}: command that is replaced by the short name of the current language (\texttt{en} for English, \texttt{fr} for French, \texttt{ge} for German)
+	\item \texttt{{\textbackslash}inputlang\{filename\}}: similar to the standard \texttt{{\textbackslash}input} but searching for a file marked for the current language with the name \texttt{filename\_LG} where \texttt{filename} is the argument and \texttt{LG} is the current language code given by \texttt{{\textbackslash}languageshortname}. If the file with name \texttt{filename\_LG} is not found, then the file with name \texttt{filename} is input.
+	\item \texttt{{\textbackslash}includelang\{filename\}}: similar to the standard \texttt{{\textbackslash}include} but searching for a file marked for the current language with the name \texttt{filename\_LG} where \texttt{filename} is the argument and \texttt{LG} is the current language code given by \texttt{{\textbackslash}languageshortname}. If the file with name \texttt{filename\_LG} is not found, then the file with name \texttt{filename} is included.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Use Localized Commands}
+	\begin{itemize}
+	\item Several commands are implemented with the search method described in the previous slide:
+		\begin{stabularx}[title={List of Localized Commands}]{XX}
+			\tabularhead{Command}{Localized Version} \\
+			\texttt{{\textbackslash}input} & \texttt{{\textbackslash}inputlang} \\
+			\texttt{{\textbackslash}include} & \texttt{{\textbackslash}includelang} \\
+			\texttt{{\textbackslash}figureslide} & \texttt{{\textbackslash}figureslide} \\
+		\end{stabularx}
+	\item Command \texttt{{\textbackslash}localized} permits to use the localized version of a known command
+	\end{itemize}
+	\begin{block}{Example}
+		\texttt{{\textbackslash}localized{\textbackslash}input\{myfile\}} is equivalent to \texttt{{\textbackslash}inputlang\{myfile\}}
+	\end{block}
+\end{frame}
+
 \subsection{Handlers on Frames}
 
 \begin{frame}{At Begin/End of Frame}
