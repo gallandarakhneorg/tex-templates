@@ -25,9 +25,9 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\ProvidesPackage{beamerbasethemeCIAD}[2026/05/06]
+\ProvidesPackage{beamerbasethemeCIAD}[2026/05/08]
 
-\gdef\insertciadbeamerthemeversion{2026/05/06}
+\gdef\insertciadbeamerthemeversion{2026/05/08}
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -343,22 +343,28 @@
 %-----------------------------------------
 % Localization support
 \@namedef{beamer@theme@ciad@langshort@english}{en}
-\deftranslation[to=English]{ColumnChar}{:}
-\deftranslation[to=English]{Thanks}{Thank you for your attention\dots}
-\deftranslation[to=English]{Questions}{Questions\dots}
+\@namedef{beamer@theme@ciad@outlinetitle@english}{Outline}
+\deftranslation[to=english]{ColumnChar}{:}
+\deftranslation[to=english]{Thanks}{Thank you for your attention\dots}
+\deftranslation[to=english]{Questions}{Questions\dots}
+\deftranslation[to=english]{Outline}{\@nameuse{beamer@theme@ciad@outlinetitle@english}}
 
 \@namedef{beamer@theme@ciad@langshort@french}{fr}
-\deftranslation[to=French]{ColumnChar}{\,:}
-\deftranslation[to=French]{Thanks}{Merci de votre attention\dots}
-\deftranslation[to=French]{Questions}{Questions\dots}
+\@namedef{beamer@theme@ciad@outlinetitle@french}{Plan}
+\deftranslation[to=french]{ColumnChar}{\,:}
+\deftranslation[to=french]{Thanks}{Merci de votre attention\dots}
+\deftranslation[to=french]{Questions}{Questions\dots}
+\deftranslation[to=french]{Outline}{\@nameuse{beamer@theme@ciad@outlinetitle@french}}
 
 \@namedef{beamer@theme@ciad@langshort@german}{ge}
-\deftranslation[to=German]{ColumnChar}{ :}
-\deftranslation[to=German]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
-\deftranslation[to=German]{Questions}{Fragen\dots}
+\@namedef{beamer@theme@ciad@outlinetitle@german}{Gliederung}
+\deftranslation[to=german]{ColumnChar}{ :}
+\deftranslation[to=german]{Thanks}{Vielen dank f\"ur ihre aufmerksamkeit\dots}
+\deftranslation[to=german]{Questions}{Fragen\dots}
+\deftranslation[to=german]{Outline}{\@nameuse{beamer@theme@ciad@outlinetitle@german}}
 
 \def\languageshortname{\expandafter\@nameuse{beamer@theme@ciad@langshort@\languagename}}
-
+\def\outlinetitlelabel{\expandafter\@nameuse{beamer@theme@ciad@outlinetitle@\languagename}}
 
 \def\beamer@theme@ciad@strip@tex#1.tex#2\@nil{#1}
 
@@ -2870,7 +2876,7 @@
 	\beamer@theme@ciad@tableofcontentslide@e{#1}{,#2}%
 }
 \newcommand{\beamer@theme@ciad@tableofcontentslide@e}[2]{%
-	\begin{frame}[t,tableofcontentbackground#2]{\translate{Outline}}%
+	\begin{frame}[tableofcontentbackground#2]{\outlinetitlelabel}%
 		\vspace{-0.5cm}%
 		\small\tableofcontents[#1]%
 	\end{frame}%
@@ -3382,7 +3388,7 @@
 	\par\noindent\begin{tikzpicture}%
 		\draw[draw=line in left anchor block.fg,fill=line in left anchor block.fg] (0.05,0) circle (0.05cm);%
 		\draw[draw=line in left anchor block.fg] (0.05,0) -- (0.6,0.8) -- (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8);%
-		\draw[draw=line in left anchor block.fg, fill=line in left anchor block.bg] (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8) circle (0.8cm);%
+		\draw[draw=line in left anchor block.fg, fill=line in left anchor block.bg] (\beamer@theme@ciad@anchorblock@width-0.8cm,0.8) circle (0.5cm);%
 		\draw (\beamer@theme@ciad@anchorblock@width*0.5-0.5cm,0.8) node[anchor=south] {%
 			\parbox[b]{\beamer@theme@ciad@anchorblock@titlewidth}{\centering%
 				\usebeamerfont{title in left anchor block}\usebeamercolor[fg]{title in left anchor block}#2}};%

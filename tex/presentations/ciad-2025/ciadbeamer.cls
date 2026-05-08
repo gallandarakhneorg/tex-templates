@@ -27,7 +27,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{ciadbeamer}[2026/05/06]
+\ProvidesClass{ciadbeamer}[2026/05/08]
 
 % 1) Add the option "aspectratio=169" at the beginning of the options
 % 2) Save the full list of the options into \@classoptionslist@full
@@ -50,8 +50,8 @@
 
 % Force the Beamer theme to use the original class options' list
 % (See also patch of \ProcessOptionsBeamer in beamerbasethemeCIAD.sty)
-\let\@classoptionslist\@classoptionslist@full
+\global\let\@classoptionslist\@classoptionslist@full
 \usetheme{CIAD}
-\let\@classoptionslist\beamer@filteredclassoptionslist
+\global\let\@classoptionslist\beamer@filteredclassoptionslist
 
 \endinput

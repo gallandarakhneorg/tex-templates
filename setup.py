@@ -292,6 +292,7 @@ DEBIAN_SKELETONS = {
 ##########################################################
 # CTAN CONFIGURATION
 ###########################################################
+CTAN_CONFIG_DIR = 'ctan'
 CTAN_SOURCE_DIRS = {
     'ciad-beamertheme': {
         'free': {
@@ -954,9 +955,9 @@ class BuildCommand(BaseBuildingCommand):
         Update the versions of the CTAN files so that it corresponds to the TeX-template version.
         """
         version = self.current_version
-        for dirpath, dirnames, filenames in os.walk(os.path.join(self._root_dir, self._src_dir)):
+        for dirpath, dirnames, filenames in os.walk(os.path.join(self._root_dir, self._packagings_dir, CTAN_CONFIG_DIR)):
             for filename in filenames:
-                if filename == 'VERSION_CTAN':
+                if filename == 'VERSION':
                     full_path = os.path.join(dirpath, filename)
                     with open(full_path, 'r') as f:
                         content = f.read()

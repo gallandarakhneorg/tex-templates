@@ -18,7 +18,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{hdrapplication}[2026/05/06]
+\ProvidesClass{hdrapplication}[2026/05/08]
 
 %%--------------------
 %% Class options
