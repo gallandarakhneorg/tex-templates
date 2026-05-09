@@ -18,7 +18,7 @@
 %%--------------------
 %% Declare the LaTeX class
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{spimutbmphdthesis}[2026/05/08]
+\ProvidesClass{spimutbmphdthesis}[2026/05/09]
 
 %%--------------------
 %% Class options

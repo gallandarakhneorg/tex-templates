@@ -1,3 +1,9 @@
+tex-templates (20260509-0arakhne0) noble; urgency=low
+
+  * CIAD Beamer: Fixing the definition of the localized labels.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Sat, 09 May 2026 16:52:45 +0200
+
 tex-templates (20260508-0arakhne0) noble; urgency=low
 
   * CIAD Beamer: Fixing the title for outline slides to support current language.
