@@ -125,3 +125,16 @@ Description: Template for Beamers of the CIAD laboratory
  are not granted by the Université de Technologie
  de Belfort-Montbéliard.
 
+Package: tex-templates-dedihcatedbfc-beamer
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, tex-templates-ciad-beamer (= ${source:Version})
+Description: Template for Beamers of the DEDIHCATED-BFC project
+ This package contains a template for the Beamer presesentations
+ for the EDIH DEDIHCATED-BFC project. This package provides the
+ recommended style (2026).
+ .
+ According to the international copyright laws,
+ you are not allowed to use this package if you
+ are not granted by the Université de Technologie
+ de Belfort-Montbéliard.
+

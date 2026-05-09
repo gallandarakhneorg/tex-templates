@@ -99,6 +99,7 @@ DEBIAN_FILE_MAP = {
     SRC_DIR + '/papers/ingedoc/*.bat': None,
     SRC_DIR + '/papers/ingedoc/*.sh': None,
     SRC_DIR + '/spim/share/lyx/*': None,
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/sources/*': None,
     TESTS_DIR + '/*': None,
     DOCS_DIR + '/README*': None,
     FONTS_DIR + '/*': None,
@@ -122,6 +123,15 @@ DEBIAN_FILE_MAP = {
     DOCS_DIR + '/presentations/ciad-2025/docfigs/*': DEB_BEAMER_DOC_ROOT + '/ciad/docfigs',
     # CIAD Beamer (Nonfree)
     LOGOS_DIR + '/ciad-*': DEB_BEAMER_TEX_ROOT + '/outer',
+
+    # DEDIHCATED-BFC Beamer
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/*.cls': DEB_BEAMER_TEX_ROOT,
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/beamercolortheme*': DEB_BEAMER_TEX_ROOT + '/color',
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/beameroutertheme*': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/beamertheme*': DEB_BEAMER_TEX_ROOT + '/theme',
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/dedihcatedbfc_*.png': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/dedihcatedlogo*': DEB_BEAMER_TEX_ROOT + '/outer',
+    SRC_DIR + '/presentations/dedihcatedbfc-2026/*logo.pdf': DEB_BEAMER_TEX_ROOT + '/outer',
 
     # CIAD Report (Free)
     SRC_DIR + '/reports/utbmciad-2025/*.bst': DEB_UPM_BST_ROOT + '/reports/utbmciad-2025',
@@ -201,6 +211,20 @@ DEBIAN_SKELETONS = {
         'in': 'tex-templates-utbm.preinst',
     },
     'tex-templates-ciad-beamer.templates': {
+        'in': 'tex-templates-utbm.templates',
+    },
+
+    'tex-templates-dedihcatedbfc-beamer.postinst': {
+        'in': 'tex-templates.postinst',
+    },
+    'tex-templates-dedihcatedbfc-beamer.postrm': {
+        'in': 'tex-templates.postrm',
+    },
+    'tex-templates-dedihcatedbfc-beamer.preinst': {
+        'name': 'Template for Beamer presentation of DEDIHCATED-BFC',
+        'in': 'tex-templates-utbm.preinst',
+    },
+    'tex-templates-dedihcatedbfc-beamer.templates': {
         'in': 'tex-templates-utbm.templates',
     },
 

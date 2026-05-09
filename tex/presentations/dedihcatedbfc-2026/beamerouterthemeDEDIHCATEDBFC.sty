@@ -1,0 +1,108 @@
+% Copyright (c) 2013-26 Stephane GALLAND <galland@arakhne.org>
+%
+% UTBM logo and name are registered and owned by the
+% "Universite de Technologie de Belfort-Montbeliard".
+%
+% UBE logo and name are registered and owned by the
+% "Universite Bourgogne Europe".
+%
+% CIAD logo and name are registered and owned by the
+% "Laboratoire Connaissance et Intelligence Artificielle Distribuées".
+% 
+% This program is free library; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation; either version 3 of the
+% License, or any later version.
+%
+% This library is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; see the file COPYING.  If not,
+% write to the Free Software Foundation, Inc., 59 Temple Place - Suite
+% 330, Boston, MA 02111-1307, USA.
+%
+\ProvidesPackage{beamerouterthemeCIAD}[2026/05/09]
+
+\mode<presentation>
+
+\useoutertheme{CIAD}
+
+\pgfdeclareimage[width=\paperwidth,height=\paperheight]{partbackground}{dedihcatedbfc_part_background}
+
+\renewcommand{\beamer@theme@ciad@outer@background}{%
+	\ifbeamer@theme@ciad@tableofcontentslide@background%
+		% On a TOC slide
+		\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
+		\begin{tikzpicture}%
+			\expandafter\beamer@theme@ciad@backgroundpicture@putslidebackgroundpicture{0}{224}{\beamer@theme@ciad@tableofcontentslide@backgroundnumber}%
+			\path[fill=frametitle.bg](0,8.5) rectangle (16.6,7.9);%
+		\end{tikzpicture}%
+	\else%
+		\begin{tikzpicture}%
+		\insertcurrentslidebackgroundpicture%
+		\path[fill=frametitle.bg](0,0) rectangle (16.6,0.60);%
+		\end{tikzpicture}%
+	\fi%
+}
+
+\setbeamertemplate{part page}{%
+		\begin{picture}(0,0)(0,0)%
+		% Page background
+		\put(-28.6,-147){\pgfuseimage{partbackground}}%
+		% Title
+		\put(-20,-25){\usebeamercolor[fg]{part title}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
+			\nohyphens{\begin{raggedright}\usebeamerfont{part title}{\@beamer@theme@ciad@wraptextformats{{\beamer@theme@ciad@rsection@insertpartprefix}\beamer@partname}}%
+		\ifbeamer@theme@ciad@part@hassubtitle%
+		\mbox{}\\[.25cm]{\usebeamerfont{part subtitle}\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@part@subtitle}}%
+		\fi%
+		\end{raggedright}}}}%
+		% Author
+		\ifbeamer@theme@ciad@part@hasauthor%
+		\put(-20,-85){\parbox[c]{\beamer@theme@ciad@outer@linewidth}{\begin{raggedright}
+			{\usebeamercolor[fg]{author}\large\bf\beamer@theme@ciad@part@theauthor}
+			\end{raggedright}}}%
+		\fi%
+		\end{picture}%
+}
+
+\renewcommand{\thanksslide}{%
+	\setbeamertemplate{footline}{}
+	\usebackgroundtemplate{\beamer@theme@ciad@outer@background}%
+	\frame{
+		% Copy of the title page
+		\ifthenelse{\value{@beamer@theme@ciad@finalslidelabel}=3}{%
+			\gdef\beamer@theme@ciad@outer@offsety{14.4}%
+			\usebeamertemplate{title page}%
+			\gdef\beamer@theme@ciad@outer@offsety{0}%
+		}{%
+			\ifcase\value{@beamer@theme@ciad@finalslidelabel}%
+				\def\beamer@theme@ciad@outer@thanks@tmp{\translate{Thanks}}%
+			\or%
+				\def\beamer@theme@ciad@outer@thanks@tmp{\translate{Questions}}%
+			\or%
+				\def\beamer@theme@ciad@outer@thanks@tmp{%
+					\beamer@theme@ciad@conditionalfirsttailletters[part title fancy letter]\beamer@theme@ciad@label@finalslidelabel%
+				}
+			\else%
+				\def\beamer@theme@ciad@outer@thanks@tmp{}%
+				\errmessage{Package Beamer/CIAD: Unsupported type of message for the final slide.}%
+			\fi%
+			\begin{picture}(0,0)(0,0)%
+				% Page background
+				\put(-28.6,-147){\pgfuseimage{partbackground}}%
+				% Title
+				\put(-20,-25){\usebeamercolor[fg]{part title}\parbox[c]{\beamer@theme@ciad@outer@linewidth}{%
+					\nohyphens{\begin{raggedright}\usebeamerfont{part title}{\@beamer@theme@ciad@wraptextformats{\beamer@theme@ciad@outer@thanks@tmp}}%
+					\end{raggedright}}}}%
+			\end{picture}%
+		}%
+	}%
+	\usebackgroundtemplate{\ifbeamer@plainframe\else\beamer@theme@ciad@outer@background\fi}%
+	\setbeamertemplate{footline}{\beamer@theme@ciad@outer@footline}%
+}
+
+\mode
+<all>

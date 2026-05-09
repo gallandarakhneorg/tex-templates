@@ -1,2 +1,11 @@
 usr/share/texmf/bibtex/bst/beamer/*
-usr/share/texmf/tex/latex/beamer/*
+usr/share/texmf/tex/latex/beamer/themes/base/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/color/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/font/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/inner/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/outer/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/outer/ciad-*
+usr/share/texmf/tex/latex/beamer/themes/outer/ciadbeamer*
+usr/share/texmf/tex/latex/beamer/themes/plugins/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/theme/*CIAD.sty
+usr/share/texmf/tex/latex/beamer/themes/ciadbeamer.cls
