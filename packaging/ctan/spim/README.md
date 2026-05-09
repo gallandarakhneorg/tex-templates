@@ -38,7 +38,14 @@ The package is available for downloading from the [official webpage](https://www
 
 A complete tutorial with step‑by‑step examples is available at https://www.arakhne.org/latex/tex-templates/phddissertation_tutorial.html
 
-## 5. Licenses
+## 5. Author and Maintainer
+
+Prof.Dr. Stéphane GALLAND
+
+<http://www.arakhne.org/>  
+<http://www.ciad-lab.fr/galland_stephane>
+
+## 6. Licenses
 
 - All LaTeX source code (everything in the `tex/` and `doc/` directories) is licensed under the GNU Lesser General Public License v3.0.
 - The university and institution logos (in the `logos/` directory) are not free software. They are included with permission of the university and institution and may be redistributed unchanged, but may not be modified. See `logos/LICENSE.logos` for details.

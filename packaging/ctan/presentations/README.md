@@ -91,7 +91,14 @@ A tutorial is also available: https://www.arakhne.org/latex/tex-templates/ciadsl
 
 The package is available for downloading from the official webpage at https://www.arakhne.org/latex/tex-templates/
 
-## 4. Licenses
+## 4. Author and Maintainer
+
+Prof.Dr. Stéphane GALLAND
+
+<http://www.arakhne.org/>  
+<http://www.ciad-lab.fr/galland_stephane>
+
+## 5. Licenses
 
 - All LaTeX source code (everything in the `tex/` and `doc/` directories) is licensed under the GNU Lesser General Public License v3.0.
 - The university and institution logos (in the `logos/` directory) are not free software. They are included with permission of the university and institution and may be redistributed unchanged, but may not be modified. See `logos/LICENSE.logos` for details.

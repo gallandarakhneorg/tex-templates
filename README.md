@@ -44,14 +44,14 @@ $> mktexlsr
 $> update-updmap --quiet
 ```
 
-## Author
+# Author
 
 Prof.Dr. Stéphane GALLAND
 
 <http://www.arakhne.org/>  
 <http://www.ciad-lab.fr/galland_stephane>
 
-## License
+# License
 
 - **All LaTeX source code** (everything in the `tex/`, `doc/`, `tests/`, `packaging/` directories) is licensed under
   the **GNU Lesser General Public License v3.0**. See `LICENSE.LGPLv3` for details.
