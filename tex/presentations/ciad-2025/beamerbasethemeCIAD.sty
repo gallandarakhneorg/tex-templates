@@ -25,9 +25,9 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\ProvidesPackage{beamerbasethemeCIAD}[2026/05/09]
+\ProvidesPackage{beamerbasethemeCIAD}[2026/05/20]
 
-\gdef\insertciadbeamerthemeversion{2026/05/09}
+\gdef\insertciadbeamerthemeversion{2026/05/20}
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -1093,6 +1093,73 @@
 
 \newcommand{\sidecite}[1]{%
 	\sidenote{\cite{#1}}%
+}
+
+%% #1 max width
+%% #2 max height
+%% #3 content
+%\newcommand{\beamer@theme@ciad@sidenote@render}[3]{%
+%	\fbox{\parbox[t][#2][t]{#1}{\raggedright\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}\TINY#3}}%
+%}
+
+% Helper: recursively reduce font size until content fits within #1 (width) and #2 (height)
+% #1 max width, #2 max height, #3 content
+\newbox\beamer@theme@ciad@sidenote@box
+\newdimen\beamer@theme@ciad@sidenote@ht
+\newcount\beamer@theme@ciad@sidenote@attempts
+
+% #1 max width
+% #2 max height
+% #3 content
+\newcommand{\beamer@theme@ciad@sidenote@render}[3]{%
+	\gdef\beamer@theme@ciad@sidenote@maxwidth{#1}%
+	\gdef\beamer@theme@ciad@sidenote@maxheight{#2}%
+	% Start with current font size (no change)
+	\gdef\beamer@theme@ciad@sidenote@reduce{}%
+	\global\beamer@theme@ciad@sidenote@attempts=0%
+	\beamer@theme@ciad@sidenote@trysize{#3}%
+	\protected@xdef\beamer@theme@ciad@sidenote@reducedcontent{\protect\beamer@theme@ciad@sidenote@trysize@contentbox{\beamer@theme@ciad@sidenote@reduce\protect{#3}}}%
+	\rotatebox{90}{\beamer@theme@ciad@sidenote@reducedcontent}%
+}
+
+% #1 content
+\newcommand{\beamer@theme@ciad@sidenote@trysize@contentbox}[1]{
+	\parbox[c]{\beamer@theme@ciad@sidenote@maxwidth}{%
+		\noindent%
+		\setlength{\parindent}{0pt}%
+		\setlength{\parskip}{0pt}%
+		\raggedright%
+		\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}%
+		#1%
+	}%
+}
+
+% #1 content
+\newcommand{\beamer@theme@ciad@sidenote@trysize}[1]{%
+	% Typeset the content inside a pabox of the target width.
+	% This allows line breaking, so only the height may exceed the limit.
+	\protected@xdef\beamer@theme@ciad@sidenote@reducedcontent{\protect\beamer@theme@ciad@sidenote@trysize@contentbox{\beamer@theme@ciad@sidenote@reduce\protect{#1}}}%
+	\setbox\beamer@theme@ciad@sidenote@box=\hbox{\beamer@theme@ciad@sidenote@reducedcontent}%
+	\beamer@theme@ciad@sidenote@ht=\ht\beamer@theme@ciad@sidenote@box%
+	\advance\beamer@theme@ciad@sidenote@ht by \dp\beamer@theme@ciad@sidenote@box%
+	\message{Detected height for sidenote: \the\beamer@theme@ciad@sidenote@ht}%
+	\message{Max height for sidenote:  \the\beamer@theme@ciad@sidenote@maxheight}%
+	% Check if it fits (height <= max height)
+	\ifdim\beamer@theme@ciad@sidenote@ht>\beamer@theme@ciad@sidenote@maxheight\relax%
+		\beamer@theme@ciad@sidenote@shrink{#1}%
+	\fi%
+}
+
+% #1 content
+\newcommand{\beamer@theme@ciad@sidenote@shrink}[1]{%
+	\global\advance\beamer@theme@ciad@sidenote@attempts by 1%
+	\message{Try to reduction text size: try no. \the\beamer@theme@ciad@sidenote@attempts}%
+	% Apply one reduction step: \smaller reduces font size
+	\protected@xdef\beamer@theme@ciad@sidenote@reduce{\protect\smaller[\the\beamer@theme@ciad@sidenote@attempts]}%
+	% Limit to 10 reductions – after that, just output as is
+	\ifnum\beamer@theme@ciad@sidenote@attempts<10%
+		\beamer@theme@ciad@sidenote@trysize{#1}%
+	\fi%
 }
 
 %-----------------------------------------

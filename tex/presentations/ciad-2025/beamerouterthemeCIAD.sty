@@ -24,7 +24,7 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 %
-\ProvidesPackage{beamerouterthemeCIAD}[2026/05/09]
+\ProvidesPackage{beamerouterthemeCIAD}[2026/05/20]
 
 \mode<presentation>
 
@@ -48,7 +48,9 @@
 \setlength\beamer@theme@ciad@outer@titlewidth@plain{\textwidth}
 
 \newlength\beamer@theme@ciad@outer@sideboxwidth
-\setlength\beamer@theme@ciad@outer@sideboxwidth{6.8cm}
+\setlength\beamer@theme@ciad@outer@sideboxwidth{7.5cm}
+\newlength\beamer@theme@ciad@outer@sideboxheight
+\setlength\beamer@theme@ciad@outer@sideboxheight{6pt}
 
 \newlength\beamer@theme@ciad@outer@topalignmentspan
 \setlength\beamer@theme@ciad@outer@topalignmentspan{-1cm}
@@ -218,10 +220,7 @@
 			}}%
 			% Side note
 			\ifx\beamer@theme@ciad@sidenote\relax\else%
-				\put(417,-195){\rotatebox{90}{\parbox[c]{\beamer@theme@ciad@outer@sideboxwidth}{%
-						\usebeamerfont{sidenote}\usebeamercolor[fg]{sidenote}%
-						\beamer@theme@ciad@sidenote%
-				}}}%
+				\put(417,-195){\beamer@theme@ciad@sidenote@render{\beamer@theme@ciad@outer@sideboxwidth}{\beamer@theme@ciad@outer@sideboxheight}{\beamer@theme@ciad@sidenote}}%
 				\global\let\beamer@theme@ciad@sidenote\relax%
 			\fi%
 			% Put the background elements
