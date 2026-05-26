@@ -1979,14 +1979,13 @@
 % Appendix
 \global\let\beamer@theme@ciad@oldappendix\appendix
 \renewcommand{\appendix}{%
-	\usefootlinewithdocumentname%
 	\resetpartprefix%
-	\let\beamer@theme@ciad@oldpart\part%
-	\def\part{\beamer@theme@ciad@oldpart*}%
+	\global\let\beamer@theme@ciad@oldpart\part%
+	\gdef\part{\beamer@theme@ciad@oldpart*}%
 	\beamer@theme@ciad@thanksslide%
 	\beamer@theme@ciad@oldappendix%
 	\global\let\beamer@theme@ciad@oldappendix\relax%
-	\let\part\beamer@theme@ciad@oldpart%
+	\global\let\part\beamer@theme@ciad@oldpart%
 	\global\let\appendix\relax%
 }
 
