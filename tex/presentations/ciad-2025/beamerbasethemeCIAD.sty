@@ -901,7 +901,7 @@
 }
 
 % Reference the footline that is used for outline page
-\global\let\beamer@theme@ciad@footline@foroutline\insertfootlinewithdocumentname
+\gdef\beamer@theme@ciad@footline@foroutline{}%\insertfootlinewithdocumentname
 
 \global\let\beamer@theme@ciad@footline@default\relax
 
@@ -2917,35 +2917,36 @@
 % Number of the background for the outline
 \let\beamer@theme@ciad@tableofcontentslide@backgroundnumber\relax
 
-\define@key{beamerframe}{tableofcontentbackground}[true]{%
-	\global\beamer@theme@ciad@tableofcontentslide@backgroundtrue%
-	\global\beamer@theme@ciad@tableofcontentslide@footlinetrue%
-}
-
+%
 \def\tableofcontentslide{%
 	\@ifnextchar[%
-	\beamer@theme@ciad@tableofcontentslide@a%
-	\beamer@theme@ciad@tableofcontentslide@b%
+	\beamer@theme@ciad@tableofcontentslide@w@tocoptions%
+	\beamer@theme@ciad@tableofcontentslide@wo@tocoptions%
 }
-\def\beamer@theme@ciad@tableofcontentslide@a[#1]{%
-	\beamer@theme@ciad@tableofcontentslide@c{#1}%
+\def\beamer@theme@ciad@tableofcontentslide@w@tocoptions[#1]{%
+	\beamer@theme@ciad@tableofcontentslide@@{#1}%
 }
-\def\beamer@theme@ciad@tableofcontentslide@b{%
-	\beamer@theme@ciad@tableofcontentslide@c{hideallsubsections}%
+\def\beamer@theme@ciad@tableofcontentslide@wo@tocoptions{%
+	\beamer@theme@ciad@tableofcontentslide@@{hideallsubsections}%
 }
-\def\beamer@theme@ciad@tableofcontentslide@c#1{%
+\def\beamer@theme@ciad@tableofcontentslide@@#1{%
 	\@ifnextchar[%
-	{\beamer@theme@ciad@tableofcontentslide@d{#1}}%
-	{\beamer@theme@ciad@tableofcontentslide@e{#1}{}}%
+	{\beamer@theme@ciad@tableofcontentslide@w@frameoptions{#1}}%
+	{\beamer@theme@ciad@tableofcontentslide@@@{#1}{}}%
 }
-\def\beamer@theme@ciad@tableofcontentslide@d#1[#2]{%
-	\beamer@theme@ciad@tableofcontentslide@e{#1}{,#2}%
+\def\beamer@theme@ciad@tableofcontentslide@w@frameoptions#1[#2]{%
+	\beamer@theme@ciad@tableofcontentslide@@@{#1}{,#2}%
 }
-\newcommand{\beamer@theme@ciad@tableofcontentslide@e}[2]{%
-	\begin{frame}[tableofcontentbackground#2]{\outlinetitlelabel}%
+\newcommand{\beamer@theme@ciad@tableofcontentslide@@@}[2]{%
+	\global\beamer@theme@ciad@tableofcontentslide@backgroundtrue%
+	\global\beamer@theme@ciad@tableofcontentslide@footlinetrue%
+	\expandafter\begin{frame}[c#2]%
+		\frametitle{\outlinetitlelabel}%
 		\vspace{-0.5cm}%
-		\small\tableofcontents[#1]%
+		\small\expandafter\tableofcontents[#1]%
 	\end{frame}%
+	\global\beamer@theme@ciad@tableofcontentslide@backgroundfalse%
+	\global\beamer@theme@ciad@tableofcontentslide@footlinefalse%
 }
 
 
