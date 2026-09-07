@@ -24,7 +24,7 @@
 % write to the Free Software Foundation, Inc., 59 Temple Place - Suite
 % 330, Boston, MA 02111-1307, USA.
 %
-\ProvidesPackage{beamerouterthemeCIAD}[2026/05/20]
+\ProvidesPackage{beamerouterthemeCIAD}[2026/07/01]
 
 \mode<presentation>
 
@@ -395,6 +395,7 @@
 	}%
 }
 
+\gdef\beamer@theme@ciad@leftvideoframe@header{}
 \gdef\beamer@theme@ciad@leftvideoframe@footer{}
 \setbeamertemplate{frametextvideo}{%
 	\ifthenelse{\equal{a\beamer@theme@ciad@textvideoframe@picture}{a}}{}{%
@@ -403,6 +404,12 @@
 				\expandafter\embeddedvideo[width=7.6cm]{\beamer@theme@ciad@textvideoframe@video}{\beamer@theme@ciad@textvideoframe@picture}
 			}%
 		}%
+	}%
+	\putat*(203,0){%
+		\begin{minipage}{7.5cm}%
+			\usebeamercolor[fg]{textvideo}\centering%
+			\beamer@theme@ciad@leftvideoframe@header%
+		\end{minipage}%
 	}%
 	\putat*(203,-180){%
 		\begin{minipage}{7.5cm}%

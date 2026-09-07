@@ -25,9 +25,9 @@
 % 330, Boston, MA 02111-1307, USA.
 %
 
-\ProvidesPackage{beamerbasethemeCIAD}[2026/05/20]
+\ProvidesPackage{beamerbasethemeCIAD}[2026/07/01]
 
-\gdef\insertciadbeamerthemeversion{2026/05/20}
+\gdef\insertciadbeamerthemeversion{2026/07/01}
 
 %%%%%%%--------------------------------------
 %%%%%%% PREAMBLE DEFINITIONS
@@ -3314,6 +3314,7 @@
 
 \gdef\beamer@theme@ciad@leftvideoframe@picture{}
 \gdef\beamer@theme@ciad@leftvideoframe@video{}
+\gdef\beamer@theme@ciad@leftvideoframe@header{}
 \gdef\beamer@theme@ciad@leftvideoframe@footer{}
 
 \NewEnviron{beamer@theme@ciad@textvideoframe}[5]{%
@@ -3335,6 +3336,10 @@
 	\end{frame}%
 }
 
+\newcommand{\settextvideoheader}[1]{%
+	\gdef\beamer@theme@ciad@leftvideoframe@header{#1}%
+}
+
 \newcommand{\settextvideofooter}[1]{%
 	\gdef\beamer@theme@ciad@leftvideoframe@footer{#1}%
 }
@@ -3343,6 +3348,7 @@
 	\beamer@theme@ciad@textvideoframe{#1}{#2}{#3}{#4}{#5}%
 }{%
 	\endbeamer@theme@ciad@textvideoframe%
+	\gdef\beamer@theme@ciad@leftvideoframe@header{}%
 	\gdef\beamer@theme@ciad@leftvideoframe@footer{}%
 }
 
@@ -3781,9 +3787,9 @@
 			\setlength{\beamer@theme@ciad@hiconbox@textwidth}{\linewidth}%
 			\addtolength{\beamer@theme@ciad@hiconbox@textwidth}{-\beamer@theme@ciad@hiconbox@iconwidth}%
 			\addtolength{\beamer@theme@ciad@hiconbox@textwidth}{-4\tabcolsep}%
-			\begin{tabular}{m{\beamer@theme@ciad@hiconbox@iconwidth}m{\beamer@theme@ciad@hiconbox@textwidth}}%
+			\begin{tabular}{m{\beamer@theme@ciad@hiconbox@iconwidth}>{\raggedright}m{\beamer@theme@ciad@hiconbox@textwidth}}%
 				\pgfuseimage{beamer@theme@ciad@iconbox@#3} &%
-				\nohyphens{#2} \\%
+				\nohyphens{#2}%
 			\end{tabular}%
 		}%
 	\end{beamercolorbox}%
