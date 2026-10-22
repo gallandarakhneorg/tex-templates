@@ -954,21 +954,21 @@ class BuildCommand(BaseBuildingCommand):
                             content = f.read()
                         new_content = re.sub(r'\\gdef\\insertciadbeamerthemeversion\{.+?\}',
                                              '\\\\gdef\\\\insertciadbeamerthemeversion{' + re.escape(version) + '}',
-                                             content, re.S + re.DOTALL)
+                                             content, flags=re.S + re.DOTALL)
                         new_content = re.sub(r'\\gdef\s*\\insertciadreportthemeversion\s*\{.+?\}',
                                              '\\\\gdef\\\\insertciadreportthemeversion{' + re.escape(version) + '}',
-                                             new_content, re.S + re.DOTALL)
+                                             new_content, flags=re.S + re.DOTALL)
                         new_content = re.sub(r'\\gdef\s*\\@ingedoc@class@version\s*\{.+?\}',
                                              '\\\\gdef\\\\@ingedoc@class@version{' + re.escape(version) + '}',
-                                             new_content, re.S + re.DOTALL)
+                                             new_content, flags=re.S + re.DOTALL)
                         if is_sty:
                             new_content = re.sub(r'\\ProvidesPackage\{(.+?)\}\[.*?\]',
                                                  '\\\\ProvidesPackage{\\1}[' + re.escape(version) +']',
-                                                 new_content, re.S + re.DOTALL)
+                                                 new_content, flags=re.S + re.DOTALL)
                         elif is_cls:
                             new_content = re.sub(r'\\ProvidesClass\{(.+?)\}\s*\[.*?\]',
                                                  '\\\\ProvidesClass{\\1}[' + re.escape(version) + ']',
-                                                 new_content, re.S + re.DOTALL)
+                                                 new_content, flags=re.S + re.DOTALL)
                         if new_content is not None and content != new_content:
                             with open(full_path, 'w') as f:
                                 f.write(new_content)
@@ -985,7 +985,7 @@ class BuildCommand(BaseBuildingCommand):
                     full_path = os.path.join(dirpath, filename)
                     with open(full_path, 'r') as f:
                         content = f.read()
-                    new_content = re.sub(r'[0-9]{8}', version, content, re.S + re.DOTALL)
+                    new_content = re.sub(r'[0-9]{8}', version, content, flags=re.S + re.DOTALL)
                     if new_content is not None and content != new_content:
                         with open(full_path, 'w') as f:
                             f.write(new_content)
@@ -1418,7 +1418,7 @@ class DebianPackagingCommand(SetupCommand):
         # Fixing the indentation (only tab characters are allowed, and inside the Makefile rules only)
         rules_content = textwrap.dedent(rules_content).strip()
         # Put the dynamic copying lines in the global Makefile
-        rules_content = re.sub(re.escape('@@@@LINES@@@@'), '\n'.join(copy_commands), rules_content, re.S + re.DOTALL)
+        rules_content = re.sub(re.escape('@@@@LINES@@@@'), '\n'.join(copy_commands), rules_content, flags=re.S + re.DOTALL)
         with open(rules_file, "w") as rules_output:
             rules_output.write(rules_content)
         os.chmod(rules_file, 0o755)
@@ -1487,7 +1487,7 @@ class DebianPackagingCommand(SetupCommand):
             if 'name' in decl and decl['name']:
                 with open(os.path.join(self.__skels_dir, decl['in']), 'rt') as input_file:
                     content = input_file.read()
-                content = re.sub(re.escape('||||PRODUCT_NAME||||'), decl['name'], content, re.S + re.DOTALL)
+                content = re.sub(re.escape('||||PRODUCT_NAME||||'), decl['name'], content, flags=re.S + re.DOTALL)
                 with open(os.path.join(self.__debian_dir, output), 'wt') as output_file:
                     output_file.write(content)
             else:
