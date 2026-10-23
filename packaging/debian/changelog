@@ -1,4 +1,4 @@
-tex-templates (202610223-1arakhne0) noble; urgency=low
+tex-templates (20261023-0arakhne0) noble; urgency=low
 
   * SPIM PhD Thesis: include "enumitem" package for exhibiting the environment "enumerate*".
   * CIAD Report: rewrite the BibTeX style for the CIAD reports.
