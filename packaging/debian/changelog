@@ -1,3 +1,10 @@
+tex-templates (202610223-1arakhne0) noble; urgency=low
+
+  * SPIM PhD Thesis: include "enumitem" package for exhibiting the environment "enumerate*".
+  * CIAD Report: rewrite the BibTeX style for the CIAD reports.
+
+ -- Stephane GALLAND <galland@arakhne.org>  Fri, 23 Oct 2026 10:58:51 +0200
+
 tex-templates (20260907-1arakhne0) noble; urgency=low
 
   * CIAD Beamer: Fixing errors when using table of content's slide.

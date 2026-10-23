@@ -90,6 +90,10 @@
 \@ifclasslater{UPMVERSION}{2026/04/05}{}{\@latex@error{You must install a version of tex-upmethodology greater or equal to 2026/04/06}\@eha}
 
 %%--------------------
+% Format the labels in the bibliography section
+\providecommand{\dinatlabel}[1]{\ifNAT@numbers\else\NAT@biblabelnum{#1}\hspace{2\labelsep}\fi}
+
+%%--------------------
 %% Logos of funding schemes
 \gdef\utbmciadfundingschemeslogos{}
 \newcommand{\addfundingschemelogo}[2][1.25cm]{%
